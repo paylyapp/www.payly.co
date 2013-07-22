@@ -3,12 +3,24 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'attr_encrypted'
-
-gem 'hay', :git => 'git://github.com/timjgleeson/hay.git'
-
 gem 'heroku'
 
+gem 'hay', :git => 'git://github.com/paylyapp/hay.git'
+
+group :test, :development do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl_rails'
+  gem 'shoulda'
+  gem 'nokogiri'
+end
+
+group :development do
+  gem 'taps'
+  gem 'sqlite3'
+end
+
 gem 'pg'
+gem 'postgres_ext'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -18,7 +30,6 @@ group :assets do
 
   gem 'jquery-rails'
   gem 'modernizr-rails'
-  gem "parsley-rails"
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -26,8 +37,8 @@ end
 gem 'devise'
 gem 'gravtastic'
 
-gem 'paperclip'
 gem 'aws-sdk'
+gem 'paperclip'
 gem 'fog'
 
 gem 'countries'

@@ -4,10 +4,11 @@ Haystack::Application.routes.draw do
   get     "privacy"                           => "home#privacy",                  :as => 'privacy'
 
   get     "dashboard"                         => "dashboard#index",               :as => 'user_root'
-  
+
   get     "dashboard/s_new"                   => "dashboard#new_stack",           :as => 'dashboard_new_stack'
   get     "dashboard/:stack_token"            => "dashboard#stack",               :as => 'dashboard_stack'
   get     "dashboard/:stack_token/payments"   => "dashboard#stack_transactions",  :as => 'dashboard_stack_transactions'
+  get     "dashboard/:stack_token/update/buyers/download" => "dashboard#stack_updated_download", :as => 'dashboard_stack_updated_download'
   post    "dashboard/s_new"                   => "dashboard#create_stack",        :as => 'stack_create'
   put     "dashboard/:stack_token"            => "dashboard#update_stack",        :as => 'stack_update'
   delete  "dashboard/:stack_token/destroy"    => "dashboard#destroy_stack",       :as => 'stack_destroy'
@@ -15,6 +16,8 @@ Haystack::Application.routes.draw do
   get     "p/:page_token"                     => "page#new_transaction",          :as => 'page_new_transaction'
   post    "p/:page_token"                     => "page#create_transaction",       :as => 'page_create_transaction'
   get     "p/:page_token/thanks"           => "page#complete_transaction",     :as => 'page_complete_transaction'
+
+  get     "download"                          => "stacks#download",     :as => 'download'
 
   get     "settings"                          => "user#settings",                 :as => 'user_settings'
 
@@ -28,5 +31,5 @@ Haystack::Application.routes.draw do
   end
 
   root :to => 'home#index'
-  
+
 end

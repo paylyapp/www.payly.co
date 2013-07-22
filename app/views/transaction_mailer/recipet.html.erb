@@ -6,7 +6,11 @@
   <body>
     <h1>Thank you for your purchase</h1>
     <p>Your purchase of <%= @transaction.stack.product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> <small>AUD</small> on Payly was successful.</p>
-    
+
+    <% if @transaction.stack.has_digital_download %>
+      <p><%= link_to 'You can download your file here', download_url(:token => @transaction.transaction_token), :target => "_blank" %>.</p>
+    <% end %>
+
     <% if @transaction.stack.require_shipping %>
     <p><%= @transaction.stack.product_name %> will be shipped to:</p>
     <p><%= @transaction.shipping_full_name %><br />
@@ -14,7 +18,7 @@
        <%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %><br />
        <%= @transaction.shipping_address_country %></p>
     <% end %>
-    
+
     <p>Your order number is <%= @transaction.transaction_token %>.</p>
     <p>If there are any problems, please contact the seller via <%= mail_to @transaction.stack.seller_email, 'email' %>.</p>
 

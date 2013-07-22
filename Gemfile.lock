@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/timjgleeson/hay.git
+  remote: git://github.com/paylyapp/hay.git
   revision: 87c817180dbe546354ae0eab821d9c0534cd83ab
   specs:
     hay (0.0.3)
@@ -66,6 +66,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    diff-lcs (1.2.4)
     dotenv (0.8.0)
     dotenv-rails (0.8.0)
       dotenv (= 0.8.0)
@@ -74,6 +75,11 @@ GEM
     excon (0.23.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     fog (1.12.1)
       builder
       excon (~> 0.23.0)
@@ -126,9 +132,12 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    parsley-rails (1.1.16.0)
     pg (0.15.1)
+    pg_array_parser (0.0.8)
     polyglot (0.3.3)
+    postgres_ext (0.4.0)
+      activerecord (~> 3.2.0)
+      pg_array_parser (~> 0.0.8)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -156,6 +165,17 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rspec-core (2.14.1)
+    rspec-expectations (2.14.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.1)
+    rspec-rails (2.14.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
     rubyzip (0.9.9)
     sass (3.2.9)
@@ -165,11 +185,26 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    sequel (3.20.0)
+    shoulda (3.5.0)
+      shoulda-context (~> 1.0, >= 1.0.1)
+      shoulda-matchers (>= 1.4.1, < 3.0)
+    shoulda-context (1.1.4)
+    shoulda-matchers (2.2.0)
+      activesupport (>= 3.0.0)
+    sinatra (1.0)
+      rack (>= 1.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.7)
+    taps (0.3.24)
+      rack (>= 1.0.1)
+      rest-client (>= 1.4.0, < 1.7.0)
+      sequel (~> 3.20.0)
+      sinatra (~> 1.0.0)
     thor (0.18.1)
     tilt (1.4.1)
     treetop (1.4.14)
@@ -195,6 +230,7 @@ DEPENDENCIES
   country_select
   devise
   dotenv-rails
+  factory_girl_rails
   fog
   font-awesome-sass-rails
   google-analytics-rails
@@ -203,11 +239,16 @@ DEPENDENCIES
   heroku
   jquery-rails
   modernizr-rails
+  nokogiri
   paperclip
-  parsley-rails
   pg
+  postgres_ext
   rails (= 3.2.13)
+  rspec-rails (~> 2.0)
   sass-mediaqueries-rails
   sass-rails (~> 3.2.3)
+  shoulda
+  sqlite3
+  taps
   uglifier (>= 1.0.3)
   will_paginate (~> 3.0)

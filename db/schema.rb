@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702175946) do
+ActiveRecord::Schema.define(:version => 20130704113900) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130702175946) do
     t.boolean  "require_shipping"
     t.boolean  "require_billing"
     t.boolean  "send_invoice_email"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.integer  "user_token"
     t.string   "charge_currency"
     t.string   "page_token"
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(:version => 20130702175946) do
     t.string   "seller_abn"
     t.string   "seller_trading_name"
     t.string   "invoice_number"
+    t.boolean  "has_digital_download"
+    t.string   "digital_download_file_file_name"
+    t.string   "digital_download_file_content_type"
+    t.integer  "digital_download_file_file_size"
+    t.datetime "digital_download_file_updated_at"
+    t.string   "digital_download_term",              :default => [],                    :array => true
+    t.string   "digital_download_value",             :default => [],                    :array => true
+    t.string   "digital_download_receive"
+    t.boolean  "digital_download_update_flag",       :default => false
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true

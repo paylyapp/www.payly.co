@@ -5,6 +5,12 @@
   </head>
   <body>
     <h1>Thank you for your purchase</h1>
+    <p>Your purchase of <%= @transaction.stack.product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> <small>AUD</small> on Payly was successful.</p>
+
+    <% if @transaction.stack.has_digital_download %>
+      <p><%= link_to 'You can download your file here', download_url(:token => @transaction.transaction_token), :target => "_blank" %>.</p>
+    <% end %>
+
     <p>Here is your <strong>tax invoice</strong>
 
     <h2><%= @transaction.stack.seller_trading_name %></h2>

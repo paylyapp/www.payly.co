@@ -15,7 +15,7 @@ class Stack < ActiveRecord::Base
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token, :dependent => :delete_all
 
-  has_attached_file :primary_image, :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
+  has_attached_file :primary_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
   has_attachment :digital_download_file
 
   validates :product_name, :presence => true

@@ -64,7 +64,7 @@
         <%= f.file_field :digital_download_file, :"data-required" => "true" %>
       </div>
       <% unless @stack.digital_download_file_file_name.blank? && @stack.digital_download_file.path.blank? && @stack.digital_download_file_updated_at.blank? %>
-        <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(10) %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
+        <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank' %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
       <% end %>
     </div>
     <div class="field field-text field-digital-download-receive">

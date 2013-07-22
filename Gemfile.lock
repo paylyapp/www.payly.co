@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/timjgleeson/hay.git
+  remote: git://github.com/paylyapp/hay.git
   revision: 87c817180dbe546354ae0eab821d9c0534cd83ab
   specs:
     hay (0.0.3)

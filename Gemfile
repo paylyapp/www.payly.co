@@ -5,7 +5,7 @@ gem 'rails', '3.2.13'
 gem 'attr_encrypted'
 gem 'heroku'
 
-gem 'hay', :git => 'git://github.com/timjgleeson/hay.git'
+gem 'hay', :git => 'git://github.com/paylyapp/hay.git'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'

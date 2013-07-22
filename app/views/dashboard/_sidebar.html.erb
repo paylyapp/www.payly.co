@@ -1,0 +1,30 @@
+
+
+<div class="user">
+  <%= image_tag current_user.gravatar_url, :height => 80, :width => 80 %>
+  <span class="full-name"><%= current_user.full_name %></span>
+    <%= link_to user_settings_path, :class => current_page(user_settings_path) do %><i class="icon-cog"></i> Settings<% end %>
+    <%= link_to destroy_user_session_path, :method => :delete, :class => "secondary-action" do %><i class="icon-signout"></i> Signout<% end %>
+</div>
+
+<ul class="user-nav">
+  <li>
+    <%= link_to user_root_path, :class => current_page(user_root_path) do %>
+      <i class="icon-dashboard"></i> Dashboard
+    <% end %>
+  </li>
+  <li class="primary">
+    <%= link_to dashboard_new_stack_path, :class => current_page(dashboard_new_stack_path) do %>
+      <i class="icon-plus"></i> Add Page
+    <% end %>
+  </li>
+  <% current_user.stacks.order('created_at ASC').each do |stack| %>
+    <% unless stack.stack_token.nil? %>
+      <li>
+        <%= link_to dashboard_stack_path(stack.stack_token), :class => "#{current_page(dashboard_stack_path(stack.stack_token))} #{current_page(dashboard_stack_transactions_path(stack.stack_token))}" do %>
+          <i class="icon-exchange"></i> <%= stack.product_name %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

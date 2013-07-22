@@ -1,0 +1,31 @@
+Thank you for your purchase
+===============================================
+Here is your tax invoice
+
+<%= @transaction.stack.seller_trading_name %>
+-----------------------------------------------
+ABN: <%= @transaction.stack.seller_abn %>
+Date: <%= @transaction.created_at.strftime('%-d/%-m/%Y') %>
+Invoice number: <%= @transaction.transaction_token %>
+-----------------------------------------------
+$AUD
+
+<%= @transaction.stack.product_name %> - <%= number_to_currency(@transaction.transaction_amount) %>
+
+-----------------------------------------------
+Total amount payable - <%= number_to_currency(@transaction.transaction_amount) %>
+No GST has been charged.
+
+<% if @transaction.stack.require_shipping %>
+<%= @transaction.stack.product_name %> will be shipped to:
+<%= @transaction.shipping_full_name %>
+<%= @transaction.shipping_address_line1 %>, <%= @transaction.shipping_address_line2 %><br />
+<%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %><br />
+<%= @transaction.shipping_address_country %>
+<% end %>
+
+
+If there are any problems, please contact the seller via <%= @transaction.stack.seller_email %>.
+
+Thanks,
+Payly

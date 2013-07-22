@@ -1,0 +1,33 @@
+@import "compass";
+@import "basic/_variables";
+@import "basic/_mixins";
+
+form {
+
+  .field {
+    label {
+      width: 40%;
+    }
+    .input {
+      width: 60%;
+    }
+  }
+  footer {
+    padding: $gutter $gutter $gutter 40%;
+  }
+}
+
+@media (max-width: 550px) {
+  form {
+
+    .field {
+
+      label {
+        width: 100%;
+      }
+      .input {
+        width: 100%;
+      } 
+    }
+  }
+}

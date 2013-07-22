@@ -1,0 +1,28 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  
+  <div class="field field-text field-email">
+    <%= f.label :email %>
+    <div class="input">
+      <%= f.email_field :email, :autocomplete => "off" %>
+    </div>
+  </div>
+  <div class="field field-text field-password">
+    <%= f.label :password %>
+    <div class="input">
+      <%= f.password_field :password, :autocomplete => "off" %>
+    </div>
+  </div>
+  <div class="field field-checkbox field-remember-me">
+    <div class="input">
+      <%= f.label :remember_me do %>
+        <%= f.check_box :remember_me %>  Remember me
+      <% end %>
+    </div>
+  </div>
+
+  <footer class="actions">
+    <div class="button-group">
+      <%= f.submit 'Login' %>
+    </div>
+  </footer>
+<% end %>

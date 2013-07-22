@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  transaction_token: MyString
+  stack_token: 
+  transaction_amount: 1.5
+  customer_token: MyString
+  charge_token: MyString
+
+two:
+  transaction_token: MyString
+  stack_token: 
+  transaction_amount: 1.5
+  customer_token: MyString
+  charge_token: MyString

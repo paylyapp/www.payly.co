@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payly</title>
+  <%= stylesheet_link_tag    "devise", :media => "all" %>
+  <%= javascript_include_tag :modernizr %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header class="global">
+    <%= link_to 'Payly', root_path, :class => 'logo' %>
+  </header>
+
+  <section>
+    <div class="main">
+      <article class="container">
+        <%= yield %>
+      </article>
+    </div>
+
+    <ul>
+    <% if current_page?(new_user_registration_path)  %>
+      <li>Got an account? <%= link_to new_user_session_path, :class => "top-button" do %>Login<% end %></li>
+    <% elsif current_page?(new_user_session_path)  %>
+      <li><%= link_to "Forgot your password?", new_password_path('user') %></li>
+      <li>Don't have an account? <%= link_to new_user_registration_path, :class => "top-button" do %>Signup<% end %></li>
+    <% elsif current_page?(new_password_path('user'))  %>
+      <li>Don't have an account? <%= link_to new_user_registration_path, :class => "top-button" do %><span class="text">Signup</span><% end %></li>
+      <li>Got an account? <%= link_to new_user_session_path, :class => "top-button" do %><span class="text">Login</span><% end %></li>
+    <% end %>
+    </ul>
+  </section>
+
+  <footer class="global">
+    <ul>
+      <li>Crafted in Sydney, Australia by <%= link_to "Tim Gleeson", "http://twitter.com/timjgleeson", :target => "_blank" %></li>
+      <li>Want updates? <%= link_to "Follow us", "http://twitter.com/paylyapp", :target => "_blank" %></li>
+      <li><%= link_to "FAQs", faqs_path %></li>
+      <li><%= link_to "Privacy Policy", privacy_path %></li>
+      <li><%= link_to "Terms of Service", terms_path %></li>
+    </ul>
+  </footer>
+
+  <%= javascript_include_tag "devise" %>
+  <%= analytics_init %>
+</body>
+</html>

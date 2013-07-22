@@ -1,0 +1,39 @@
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  
+  <div class="field field-text field-full-name">
+    <%= f.label :full_name %>
+    <div class="input">
+      <%= f.text_field :full_name, :autocomplete => "off" %>
+    </div>
+  </div>
+  <div class="field field-text field-email">
+    <%= f.label :email %>
+    <div class="input">
+      <%= f.email_field :email, :autocomplete => "off" %>
+    </div>
+  </div>
+  <div class="field field-text field-password">
+    <%= f.label :password %>
+    <div class="input">
+      <%= f.password_field :password, :autocomplete => "off" %>
+    </div>
+  </div>
+  <div class="field field-text field-password-confirmation">
+    <%= f.label :password_confirmation %>
+    <div class="input">
+      <%= f.password_field :password_confirmation, :autocomplete => "off" %>
+    </div>
+  </div>
+  <div class="field field-checkbox field-tos-agreement">
+    <div class="input">
+      <label><%= f.check_box :tos_agreement %> I accept the <%= link_to 'terms of service', terms_path %>.</label>
+    </div>
+  </div>
+
+  <footer class="actions">
+    <div class="button-group">
+      <%= f.submit 'Signup' %>
+    </div>
+  </footer>
+<% end %>

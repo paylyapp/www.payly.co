@@ -1,0 +1,12 @@
+<article>
+  <header>
+    <figure><%= image_tag @stack.primary_image.url(:medium) %></figure>
+    <h1><%= @stack.product_name %> <i class="icon-lock"></i></h1>
+    <p><%= @stack.description %></p>
+    <% if @stack.charge_type == "fixed" %>
+      <span class="cost"><%= number_to_currency(@stack.charge_amount) %><span class="currency"><%= @stack.charge_currency %></span></span>
+    <% end %>
+  </header>
+
+  <%= render "transactions/new" %>
+</article>

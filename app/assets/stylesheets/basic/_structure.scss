@@ -1,0 +1,54 @@
+@import "compass";
+@import "_variables";
+@import "_mixins";
+
+header.global {
+  text-align: center; 
+  height: $gutter*5 + 4;
+  padding-top: 4px;
+  line-height: 44px;
+  margin-bottom: $gutter*2;
+  background-color: #fff;
+  background-position: left top;
+  background-repeat: repeat-x;
+  border-bottom: 1px solid  #BDC3C7;
+
+  @include box-shadow(0px 0px 5px #BDC3C7);
+  @include background-image(linear-gradient(left, #8E44AD, #8E44AD 20%, #3498DB 20%, #3498DB 40%, #F1C40F 40%, #F1C40F 60%, #E74C3C 60%, #E74C3C 80%, #E67E22 80%));
+  @include background-size(200px 4px);
+}
+
+.container {
+  background-color: #fff;
+  border: 1px solid #BDC3C7;
+  margin-bottom: $gutter*2;
+
+  @include box-shadow(0px 0px 5px #BDC3C7);
+  @include border-radius(3px);
+}
+
+footer.global {
+  text-align: center;
+  padding: $gutter*2 0;
+
+  ul {
+    @include pie-clearfix();
+
+    li {
+      display: inline-block; 
+      padding: $gutter/2 $gutter*2;
+      color: #7F8C8D;
+      font-size: 12px; 
+
+      a {
+        color: #2C3E50;
+      }
+    }
+  }
+}
+
+@media(max-width: 420px) {
+  .container {
+    margin-bottom: $gutter;
+  }
+}

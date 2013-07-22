@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payly</title>
+  <%= stylesheet_link_tag    "dashboard", :media => "all" %>
+  <%= javascript_include_tag :modernizr %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div class="page">
+    <header class="global">
+      <%= link_to 'Payly', user_root_path, :class => "logo" %>
+      <%= link_to '#user-navigation', :class => "top-button" do %><i class="icon-reorder"></i><% end %>
+    </header>
+
+    <section>
+      <aside id="user-navigation">
+        <%= link_to '#', :class => "top-button" do %><i class="icon-remove"></i><% end %>
+        <%= render "dashboard/sidebar" %>
+      </aside>
+
+      <article>
+        <% if current_user.pin_api_key.blank? || current_user.pin_api_secret.blank? %>
+          <%= render "dashboard/api_key_warning" %>
+        <% end %>
+        
+        <%= yield %>
+      </article>
+    </section>
+
+    <footer class="global">
+      <ul>
+        <li>Crafted in Sydney, Australia by <%= link_to "Tim Gleeson", "http://twitter.com/timjgleeson", :target => "_blank" %></li>
+        <li>Want updates? <%= link_to "Follow us", "http://twitter.com/paylyapp", :target => "_blank" %></li>
+        <li><%= link_to "FAQs", faqs_path %></li>
+        <li><%= link_to "Privacy Policy", privacy_path %></li>
+        <li><%= link_to "Terms of Service", terms_path %></li>
+      </ul>
+    </footer>
+  </div>
+
+  <%= javascript_include_tag "dashboard" %>
+  <%= analytics_init %>
+</body>
+</html>

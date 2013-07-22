@@ -1,0 +1,150 @@
+<%= form_for @stack, :url => stack_create_path, :html => {:multipart => true} do |f| %>
+  <% if @stack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stack.errors.count, "error") %> prohibited this stack from being saved:</h2>
+
+      <ul>
+      <% @stack.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field field-text field-product">
+    <%= f.label :product_name, "Name" %>
+    <div class="input">
+      <%= f.text_field :product_name, :placeholder => "Product Name", :"data-required" => "true" %>
+    </div>
+  </div>
+  <div class="field field-select field-charge-type">
+    <%= f.label :charge_type, "Type of charge" %>
+    <div class="input">
+      <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type), :"data-validate" => "true" %>
+    </div>
+  </div>
+  <div class="field field-text field-charge-amount">
+    <%= f.label :charge_amount, "Amount" %>
+    <div class="input">
+      <div class="pre"><%= f.label :charge_amount, '$' %></div>
+      <%= f.text_field :charge_amount, :placeholder => "56.78" %>
+      <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+    </div>
+  </div>
+  <div class="field field-textarea field-description">
+    <%= f.label :description %>
+    <div class="input">
+      <%= f.text_area :description, :placeholder => "A really great description of your product.", :"data-required" => "true" %>
+    </div>
+  </div>
+  <div class="field field-file-upload field-primary-image">
+    <%= f.label :primary_image, "Logo" %>
+    <div class="input">
+      <%= image_tag @stack.primary_image.url(:tiny) %>
+      <%= f.file_field :primary_image, :"data-required" => "true" %>
+    </div>
+    <p class="description">Ideal logo should be 400px X 400px and less the 10kb with a format of .gif, .png, or .jpg.</p>
+  </div>
+  <div class="field field-text field-seller-name">
+    <%= f.label :seller_name, "Seller's name" %>
+    <div class="input">
+      <%= f.text_field :seller_name, :placeholder => current_user.full_name, :"data-required" => "true" %>
+    </div>
+  </div>
+  <div class="field field-text field-seller-email">
+    <%= f.label :seller_email, "Seller's email" %>
+    <div class="input">
+      <%= f.text_field :seller_email, :placeholder => current_user.email, :"data-required" => "true" %>
+    </div>
+  </div>
+  <div class="field field-text field-return-url">
+    <%= f.label :return_url %>
+    <div class="input">
+      <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
+    </div>
+  </div>
+  <div class="field field-text field-ga-id">
+    <%= f.label :ga_id, 'Google Analytics ID' %>
+    <div class="input">
+      <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
+    </div>
+  </div>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :bcc_receipt do %>BCC me payment receipts<% end %>
+    <div class="input">
+      <label><%= f.check_box :bcc_receipt %></label>
+    </div>
+  </div>
+  <div class="field field-text field-invoice field_more_fields">
+    <%= f.label :send_invoice_email do %>Send invoice email<% end %>
+    <div class="input">
+      <label><%= f.check_box :send_invoice_email %></label>
+    </div>
+  </div>
+  <div class="invoice-details">
+    <div class="heading">
+      <h2>Your Address</h2>
+      <p>Your personal or company details must appear on the invoice that is emailed to customers in order to make it a valid invoice. Fill in your details below.</p>
+    </div> 
+    <div class="field field-text field-trading-name">
+      <%= f.label :seller_trading_name, 'Trading name' %>
+      <div class="input">
+      <%= f.text_field :seller_trading_name %>
+      </div>
+    </div>
+    <div class="field field-text field-abn">
+      <%= f.label :seller_abn, 'ABN' %>
+      <div class="input">
+      <%= f.text_field :seller_abn %>
+      </div>
+    </div>
+    <div class="field field-text field-card-number">
+      <%= f.label :seller_address_line1, 'Address Line 1' %>
+      <div class="input">
+      <%= f.text_field :seller_address_line1 %>
+      </div>
+    </div>
+    <div class="field field-text field-card-number">
+      <%= f.label :seller_address_line2, 'Address Line 2' %>
+      <div class="input">
+      <%= f.text_field :seller_address_line2 %>
+      </div>
+    </div>
+    <div class="field field-text field-card-number">
+      <%= f.label :seller_address_city, 'City' %>
+      <div class="input">
+      <%= f.text_field :seller_address_city %>
+      </div>
+    </div>
+    <div class="field field-text field-card-number">
+      <%= f.label :seller_address_postcode, 'Postcode' %>
+      <div class="input">
+      <%= f.text_field :seller_address_postcode %>
+      </div>
+    </div>
+    <div class="field field-text field-card-number">
+      <%= f.label :seller_address_state, 'State' %>
+      <div class="input">
+      <%= f.text_field :seller_address_state %>
+      </div>
+    </div>
+    <div class="field field-text field-card-number">
+      <%= f.label :seller_address_country, 'Country' %>
+      <div class="input">
+        <%= f.country_select :seller_address_country, ["Australia"], :class => "dropup" %>
+      </div>
+    </div>
+  </div>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :require_shipping do %>Require shipping details<% end %>
+    <div class="input">
+      <label><%= f.check_box :require_shipping %></label>
+    </div>
+  </div>
+
+  <footer class="actions">
+    <div class="button-group">
+      <%= f.submit 'Save' %>
+    </div>
+  </footer>
+<% end %>

@@ -1,0 +1,76 @@
+<% if @user.stacks.empty? %>
+  <div class="container">
+    <header>
+      <p><strong>Create your first Page</strong> <small>a one-time payment page</small></p>
+    </header>
+    <%= render "stacks/new" %>
+  </div>
+<% else %>
+  <div class="container">
+    <div class="stats">
+      <h2>This week</h2>
+      <ul>
+        <li class="count">
+          <span><%= current_user.weekly_stats[:count] %></span>
+          <h3>Sold</h3>
+        </li>
+        <li class="amount">
+          <span class="cost"><%= number_to_currency(current_user.weekly_stats[:cost]) %><span class="currency">AUD</span></span>
+          <h3>Sales</h3>
+        </li>
+      </ul>
+    </div>
+    <div class="stats">
+      <h2>This month</h2>
+      <ul>
+        <li class="count">
+          <span><%= current_user.monthly_stats[:count] %></span>
+          <h3>Sold</h3>
+        </li>
+        <li class="amount">
+          <span class="cost"><%= number_to_currency(current_user.monthly_stats[:cost]) %><span class="currency">AUD</span></span>
+          <h3>Sales</h3>
+        </li>
+      </ul>
+    </div>
+    <div class="stats">
+      <h2>All</h2>
+      <ul>
+        <li class="count">
+          <span><%= current_user.all_stats[:count] %></span>
+          <h3>Sold</h3>
+        </li>
+        <li class="amount">
+          <span class="cost"><%= number_to_currency(current_user.all_stats[:cost]) %><span class="currency">AUD</span></span>
+          <h3>Sales</h3>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <header>
+      <p><strong>Payment Feed</strong> <small><%= page_entries_info @transactions, :model => "" unless @transactions.count == 0 %></small></p>
+    </header>
+
+    <ul class="feed-list">
+    <% @transactions.each do |transaction| %>
+    <li class="feed-item">
+      <p><%= transaction.buyer_name %> bought <%= transaction.stack.product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack.charge_currency %></span></span></p>
+      <ul>
+        <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
+        <li><span class="id">ID: <%= transaction.transaction_token %></span></li>
+        <li><span class="email"><%= mail_to transaction.buyer_email, "Email Buyer", :class => "email", :target => "_blank" %></span></li>
+      </ul>
+    </li>
+    <% end %>
+    <% if @transactions.count == 0 %>
+      <li class="feed-item">
+        <p>You have not received any payments yet.</p>
+      </li>
+    <% end %>
+    </ul>
+
+    <%= will_paginate @transactions, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
+  </div>
+<% end %>
+

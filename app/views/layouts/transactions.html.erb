@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Purchase: <%= @stack.product_name %></title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
+
+  <meta name="og:title" content="Purchase: <%= @stack.product_name %>" />
+  <meta name="og:description" content="<%= @stack.description %>" />
+  <meta name="og:image" content="<%= @stack.primary_image.url(:medium) %>" />
+
+  <%= stylesheet_link_tag    "transactions", :media => "all" %>
+  <%= javascript_include_tag :modernizr %>
+  <%= javascript_include_tag "https://test-api.pin.net.au/pin.js" unless Rails.env.production? %>
+  <%= javascript_include_tag "https://api.pin.net.au/pin.js" if Rails.env.production? %>
+  <%= javascript_include_tag "transactions" %>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= yield %>
+
+  <footer class="global">
+    <div class="made-by">
+      Made with <%= link_to "Payly", root_path %>
+    </div>
+  </footer>  
+
+  <%= analytics_init %>
+</body>
+</html>

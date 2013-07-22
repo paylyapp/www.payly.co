@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <% if @stack.nil? %>
+  <title>Error</title>
+  <% else %>
   <title>Purchase: <%= @stack.product_name %></title>
+  <% end %> 
   <meta charset="utf-8" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
 
+  <% unless @stack.nil? %>
   <meta name="og:title" content="Purchase: <%= @stack.product_name %>" />
   <meta name="og:description" content="<%= @stack.description %>" />
   <meta name="og:image" content="<%= @stack.primary_image.url(:medium) %>" />
+  <% end %> 
 
   <%= stylesheet_link_tag    "transactions", :media => "all" %>
   <%= javascript_include_tag :modernizr %>

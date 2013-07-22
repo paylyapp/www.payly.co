@@ -1,6 +1,6 @@
 Haystack::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  
+
   config.force_ssl = false
 
   # Code is not reloaded between requests
@@ -11,7 +11,7 @@ Haystack::Application.configure do
   config.action_controller.perform_caching = true
 
   config.action_mailer.default_url_options = { :host => 'staging.payly.co' }
-  
+
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
@@ -68,7 +68,7 @@ Haystack::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-  
+
   GA.tracker = "UA-40132590-2"
 
   config.paperclip_defaults = {
@@ -79,7 +79,7 @@ Haystack::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  
+
   ActionMailer::Base.smtp_settings = {
     :port =>           '587',
     :address =>        'smtp.mandrillapp.com',

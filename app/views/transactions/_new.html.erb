@@ -1,4 +1,4 @@
-<%= form_for @transaction, :url => page_create_transaction_path, :html_option => {:autocomplete => "off"} do |f| %>
+<%= form_for @transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
   <div class='card_errors' style='display:none'>
     <h3></h3>
     <ul></ul>
@@ -40,7 +40,7 @@
   <div class="heading">
     <h2>Card Details</h2>
     <p><i class="icon-credit-card"></i> Mastercard and Visa only</p>
-  </div> 
+  </div>
   <div class="field field-text field-buyer-name">
     <%= label :card, :name, 'Name on Card' %>
     <div class="input">
@@ -74,7 +74,7 @@
 
   <div class="heading">
     <h2>Billing Details</h2>
-  </div> 
+  </div>
   <div class="field field-text field-card-number">
     <%= label :card, :address_line1, 'Address Line 1' %>
     <div class="input">
@@ -116,7 +116,7 @@
 
   <div class="heading">
     <h2>Shipping Details</h2>
-  </div> 
+  </div>
   <div class="field field-text field-card-number">
     <%= f.label :shipping_full_name, "Recipient's name" %>
     <div class="input">

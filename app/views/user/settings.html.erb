@@ -2,8 +2,8 @@
   <header>
     <p><strong>Your account settings</strong></p>
   </header>
-    
-  <%= form_for(@user, :as => 'user', :url => registration_path('user'), :html => { :method => :put }) do |f| %>
+
+  <%= form_for(@user, :as => 'user', :url => registration_path('user'), :html => { :method => :put, :autocomplete => "off"}) do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -15,7 +15,7 @@
         </ul>
       </div>
     <% end %>
-  
+
     <div class="field field-text field-full-name">
       <%= f.label :full_name, 'Full Name' %>
       <div class="input">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="heading">  
+    <div class="heading">
       <h2>Pin Payments API Keys</h2>
       <p>Don't have Pin Payment API Keys for live payments? <%= link_to "Sign up today!", "https://pin.net.au/signup", :target => "_blank" %></p>
     </div>
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="heading">  
+    <div class="heading">
       <h2>Change Password</h2>
     </div>
     <div class="field field-text field-current-password">
@@ -71,7 +71,7 @@
     <footer class="actions">
       <div class="button-group">
         <%= f.submit 'Save', :class => "primary-action" %>
-        
+
         <%= link_to 'Cancel Account', registration_path('user'), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "delete-action" %>
       </div>
     </footer>

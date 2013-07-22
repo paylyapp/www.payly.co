@@ -1,5 +1,11 @@
 Thank you for your purchase
 ===============================================
+Your purchase of <%= @transaction.stack.product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> AUD on Payly was successful.
+
+<% if @transaction.stack.has_digital_download %>
+You can download your file here - <%= download_url(:token => @transaction.transaction_token) %>.
+<% end %>
+
 Here is your tax invoice
 
 <%= @transaction.stack.seller_trading_name %>

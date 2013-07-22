@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require libraries/bootstrap/bootstrap.js
 //= require libraries/bootstrap-select/bootstrap-select.min.js
-//= require parsley
 
 $(function() {
   $('select').selectpicker();
@@ -32,16 +31,20 @@ $(function() {
     }
   });
 
-  if(!$('.field-invoice input').is(':checked')) {
-    $('.invoice-details').hide();
-  }
+  $('.field-more-fields').each(function() {
+    var that = $(this);
 
-  $('.field-invoice input').change(function() {
-    if($(this).is(':checked')) {
-      $('.invoice-details').slideDown();
-    } else {
-      $('.invoice-details').slideUp();
+    if(!$('input', that).is(':checked')) {
+      that.next('.more-fields').hide();
     }
+
+    $('input', that).change(function() {
+      if($(this).is(':checked')) {
+        that.next('.more-fields').slideDown();
+      } else {
+        that.next('.more-fields').slideUp();
+      }
+    });
   });
 
 });

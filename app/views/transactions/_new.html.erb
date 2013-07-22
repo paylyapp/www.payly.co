@@ -1,4 +1,4 @@
-<%= form_for @transaction, :url => page_create_transaction_path do |f| %>
+<%= form_for @transaction, :url => page_create_transaction_path, :html_option => {:autocomplete => "off"} do |f| %>
   <div class='card_errors' style='display:none'>
     <h3></h3>
     <ul></ul>

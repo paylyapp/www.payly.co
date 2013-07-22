@@ -14,13 +14,13 @@
   <div class="field field-text field-product">
     <%= f.label :product_name, "Name" %>
     <div class="input">
-      <%= f.text_field :product_name, :placeholder => "Product Name", :"data-required" => "true" %>
+      <%= f.text_field :product_name, :placeholder => "Product Name" %>
     </div>
   </div>
   <div class="field field-select field-charge-type">
     <%= f.label :charge_type, "Type of charge" %>
     <div class="input">
-      <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type), :"data-validate" => "true" %>
+      <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type) %>
     </div>
   </div>
   <div class="field field-text field-charge-amount">
@@ -43,8 +43,34 @@
       <%= image_tag @stack.primary_image.url(:tiny) %>
       <%= f.file_field :primary_image, :"data-required" => "true" %>
     </div>
-    <p class="description">Ideal logo should be 400px X 400px and less the 10kb with a format of .gif, .png, or .jpg.</p>
+    <p class="description">Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.</p>
   </div>
+  <div class="field field-text field-digital-download field-more-fields">
+    <%= f.label :has_digital_download do %>Provide downloadable file<% end %>
+    <div class="input">
+      <label><%= f.check_box :has_digital_download %></label>
+    </div>
+  </div>
+  <div class="more-fields">
+    <div class="heading">
+      <h2>Your downloadable file</h2>
+      <p>You can provide a file that is downloadable upon sucessful payment through this payment page.</p>
+      <p>Downloadable files are currently limited to 10MB in size.</p>
+    </div> 
+    <div class="field field-text field-digital-download-file">
+      <%= f.label :digital_download_file, 'Downloadable file' %>
+      <div class="input">
+        <%= f.file_field :digital_download_file, :"data-required" => "true" %>
+      </div>
+    </div>
+    <div class="field field-text field-digital-download-receive">
+      <%= f.label :digital_download_receive, 'What will buyers receive' %>
+      <div class="input">
+      <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
+      </div>
+    </div>
+  </div>
+
   <div class="field field-text field-seller-name">
     <%= f.label :seller_name, "Seller's name" %>
     <div class="input">
@@ -75,13 +101,14 @@
       <label><%= f.check_box :bcc_receipt %></label>
     </div>
   </div>
-  <div class="field field-text field-invoice field_more_fields">
+
+  <div class="field field-text field-invoice field-more-fields">
     <%= f.label :send_invoice_email do %>Send invoice email<% end %>
     <div class="input">
       <label><%= f.check_box :send_invoice_email %></label>
     </div>
   </div>
-  <div class="invoice-details">
+  <div class="more-fields">
     <div class="heading">
       <h2>Your Address</h2>
       <p>Your personal or company details must appear on the invoice that is emailed to customers in order to make it a valid invoice. Fill in your details below.</p>

@@ -1,6 +1,6 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-  
+
   <div class="field field-text field-full-name">
     <%= f.label :full_name %>
     <div class="input">
@@ -33,7 +33,7 @@
 
   <footer class="actions">
     <div class="button-group">
-      <%= f.submit 'Signup' %>
+      <%= f.submit 'Signup to Payly', class: :'primary-action' %>
     </div>
   </footer>
 <% end %>

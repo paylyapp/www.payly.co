@@ -33,6 +33,22 @@ class DashboardController < ApplicationController
     end
   end
 
+  def stack_transaction
+    @user = current_user
+    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
+
+    if @stack.nil?
+      render :stack_error
+    else
+      @transaction = @stack.transactions.find_by_transaction_token(params[:transaction_token])
+      if @transaction.nil?
+        render :stack_error
+      else
+        render :stack_transaction
+      end
+    end
+  end
+
   def stack_updated_download
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])

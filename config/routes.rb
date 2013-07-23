@@ -8,6 +8,7 @@ Haystack::Application.routes.draw do
   get     "dashboard/s_new"                   => "dashboard#new_stack",           :as => 'dashboard_new_stack'
   get     "dashboard/:stack_token"            => "dashboard#stack",               :as => 'dashboard_stack'
   get     "dashboard/:stack_token/payments"   => "dashboard#stack_transactions",  :as => 'dashboard_stack_transactions'
+  get     "dashboard/:stack_token/payments/:transaction_token" => "dashboard#stack_transaction",  :as => 'dashboard_stack_transaction'
   get     "dashboard/:stack_token/update/buyers/download" => "dashboard#stack_updated_download", :as => 'dashboard_stack_updated_download'
   post    "dashboard/s_new"                   => "dashboard#create_stack",        :as => 'stack_create'
   put     "dashboard/:stack_token"            => "dashboard#update_stack",        :as => 'stack_update'

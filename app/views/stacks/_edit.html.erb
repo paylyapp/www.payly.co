@@ -182,9 +182,9 @@
 
   <footer class="actions">
     <div class="button-group">
-      <%= f.submit 'Save' %>
+      <%= f.submit 'Save Payment Page', :class => 'primary-action' %>
 
-      <%= link_to 'Delete', stack_destroy_path(@stack.stack_token), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Delete', stack_destroy_path(@stack.stack_token), class: :'delete-action', method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>
   </footer>
 <% end %>

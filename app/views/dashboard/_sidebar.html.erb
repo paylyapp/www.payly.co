@@ -1,5 +1,3 @@
-
-
 <div class="user">
   <%= image_tag current_user.gravatar_url, :height => 80, :width => 80 %>
   <span class="full-name"><%= current_user.full_name %></span>
@@ -23,9 +21,9 @@
       <li>
         <%= link_to dashboard_stack_path(stack.stack_token), :class => "#{current_page(dashboard_stack_path(stack.stack_token))} #{current_page(dashboard_stack_transactions_path(stack.stack_token))}" do %>
           <% if stack.has_digital_download %>
-            <i class="icon-download-alt"></i> 
+            <i class="icon-download-alt"></i>
           <% else %>
-            <i class="icon-exchange"></i> 
+            <i class="icon-exchange"></i>
           <% end %>
           <%= stack.product_name %>
         <% end %>

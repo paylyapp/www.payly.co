@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704113900) do
+ActiveRecord::Schema.define(:version => 20130723114157) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20130704113900) do
     t.boolean  "tos_agreement"
     t.string   "encrypted_pin_api_key"
     t.string   "encrypted_pin_api_secret"
+    t.boolean  "opt_in_communication"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

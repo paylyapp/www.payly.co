@@ -68,6 +68,19 @@
       </div>
     </div>
 
+    <div class="heading">
+      <h2>Communication from Payly</h2>
+      <p>From time to time, we'd like to send you emails with updates to features and services.</p>
+    </div>
+    <div class="field field-text field-current-password">
+      <%= f.label :opt_in_communication, 'Subscribe' %>
+      <div class="input">
+        <%= f.label :opt_in_communication do %>
+          <%= f.check_box :opt_in_communication %>
+        <% end %>
+      </div>
+    </div>
+
     <footer class="actions">
       <div class="button-group">
         <%= f.submit 'Save', :class => "primary-action" %>

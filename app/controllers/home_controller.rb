@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  def index 
+  def index
 
   end
 
@@ -13,5 +13,9 @@ class HomeController < ApplicationController
 
   def privacy
     @title = "Privacy Policy"
+  end
+
+  def thank_you
+    @title = "Thanks for signing up"
   end
 end

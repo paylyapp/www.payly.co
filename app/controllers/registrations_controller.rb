@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  
+
   def update
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password].blank?
@@ -11,6 +11,12 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords(current_user)
       redirect_to user_settings_path
     end
+  end
+
+  protected
+
+  def after_inactive_sign_up_path_for(resource)
+    '/signup/thank-you'
   end
 
 end

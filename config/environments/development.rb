@@ -39,16 +39,6 @@ Haystack::Application.configure do
 
   GA.tracker = "UA-40132590-2"
 
-  # config.paperclip_defaults = {
-  #   :storage => :fog,
-  #   :fog_credentials => {
-  #     :provider => "Local",
-  #     :local_root => "#{Rails.root}/public"
-  #   },
-  #   :fog_directory => "",
-  #   :fog_host => "http://payly.dev"
-  # }
-
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
@@ -59,13 +49,12 @@ Haystack::Application.configure do
   }
 
   ActionMailer::Base.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'gmail.com',
-    :user_name            => ENV['GMAIL_EMAIL'],
-    :password             => ENV['GMAIL_PASSWORD'],
-    :authentication       => 'plain',
-    :enable_starttls_auto => true
+    :port =>           '587',
+    :address =>        'smtp.mandrillapp.com',
+    :user_name =>      ENV['MANDRILL_USERNAME'],
+    :password =>       ENV['MANDRILL_APIKEY'],
+    :domain =>         'heroku.com',
+    :authentication => :plain
   }
   ActionMailer::Base.delivery_method = :smtp
 end

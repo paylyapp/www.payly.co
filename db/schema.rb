@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20130724110542) do
     t.boolean  "tos_agreement"
     t.string   "encrypted_pin_api_key"
     t.string   "encrypted_pin_api_secret"
+    t.boolean  "opt_in_communication"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

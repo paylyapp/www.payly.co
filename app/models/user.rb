@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include Gravtastic
   gravtastic :secure => true, :size => 160, :default => "http://payly.co/assets/stacks/primary_image/default/medium/logo.jpg"
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessor   :current_password
@@ -21,7 +21,6 @@ class User < ActiveRecord::Base
   has_many :transactions, :through => :stacks
 
   before_create :generate_token
-  after_create :send_welcome_email
 
   def weekly_stats
     transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
@@ -69,10 +68,6 @@ class User < ActiveRecord::Base
       random_token = random_token + SecureRandom.urlsafe_base64
       break random_token unless User.where(:user_token => random_token).exists?
     end
-  end
-
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver
   end
 
 end

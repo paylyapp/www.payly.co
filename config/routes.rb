@@ -2,6 +2,7 @@ Haystack::Application.routes.draw do
   get     "faqs"                              => "home#faqs",                     :as => 'faqs'
   get     "terms"                             => "home#terms",                    :as => 'terms'
   get     "privacy"                           => "home#privacy",                  :as => 'privacy'
+  get     "signup/thank-you"                  => "home#thank_you",                :as => 'new_user_register_thank_you'
 
   get     "dashboard"                         => "dashboard#index",               :as => 'user_root'
 

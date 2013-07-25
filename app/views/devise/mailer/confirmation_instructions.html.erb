@@ -1,5 +1,15 @@
-<p>Welcome <%= @email %>!</p>
+<p>Hi <%= @resource.full_name %>,</p>
+
+<h2>Welcome to Payly</h2>
 
 <p>You can confirm your account email through the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Login to my dashboard', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>
+  Thanks for joining and have a great day!
+</p>
+
+<p>
+  <em>Tim Gleeson</em>
+</p>

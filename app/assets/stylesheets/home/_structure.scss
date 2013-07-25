@@ -41,7 +41,7 @@ header.global {
   .image-rotation {
     img {
       vertical-align: bottom;
-    } 
+    }
   }
 }
 
@@ -148,7 +148,7 @@ header.global {
       .header {
         margin-bottom: 20px;
 
-        .step { 
+        .step {
           font-size: 14px;
           line-height: 19px;
           color: #7F8C8D;
@@ -240,6 +240,10 @@ header.global {
       font-size: 24px;
       color: #7F8C8D;
       font-weight:bold;
+    }
+
+    em {
+      font-style: italic;
     }
   }
 }
@@ -338,4 +342,4 @@ header.global {
       line-height: 21px;
     }
   }
-} 
+}

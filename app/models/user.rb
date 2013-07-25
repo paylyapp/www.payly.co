@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   attr_accessible :user_token, :full_name, :email, :pin_api_key, :pin_api_secret,
                   :password, :password_confirmation, :current_password,
                   :remember_me, :tos_agreement, :opt_in_communication
-  attr_encrypted  :pin_api_key, :key => 'b8da62e46fe69b78df264408e03ab32fc9ad4b224dc2f28fafc868a0af0e7995acacb46d1e296011e19bf2ed54200d518795460b3c5e54817fe4a62c7c68f151'
-  attr_encrypted  :pin_api_secret, :key => '0fb5ac9a27150b79f1cf4bb08c123d951f2f476b571e9923120b796ff0928d217e14b64b9ad185bcb90594c5ea2f7e19ef2788ca1e82c88d2dff47aed7ec3328'
+  attr_encrypted  :pin_api_key, :key => ENV['ENCRYPT_USER_PIN_API_KEY']
+  attr_encrypted  :pin_api_secret, :key => ENV['ENCRYPT_USER_PIN_API_SECRET']
 
   validates_presence_of :full_name
   validates_presence_of :email

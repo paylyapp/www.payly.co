@@ -6,7 +6,7 @@ describe Customer do
   it "allow customer to receive an email from submitting their email address"
 
   describe "email" do
-    it "should contain a link to pocket with a with a token"
+    it "should contain a link to pocket with a token"
 
     it "should contian instructions that explain what to do"
 
@@ -18,15 +18,15 @@ describe Customer do
 
     it "should have a download link for digital downloads"
 
-    it "should allow the user to enter details about themselves"
+    it "should set a session cookie on entry for the session"
   end
 
   describe "details" do
-    it "should encrypt all details about the customer"
-
     it "should have an email"
 
-    it "should have a token"
+    it "should have a user token"
+
+    it "should have a session token"
 
     describe "email" do
       it "should be unique"
@@ -37,7 +37,16 @@ describe Customer do
     describe "token" do
       it "should be unique"
       it "should be a string"
-      it "should be updated every time the user enters their email"
     end
   end
+
+  describe "transaction list" do
+    it "should be a list of transactions that customer has made"
+
+    describe "transaction" do
+      it "should show the details a customer has been supplied"
+      it "should have a link to email the seller"
+    end
+  end
+
 end

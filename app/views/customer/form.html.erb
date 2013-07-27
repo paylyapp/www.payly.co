@@ -1,0 +1,22 @@
+<section>
+  <div class="main">
+    <article class="container">
+
+      <%= form_for @customer, :url => pocket_path, :html => {:autocomplete => "off"} do |f| %>
+        <div class="field field-text field-email">
+          <%= f.label :email, "Email" %>
+          <div class="input">
+            <%= f.email_field :email %>
+          </div>
+        </div>
+
+        <footer class="actions">
+          <div class="button-group">
+            <%= f.submit 'Go', :class => 'primary-action' %>
+          </div>
+        </footer>
+      <% end %>
+
+    </article>
+  </div>
+</section>

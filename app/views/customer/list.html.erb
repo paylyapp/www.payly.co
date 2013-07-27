@@ -1,0 +1,18 @@
+<section>
+  <div class="main">
+    <article class="container">
+      <h1>Your Purchases</h1>
+      <% if @transactions.empty? %>
+        <p>You have not purchased anything through Payly before.</p>
+      <% else %>
+        <ul>
+          <% @transactions.each do |transaction| %>
+            <li>
+              <%= link_to transaction.stack.product_name, pocket_transaction(:transaction_token => transaction.transaction_token) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </article>
+  </div>
+</section>

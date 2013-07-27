@@ -64,7 +64,6 @@ module Haystack
 
     # Precompile additional assets
     config.assets.precompile += %w( .svg .eot .woff .ttf )
-    config.assets.precompile += ['dashboard.css', 'home.css', 'transactions.css', 'devise.css']
     config.assets.precompile += ['dashboard.js', 'home.js', 'transactions.js', 'devise.js']
 
     config.generators do |g|

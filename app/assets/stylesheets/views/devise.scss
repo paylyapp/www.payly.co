@@ -1,0 +1,108 @@
+.devise-registrations-new,
+.devise-sessions-new,
+.devise-passwords-new,
+.devise-passwords-edit {
+  .main {
+    width: 600px;
+    margin: 0 auto $gutter*2 auto;
+
+    ul {
+      @include pie-clearfix();
+      text-align: center;
+
+      li {
+        display: inline-block;
+        padding: 0 $gutter*2;
+        color: #7F8C8D;
+        font-size: 12px;
+
+        a {
+          color: #2C3E50;
+
+          &:hover {
+            color: #2C3E50;
+          }
+        }
+      }
+    }
+
+    header {
+      padding: $gutter;
+      border-bottom: 1px solid #BDC3C7;
+      background-color: lighten(#BDC3C7, 20%);
+
+      @include border-radius(3px 3px 0 0);
+      @include pie-clearfix();
+
+      p {
+        color: #34495E;
+        line-height: 25px;
+        text-align: center;
+
+        strong {
+          display: block;
+          font-weight: bold;
+        }
+        small {
+          display: block;
+          font-size: 14px;
+          color: lighten(#34495E, 10%);
+        }
+      }
+    }
+  }
+
+
+  form {
+
+    .field {
+      label {
+        width: 40%;
+      }
+      .input {
+        width: 60%;
+      }
+    }
+    footer {
+      padding: $gutter;
+      text-align: center;
+
+      input{
+        float: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .devise-registrations-new,
+  .devise-sessions-new,
+  .devise-passwords-new,
+  .devise-passwords-edit {
+    .main {
+      width: auto;
+      padding: 0 $gutter;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .devise-registrations-new,
+  .devise-sessions-new,
+  .devise-passwords-new,
+  .devise-passwords-edit {
+    form {
+
+      .field {
+
+        label {
+          width: 100%;
+        }
+        .input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,212 @@
+form {
+  margin: 0;
+
+  @include pie-clearfix();
+
+  .heading {
+   padding: $gutter*1.5 $gutter 0 $gutter;
+
+   h2 {
+     margin-bottom: $gutter;
+     font-weight: bold;
+     color: #27AE60;
+   }
+
+   p {
+     font-size: 12px;
+     color: #34495E;
+     margin-bottom: $gutter/2;
+     line-height: 18px;
+
+     a {
+       color: #27AE60;
+     }
+   }
+  }
+  .field {
+    @include pie-clearfix();
+    padding: $gutter;
+    border-bottom: 1px solid #BDC3C7;
+
+    label,
+    span.text {
+      width: 30%;
+      float: left;
+      padding-right: $gutter*2;
+      text-align: right;
+      font-size: 14px;
+      line-height: 30px;
+    }
+    label {
+      color: #7F8C8D;
+      font-weight: bold;
+    }
+    .description {
+      width: 70%;
+      clear: right;
+      float: right;
+      font-size: 11px;
+      color: #7F8C8D;
+      padding-top: 5px;
+    }
+    .input {
+      width: 70%;
+      float: right;
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="number"] {
+        width: 90%;
+        height: 32px;
+        font-family: $font;
+        font-size: 14px;
+        border: 1px solid #BDC3C7;
+        color: #34495E;
+        margin-bottom: 0;
+        padding: 5px;
+
+        @include box-shadow(0px 1px 4px #BDC3C7 inset);
+        @include border-radius(3px);
+      }
+      textarea {
+        resize: none;
+        height: 100px;
+        width: 90%;
+        padding: $gutter/2;
+        font-family: $font;
+        font-size: 14px;
+        border: 1px solid #BDC3C7;
+        color: #34495E;
+        margin-bottom: 0;
+
+        @include box-shadow(0px 1px 4px #BDC3C7 inset);
+        @include border-radius(3px);
+      }
+      select {
+        width: 90%;
+      }
+      .dropdown-menu,
+      .btn-group > .btn {
+        @include border-radius(3px);
+        width: 100%;
+      }
+      .btn-group {
+        margin-bottom: 0;
+      }
+      label,
+      span.text {
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+  .more-fields {
+    background-color: lighten(#BDC3C7, 20%);
+  }
+  .field-charge-amount {
+    .input {
+      position: relative;
+
+      .pre {
+        position: absolute;
+        top: 9px;
+        left: 7px;
+        label {
+          width: auto;
+          float: none;
+          padding: 0;
+          font-weight: normal;
+          line-height: inherit;
+          height: auto;
+        }
+      }
+
+      .post {
+        position: absolute;
+        top: 9px;
+        right: 12%;
+        label {
+          width: auto;
+          float: none;
+          padding: 0;
+          font-weight: normal;
+          line-height: inherit;
+          height: auto;
+        }
+      }
+      input[type="text"] {
+        padding-left: $gutter*2;
+      }
+    }
+  }
+  footer {
+    padding: $gutter;
+    background-color: lighten(#BDC3C7, 20%);
+
+    @include pie-clearfix();
+    @include border-radius(0 0 3px 3px);
+
+    .primary-action {
+      float: left;
+      @include button-filled(#3498DB);
+    }
+    .secondary-action {
+      @include button-filled();
+    }
+    .delete-action {
+      float: right;
+      margin-right: $gutter/2;
+      @include button(#E74C3C);
+    }
+  }
+
+}
+
+@media (max-width: 550px) {
+  form {
+
+    .field {
+
+      label {
+        width: 100%;
+        float: none;
+        padding-right: $gutter*2;
+        text-align: left;
+        line-height: 22px;
+      }
+      .input {
+        width: 100%;
+        padding-bottom: 5px;
+        float: none;
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+          width: 100%;
+        }
+        textarea {
+          resize: none;
+          height: 100px;
+          width: 100%;
+        }
+        select {
+          width: 100%;
+        }
+        label {
+          width: 100%;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .field-charge-amount {
+      .input {
+
+        .post {
+          right: 2%;
+        }
+      }
+    }
+  }
+}

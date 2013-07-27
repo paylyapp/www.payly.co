@@ -1,28 +1,43 @@
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<section class="devise-sessions-new">
+  <div class="main">
+    <article class="container">
 
-  <div class="field field-text field-email">
-    <%= f.label :email %>
-    <div class="input">
-      <%= f.email_field :email, :autocomplete => "off" %>
-    </div>
-  </div>
-  <div class="field field-text field-password">
-    <%= f.label :password %>
-    <div class="input">
-      <%= f.password_field :password, :autocomplete => "off" %>
-    </div>
-  </div>
-  <div class="field field-checkbox field-remember-me">
-    <div class="input">
-      <%= f.label :remember_me do %>
-        <%= f.check_box :remember_me %>  Remember me
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field field-text field-email">
+          <%= f.label :email %>
+          <div class="input">
+            <%= f.email_field :email, :autocomplete => "off" %>
+          </div>
+        </div>
+        <div class="field field-text field-password">
+          <%= f.label :password %>
+          <div class="input">
+            <%= f.password_field :password, :autocomplete => "off" %>
+          </div>
+        </div>
+        <div class="field field-checkbox field-remember-me">
+          <div class="input">
+            <%= f.label :remember_me do %>
+              <%= f.check_box :remember_me %>  Remember me
+            <% end %>
+          </div>
+        </div>
+
+        <footer class="actions">
+          <div class="button-group">
+            <%= f.submit 'Login to Payly', class: :'primary-action'  %>
+          </div>
+        </footer>
       <% end %>
-    </div>
-  </div>
 
-  <footer class="actions">
-    <div class="button-group">
-      <%= f.submit 'Login to Payly', class: :'primary-action'  %>
-    </div>
-  </footer>
-<% end %>
+    </article>
+
+    <ul>
+      <li><%= link_to "Forgot your password?", new_password_path('user') %></li>
+      <li>Don't have an account? <%= link_to new_user_registration_path, :class => "top-button" do %>Signup<% end %></li>
+    </ul>
+
+  </div>
+</section>

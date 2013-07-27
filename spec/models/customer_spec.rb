@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Customer do
   it "allow a customer to submit their email address"
+  true
 
   it "allow customer to receive an email from submitting their email address"
+  true
 
   describe "email" do
     it "should contain a link to pocket with a token"
@@ -19,24 +21,33 @@ describe Customer do
     it "should have a download link for digital downloads"
 
     it "should set a session cookie on entry for the session"
+    true
   end
 
   describe "details" do
     it "should have an email"
+    true
 
     it "should have a user token"
+    true
 
     it "should have a session token"
+    true
 
     describe "email" do
       it "should be unique"
+      true
       it "should be a string"
+      true
       it "should be an email"
+      true
     end
 
-    describe "token" do
+    describe "tokens" do
       it "should be unique"
+      true
       it "should be a string"
+      true
     end
   end
 

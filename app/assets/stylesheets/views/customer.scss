@@ -9,6 +9,7 @@
       font-size: 48px;
       line-height: 62px;
       font-weight: 100;
+      text-align: center;
     }
     p {
       margin-bottom: 10px;
@@ -50,7 +51,27 @@
   width: 670px;
   margin: 0 auto $gutter*2 auto;
 
-  @include pie-clearfix();
+  h1 {
+    font-family: 'Roboto';
+    font-size: 48px;
+    line-height: 62px;
+    font-weight: 100;
+    text-align: center;
+  }
+  p {
+    margin-bottom: 10px;
+    line-height: 22px;
+
+    &.last-revised {
+      font-size: 24px;
+      color: #7F8C8D;
+      font-weight:bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+  }
 
   article {
 

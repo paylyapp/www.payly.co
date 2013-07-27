@@ -2,7 +2,7 @@
 .customer-create {
   .main {
     width: 100%;
-    margin: 0 10px $gutter*2 10px;
+    padding: 0 10px $gutter*2 10px;
 
     h1 {
       font-family: 'Roboto';
@@ -48,7 +48,8 @@
   }
 }
 
-.customer-list {
+.customer-list,
+.customer-item {
   width: 100%;
   padding: 0 10px $gutter*2 10px;
 
@@ -187,12 +188,14 @@
     .main {
       width: 600px;
       margin: 0 auto $gutter*2 auto;
+      padding: 0;
     }
   }
 }
 
 @media (min-width: 690px) {
-  .customer-list {
+  .customer-list,
+  .customer-item {
     width: 670px;
     margin: 0 auto 20px auto;
     padding: 0;

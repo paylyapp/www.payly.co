@@ -31,7 +31,7 @@ class CustomerController < ApplicationController
     end
   end
 
-  def transaction
+  def item
     @customer = Customer.find_by_session_token(session[:pocket_token])
 
     if @customer.nil?
@@ -42,7 +42,7 @@ class CustomerController < ApplicationController
       if @transaction.nil?
         redirect_to pocket_transactions_path
       else
-        render "transaction"
+        render "item"
       end
     end
   end

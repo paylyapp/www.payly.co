@@ -3,7 +3,7 @@
 @import "basic/_mixins";
 
 article {
-  width: 528px; 
+  width: 528px;
   margin: $gutter*2 auto;
   background-color: #fff;
   border: 1px solid #BDC3C7;
@@ -82,7 +82,7 @@ article {
 }
 
 .made-by {
-  text-align: center; 
+  text-align: center;
   height: $gutter*5 + 4;
   width: 200px;
   margin: 0 auto;
@@ -119,12 +119,12 @@ article {
     text-align: center;
 
     p {
-      color: #614f06;  
+      color: #614f06;
       width: 100%;
       float: none;
       font-size: 16px;
       margin-bottom: 0;
-      
+
       strong {
         font-weight: bold;
       }
@@ -164,4 +164,4 @@ article {
       }
     }
   }
-} 
+}

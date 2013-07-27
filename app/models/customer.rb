@@ -4,12 +4,10 @@ class Customer < ActiveRecord::Base
 
   before_create :generate_token
 
+  has_many :transactions, :foreign_key => :buyer_email, :primary_key => :email
+
   validates_presence_of :email
   validates_uniqueness_of :email
-
-  def transactions
-    Transaction.where(:buyer_email => self.email)
-  end
 
   protected
 

@@ -17,15 +17,17 @@ class CustomerController < ApplicationController
         render "form"
       end
     else
-      show_list
+      redirect_to pocket_transactions_path
     end
   end
 
   def list
-    if session[:pocket_token].empty? || Customer.find_by_session_token(session[:pocket_token]).nil?
+    if session[:pocket_token].nil? || Customer.find_by_session_token(session[:pocket_token]).nil?
       redirect_to pocket_path
     else
-      show_list
+      @customer = Customer.find_by_session_token(session[:pocket_token])
+      @transactions = @customer.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      render "list"
     end
   end
 
@@ -48,12 +50,5 @@ class CustomerController < ApplicationController
   def create
     @customer = Customer.where(:email => params[:customer][:email]).first_or_create
     CustomerMailer.confirmation(@customer).deliver
-  end
-
-  private
-  def show_list
-    @customer = Customer.find_by_session_token(session[:pocket_token])
-    @transactions = @customer.transactions
-    render "list"
   end
 end

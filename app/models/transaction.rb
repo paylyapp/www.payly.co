@@ -8,6 +8,7 @@ class Transaction < ActiveRecord::Base
                   :shipping_address_postcode, :shipping_address_state, :shipping_address_country
 
   belongs_to :stack, :foreign_key => :stack_token
+  belongs_to :customer
 
   validates :buyer_name, :presence => true
   validates :buyer_email, :presence => true

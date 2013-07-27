@@ -1,8 +1,8 @@
 .customer-form,
 .customer-create {
   .main {
-    width: 600px;
-    margin: 0 auto $gutter*2 auto;
+    width: 100%;
+    margin: 0 10px $gutter*2 10px;
 
     h1 {
       font-family: 'Roboto';
@@ -10,6 +10,7 @@
       line-height: 62px;
       font-weight: 100;
       text-align: center;
+      margin-bottom: 20px;
     }
     p {
       margin-bottom: 10px;
@@ -48,8 +49,8 @@
 }
 
 .customer-list {
-  width: 670px;
-  margin: 0 auto $gutter*2 auto;
+  width: 100%;
+  padding: 0 10px $gutter*2 10px;
 
   h1 {
     font-family: 'Roboto';
@@ -57,9 +58,9 @@
     line-height: 62px;
     font-weight: 100;
     text-align: center;
+    margin-bottom: 20px;
   }
   p {
-    margin-bottom: 10px;
     line-height: 22px;
 
     &.last-revised {
@@ -177,5 +178,23 @@
     cursor: default;
     text-shadow: none;
     display: inline;
+  }
+}
+
+@media (min-width: 620px) {
+  .customer-form,
+  .customer-create {
+    .main {
+      width: 600px;
+      margin: 0 auto $gutter*2 auto;
+    }
+  }
+}
+
+@media (min-width: 690px) {
+  .customer-list {
+    width: 670px;
+    margin: 0 auto 20px auto;
+    padding: 0;
   }
 }

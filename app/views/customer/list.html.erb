@@ -4,7 +4,7 @@
 
     <article class="container">
       <header>
-        <p><strong>Your Purchases</strong></p>
+        <p><strong>Your Purchases</strong>  <small><%= page_entries_info @transactions, :model => "" unless @transactions.count == 0 %></small></p>
       </header>
 
       <ul class="feed-list">
@@ -15,16 +15,20 @@
       <% else %>
         <% @transactions.each do |transaction| %>
           <li class="feed-item">
-            <p><%= transaction.buyer_name %> bought this for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack.charge_currency %></span></span></p>
+            <p>You bought <%= transaction.stack.product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack.charge_currency %></span></span></p>
               <ul>
                 <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
                 <li><span class="id">ID: <%= transaction.transaction_token %></span></li>
-                <li><span class="purchase"><%= link_to transaction.stack.product_name, pocket_transaction(:transaction_token => transaction.transaction_token) %></span></li>
+                <li><span class="purchase"><%= link_to 'View details', pocket_transaction_path(:transaction_token => transaction.transaction_token) %></span></li>
             </ul>
           </li>
         <% end %>
       <% end %>
       </ul>
+
+
+      <%= will_paginate @transactions, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
+
     </article>
   </div>
 </section>

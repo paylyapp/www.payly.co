@@ -1,0 +1,76 @@
+@import "compass";
+
+@mixin button($color: $defaultButtonColor) {
+  display: inline-block;
+  @include appearance(none);
+  padding: $gutter $gutter*2;
+  font-size: 14px;
+  font-family: 'Open Sans';
+  border: 1px solid $color;
+  color: $color;
+  @include border-radius(5px);
+  text-decoration: none;
+  line-height: 19px;
+  cursor: pointer;
+  font-family: $font;
+  margin: 0;
+
+  &:hover {
+    color: $color;
+    text-decoration: none;
+  }
+}
+
+@mixin button-filled($color: $defaultButtonColor) {
+  @include button($color);
+  border-color: darken($color, 10%);
+  background-color: $color;
+  color: #fff;
+
+  @include text-shadow(1px 1px 0 darken($color, 20%));
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+@mixin button-small($color: $defaultButtonColor) {
+  @include button();
+  display: inline;
+  padding: 1px 5px 3px 5px;
+  font-size: 12px;
+}
+
+@mixin button-small-filled($color: $defaultButtonColor) {
+  @include button-small($color);
+  border-color: darken($color, 10%);
+  background-color: $color;
+  color: #fff;
+  @include text-shadow(1px 1px 0 darken($color, 20%));
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+@mixin button-nav($color: $defaultButtonColor) {
+  @include button($color);
+  display: block;
+  padding: $gutter/2 $gutter;
+  text-align: center;
+}
+
+@mixin button-nav-filled($color: $defaultButtonColor) {
+  @include button-nav($color);
+  border-color: darken($color, 10%);
+  background-color: $color;
+  color: #fff;
+  @include text-shadow(1px 1px 0 darken($color, 20%));
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}

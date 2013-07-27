@@ -12,12 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require libraries/bootstrap/bootstrap.js
-//= require libraries/bootstrap-select/bootstrap-select.min.js
 
 $(function() {
-  $('select').selectpicker();
-
 
   if($('select[name="stack[charge_type]"]').val() == "any") {
     $('.field-charge-amount').hide();

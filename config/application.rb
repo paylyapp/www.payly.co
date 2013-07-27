@@ -58,15 +58,14 @@ module Haystack
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     # Add the fonts path
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     # Precompile additional assets
     config.assets.precompile += %w( .svg .eot .woff .ttf )
-    config.assets.precompile += ['dashboard.css', 'home.css', 'transactions.css', 'devise.css']
     config.assets.precompile += ['dashboard.js', 'home.js', 'transactions.js', 'devise.js']
-      
+
     config.generators do |g|
       g.test_framework :rspec, fixture: true
       g.fixture_replacement :factory_girl, dir: 'spec/factories'

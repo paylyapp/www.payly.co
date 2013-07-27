@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
-  <title><%= @title + " • " unless @title.nil? %>Payly</title>
-  <%= stylesheet_link_tag    "home", :media => "all" %>
+  <title><%= @pre_title + " • " unless @pre_title.nil? %>Payly<%= " • " + @post_title unless @post_title.nil? %></title>
   <%= javascript_include_tag :modernizr %>
 
+  <%= stylesheet_link_tag "application", :media => "all" %>
+
+  <meta name="description" content="Accept payments simply &amp; easily. The easiest way for Australians to accept payments in a few minutes.">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
+
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
   <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-  
+
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -20,13 +23,7 @@
     <%= link_to new_user_session_path, :class => "top-button" do %><span class="text">Got an account?</span> Login<% end %>
   </header>
 
-  <section>
-    <div class="main">
-      <article>
-        <%= yield %>
-      </article>
-    </div>
-  </section>
+  <%= yield %>
 
   <footer class="global">
     <ul>

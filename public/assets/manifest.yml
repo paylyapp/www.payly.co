@@ -93,14 +93,6 @@ transactions.js: transactions.js
 transactions/index.js: transactions.js
 application.css: application.css
 application/index.css: application.css
-dashboard.css: dashboard.css
-dashboard/index.css: dashboard.css
-devise.css: devise.css
-devise/index.css: devise.css
-home.css: home.css
-home/index.css: home.css
-transactions.css: transactions.css
-transactions/index.css: transactions.css
 modernizr.js: modernizr.js
 modernizr/index.js: modernizr.js
 jquery.min.map: jquery.min.map

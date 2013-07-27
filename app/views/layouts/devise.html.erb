@@ -2,16 +2,19 @@
 <html>
 <head>
   <title>Payly</title>
-  <%= stylesheet_link_tag    "devise", :media => "all" %>
   <%= javascript_include_tag :modernizr %>
 
+  <%= stylesheet_link_tag "application", :media => "all" %>
+
+  <meta name="description" content="Accept payments simply &amp; easily. The easiest way for Australians to accept payments in a few minutes.">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
+
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
   <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-  
+
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -19,25 +22,7 @@
     <%= link_to 'Payly', root_path, :class => 'logo' %>
   </header>
 
-  <section>
-    <div class="main">
-      <article class="container">
-        <%= yield %>
-      </article>
-    </div>
-
-    <ul>
-    <% if current_page?(new_user_registration_path)  %>
-      <li>Got an account? <%= link_to new_user_session_path, :class => "top-button" do %>Login<% end %></li>
-    <% elsif current_page?(new_user_session_path)  %>
-      <li><%= link_to "Forgot your password?", new_password_path('user') %></li>
-      <li>Don't have an account? <%= link_to new_user_registration_path, :class => "top-button" do %>Signup<% end %></li>
-    <% elsif current_page?(new_password_path('user'))  %>
-      <li>Don't have an account? <%= link_to new_user_registration_path, :class => "top-button" do %><span class="text">Signup</span><% end %></li>
-      <li>Got an account? <%= link_to new_user_session_path, :class => "top-button" do %><span class="text">Login</span><% end %></li>
-    <% end %>
-    </ul>
-  </section>
+  <%= yield %>
 
   <footer class="global">
     <ul>

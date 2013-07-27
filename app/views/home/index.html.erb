@@ -1,123 +1,132 @@
-<div class="hero">
-  <p class="tagline">Accept payments simply &amp; easily</p>
-  <p class="minorline">The easiest way for Australians to accept payments in a few minutes.</p>
-  <p><%= link_to "Sign up • Free", new_user_registration_path, :class => "button" %></p>
-  <p class="image-rotation">
-    <%= image_tag "new_page_form.png" %>
-    <%= image_tag "payment_page.png", :style => "display: none;" %>
-    <%= image_tag "payment_analysis.png", :style => "display: none;" %>
-  </p>
-</div>
+<section class="home-index">
+  <div class="main">
+    <article>
 
-<div class="works">
-  <h2>How it works</h2>
-  <ul class="first'">
-    <li class="step-one first">
-      <div class="header">
-        <i class="step">Step 1</i>
-        <h3>Sign up</h3>
+      <div class="hero">
+        <p class="tagline">Accept payments simply &amp; easily</p>
+        <p class="minorline">The easiest way for Australians to accept payments in a few minutes.</p>
+        <p><%= link_to "Sign up • Free", new_user_registration_path, :class => "button" %></p>
+        <p class="image-rotation">
+          <%= image_tag "new_page_form.png" %>
+          <%= image_tag "payment_page.png", :style => "display: none;" %>
+          <%= image_tag "payment_analysis.png", :style => "display: none;" %>
+        </p>
       </div>
-      <div class="content">
-        <p><%= link_to "Sign up", new_user_registration_path %> for a free account with your name, email and a password.</p>
-      </div>
-    </li>
-    <li class="step-two last">
-      <div class="header">
-        <i class="step">Step 2</i>
-        <h3>Set up a payment page</h3>
-      </div>
-      <div class="content">
-        <p>Set up your payment page by entering a few details.</p>
-      </div>
-    </li>
-  </ul>
-  <ul class="last">
-    <li class="step-three first">
-      <div class="header">
-        <i class="step">Step 3</i>
-        <h3>Connect to Pin</h3>
-      </div>
-      <div class="content">
-        <p>Sign up to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> to grab a live API key and add it to your account.</p>
-      </div>
-    </li>
-    <li class="step-four last">
-      <div class="header">
-        <i class="step">Step 4</i>
-        <h3>Share and craft</h3>
-      </div>
-      <div class="content">
-        <p>Share your page then go back to crafting that amazing thing you were crafting.</p>
-      </div>
-    </li>
-  </ul>
-</div>
 
-<div class="features">
-  <h2>Features</h2>
-  <ul class="first">
-    <li class="first">
-      <div class="header">
-        <i class="icon-download-alt"></i>
-        <h3>Digital Delivery</h3>
+      <div class="works">
+        <h2>How it works</h2>
+        <ul class="first'">
+          <li class="step-one first">
+            <div class="header">
+              <i class="step">Step 1</i>
+              <h3>Sign up</h3>
+            </div>
+            <div class="content">
+              <p><%= link_to "Sign up", new_user_registration_path %> for a free account with your name, email and a password.</p>
+            </div>
+          </li>
+          <li class="step-two last">
+            <div class="header">
+              <i class="step">Step 2</i>
+              <h3>Set up a payment page</h3>
+            </div>
+            <div class="content">
+              <p>Set up your payment page by entering a few details.</p>
+            </div>
+          </li>
+        </ul>
+        <ul class="last">
+          <li class="step-three first">
+            <div class="header">
+              <i class="step">Step 3</i>
+              <h3>Connect to Pin</h3>
+            </div>
+            <div class="content">
+              <p>Sign up to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> to grab a live API key and add it to your account.</p>
+            </div>
+          </li>
+          <li class="step-four last">
+            <div class="header">
+              <i class="step">Step 4</i>
+              <h3>Share and craft</h3>
+            </div>
+            <div class="content">
+              <p>Share your page then go back to crafting that amazing thing you were crafting.</p>
+            </div>
+          </li>
+        </ul>
       </div>
-      <div class="content">
-        <p>Sell anything, even digital files. We allow you to upload a 10MB file which will be sent to your customers on payment.</p>
-      </div>
-    </li>
-    <li>
-      <div class="header">
-        <i class="icon-lock"></i>
-        <h3>Secure and encrypted</h3>
-      </div>
-      <div class="content">
-        <p>All our pages are covered under 256-bit SSL encryption making them secure and encrypted.</p>
-      </div>
-    </li>
-    <li class="last">
-      <div class="header">
-        <i class="icon-credit-card"></i>
-        <h3>Never store credit cards</h3>
-      </div>
-      <div class="content">
-        <p>We use Pin Payments to handle all credit card information we receive  so we don't have to.</p>
-      </div>
-    </li>
-  </ul>
-  <ul class="last">
-    <li class="first">
-      <div class="header">
-        <i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-tablet"></i>&nbsp;<i class="icon-mobile-phone"></i>
-        <h3>Looks great everywhere</h3>
-      </div>
-      <div class="content">
-        <p>From the smallest phone, to the largest screen, our payment pages will look great. </p>
-      </div>
-    </li>
-    <li>
-      <div class="header">
-        <i class="icon-bar-chart"></i>
-        <h3>Simple analysis</h3>
-      </div>
-      <div class="content">
-        <p>See your sales this week, month and since you created your payment page at a glance.</p>
-      </div>
-    </li>
-    <li class="last">
-      <div class="header">
-        <i class="icon-envelope"></i>
-        <h3>Automatic emails</h3>
-      </div>
-      <div class="content">
-        <p>Receipts and notifications are emailed to you and your customer automatically.</p>
-      </div>
-    </li>
-  </ul>
-</div>
 
-<div class="pricing">
-  <h2>Pricing</h2>
-  <p>It's free! Unlimited Payment Pages!</p>
-  <%= link_to "Sign up • Free", new_user_registration_path, :class => "button" %>
-  <p class="pin">Transactions are subject to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> additional transaction charges of 3% + 30c per transaction.</p>
-</div>
+      <div class="features">
+        <h2>Features</h2>
+        <ul class="first">
+          <li class="first">
+            <div class="header">
+              <i class="icon-download-alt"></i>
+              <h3>Digital Delivery</h3>
+            </div>
+            <div class="content">
+              <p>Sell anything, even digital files. We allow you to upload a 10MB file which will be sent to your customers on payment.</p>
+            </div>
+          </li>
+          <li>
+            <div class="header">
+              <i class="icon-lock"></i>
+              <h3>Secure and encrypted</h3>
+            </div>
+            <div class="content">
+              <p>All our pages are covered under 256-bit SSL encryption making them secure and encrypted.</p>
+            </div>
+          </li>
+          <li class="last">
+            <div class="header">
+              <i class="icon-credit-card"></i>
+              <h3>Never store credit cards</h3>
+            </div>
+            <div class="content">
+              <p>We use Pin Payments to handle all credit card information we receive  so we don't have to.</p>
+            </div>
+          </li>
+        </ul>
+        <ul class="last">
+          <li class="first">
+            <div class="header">
+              <i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-tablet"></i>&nbsp;<i class="icon-mobile-phone"></i>
+              <h3>Looks great everywhere</h3>
+            </div>
+            <div class="content">
+              <p>From the smallest phone, to the largest screen, our payment pages will look great. </p>
+            </div>
+          </li>
+          <li>
+            <div class="header">
+              <i class="icon-bar-chart"></i>
+              <h3>Simple analysis</h3>
+            </div>
+            <div class="content">
+              <p>See your sales this week, month and since you created your payment page at a glance.</p>
+            </div>
+          </li>
+          <li class="last">
+            <div class="header">
+              <i class="icon-envelope"></i>
+              <h3>Automatic emails</h3>
+            </div>
+            <div class="content">
+              <p>Receipts and notifications are emailed to you and your customer automatically.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="pricing">
+        <h2>Pricing</h2>
+        <p>It's free! Unlimited Payment Pages!</p>
+        <%= link_to "Sign up • Free", new_user_registration_path, :class => "button" %>
+        <p class="pin">Transactions are subject to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> additional transaction charges of 3% + 30c per transaction.</p>
+      </div>
+
+
+    </article>
+  </div>
+</section>

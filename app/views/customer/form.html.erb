@@ -1,5 +1,9 @@
-<section>
+<section class="customer-form">
   <div class="main">
+    <h1>Introducing Pocket</h1>
+    <p>Pocket allows you to view the purchases you've made through Payly.</p>
+    <p>Enter your email below and we will send you a confirmation email with a link to your purchases.</p>
+
     <article class="container">
 
       <%= form_for @customer, :url => pocket_path, :html => {:autocomplete => "off"} do |f| %>

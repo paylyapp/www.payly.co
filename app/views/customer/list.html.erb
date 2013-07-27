@@ -1,18 +1,29 @@
-<section>
+<section class="customer-list">
   <div class="main">
     <article class="container">
-      <h1>Your Purchases</h1>
-      <% if @transactions.empty? %>
-        <p>You have not purchased anything through Payly before.</p>
+      <header>
+        <p><strong>Your Purchases</strong></p>
+      </header>
+
+      <ul class="feed-list">
+      <% if @transactions.count == 0 %>
+        <li class="feed-item">
+          <p>You have not purchased anything through Payly before.</p>
+        </li>
       <% else %>
-        <ul>
-          <% @transactions.each do |transaction| %>
-            <li>
-              <%= link_to transaction.stack.product_name, pocket_transaction(:transaction_token => transaction.transaction_token) %>
-            </li>
-          <% end %>
-        </ul>
+        <% @transactions.each do |transaction| %>
+          <li class="feed-item">
+            <p><%= transaction.buyer_name %> bought this for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack.charge_currency %></span></span></p>
+              <ul>
+                <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
+                <li><span class="id">ID: <%= transaction.transaction_token %></span></li>
+                <li><span class="purchase"><%= link_to transaction.stack.product_name, pocket_transaction(:transaction_token => transaction.transaction_token) %></span></li>
+            </ul>
+          </li>
+        <% end %>
       <% end %>
+      </ul>
     </article>
   </div>
 </section>
+

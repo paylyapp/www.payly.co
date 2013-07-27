@@ -3,6 +3,8 @@ Haystack::Application.configure do
 
   config.force_ssl = true
 
+  config.action_mailer.default_url_options = { :host => 'www.payly.co' }
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
@@ -79,7 +81,7 @@ Haystack::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  
+
   ActionMailer::Base.smtp_settings = {
     :port =>           '587',
     :address =>        'smtp.mandrillapp.com',

@@ -8,7 +8,6 @@ class CustomerMailer < ActionMailer::Base
   #
   def confirmation(customer)
     @customer = customer
-    @url = pocket_path(:token => @customer.user_token)
     mail(:to => @customer.email, :subject => "Pocket - Confirmation your identity")
   end
 end

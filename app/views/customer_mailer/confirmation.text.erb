@@ -1,3 +1,11 @@
-Customer#confirmation
+Pocket - Confirm your identity
+===============================================
 
-<%= @greeting %>, find me in app/views/app/views/customer/confirmation.text.erb
+Please follow this link to confirm who you are:
+
+<%= pocket_url(:token => @customer.user_token) %>
+
+You have received this email because your email address was entered through Pocket, a service of Payly.
+
+Thanks,
+Payly

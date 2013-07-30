@@ -1,0 +1,90 @@
+<section class="customer-item">
+  <div class="main">
+    <h1>Your Pocket</h1>
+
+    <article class="container">
+      <%= form_for('', :html => {:autocomplete => "off"}) do |f| %>
+        <div class="field field-text field-full-name">
+          <label>Page</label>
+          <div class="input">
+            <span class="text">
+              <%= link_to @stack.product_name, page_new_transaction_path(@stack.page_token), :target => "_blank" %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Bought</label>
+          <div class="input">
+            <span class="text">
+              <%= @transaction.created_at %>
+            </span>
+          </div>
+        </div>
+        <% if @stack.has_digital_download && !@stack.digital_download_receive.empty? && !@stack.digital_download_file_file_name.nil? %>
+          <div class="field field-text field-full-name">
+            <label>Downloadable file</label>
+            <div class="input">
+              <span class="text">
+                <%= link_to download_url(:token => @transaction.transaction_token), :target => "_blank" do %><i class="icon-download-alt"></i> Download <%= @stack.digital_download_receive %><% end %> (size: <%= number_to_human_size(@stack.digital_download_file_file_size, :precision => 0) %>)
+              </span>
+            </div>
+          </div>
+        <% elsif @stack.has_digital_download && @stack.digital_download_receive.empty? && !@stack.digital_download_file_file_name.nil? %>
+          <div class="field field-text field-full-name">
+            <label>Downloadable file</label>
+            <div class="input">
+              <span class="text">
+                <%= link_to download_url(:token => @transaction.transaction_token), :target => "_blank" do %><i class="icon-download-alt"></i> Download file<% end %> (size: <%= number_to_human_size(@stack.digital_download_file_file_size, :precision => 0) %>)
+              </span>
+            </div>
+          </div>
+        <% end %>
+        <div class="field field-text field-full-name">
+          <label>Paid</label>
+          <div class="input">
+            <span class="text">
+              <%= number_to_currency(@transaction.transaction_amount) %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Seller</label>
+          <div class="input">
+            <span class="text">
+              <%= mail_to @stack.seller_email, @stack.seller_name %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Transaction ID</label>
+          <div class="input">
+            <span class="text">
+              <%= @transaction.transaction_token %>
+            </span>
+          </div>
+        </div>
+        <% if @stack.require_shipping %>
+        <div class="field field-text field-full-name">
+          <label>Shipping Address</label>
+          <div class="input">
+            <span class="text">
+              <%= @transaction.shipping_address_line1 %> <br />
+              <%= @transaction.shipping_address_line2 %> <br />
+              <%= @transaction.shipping_address_city %> <br />
+              <%= @transaction.shipping_address_postcode %> <br />
+              <%= @transaction.shipping_address_state %> <br />
+              <%= @transaction.shipping_address_country %> <br />
+            </span>
+          </div>
+        </div>
+        <% end %>
+          <footer class="actions">
+            <div class="button-group">
+              <%= link_to 'Back to Purchases', pocket_transactions_path, :class => "secondary-action" %>
+            </div>
+          </footer>
+      <% end %>
+
+    </article>
+  </div>
+</section>

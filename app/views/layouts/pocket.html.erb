@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Payly</title>
+  <title><%= @pre_title + " • " unless @pre_title.nil? %>Payly<%= " • " + @post_title unless @post_title.nil? %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag :modernizr %>
 

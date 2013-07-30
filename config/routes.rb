@@ -4,6 +4,11 @@ Haystack::Application.routes.draw do
   get     "privacy"                           => "home#privacy",                  :as => 'privacy'
   get     "signup/thank-you"                  => "home#thank_you",                :as => 'new_user_register_thank_you'
 
+  get     "pocket"                            => "customer#index",                :as => 'pocket'
+  post    "pocket"                            => "customer#create",               :as => 'pocket'
+  get     "pocket/transactions"               => "customer#list",                 :as => 'pocket_transactions'
+  get     "pocket/transactions/:transaction_token" => "customer#item",            :as => 'pocket_transaction'
+
   get     "dashboard"                         => "dashboard#index",               :as => 'user_root'
 
   get     "dashboard/s_new"                   => "dashboard#new_stack",           :as => 'dashboard_new_stack'

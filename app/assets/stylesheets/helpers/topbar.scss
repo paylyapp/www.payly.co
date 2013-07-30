@@ -1,0 +1,23 @@
+header.global {
+
+  .top-button {
+    position: absolute;
+    top: 6px;
+    right: 13px;
+    text-decoration: none;
+      font-weight: bold;
+
+    .text {
+      font-weight: normal;
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  header.global {
+    .top-button {
+      .text {display: none;}
+    }
+  }
+}

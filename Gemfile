@@ -32,6 +32,8 @@ group :assets do
   gem 'modernizr-rails'
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'turbo-sprockets-rails3'
 end
 
 gem 'devise'

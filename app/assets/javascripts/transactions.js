@@ -88,5 +88,4 @@ $(function() {
     Pin.createToken(card, handlePinResponse);
   });
 
-  $('select').selectpicker();
 });

@@ -2,6 +2,7 @@ class CustomerController < ApplicationController
   layout "pocket"
 
   def index
+    @pre_title = 'Pocket'
     if session[:pocket_token].nil? || Customer.find_by_session_token(session[:pocket_token]).nil?
       token = params[:token]
       if token
@@ -22,6 +23,7 @@ class CustomerController < ApplicationController
   end
 
   def list
+    @pre_title = 'Your Pocket'
     if session[:pocket_token].nil? || Customer.find_by_session_token(session[:pocket_token]).nil?
       redirect_to pocket_path
     else
@@ -32,6 +34,7 @@ class CustomerController < ApplicationController
   end
 
   def item
+    @pre_title = 'Your Pocket'
     @customer = Customer.find_by_session_token(session[:pocket_token])
 
     if @customer.nil?
@@ -42,12 +45,14 @@ class CustomerController < ApplicationController
       if @transaction.nil?
         redirect_to pocket_transactions_path
       else
+        @stack = @transaction.stack
         render "item"
       end
     end
   end
 
   def create
+    @pre_title = 'Pocket'
     @customer = Customer.where(:email => params[:customer][:email]).first_or_create
     CustomerMailer.confirmation(@customer).deliver
   end

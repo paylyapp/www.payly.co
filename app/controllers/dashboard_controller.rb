@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @pre_title = "Pages Dashboard"
     @user = current_user
     @stack = Stack.new
     @stack.seller_name = @user.full_name
@@ -11,6 +12,8 @@ class DashboardController < ApplicationController
   end
 
   def stack
+    @post_title = "Page"
+    @pre_title = "Pages Dashboard"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
@@ -22,6 +25,8 @@ class DashboardController < ApplicationController
   end
 
   def stack_transactions
+    @post_title = "Transactions"
+    @pre_title = "Pages Dashboard"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
@@ -34,6 +39,8 @@ class DashboardController < ApplicationController
   end
 
   def stack_transaction
+    @post_title = "Transaction"
+    @pre_title = "Pages Dashboard"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
@@ -49,26 +56,9 @@ class DashboardController < ApplicationController
     end
   end
 
-  def stack_updated_download
-    @user = current_user
-    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
-
-    if @stack.nil?
-      render :stack_error
-    else
-      if @stack.can_delivery_file?
-        @stack.transactions.each { |transaction|
-          TransactionMailer.updated(transaction).deliver
-        }
-        @stack.update_attributes(:digital_download_update_flag => false)
-        redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails have been sent."
-      else
-        redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails could not be sent out."
-      end
-    end
-  end
-
   def new_stack
+    @post_title = "New Page"
+    @pre_title = "Pages Dashboard"
     @stack = Stack.new
     @stack.seller_name = current_user.full_name
     @stack.seller_email = current_user.email
@@ -97,6 +87,25 @@ class DashboardController < ApplicationController
       redirect_to dashboard_stack_path(@stack.stack_token)
     else
       render :stack
+    end
+  end
+
+  def stack_updated_download
+    @user = current_user
+    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
+
+    if @stack.nil?
+      render :stack_error
+    else
+      if @stack.can_delivery_file?
+        @stack.transactions.each { |transaction|
+          TransactionMailer.updated(transaction).deliver
+        }
+        @stack.update_attributes(:digital_download_update_flag => false)
+        redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails have been sent."
+      else
+        redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails could not be sent out."
+      end
     end
   end
 

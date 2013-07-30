@@ -15,46 +15,47 @@ unless Rails.env.production?
   User.delete_all
   Stack.delete_all
 
-  # puts '--------------------------------'
-  # puts 'Adding User'
-  # user = User.new
-  # user.full_name = "Tim Gleeson"
-  # user.email = "tim.j.gleeson@gmail.com"
-  # user.password = "1234abcd"
-  # user.password_confirmation = "1234abcd"
-  # user.tos_agreement = true
-  # user.pin_api_key = ENV['PIN_PUBLISHABLE_KEY']
-  # user.pin_api_secret = ENV['PIN_SECRET_KEY']
-  # user.save!
+  puts '--------------------------------'
+  puts 'Adding User'
+  user = User.new
+  user.full_name = "Tim Gleeson"
+  user.email = "tim.j.gleeson@gmail.com"
+  user.password = "1234abcd"
+  user.password_confirmation = "1234abcd"
+  user.tos_agreement = true
+  user.pin_api_key = ENV['PIN_PUBLISHABLE_KEY']
+  user.pin_api_secret = ENV['PIN_SECRET_KEY']
+  user.save!
+  user.confirm!
 
-  # puts '--------------------------------'
-  # user = User.first()
-  # puts 'Pin API Key: ' + user.pin_api_key
-  # puts 'Pin API Secret: ' + user.pin_api_secret
+  puts '--------------------------------'
+  user = User.first()
+  puts 'Pin API Key: ' + user.pin_api_key
+  puts 'Pin API Secret: ' + user.pin_api_secret
 
-  # puts '--------------------------------'
-  # puts 'Adding First Stack'
-  # stack_1 = user.stacks.build
-  # stack_1.product_name = "Test Product 1"
-  # stack_1.charge_amount = 1.00
-  # stack_1.charge_currency = "AUD"
-  # stack_1.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
-  # stack_1.primary_image = File.new("test/fixtures/test-image.jpg")
-  # stack_1.seller_name = "Tim Gleeson"
-  # stack_1.seller_email = "tim.j.gleeson@gmail.com"
-  # stack_1.save!
+  puts '--------------------------------'
+  puts 'Adding First Stack'
+  stack_1 = user.stacks.build
+  stack_1.product_name = "Test Product 1"
+  stack_1.charge_amount = 1.00
+  stack_1.charge_currency = "AUD"
+  stack_1.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
+  stack_1.primary_image = File.new("test/fixtures/test-image.jpg")
+  stack_1.seller_name = "Tim Gleeson"
+  stack_1.seller_email = "tim.j.gleeson@gmail.com"
+  stack_1.save!
 
-  # puts '--------------------------------'
-  # puts 'Adding Second Stack'
-  # stack_2 = user.stacks.build
-  # stack_2.product_name = "Test Product 2"
-  # stack_2.charge_amount = 1.00
-  # stack_2.charge_currency = "AUD"
-  # stack_2.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
-  # stack_2.primary_image = File.new("test/fixtures/test-image.jpg")
-  # stack_2.seller_name = "Tim Gleeson"
-  # stack_2.seller_email = "tim.j.gleeson@gmail.com"
-  # stack_2.save!
+  puts '--------------------------------'
+  puts 'Adding Second Stack'
+  stack_2 = user.stacks.build
+  stack_2.product_name = "Test Product 2"
+  stack_2.charge_amount = 1.00
+  stack_2.charge_currency = "AUD"
+  stack_2.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
+  stack_2.primary_image = File.new("test/fixtures/test-image.jpg")
+  stack_2.seller_name = "Tim Gleeson"
+  stack_2.seller_email = "tim.j.gleeson@gmail.com"
+  stack_2.save!
 
   # for i in 1..40
   #   puts '--------------------------------'

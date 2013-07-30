@@ -29,20 +29,59 @@
       </div>
     </div>
 
-    <div class="heading">
-      <h2>Pin Payments API Keys</h2>
-      <p>Don't have Pin Payment API Keys for live payments? <%= link_to "Sign up today!", "https://pin.net.au/signup", :target => "_blank" %></p>
-    </div>
-    <div class="field field-text field-pin-api-key">
-      <%= f.label :pin_api_key, 'API Key' %>
+    <div class="field field-radio-buttons field-payment-methods">
+      <%= f.label :payment_method, 'Payment Provider' %>
       <div class="input">
-        <%= f.text_field :pin_api_key, :autocomplete => "off" %>
+        <%= f.label :payment_method, :for => "user_payment_method_pin_payments" do %>
+          <%= f.radio_button :payment_method, "pin_payments" %> Pin Payments
+        <% end %>
+        <%= f.label :payment_method, :for => "user_payment_method_braintree" do %>
+          <%= f.radio_button :payment_method, "braintree" %> Braintree
+        <% end %>
       </div>
     </div>
-    <div class="field field-text field-pin-api-secret">
-      <%= f.label :pin_api_secret, 'API Secret' %>
-      <div class="input">
-        <%= f.text_field :pin_api_secret, :autocomplete => "off" %>
+
+    <div class="more-fields" data-show="pin_payments">
+      <div class="heading">
+        <h2>Pin Payments API Keys</h2>
+        <p>Don't have Pin Payment API Keys for live payments? <%= link_to "Sign up today!", "https://pin.net.au/signup", :target => "_blank" %></p>
+      </div>
+      <div class="field field-text field-pin-api-key">
+        <%= f.label :pin_api_key, 'API Key' %>
+        <div class="input">
+          <%= f.text_field :pin_api_key, :autocomplete => "off" %>
+        </div>
+      </div>
+      <div class="field field-text field-pin-api-secret">
+        <%= f.label :pin_api_secret, 'API Secret' %>
+        <div class="input">
+          <%= f.text_field :pin_api_secret, :autocomplete => "off" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="more-fields" data-show="braintree">
+      <div class="heading">
+        <h2>Braintree API Keys</h2>
+        <p>Don't have Braintree API Keys for live payments? <%= link_to "Sign up today!", "https://apply.braintreegateway.com/signup/australia", :target => "_blank" %></p>
+      </div>
+      <div class="field field-text field-pin-api-key">
+        <%= f.label :braintree_merchant_id, 'Merchant ID' %>
+        <div class="input">
+          <%= f.text_field :braintree_merchant_id, :autocomplete => "off" %>
+        </div>
+      </div>
+      <div class="field field-text field-pin-api-secret">
+        <%= f.label :braintree_api_key, 'Public Key' %>
+        <div class="input">
+          <%= f.text_field :braintree_api_key, :autocomplete => "off" %>
+        </div>
+      </div>
+      <div class="field field-text field-pin-api-secret">
+        <%= f.label :braintree_api_secret, 'Private Key' %>
+        <div class="input">
+          <%= f.text_field :braintree_api_secret, :autocomplete => "off" %>
+        </div>
       </div>
     </div>
 

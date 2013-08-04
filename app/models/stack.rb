@@ -3,7 +3,7 @@ class Stack < ActiveRecord::Base
 
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :description,
                   :ga_id, :product_name, :require_billing, :require_shipping,
-                  :return_url, :seller_email, :seller_name,
+                  :return_url, :seller_email, :seller_name, :page_token,
                   :user_token, :primary_image,
                   :has_digital_download, :digital_download_file, :digital_download_receive,
                   :digital_download_term, :digital_download_value, :digital_download_update_flag,
@@ -24,6 +24,8 @@ class Stack < ActiveRecord::Base
   validates :description, :presence => true
   validates_attachment_size :primary_image, :less_than => 1.megabytes
   validates_attachment_content_type :primary_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates :page_token, :presence => true
+  validates :page_token, :uniqueness => true
   validates :seller_name, :presence => true
   validates :seller_email, :presence => true
   validates :seller_trading_name, :presence => true, :if => :sending_an_invoice?
@@ -101,11 +103,6 @@ class Stack < ActiveRecord::Base
     self.stack_token = loop do
       random_token = random_token + SecureRandom.urlsafe_base64
       break random_token unless Stack.where(:stack_token => random_token).exists?
-    end
-
-    self.page_token = loop do
-      random_token = SecureRandom.urlsafe_base64
-      break random_token unless Stack.where(:page_token => random_token).exists?
     end
   end
 end

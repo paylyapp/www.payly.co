@@ -54,6 +54,11 @@ class StacksController < ApplicationController
     @stack.seller_name = current_user.full_name
     @stack.seller_email = current_user.email
 
+    @stack.page_token = loop do
+      random_token = SecureRandom.urlsafe_base64
+      break random_token unless Stack.where(:page_token => random_token).exists?
+    end
+
     render :new_stack
   end
 

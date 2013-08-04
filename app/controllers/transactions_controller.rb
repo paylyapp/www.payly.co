@@ -49,16 +49,20 @@ class TransactionsController < ApplicationController
           'card_token' => params[:transaction][:card_token]
         }
 
-        charge = Hay::Charges.create(@stack.user.pin_api_secret, payload)
+        begin
+          charge = Hay::Charges.create(@stack.user.pin_api_secret, payload)
 
-        # do error messaging here!
-        @transaction.charge_token = charge[:response][:token]
+          @transaction.charge_token = charge[:response][:token]
 
-        if @transaction.save
-          redirect_to page_complete_transaction_path
-        else
+          if @transaction.save
+            redirect_to page_complete_transaction_path
+          else
+            render :transaction
+          end
+        rescue Hay::InvalidRequestError
           render :transaction
         end
+
       elsif @stack.user.payment_method == 'braintree'
         user_gateway = Braintree::Gateway.new(:merchant_id => @stack.user.braintree_merchant_id, :public_key => @stack.user.braintree_api_key, :private_key => @stack.user.braintree_api_secret, :environment => :sandbox)
 
@@ -76,11 +80,14 @@ class TransactionsController < ApplicationController
           }
         )
 
-        # do error messaging here!
-        @transaction.charge_token = charge.transaction.id
+        if charge.success? && charge.transaction.status == 'authorized'
+          @transaction.charge_token = charge.transaction.id
 
-        if @transaction.save
-          redirect_to page_complete_transaction_path
+          if @transaction.save
+            redirect_to page_complete_transaction_path
+          else
+            render :transaction
+          end
         else
           render :transaction
         end

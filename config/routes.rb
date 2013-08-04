@@ -20,9 +20,9 @@ Haystack::Application.routes.draw do
   put     "dashboard/:stack_token"            => "dashboard#update_stack",        :as => 'stack_update'
   delete  "dashboard/:stack_token/destroy"    => "dashboard#destroy_stack",       :as => 'stack_destroy'
 
-  get     "p/:page_token"                     => "page#new_transaction",          :as => 'page_new_transaction'
-  post    "p/:page_token"                     => "page#create_transaction",       :as => 'page_create_transaction'
-  get     "p/:page_token/thanks"           => "page#complete_transaction",     :as => 'page_complete_transaction'
+  get     "p/:page_token"                     => "transactions#new_transaction",          :as => 'page_new_transaction'
+  post    "p/:page_token"                     => "transactions#create_transaction",       :as => 'page_create_transaction'
+  get     "p/:page_token/thanks"              => "transactions#complete_transaction",     :as => 'page_complete_transaction'
 
   get     "download"                          => "stacks#download",     :as => 'download'
 

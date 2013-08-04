@@ -27,9 +27,7 @@ $(function() {
 
   var $form = $('#new_transaction'),
       $submitButton = $form.find(":submit"),
-      $errors = $form.find('.card_errors'),
-      $pin_api_key = $form.find('#stack_pin_api_key').val();
-
+      $errors = $form.find('.card_errors');
 
   function handlePinResponse(response) {
     var $form = $('#new_transaction');

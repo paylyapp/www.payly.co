@@ -29,8 +29,15 @@
     </aside>
 
     <article>
-      <% if current_user.pin_api_key.blank? || current_user.pin_api_secret.blank? %>
-        <%= render "dashboard/api_key_warning" %>
+      <% if current_user.payment_method.blank? %>
+        <%= render "dashboard/payment_api_warning" %>
+      <% else %>
+        <% if current_user.payment_method == 'pin_payments' && (current_user.pin_api_key.blank? || current_user.pin_api_secret.blank?) %>
+          <%= render "dashboard/pin_api_warning" %>
+        <% end %>
+        <% if current_user.payment_method == 'braintree' && (current_user.braintree_merchant_id.blank? || current_user.braintree_api_key.blank? || current_user.braintree_api_secret.blank? || current_user.braintree_client_side_key.blank?) %>
+          <%= render "dashboard/braintree_api_warning" %>
+        <% end %>
       <% end %>
 
       <%= yield %>

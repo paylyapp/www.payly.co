@@ -83,6 +83,12 @@
           <%= f.text_field :braintree_api_secret, :autocomplete => "off" %>
         </div>
       </div>
+      <div class="field field-text field-pin-api-secret">
+        <%= f.label :braintree_client_side_key, 'Client-Side Encryption Key' %>
+        <div class="input">
+          <%= f.text_area :braintree_client_side_key, :autocomplete => "off" %>
+        </div>
+      </div>
     </div>
 
     <div class="heading">

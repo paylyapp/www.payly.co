@@ -1,0 +1,18 @@
+<article>
+  <header>
+    <figure><%= image_tag @stack.primary_image.url(:medium) %></figure>
+    <h1><%= @stack.product_name %> <i class="icon-lock"></i></h1>
+    <p><%= @stack.description %></p>
+    <% if @stack.has_digital_download && !@stack.digital_download_receive.empty? && !@stack.digital_download_file_file_name.nil? %>
+      <p>You will receive a <%= @stack.digital_download_receive %>.</p>
+    <% elsif @stack.has_digital_download && @stack.digital_download_receive.empty? && !@stack.digital_download_file_file_name.nil? %>
+      <p>You will receive a file.</p>
+    <% end %>
+
+    <% if @stack.charge_type == "fixed" %>
+      <span class="cost"><%= number_to_currency(@stack.charge_amount) %><span class="currency"><%= @stack.charge_currency %></span></span>
+    <% end %>
+  </header>
+
+  <%= render "transactions/new_#{@stack.user.payment_method}" %>
+</article>

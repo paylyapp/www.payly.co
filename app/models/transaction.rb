@@ -4,10 +4,11 @@ class Transaction < ActiveRecord::Base
                   :charge_token, :card_token,
                   :stack_token,
                   :shipping_full_name,
-                  :shipping_address_line1, :shipping_address_line2, :shipping_address_city, 
+                  :shipping_address_line1, :shipping_address_line2, :shipping_address_city,
                   :shipping_address_postcode, :shipping_address_state, :shipping_address_country
 
   belongs_to :stack, :foreign_key => :stack_token
+  belongs_to :customer
 
   validates :buyer_name, :presence => true
   validates :buyer_email, :presence => true

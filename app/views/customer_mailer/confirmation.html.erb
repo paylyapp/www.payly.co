@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Pocket</h1>
+    <p>Please follow this link to confirm who you are:</p>
+    <p>
+      <%= link_to 'Your pocket', pocket_url(:token => @customer.user_token) %>
+    </p>
+    <p>You have received this email because your email address was entered through Pocket, a service of Payly.</p>
+    <p>Thanks,<br />Payly</p>
+  </body>
+</html>

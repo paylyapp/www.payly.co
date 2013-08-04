@@ -83,6 +83,12 @@
       <%= f.text_field :seller_email, :placeholder => current_user.email, :"data-required" => "true" %>
     </div>
   </div>
+  <div class="field field-text field-ga-id">
+    <%= f.label :page_token, 'Custom Page URL' %>
+    <div class="input">
+      <%= f.text_field :page_token %>
+    </div>
+  </div>
   <div class="field field-text field-return-url">
     <%= f.label :return_url %>
     <div class="input">

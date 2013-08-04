@@ -6,6 +6,7 @@ gem 'attr_encrypted'
 gem 'heroku'
 
 gem 'hay', :git => 'git://github.com/paylyapp/hay.git'
+gem 'braintree'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'

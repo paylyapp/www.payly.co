@@ -6,11 +6,18 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessor   :current_password
-  attr_accessible :user_token, :full_name, :email, :pin_api_key, :pin_api_secret,
+  attr_accessible :user_token, :full_name, :email,
                   :password, :password_confirmation, :current_password,
-                  :remember_me, :tos_agreement, :opt_in_communication
+                  :remember_me, :tos_agreement, :opt_in_communication,
+                  :payment_method,
+                  :pin_api_key, :pin_api_secret,
+                  :braintree_merchant_id, :braintree_api_key, :braintree_api_secret, :braintree_client_side_key
   attr_encrypted  :pin_api_key, :key => ENV['ENCRYPT_USER_PIN_API_KEY']
   attr_encrypted  :pin_api_secret, :key => ENV['ENCRYPT_USER_PIN_API_SECRET']
+  attr_encrypted  :braintree_merchant_id, :key => ENV['ENCRYPT_USER_BRAINTREE_MERCHANT_ID']
+  attr_encrypted  :braintree_api_key, :key => ENV['ENCRYPT_USER_BRAINTREE_API_KEY']
+  attr_encrypted  :braintree_api_secret, :key => ENV['ENCRYPT_USER_BRAINTREE_API_SECRET']
+  attr_encrypted  :braintree_client_side_key, :key => ENV['ENCRYPT_USER_BRAINTREE_CLIENT_SIDE_KEY']
 
   validates_presence_of :full_name
   validates_presence_of :email

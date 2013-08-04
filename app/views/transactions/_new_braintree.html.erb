@@ -3,7 +3,6 @@
     <h3></h3>
     <ul></ul>
   </div>
-
   <div class="field field-text field-buyer-name">
     <%= f.label :buyer_name, 'Your name' %>
     <div class="input">
@@ -44,31 +43,31 @@
   <div class="field field-text field-buyer-name">
     <%= label :card, :name, 'Name on Card' %>
     <div class="input">
-      <%= text_field :card, :name, :name => '' %>
+      <%= text_field :card, :name, :name => 'card_name' %>
     </div>
   </div>
   <div class="field field-text field-card-number">
     <%= label :card, :number, "Card number" %>
     <div class="input">
-      <%= text_field :card, :number, :name => '' %>
+      <%= text_field :card, :number, :name => '', :'data-encrypted-name' => "number" %>
     </div>
   </div>
   <div class="field field-text field-expiry-month">
     <%= label :card, :expiry_month %>
     <div class="input">
-    <%= text_field :card, :expiry_month, :name => '' %>
+    <%= text_field :card, :expiry_month, :name => 'month' %>
     </div>
   </div>
   <div class="field field-text field-expiry-year">
     <%= label :card, :expiry_year %>
     <div class="input">
-    <%= text_field :card, :expiry_year, :name => '' %>
+    <%= text_field :card, :expiry_year, :name => 'year' %>
     </div>
   </div>
   <div class="field field-text field-cvc">
     <%= label :card, :cvc, "Security Code" %>
     <div class="input">
-    <%= text_field :card, :cvc, :name => '' %>
+    <%= text_field :card, :cvc, :name => '', :'data-encrypted-name' => "cvc" %>
     </div>
   </div>
 
@@ -181,6 +180,8 @@
   </script>
 <% end %>
 
+<script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree.js"></script>
 <script type="text/javascript">
-  Pin.setPublishableKey('<%= @stack.user.pin_api_key %>');
+  var braintree = Braintree.create("<%= @stack.user.braintree_client_side_key %>");
+  braintree.onSubmitEncryptForm('new_transaction');
 </script>

@@ -97,4 +97,18 @@ class TransactionsController < ApplicationController
       render :complete_transaction
     end
   end
+
+  def download
+    transaction = Transaction.find_by_transaction_token(params[:token])
+
+    if transaction.nil?
+      render "page/error"
+    else
+      if transaction.stack.has_digital_download
+        redirect_to transaction.stack.digital_download_file.expiring_url(600)
+      else
+        render "page/error"
+      end
+    end
+  end
 end

@@ -14,5 +14,5 @@
     <% end %>
   </header>
 
-  <%= render "transactions/new" %>
+  <%= render "transactions/new_#{@stack.user.payment_method}" %>
 </article>

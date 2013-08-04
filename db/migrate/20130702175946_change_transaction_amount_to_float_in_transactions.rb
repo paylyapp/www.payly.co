@@ -4,7 +4,7 @@ class ChangeTransactionAmountToFloatInTransactions < ActiveRecord::Migration
     add_column :transactions, :transaction_amount, :float
 
     Transaction.reset_column_information
-    Transaction.find_each { |c| c.update_attribute(:transaction_amount, c.transaction_amount_integer) } 
+    Transaction.find_each { |c| c.update_attribute(:transaction_amount, c.transaction_amount_integer) }
     remove_column :transactions, :transaction_amount_integer
   end
 

@@ -43,4 +43,17 @@ $(function() {
     });
   });
 
+  $('.field-payment-methods').next('.more-fields').hide().next('.more-fields').hide();
+
+  if($('.field-payment-methods input:checked').length > 0) {
+    var input = $('.field-payment-methods input:checked');
+    $('.more-fields[data-show="'+input.val()+'"]').show();
+  }
+
+  $('.field-payment-methods input').change(function() {
+    var input = $(this);
+    $('.more-fields').slideUp();
+    $('.more-fields[data-show="'+input.val()+'"]').slideDown();
+  });
+
 });

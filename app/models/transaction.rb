@@ -14,28 +14,11 @@ class Transaction < ActiveRecord::Base
   validates :buyer_email, :presence => true
   validates :transaction_amount, :presence => true
 
-  before_create :charge_card
   before_create :generate_token
   after_create :send_transaction_emails
 
   protected
 
-  def charge_card
-    amount = (self.transaction_amount * 100).to_i
-
-    payload = {
-      'email' => self.buyer_email,
-      'description' => self.stack.product_name,
-      'amount' => amount,
-      'currency' => self.stack.charge_currency,
-      'ip_address' => self.buyer_ip_address,
-      'card_token' => self.card_token
-    }
-
-    charge = Hay::Charges.create(self.stack.user.pin_api_secret, payload)
-
-    self.charge_token = charge[:response][:token]
-  end
 
   def generate_token
     random_token = 't_'

@@ -39,10 +39,10 @@
           <li class="step-three first">
             <div class="header">
               <i class="step">Step 3</i>
-              <h3>Connect to Pin</h3>
+              <h3>Connect to an API</h3>
             </div>
             <div class="content">
-              <p>Sign up to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> to grab a live API key and add it to your account.</p>
+              <p>Connect to either <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> or <%= link_to "Braintree", "http://www.braintreepayments.com", :target => "_blank" %> and add the neccessary details to your account.</p>
             </div>
           </li>
           <li class="step-four last">
@@ -51,7 +51,7 @@
               <h3>Share and craft</h3>
             </div>
             <div class="content">
-              <p>Share your page then go back to crafting that amazing thing you were crafting.</p>
+              <p>Share your page, then go back to crafting that amazing thing you were crafting.</p>
             </div>
           </li>
         </ul>
@@ -84,7 +84,7 @@
               <h3>Never store credit cards</h3>
             </div>
             <div class="content">
-              <p>We use Pin Payments to handle all credit card information we receive  so we don't have to.</p>
+              <p>We use Pin Payments and Braintree to handle all credit card information we receive  so we don't have to.</p>
             </div>
           </li>
         </ul>
@@ -121,9 +121,9 @@
 
       <div class="pricing">
         <h2>Pricing</h2>
-        <p>It's free! Unlimited Payment Pages!</p>
+        <p>It's free! Unlimited Pages with digital delivery of files!</p>
         <%= link_to "Sign up • Free", new_user_registration_path, :class => "button" %>
-        <p class="pin">Transactions are subject to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> additional transaction charges of 3% + 30c per transaction.</p>
+        <p class="pin">Transactions are subject to the additional transaction charges of your payment provider.<br />Pin Payments' additional transaction charges of 3% + 30c per transaction.<br />Braintree’s additional transaction charges for Australian’s are currently 2.4% + 30c per transaction.</p>
       </div>
 
 

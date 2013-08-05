@@ -68,6 +68,7 @@ Haystack::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   Hay.api_base = "api.pin.net.au"
+  Braintree::Configuration.environment = :sandbox
 
   GA.tracker = "UA-40132590-1"
 

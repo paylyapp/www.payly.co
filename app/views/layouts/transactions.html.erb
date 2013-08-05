@@ -19,11 +19,6 @@
   <%= javascript_include_tag :modernizr %>
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
-
-  <%= javascript_include_tag "https://test-api.pin.net.au/pin.js" unless Rails.env.production? %>
-  <%= javascript_include_tag "https://api.pin.net.au/pin.js" if Rails.env.production? %>
-  <%= javascript_include_tag "transactions" %>
-
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
@@ -36,7 +31,7 @@
 
   <footer class="global">
     <div class="made-by">
-      Made with <%= link_to "Payly", root_path %>
+      Powered by <%= link_to "Payly", root_path %>
     </div>
   </footer>
 

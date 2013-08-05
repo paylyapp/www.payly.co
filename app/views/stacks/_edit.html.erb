@@ -94,6 +94,12 @@
       <%= f.text_field :seller_email, :placeholder => current_user.email %>
     </div>
   </div>
+  <div class="field field-text field-ga-id">
+    <%= f.label :page_token, 'Custom Page URL' %>
+    <div class="input">
+      <%= f.text_field :page_token %>
+    </div>
+  </div>
   <div class="field field-text field-return-url">
     <%= f.label :return_url %>
     <div class="input">
@@ -182,7 +188,7 @@
 
   <footer class="actions">
     <div class="button-group">
-      <%= f.submit 'Save Payment Page', :class => 'primary-action' %>
+      <%= f.submit 'Save Page', :class => 'primary-action' %>
 
       <%= link_to 'Delete', stack_destroy_path(@stack.stack_token), class: :'delete-action', method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>

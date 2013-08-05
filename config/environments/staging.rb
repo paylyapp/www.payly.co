@@ -89,4 +89,6 @@ Haystack::Application.configure do
     :authentication => :plain
   }
   ActionMailer::Base.delivery_method = :smtp
+
+  Braintree::Configuration.environment = :sandbox
 end

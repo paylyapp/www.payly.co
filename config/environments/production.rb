@@ -2,6 +2,8 @@ Haystack::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   config.force_ssl = true
 
+  config.action_mailer.default_url_options = { :host => 'www.payly.co' }
+
   # Code is not reloaded between requests
   config.cache_classes = true
 

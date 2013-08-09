@@ -1,6 +1,5 @@
 Haystack::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
   config.force_ssl = true
 
   # Code is not reloaded between requests
@@ -20,7 +19,9 @@ Haystack::Application.configure do
   config.assets.compile = false
 
   # Generate digests for assets URLs
-  config.assets.digest = false
+  config.assets.digest = true
+
+  config.assets.initialize_on_precompile = false
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

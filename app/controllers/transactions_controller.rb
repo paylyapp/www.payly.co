@@ -65,7 +65,7 @@ class TransactionsController < ApplicationController
 
       elsif @stack.user.payment_method == 'braintree'
         user_gateway = Braintree::Gateway.new(:merchant_id => @stack.user.braintree_merchant_id, :public_key => @stack.user.braintree_api_key, :private_key => @stack.user.braintree_api_secret, :environment => :sandbox)
-
+        #TODO: add billing details and card name
         charge = user_gateway.transaction.create(
           :type => 'sale',
           :amount => params[:transaction][:transaction_amount],

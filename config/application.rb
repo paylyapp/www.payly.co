@@ -37,7 +37,14 @@ module Haystack
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password, :pin_api_key, :pin_api_secret]
+    # users
+    config.filter_parameters += %w( email full_name password )
+    config.filter_parameters += %w( pin_api_key pin_api_secret )
+    config.filter_parameters += %w( braintree_merchant_id braintree_api_key braintree_api_secret braintree_client_side_key )
+    # transactions
+    config.filter_parameters += %w( name number year month cvc )
+    config.filter_parameters += %w( address_line1 address_line2 city postcode state address_country[country] )
+
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true

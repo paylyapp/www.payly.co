@@ -1,0 +1,19 @@
+.transaction__contact {
+  @include pie-clearfix();
+  text-align: center;
+
+  li {
+    display: inline-block;
+    padding: 0 $gutter*2;
+    color: #7F8C8D;
+    font-size: 12px;
+
+    a {
+      color: #2C3E50;
+
+      &:hover {
+        color: #2C3E50;
+      }
+    }
+  }
+}

@@ -16,3 +16,10 @@
 
   <%= render "transactions/new_#{@stack.user.payment_method}" %>
 </article>
+
+
+<ul class="transaction__contact">
+  <li>
+    <%= mail_to @stack.seller_email, 'Have a question or comment', :subject => "I have a question regarding purchasing #{@stack.product_name}", :class => "transaction__contact__link" %>
+  </li>
+</ul>

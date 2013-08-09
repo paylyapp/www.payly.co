@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require libraries/bootstrap/bootstrap.js
-//= require libraries/bootstrap-select/bootstrap-select.min.js
 
 $(function() {
 

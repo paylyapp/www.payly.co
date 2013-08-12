@@ -11,11 +11,8 @@
     </div>
   <% end %>
 
-  <div class="field field-text field-product">
-    <%= f.label :product_name, "Name" %>
-    <div class="input">
-      <%= f.text_field :product_name, :placeholder => "Product Name" %>
-    </div>
+  <div class="heading">
+    <h2>Payment Details</h2>
   </div>
   <div class="field field-select field-charge-type">
     <%= f.label :charge_type, "Type of charge" %>
@@ -30,6 +27,23 @@
       <%= f.text_field :charge_amount, :placeholder => "56.78", :value => number_with_precision(@stack.charge_amount, :precision => 2) %>
       <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
     </div>
+  </div>
+
+  <div class="heading">
+    <h2>Page Details</h2>
+  </div>
+  <div class="field field-text field-product">
+    <%= f.label :product_name, "Name" %>
+    <div class="input">
+      <%= f.text_field :product_name %>
+    </div>
+  </div>
+  <div class="field field-text field-ga-id">
+    <%= f.label :page_token, 'Slug' %>
+    <div class="input">
+      <%= f.text_field :page_token %>
+    </div>
+    <p class="description">You can customise the URL of your payment page.</p>
   </div>
   <div class="field field-textarea field-description">
     <%= f.label :description %>
@@ -46,7 +60,39 @@
     </div>
     <p class="description">Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.</p>
   </div>
-    <div class="field field-text field-digital-download field-more-fields">
+  <div class="field field-text field-return-url">
+    <%= f.label :return_url %>
+    <div class="input">
+      <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
+    </div>
+  </div>
+  <div class="field field-text field-ga-id">
+    <%= f.label :ga_id, 'Google Analytics ID' %>
+    <div class="input">
+      <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
+    </div>
+  </div>
+
+  <div class="heading">
+    <h2>Seller Details</h2>
+  </div>
+  <div class="field field-text field-seller-name">
+    <%= f.label :seller_name, "Seller's name" %>
+    <div class="input">
+      <%= f.text_field :seller_name, :placeholder => current_user.full_name %>
+    </div>
+  </div>
+  <div class="field field-text field-seller-email">
+    <%= f.label :seller_email, "Seller's email" %>
+    <div class="input">
+      <%= f.text_field :seller_email, :placeholder => current_user.email %>
+    </div>
+  </div>
+
+  <div class="heading">
+    <h2>Other Details</h2>
+  </div>
+  <div class="field field-text field-digital-download field-more-fields">
     <%= f.label :has_digital_download do %>Provide downloadable file<% end %>
     <div class="input">
       <label><%= f.check_box :has_digital_download %></label>
@@ -81,44 +127,6 @@
     </div>
     <% end %>
   </div>
-
-  <div class="field field-text field-seller-name">
-    <%= f.label :seller_name, "Seller's name" %>
-    <div class="input">
-      <%= f.text_field :seller_name, :placeholder => current_user.full_name %>
-    </div>
-  </div>
-  <div class="field field-text field-seller-email">
-    <%= f.label :seller_email, "Seller's email" %>
-    <div class="input">
-      <%= f.text_field :seller_email, :placeholder => current_user.email %>
-    </div>
-  </div>
-  <div class="field field-text field-ga-id">
-    <%= f.label :page_token, 'Custom Page URL' %>
-    <div class="input">
-      <%= f.text_field :page_token %>
-    </div>
-  </div>
-  <div class="field field-text field-return-url">
-    <%= f.label :return_url %>
-    <div class="input">
-      <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
-    </div>
-  </div>
-  <div class="field field-text field-ga-id">
-    <%= f.label :ga_id, 'Google Analytics ID' %>
-    <div class="input">
-      <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
-    </div>
-  </div>
-  <div class="field field-text field-require-shipping">
-    <%= f.label :bcc_receipt do %>BCC me payment receipts<% end %>
-    <div class="input">
-      <label><%= f.check_box :bcc_receipt %></label>
-    </div>
-  </div>
-
   <div class="field field-text field-invoice field-more-fields">
     <%= f.label :send_invoice_email do %>Send invoice email<% end %>
     <div class="input">
@@ -183,6 +191,12 @@
     <%= f.label :require_shipping do %>Require shipping details<% end %>
     <div class="input">
       <label><%= f.check_box :require_shipping %></label>
+    </div>
+  </div>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :bcc_receipt do %>BCC me payment receipts<% end %>
+    <div class="input">
+      <label><%= f.check_box :bcc_receipt %></label>
     </div>
   </div>
 

@@ -1,6 +1,10 @@
 class TransactionsController < ApplicationController
   layout "transactions"
 
+  def stack_list
+
+  end
+
   def new_transaction
     @stack = Stack.find_by_page_token(params[:page_token])
 

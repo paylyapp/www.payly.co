@@ -9,6 +9,7 @@ Haystack::Application.routes.draw do
   get     "pocket/transactions"               => "customer#list",                 :as => 'pocket_transactions'
   get     "pocket/transactions/:transaction_token" => "customer#item",            :as => 'pocket_transaction'
 
+  get     "l/:username"                       => "transactions#stack_list",           :as => 'transaction_stack_list'
   get     "p/*page_token"                     => "transactions#new_transaction",      :as => 'page_new_transaction'
   post    "p/*page_token"                     => "transactions#create_transaction",   :as => 'page_create_transaction'
   get     "t/*page_token"                     => "transactions#complete_transaction", :as => 'page_complete_transaction'

@@ -23,11 +23,6 @@
   </header>
 
   <section>
-    <aside id="user-navigation">
-      <%= link_to '#', :class => "top-button" do %><i class="icon-remove"></i><% end %>
-      <%= render "user/sidebar" %>
-    </aside>
-
     <article>
       <% if current_user.payment_method.blank? %>
         <%= render "user/payment_api_warning" %>
@@ -42,6 +37,11 @@
 
       <%= yield %>
     </article>
+
+    <aside id="user-navigation">
+      <%= link_to '#', :class => "top-button" do %><i class="icon-remove"></i><% end %>
+      <%= render "user/sidebar" %>
+    </aside>
   </section>
 
   <footer class="global">

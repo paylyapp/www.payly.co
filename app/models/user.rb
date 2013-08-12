@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessor   :current_password
-  attr_accessible :user_token, :full_name, :email,
+  attr_accessible :user_token, :full_name, :email, :username,
                   :password, :password_confirmation, :current_password,
                   :remember_me, :tos_agreement, :opt_in_communication,
                   :payment_method,
@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   validates_presence_of :full_name
   validates_presence_of :email
   validates_uniqueness_of :email
+  validates_uniqueness_of :username
   validates_acceptance_of :tos_agreement, :accept => true || "1", :on => :create
 
   has_many :stacks, :foreign_key => :user_token, :dependent => :delete_all

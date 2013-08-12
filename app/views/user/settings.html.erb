@@ -28,6 +28,12 @@
         <%= f.email_field :email, :autocomplete => "off" %>
       </div>
     </div>
+    <div class="field field-text field-email">
+      <%= f.label :username %>
+      <div class="input">
+        <%= f.text_field :username %>
+      </div>
+    </div>
 
     <div class="field field-radio-buttons field-payment-methods">
       <%= f.label :payment_method, 'Payment Provider' %>

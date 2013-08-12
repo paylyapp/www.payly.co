@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130730210227) do
+ActiveRecord::Schema.define(:version => 20130812071409) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20130730210227) do
     t.string   "encrypted_braintree_api_key"
     t.string   "encrypted_braintree_api_secret"
     t.text     "encrypted_braintree_client_side_key"
+    t.string   "username",                            :default => ""
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

@@ -72,6 +72,8 @@ Haystack::Application.configure do
 
   GA.tracker = "UA-40132590-2"
 
+  config.braintree_environment = :sandbox
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
@@ -91,5 +93,4 @@ Haystack::Application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
-  Braintree::Configuration.environment = :sandbox
 end

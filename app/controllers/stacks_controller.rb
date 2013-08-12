@@ -1,5 +1,5 @@
 class StacksController < ApplicationController
-  layout "dashboard"
+  layout "user"
   before_filter :authenticate_user!
 
   def stack

@@ -42,7 +42,7 @@ module Haystack
     config.filter_parameters += %w( pin_api_key pin_api_secret )
     config.filter_parameters += %w( braintree_merchant_id braintree_api_key braintree_api_secret braintree_client_side_key )
     # transactions
-    config.filter_parameters += %w( name number year month cvc )
+    config.filter_parameters += %w( name number year month cvv )
     config.filter_parameters += %w( address_line1 address_line2 city postcode state address_country[country] )
 
 

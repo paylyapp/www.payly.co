@@ -64,30 +64,35 @@ class TransactionsController < ApplicationController
         end
 
       elsif @stack.user.payment_method == 'braintree'
-        user_gateway = Braintree::Gateway.new(:merchant_id => @stack.user.braintree_merchant_id, :public_key => @stack.user.braintree_api_key, :private_key => @stack.user.braintree_api_secret)
+        user_gateway = Braintree::Gateway.new(:merchant_id => @stack.user.braintree_merchant_id,
+                                              :public_key => @stack.user.braintree_api_key,
+                                              :private_key => @stack.user.braintree_api_secret,
+                                              :environment => Rails.application.config.braintree_environment)
 
-        if Rails.env.production?
-          user_gateway.environment = :production
-        else
-          user_gateway.environment = :sandbox
-        end
-
-        #TODO: add billing details and card name
         charge = user_gateway.transaction.create(
           :type => 'sale',
           :amount => params[:transaction][:transaction_amount],
           :credit_card => {
+            :cardholder_name => params[:name],
             :number => params[:number],
             :cvv => params[:cvv],
             :expiration_month => params[:month],
             :expiration_year => params[:year]
+          },
+          :billing => {
+            :street_address => params[:address_line1],
+            :extended_address => params[:address_line2],
+            :locality => params[:city],
+            :region => params[:state],
+            :postal_code => params[:postcode],
+            :country_name => params[:address_country][:country]
           },
           :options => {
             :submit_for_settlement => true
           }
         )
 
-        if charge.success? && charge.transaction.status == 'authorized'
+        if charge.success?
           @transaction.charge_token = charge.transaction.id
 
           if @transaction.save

@@ -1,11 +1,13 @@
 <%= form_for @stack, :url => stack_update_path, :method => 'put', :html => {:multipart => true, :autocomplete => "off"} do |f| %>
   <% if @stack.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@stack.errors.count, "error") %> prohibited this stack from being saved:</h2>
+    <div id="error_explanation" class="notification notification-danger">
+      <h2><%= pluralize(@stack.errors.count, "error") %> prohibited this page from being saved:</h2>
 
       <ul>
-      <% @stack.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @stack.errors.messages.each do |attr,message| %>
+        <% message.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       <% end %>
       </ul>
     </div>
@@ -53,7 +55,6 @@
   </div>
   <div class="field field-file-upload field-primary-image">
     <%= f.label :primary_image, 'Logo' %>
-
     <div class="input">
       <%= image_tag @stack.primary_image.url(:tiny) %>
       <%= f.file_field :primary_image %>
@@ -72,6 +73,12 @@
       <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
     </div>
   </div>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :require_shipping do %>Require shipping details<% end %>
+    <div class="input">
+      <label><%= f.check_box :require_shipping %></label>
+    </div>
+  </div>
 
   <div class="heading">
     <h2>Seller Details</h2>
@@ -88,49 +95,16 @@
       <%= f.text_field :seller_email, :placeholder => current_user.email %>
     </div>
   </div>
-
-  <div class="heading">
-    <h2>Other Details</h2>
-  </div>
-  <div class="field field-text field-digital-download field-more-fields">
-    <%= f.label :has_digital_download do %>Provide downloadable file<% end %>
-    <div class="input">
-      <label><%= f.check_box :has_digital_download %></label>
-    </div>
-  </div>
-  <div class="more-fields">
-    <div class="heading">
-      <h2>Your downloadable file</h2>
-      <p>You can provide a file that is downloadable upon sucessful payment through this payment page.</p>
-      <p>Downloadable files are currently limited to 10MB in size.</p>
-    </div>
-    <div class="field field-text field-digital-download-file">
-      <%= f.label :digital_download_file, 'Downloadable file' %>
-      <div class="input">
-        <%= f.file_field :digital_download_file, :"data-required" => "true" %>
-      </div>
-      <% unless @stack.digital_download_file_file_name.blank? && @stack.digital_download_file.path.blank? && @stack.digital_download_file_updated_at.blank? %>
-        <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank' %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
-      <% end %>
-    </div>
-    <div class="field field-text field-digital-download-receive">
-      <%= f.label :digital_download_receive, 'What will buyers receive' %>
-      <div class="input">
-      <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
-      </div>
-    </div>
-    <% if @stack.digital_download_update_flag %>
-    <div class="field field-link field-send-updated-email">
-      <div class="input">
-        <%= link_to "Inform previous buyers about your updated file", dashboard_stack_updated_download_path(@stack.stack_token) %>
-      </div>
-    </div>
-    <% end %>
-  </div>
   <div class="field field-text field-invoice field-more-fields">
     <%= f.label :send_invoice_email do %>Send invoice email<% end %>
     <div class="input">
       <label><%= f.check_box :send_invoice_email %></label>
+    </div>
+  </div>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :bcc_receipt do %>BCC payment receipts<% end %>
+    <div class="input">
+      <label><%= f.check_box :bcc_receipt %></label>
     </div>
   </div>
   <div class="more-fields">
@@ -187,17 +161,43 @@
       </div>
     </div>
   </div>
-  <div class="field field-text field-require-shipping">
-    <%= f.label :require_shipping do %>Require shipping details<% end %>
+
+  <div class="heading">
+    <h2>Downloadable file</h2>
+  </div>
+  <div class="field field-text field-digital-download field-more-fields">
+    <%= f.label :has_digital_download do %>Provide downloadable file<% end %>
     <div class="input">
-      <label><%= f.check_box :require_shipping %></label>
+      <label><%= f.check_box :has_digital_download %></label>
     </div>
   </div>
-  <div class="field field-text field-require-shipping">
-    <%= f.label :bcc_receipt do %>BCC me payment receipts<% end %>
-    <div class="input">
-      <label><%= f.check_box :bcc_receipt %></label>
+  <div class="more-fields">
+    <div class="heading">
+      <p>You can provide a file that is downloadable upon sucessful payment through this payment page.</p>
+      <p>Downloadable files are currently limited to 10MB in size.</p>
     </div>
+    <div class="field field-text field-digital-download-file">
+      <%= f.label :digital_download_file, 'Downloadable file' %>
+      <div class="input">
+        <%= f.file_field :digital_download_file, :"data-required" => "true" %>
+      </div>
+      <% unless @stack.digital_download_file_file_name.blank? && @stack.digital_download_file.path.blank? && @stack.digital_download_file_updated_at.blank? %>
+        <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank' %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
+      <% end %>
+    </div>
+    <div class="field field-text field-digital-download-receive">
+      <%= f.label :digital_download_receive, 'What will buyers receive' %>
+      <div class="input">
+      <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
+      </div>
+    </div>
+    <% if @stack.digital_download_update_flag %>
+    <div class="field field-link field-send-updated-email">
+      <div class="input">
+        <%= link_to "Inform previous buyers about your updated file", dashboard_stack_updated_download_path(@stack.stack_token) %>
+      </div>
+    </div>
+    <% end %>
   </div>
 
   <footer class="actions">

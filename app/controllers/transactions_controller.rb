@@ -66,7 +66,6 @@ class TransactionsController < ApplicationController
         rescue Hay::InvalidRequestError
           render :transaction
         end
-
       elsif @stack.user.payment_method == 'braintree'
         user_gateway = Braintree::Gateway.new(:merchant_id => @stack.user.braintree_merchant_id,
                                               :public_key => @stack.user.braintree_api_key,
@@ -104,7 +103,17 @@ class TransactionsController < ApplicationController
           else
             render :transaction
           end
+        elsif charge.transaction.status == 'processor_declined'
+          flash[:status] = "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
+          render :transaction
+        elsif charge.transaction.status == 'gateway_rejected'
+          flash[:status] = "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
+          render :transaction
+        elsif !charge.errors.nil?
+          flash[:status] = charge.errors
+          render :transaction
         else
+          flash[:status] = "Something went wrong. Please try again."
           render :transaction
         end
       end

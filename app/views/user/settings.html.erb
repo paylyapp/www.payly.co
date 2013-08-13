@@ -7,7 +7,6 @@
     <% if @user.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
         <ul>
         <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -26,12 +25,6 @@
       <%= f.label :email %>
       <div class="input">
         <%= f.email_field :email, :autocomplete => "off" %>
-      </div>
-    </div>
-    <div class="field field-text field-email">
-      <%= f.label :username %>
-      <div class="input">
-        <%= f.text_field :username %>
       </div>
     </div>
 

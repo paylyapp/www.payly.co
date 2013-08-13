@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
   validates_presence_of :full_name
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates_uniqueness_of :username
   validates_acceptance_of :tos_agreement, :accept => true || "1", :on => :create
 
   has_many :stacks, :foreign_key => :user_token, :dependent => :delete_all

@@ -18,23 +18,23 @@ class Stack < ActiveRecord::Base
   has_attached_file :primary_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
   has_attachment :digital_download_file
 
-  validates :product_name, :presence => true
-  validates :charge_amount, :presence => true, :if => :charge_type_is_fixed?
-  validates :charge_amount, :numericality => true, :if => :charge_type_is_fixed?
-  validates :description, :presence => true
+  validates :product_name, :presence => { :message => "This page must have a name." }
+  validates :charge_amount, :presence => { :message => "This page must have an amount." }, :if => :charge_type_is_fixed?
+  validates :charge_amount, :numericality => { :message => "The amount must be numerical." }, :if => :charge_type_is_fixed?
+  validates :description, :presence => { :message => "This page must have a description." }
   validates_attachment_size :primary_image, :less_than => 1.megabytes
   validates_attachment_content_type :primary_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates :page_token, :presence => true
-  validates :page_token, :uniqueness => true
-  validates :seller_name, :presence => true
-  validates :seller_email, :presence => true
-  validates :seller_trading_name, :presence => true, :if => :sending_an_invoice?
-  validates :seller_abn, :presence => true, :if => :sending_an_invoice?
-  validates :seller_address_line1, :presence => true, :if => :sending_an_invoice?
-  validates :seller_address_city, :presence => true, :if => :sending_an_invoice?
-  validates :seller_address_postcode, :presence => true, :if => :sending_an_invoice?
-  validates :seller_address_state, :presence => true, :if => :sending_an_invoice?
-  validates :seller_address_country, :presence => true, :if => :sending_an_invoice?
+  validates :page_token, :presence => { :message => "This page must have a slug." }
+  validates :page_token, :uniqueness => { :message => "The slug has already been used." }
+  validates :seller_name, :presence => { :message => "This page must have the seller's name." }
+  validates :seller_email, :presence => { :message => "This page must have the seller's email." }
+  validates :seller_trading_name, :presence => { :message => "This page must have the seller's trading name." }, :if => :sending_an_invoice?
+  validates :seller_abn, :presence => { :message => "This page must have the seller's ABN." }, :if => :sending_an_invoice?
+  validates :seller_address_line1, :presence => { :message => "This page must have the seller's address line 1." }, :if => :sending_an_invoice?
+  validates :seller_address_city, :presence => { :message => "This page must have the seller's city." }, :if => :sending_an_invoice?
+  validates :seller_address_postcode, :presence => { :message => "This page must have the seller's postcode." }, :if => :sending_an_invoice?
+  validates :seller_address_state, :presence => { :message => "This page must have the seller's state." }, :if => :sending_an_invoice?
+  validates :seller_address_country, :presence => { :message => "This page must have the seller's country." }, :if => :sending_an_invoice?
 
 
   validates_attachment_size :digital_download_file, :less_than => 10.megabytes

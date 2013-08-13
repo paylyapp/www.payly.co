@@ -1,0 +1,19 @@
+.notification {
+  @include border-radius(3px);
+
+  margin: 10px 10px 0 10px;
+  padding: 10px;
+  background-color: #e74c3c;
+  color: #fff;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+  li {
+    list-style: disc;
+    margin: 5px 0 0 20px;
+  }
+  p {
+    margin-top: 0;
+  }
+}

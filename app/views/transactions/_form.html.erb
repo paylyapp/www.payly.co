@@ -1,167 +1,161 @@
-<%= form_for @transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
-  <div class='card_errors' style='display:none'>
-    <h3></h3>
-    <ul></ul>
+<div class="field field-text field-buyer-name">
+  <%= f.label :buyer_name, 'Your name' %>
+  <div class="input">
+    <%= f.text_field :buyer_name %>
   </div>
-  <div class="field field-text field-buyer-name">
-    <%= f.label :buyer_name, 'Your name' %>
-    <div class="input">
-      <%= f.text_field :buyer_name %>
-    </div>
+</div>
+<div class="field field-text field-buyer-email">
+  <%= f.label :buyer_email, 'Your email' %>
+  <div class="input">
+    <%= f.text_field :buyer_email %>
   </div>
-  <div class="field field-text field-buyer-email">
-    <%= f.label :buyer_email, 'Your email' %>
-    <div class="input">
-      <%= f.text_field :buyer_email %>
-    </div>
+</div>
+<% if @stack.charge_type == "any" %>
+<div class="field field-text field-charge-amount">
+  <%= f.label :transaction_amount, 'Amount' %>
+  <div class="input">
+    <div class="pre"><%= f.label :charge_amount, '$' %></div>
+    <%= f.text_field :transaction_amount %>
+    <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
   </div>
-  <% if @stack.charge_type == "any" %>
-  <div class="field field-text field-charge-amount">
-    <%= f.label :transaction_amount, 'Amount' %>
-    <div class="input">
-      <div class="pre"><%= f.label :charge_amount, '$' %></div>
-      <%= f.text_field :transaction_amount %>
-      <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
-    </div>
-  </div>
-  <% end %>
-  <% if @stack.charge_type == "from" %>
-  <div class="field field-text field-charge-amount">
-    <%= f.label :transaction_amount, 'Amount from' %>
-    <div class="input">
-      <div class="pre"><%= f.label :charge_amount, '$' %></div>
-      <%= f.text_field :transaction_amount %>
-      <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
-    </div>
-  </div>
-  <% end %>
-
-  <div class="heading">
-    <h2>Card Details</h2>
-    <p><i class="icon-credit-card"></i> Mastercard and Visa only</p>
-  </div>
-  <div class="field field-text field-buyer-name">
-    <%= label :card, :name, 'Name on Card' %>
-    <div class="input">
-      <%= text_field :card, :name, :name => 'name' %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :number, "Card number" %>
-    <div class="input">
-      <%= text_field :card, :number, :name => '', :'data-encrypted-name' => "number" %>
-    </div>
-  </div>
-  <div class="field field-text field-expiry-month">
-    <%= label :card, :expiry_month %>
-    <div class="input">
-    <%= text_field :card, :expiry_month, :name => 'month' %>
-    </div>
-  </div>
-  <div class="field field-text field-expiry-year">
-    <%= label :card, :expiry_year %>
-    <div class="input">
-    <%= text_field :card, :expiry_year, :name => 'year' %>
-    </div>
-  </div>
-  <div class="field field-text field-cvc">
-    <%= label :card, :cvc, "Security Code" %>
-    <div class="input">
-    <%= text_field :card, :cvc, :name => '', :'data-encrypted-name' => "cvv" %>
-    </div>
-  </div>
-
-  <div class="heading">
-    <h2>Billing Details</h2>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :address_line1, 'Address Line 1' %>
-    <div class="input">
-    <%= text_field :card, :address_line1, :name => 'address_line1' %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :address_line2, 'Address Line 2' %>
-    <div class="input">
-    <%= text_field :card, :address_line2, :name => 'address_line2' %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :address_city, 'City' %>
-    <div class="input">
-    <%= text_field :card, :address_city, :name => 'city' %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :address_postcode, 'Postcode' %>
-    <div class="input">
-    <%= text_field :card, :address_postcode, :name => 'postcode' %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :address_state, 'State' %>
-    <div class="input">
-    <%= text_field :card, :address_state, :name => 'state' %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= label :card, :address_country, 'Country' %>
-    <div class="input">
-      <%= country_select :address_country, :country, ["Australia"], :class => "dropup" %>
-    </div>
-  </div>
-
-  <% if @stack.require_shipping %>
-
-  <div class="heading">
-    <h2>Shipping Details</h2>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_full_name, "Recipient's name" %>
-    <div class="input">
-    <%= f.text_field :shipping_full_name %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_line1, 'Address Line 1' %>
-    <div class="input">
-    <%= f.text_field :shipping_address_line1 %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_line2, 'Address Line 2' %>
-    <div class="input">
-    <%= f.text_field :shipping_address_line2 %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_city, 'City' %>
-    <div class="input">
-    <%= f.text_field :shipping_address_city %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_postcode, 'Postcode' %>
-    <div class="input">
-    <%= f.text_field :shipping_address_postcode %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_state, 'State' %>
-    <div class="input">
-    <%= f.text_field :shipping_address_state %>
-    </div>
-  </div>
-  <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_country, 'Country' %>
-    <div class="input">
-      <%= f.country_select :shipping_address_country, ["Australia"], :class => "dropup" %>
-    </div>
-  </div>
-
-  <% end %>
-
-  <footer class="actions">
-    <%= f.submit "Buy this", class: :'primary-action' %>
-  </footer>
+</div>
 <% end %>
+<% if @stack.charge_type == "from" %>
+<div class="field field-text field-charge-amount">
+  <%= f.label :transaction_amount, 'Amount from' %>
+  <div class="input">
+    <div class="pre"><%= f.label :charge_amount, '$' %></div>
+    <%= f.text_field :transaction_amount %>
+    <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+  </div>
+</div>
+<% end %>
+
+<div class="heading">
+  <h2>Card Details</h2>
+  <p><i class="icon-credit-card"></i> Mastercard and Visa only</p>
+</div>
+<div class="field field-text field-buyer-name">
+  <%= label :card, :name, 'Name on Card' %>
+  <div class="input">
+    <%= text_field :card, :name, :name => 'name' %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :number, "Card number" %>
+  <div class="input">
+    <%= text_field :card, :number, :name => '', :'data-encrypted-name' => "number" %>
+  </div>
+</div>
+<div class="field field-text field-expiry-month">
+  <%= label :card, :expiry_month %>
+  <div class="input">
+  <%= text_field :card, :expiry_month, :name => 'month' %>
+  </div>
+</div>
+<div class="field field-text field-expiry-year">
+  <%= label :card, :expiry_year %>
+  <div class="input">
+  <%= text_field :card, :expiry_year, :name => 'year' %>
+  </div>
+</div>
+<div class="field field-text field-cvc">
+  <%= label :card, :cvc, "Security Code" %>
+  <div class="input">
+  <%= text_field :card, :cvc, :name => '', :'data-encrypted-name' => "cvv" %>
+  </div>
+</div>
+
+<div class="heading">
+  <h2>Billing Details</h2>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :address_line1, 'Address Line 1' %>
+  <div class="input">
+  <%= text_field :card, :address_line1, :name => 'address_line1' %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :address_line2, 'Address Line 2' %>
+  <div class="input">
+  <%= text_field :card, :address_line2, :name => 'address_line2' %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :address_city, 'City' %>
+  <div class="input">
+  <%= text_field :card, :address_city, :name => 'city' %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :address_postcode, 'Postcode' %>
+  <div class="input">
+  <%= text_field :card, :address_postcode, :name => 'postcode' %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :address_state, 'State' %>
+  <div class="input">
+  <%= text_field :card, :address_state, :name => 'state' %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :address_country, 'Country' %>
+  <div class="input">
+    <%= country_select :address_country, :country, ["Australia"], :class => "dropup" %>
+  </div>
+</div>
+
+<% if @stack.require_shipping %>
+
+<div class="heading">
+  <h2>Shipping Details</h2>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_full_name, "Recipient's name" %>
+  <div class="input">
+  <%= f.text_field :shipping_full_name %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_line1, 'Address Line 1' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_line1 %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_line2, 'Address Line 2' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_line2 %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_city, 'City' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_city %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_postcode, 'Postcode' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_postcode %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_state, 'State' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_state %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_country, 'Country' %>
+  <div class="input">
+    <%= f.country_select :shipping_address_country, ["Australia"], :class => "dropup" %>
+  </div>
+</div>
+
+<% end %>
+
+<footer class="actions">
+  <%= f.submit "Buy this", class: :'primary-action' %>
+</footer>

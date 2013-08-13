@@ -1,11 +1,13 @@
 <%= form_for @stack, :url => stack_create_path, :html => {:multipart => true, :autocomplete => "off"} do |f| %>
   <% if @stack.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@stack.errors.count, "error") %> prohibited this stack from being saved:</h2>
+    <div id="error_explanation" class="notification notification-danger">
+      <h2><%= pluralize(@stack.errors.count, "error") %> prohibited this page from being saved:</h2>
 
       <ul>
-      <% @stack.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @stack.errors.messages.each do |attr,message| %>
+        <% message.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       <% end %>
       </ul>
     </div>
@@ -71,6 +73,12 @@
       <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
     </div>
   </div>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :require_shipping do %>Require shipping details<% end %>
+    <div class="input">
+      <label><%= f.check_box :require_shipping %></label>
+    </div>
+  </div>
 
   <div class="heading">
     <h2>Seller Details</h2>
@@ -87,33 +95,10 @@
       <%= f.text_field :seller_email, :placeholder => current_user.email, :"data-required" => "true" %>
     </div>
   </div>
-
-  <div class="heading">
-    <h2>Other Details</h2>
-  </div>
-  <div class="field field-text field-digital-download field-more-fields">
-    <%= f.label :has_digital_download do %>Provide downloadable file<% end %>
+  <div class="field field-text field-require-shipping">
+    <%= f.label :bcc_receipt do %>BCC payment receipts<% end %>
     <div class="input">
-      <label><%= f.check_box :has_digital_download %></label>
-    </div>
-  </div>
-  <div class="more-fields">
-    <div class="heading">
-      <h2>Your downloadable file</h2>
-      <p>You can provide a file that is downloadable upon sucessful payment through this payment page.</p>
-      <p>Downloadable files are currently limited to 10MB in size.</p>
-    </div>
-    <div class="field field-text field-digital-download-file">
-      <%= f.label :digital_download_file, 'Downloadable file' %>
-      <div class="input">
-        <%= f.file_field :digital_download_file, :"data-required" => "true" %>
-      </div>
-    </div>
-    <div class="field field-text field-digital-download-receive">
-      <%= f.label :digital_download_receive, 'What will buyers receive' %>
-      <div class="input">
-      <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
-      </div>
+      <label><%= f.check_box :bcc_receipt %></label>
     </div>
   </div>
   <div class="field field-text field-invoice field-more-fields">
@@ -176,16 +161,32 @@
       </div>
     </div>
   </div>
-  <div class="field field-text field-require-shipping">
-    <%= f.label :require_shipping do %>Require shipping details<% end %>
+
+  <div class="heading">
+    <h2>Downloadable file</h2>
+  </div>
+  <div class="field field-text field-digital-download field-more-fields">
+    <%= f.label :has_digital_download do %>Provide downloadable file<% end %>
     <div class="input">
-      <label><%= f.check_box :require_shipping %></label>
+      <label><%= f.check_box :has_digital_download %></label>
     </div>
   </div>
-  <div class="field field-text field-require-shipping">
-    <%= f.label :bcc_receipt do %>BCC me payment receipts<% end %>
-    <div class="input">
-      <label><%= f.check_box :bcc_receipt %></label>
+  <div class="more-fields">
+    <div class="heading">
+      <p>You can provide a file that is downloadable upon sucessful payment through this payment page.</p>
+      <p>Downloadable files are currently limited to 10MB in size.</p>
+    </div>
+    <div class="field field-text field-digital-download-file">
+      <%= f.label :digital_download_file, 'Downloadable file' %>
+      <div class="input">
+        <%= f.file_field :digital_download_file, :"data-required" => "true" %>
+      </div>
+    </div>
+    <div class="field field-text field-digital-download-receive">
+      <%= f.label :digital_download_receive, 'What will buyers receive' %>
+      <div class="input">
+      <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
+      </div>
     </div>
   </div>
 

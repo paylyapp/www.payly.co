@@ -62,6 +62,7 @@ $(function() {
     }
   }
 
+  //move this into a submit handler for this form
   $form.submit(function(e) {
 
     e.preventDefault();

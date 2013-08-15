@@ -28,6 +28,8 @@
       <div class="pre"><%= f.label :charge_amount, '$' %></div>
       <%= f.text_field :charge_amount, :placeholder => "56.78" %>
       <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+      <span class='field-error-text error-text--required'>This field is required.</span>
+      <span class='field-error-text error-text--number'>This field must be a number.</span>
     </div>
   </div>
 
@@ -44,14 +46,16 @@
   <div class="field field-text field-ga-id">
     <%= f.label :page_token, 'Slug' %>
     <div class="input">
-      <%= f.text_field :page_token %>
+      <%= f.text_field :page_token, :class => 'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
     <p class="description">You can customise the URL of your payment page.</p>
   </div>
   <div class="field field-textarea field-description">
     <%= f.label :description %>
     <div class="input">
-      <%= f.text_area :description, :placeholder => "A really great description of your product.", :"data-required" => "true" %>
+      <%= f.text_area :description, :placeholder => "A really great description of your product.", :class => 'required'%>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-file-upload field-primary-image">
@@ -87,13 +91,16 @@
   <div class="field field-text field-seller-name">
     <%= f.label :seller_name, "Seller's name" %>
     <div class="input">
-      <%= f.text_field :seller_name, :placeholder => current_user.full_name, :"data-required" => "true" %>
+      <%= f.text_field :seller_name, :placeholder => current_user.full_name, :class => 'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-seller-email">
     <%= f.label :seller_email, "Seller's email" %>
     <div class="input">
-      <%= f.text_field :seller_email, :placeholder => current_user.email, :"data-required" => "true" %>
+      <%= f.email_field :seller_email, :placeholder => current_user.email, :class => 'required email' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
+      <span class='field-error-text error-text--email'>This field needs to be an email address.</span>
     </div>
   </div>
   <div class="field field-text field-require-shipping">

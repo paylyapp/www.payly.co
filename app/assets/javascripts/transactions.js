@@ -54,37 +54,40 @@ $(function() {
       $errorList.empty();
 
       $.each(response.messages, function(index, errorMessage) {
-        $('<li>').text(errorMessage.param + ": " + errorMessage.message).appendTo($errorList);
+        $('<li>').text(errorMessage.message).appendTo($errorList);
       });
 
       $errors.show();
+      $(window).scrollTop(0);
       $submitButton.removeAttr('disabled');
     }
   }
 
-  //move this into a submit handler for this form
   $form.submit(function(e) {
+    if($form.valid()) {
+      e.preventDefault();
+      $errors.hide();
 
-    e.preventDefault();
-    $errors.hide();
+      $submitButton.attr({disabled: true});
 
-    $submitButton.attr({disabled: true});
+      var card = {
+        number: $('input[data-encrypted-name="number"]').val(),
+        name: $('#card_name').val(),
+        expiry_month: $('#card_expiry_month').val(),
+        expiry_year: $('#card_expiry_year').val(),
+        cvc: $('input[data-encrypted-name="cvv"]').val(),
+        address_line1: $('#card_address_line1').val(),
+        address_line2: $('#card_address_line2').val(),
+        address_city: $('#card_address_city').val(),
+        address_state: $('#card_address_state').val(),
+        address_postcode: $('#card_address_postcode').val(),
+        address_country: $('#card_address_country').val()
+      };
 
-    var card = {
-      number: $('input[data-encrypted-name="number"]').val(),
-      name: $('#card_name').val(),
-      expiry_month: $('#card_expiry_month').val(),
-      expiry_year: $('#card_expiry_year').val(),
-      cvc: $('input[data-encrypted-name="cvv"]').val(),
-      address_line1: $('#card_address_line1').val(),
-      address_line2: $('#card_address_line2').val(),
-      address_city: $('#card_address_city').val(),
-      address_state: $('#card_address_state').val(),
-      address_postcode: $('#card_address_postcode').val(),
-      address_country: $('#card_address_country').val()
-    };
+      Pin.createToken(card, handlePinResponse);
+    }
+  })
+  //move this into a submit handler for this form
 
-    Pin.createToken(card, handlePinResponse);
-  });
 
 });

@@ -1,13 +1,16 @@
 <div class="field field-text field-buyer-name">
   <%= f.label :buyer_name, 'Your name' %>
   <div class="input">
-    <%= f.text_field :buyer_name %>
+    <%= f.text_field :buyer_name, :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-buyer-email">
   <%= f.label :buyer_email, 'Your email' %>
   <div class="input">
-    <%= f.text_field :buyer_email %>
+    <%= f.email_field :buyer_email, :class=>'required email' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+    <span class='field-error-text error-text--email'>This field needs to be an email.</span>
   </div>
 </div>
 <% if @stack.charge_type == "any" %>
@@ -15,18 +18,10 @@
   <%= f.label :transaction_amount, 'Amount' %>
   <div class="input">
     <div class="pre"><%= f.label :charge_amount, '$' %></div>
-    <%= f.text_field :transaction_amount %>
+    <%= f.text_field :transaction_amount, :class=>'required number' %>
     <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
-  </div>
-</div>
-<% end %>
-<% if @stack.charge_type == "from" %>
-<div class="field field-text field-charge-amount">
-  <%= f.label :transaction_amount, 'Amount from' %>
-  <div class="input">
-    <div class="pre"><%= f.label :charge_amount, '$' %></div>
-    <%= f.text_field :transaction_amount %>
-    <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+    <span class='field-error-text error-text--number'>This field needs to be a number.</span>
   </div>
 </div>
 <% end %>
@@ -38,31 +33,37 @@
 <div class="field field-text field-buyer-name">
   <%= label :card, :name, 'Name on Card' %>
   <div class="input">
-    <%= text_field :card, :name, :name => 'name' %>
+    <%= text_field :card, :name, :name => 'name', :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= label :card, :number, "Card number" %>
   <div class="input">
-    <%= text_field :card, :number, :name => '', :'data-encrypted-name' => "number" %>
+    <%= text_field :card, :number, :name => '', :class=>'required creditcard', :'data-encrypted-name' => "number" %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+    <span class='field-error-text error-text--creditcard'>This field needs to be a valid credit card number.</span>
   </div>
 </div>
 <div class="field field-text field-expiry-month">
   <%= label :card, :expiry_month %>
   <div class="input">
-  <%= text_field :card, :expiry_month, :name => 'month' %>
+    <%= text_field :card, :expiry_month, :name => 'month', :class=>'required', :maxlength => '2' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-expiry-year">
   <%= label :card, :expiry_year %>
   <div class="input">
-  <%= text_field :card, :expiry_year, :name => 'year' %>
+    <%= text_field :card, :expiry_year, :name => 'year', :class=>'required', :minlength => '4', :maxlength => '4' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
-<div class="field field-text field-cvc">
-  <%= label :card, :cvc, "Security Code" %>
+<div class="field field-text field-cvv">
+  <%= label :card, :cvv, "Security Code" %>
   <div class="input">
-  <%= text_field :card, :cvc, :name => '', :'data-encrypted-name' => "cvv" %>
+    <%= text_field :card, :cvv, :name => '', :class=>'required', :'data-encrypted-name' => "cvv" %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 
@@ -72,37 +73,42 @@
 <div class="field field-text field-card-number">
   <%= label :card, :address_line1, 'Address Line 1' %>
   <div class="input">
-  <%= text_field :card, :address_line1, :name => 'address_line1' %>
+    <%= text_field :card, :address_line1, :name => 'address_line1', :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= label :card, :address_line2, 'Address Line 2' %>
   <div class="input">
-  <%= text_field :card, :address_line2, :name => 'address_line2' %>
+    <%= text_field :card, :address_line2, :name => 'address_line2' %>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= label :card, :address_city, 'City' %>
   <div class="input">
-  <%= text_field :card, :address_city, :name => 'city' %>
+    <%= text_field :card, :address_city, :name => 'city', :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= label :card, :address_postcode, 'Postcode' %>
   <div class="input">
-  <%= text_field :card, :address_postcode, :name => 'postcode' %>
+    <%= text_field :card, :address_postcode, :name => 'postcode', :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= label :card, :address_state, 'State' %>
   <div class="input">
-  <%= text_field :card, :address_state, :name => 'state' %>
+    <%= text_field :card, :address_state, :name => 'state', :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= label :card, :address_country, 'Country' %>
   <div class="input">
-    <%= country_select :address_country, :country, ["Australia"], :class => "dropup" %>
+    <%= country_select :address_country, :country, ["Australia"], :class => "dropup required" %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>
 

@@ -70,11 +70,11 @@ $(function() {
     $submitButton.attr({disabled: true});
 
     var card = {
-      number: $('#card_number').val(),
+      number: $('input[data-encrypted-name="number"]').val(),
       name: $('#card_name').val(),
       expiry_month: $('#card_expiry_month').val(),
       expiry_year: $('#card_expiry_year').val(),
-      cvc: $('#card_cvc').val(),
+      cvc: $('input[data-encrypted-name="cvv"]').val(),
       address_line1: $('#card_address_line1').val(),
       address_line2: $('#card_address_line2').val(),
       address_city: $('#card_address_city').val(),

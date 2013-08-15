@@ -64,6 +64,7 @@ class TransactionsController < ApplicationController
             render :transaction
           end
         rescue Hay::InvalidRequestError
+          flash[:status] = "We weren't able to process your credit card for some reason. Please try again."
           render :transaction
         end
       elsif @stack.user.payment_method == 'braintree'

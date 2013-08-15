@@ -28,13 +28,11 @@ roboto-thinitalic-webfont.svg: d64ad0a08cea45653e0fd31371710f3b
 roboto-thinitalic-webfont.ttf: 34c31ecd0762ace25cc8cf28d5b2bba5
 roboto-thinitalic-webfont.woff: af741ab6c91177d40c8195b06db5f9d6
 desktop-payment-page.png: b5657ee09ad1819c9907475199c3bae6
-how-it-works.png: bed2f42ab188b55ebe0431ceb41bc52f
 mobile-payment-page.png: d974ea06a381364e76a5a8d05666b7c8
 new_page_form.png: 9073beecb23234b28b95f86fb683080a
 payment_analysis.png: f47e1834aa652bace0a3edc64302f5c1
 payment_page.jpg: a64454aa09ace6fc2e431856a0e577ee
 payment_page.png: ebdaa296b419a2289cb3cd2a0e6c87a0
-rails.png: a3386665c05a2d82f711a4aaa72d247c
 stacks/primary_image/default/large/logo.jpg: 5da3393696c9bf12a5df5dd1dc7cee3b
 stacks/primary_image/default/medium/logo.jpg: ce373556c8500b6da8e4f63d0ec7cba0
 stacks/primary_image/default/original/logo.jpg: dca6e621bac8c03c4d6cfc5221332e4b
@@ -44,7 +42,6 @@ application.js: 1b13569e9620782f423d4cd3ce931750
 dashboard.js: f4a17f56ca45fcb65e1eea7bb2dd8b53
 devise.js: b6ce21f685c259740ddf7eb3dc319067
 home.js: b9be1f863da15553f67c6380d132a0ab
-transactions.js: 60944d691978438838ad82d10394ff29
 application.css: fe922a573492b7c51cc9482584920eab
 modernizr.js: 371c79fee71dffa8b18861aaed1528f8
 jquery.min.map: 1c0cf7b6a3425fbd9a3bfccab0a99a4e

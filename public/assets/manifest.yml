@@ -57,8 +57,6 @@ roboto-thinitalic-webfont.woff: roboto-thinitalic-webfont-af741ab6c91177d40c8195
 roboto-thinitalic-webfont/index.woff: roboto-thinitalic-webfont-af741ab6c91177d40c8195b06db5f9d6.woff
 desktop-payment-page.png: desktop-payment-page-b5657ee09ad1819c9907475199c3bae6.png
 desktop-payment-page/index.png: desktop-payment-page-b5657ee09ad1819c9907475199c3bae6.png
-how-it-works.png: how-it-works-bed2f42ab188b55ebe0431ceb41bc52f.png
-how-it-works/index.png: how-it-works-bed2f42ab188b55ebe0431ceb41bc52f.png
 mobile-payment-page.png: mobile-payment-page-d974ea06a381364e76a5a8d05666b7c8.png
 mobile-payment-page/index.png: mobile-payment-page-d974ea06a381364e76a5a8d05666b7c8.png
 new_page_form.png: new_page_form-9073beecb23234b28b95f86fb683080a.png
@@ -69,8 +67,6 @@ payment_page.jpg: payment_page-a64454aa09ace6fc2e431856a0e577ee.jpg
 payment_page/index.jpg: payment_page-a64454aa09ace6fc2e431856a0e577ee.jpg
 payment_page.png: payment_page-ebdaa296b419a2289cb3cd2a0e6c87a0.png
 payment_page/index.png: payment_page-ebdaa296b419a2289cb3cd2a0e6c87a0.png
-rails.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
-rails/index.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
 stacks/primary_image/default/large/logo.jpg: stacks/primary_image/default/large/logo-5da3393696c9bf12a5df5dd1dc7cee3b.jpg
 stacks/primary_image/default/large/logo/index.jpg: stacks/primary_image/default/large/logo-5da3393696c9bf12a5df5dd1dc7cee3b.jpg
 stacks/primary_image/default/medium/logo.jpg: stacks/primary_image/default/medium/logo-ce373556c8500b6da8e4f63d0ec7cba0.jpg
@@ -89,8 +85,6 @@ devise.js: devise-396ae2315d6601954c90af66f2b43682.js
 devise/index.js: devise-396ae2315d6601954c90af66f2b43682.js
 home.js: home-cbc9e5971cbdf4c7c486843dab4dfc1f.js
 home/index.js: home-cbc9e5971cbdf4c7c486843dab4dfc1f.js
-transactions.js: transactions-ab7d36cf1df9d32d8977d32cf9d90025.js
-transactions/index.js: transactions-ab7d36cf1df9d32d8977d32cf9d90025.js
 application.css: application-68dd7c62963a8b0cac01c210447db7c6.css
 application/index.css: application-68dd7c62963a8b0cac01c210447db7c6.css
 modernizr.js: modernizr-3fd836b133d0d6f7c6cf2a423c69e11e.js

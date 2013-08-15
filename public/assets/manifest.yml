@@ -85,6 +85,10 @@ devise.js: devise-396ae2315d6601954c90af66f2b43682.js
 devise/index.js: devise-396ae2315d6601954c90af66f2b43682.js
 home.js: home-cbc9e5971cbdf4c7c486843dab4dfc1f.js
 home/index.js: home-cbc9e5971cbdf4c7c486843dab4dfc1f.js
+transactions-braintree.js: transactions-braintree-396ae2315d6601954c90af66f2b43682.js
+transactions-braintree/index.js: transactions-braintree-396ae2315d6601954c90af66f2b43682.js
+transactions-pin-payments.js: transactions-pin-payments-ab7d36cf1df9d32d8977d32cf9d90025.js
+transactions-pin-payments/index.js: transactions-pin-payments-ab7d36cf1df9d32d8977d32cf9d90025.js
 application.css: application-68dd7c62963a8b0cac01c210447db7c6.css
 application/index.css: application-68dd7c62963a8b0cac01c210447db7c6.css
 modernizr.js: modernizr-3fd836b133d0d6f7c6cf2a423c69e11e.js

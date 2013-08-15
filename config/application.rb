@@ -71,7 +71,7 @@ module Haystack
 
     # Precompile additional assets
     config.assets.precompile += %w( .svg .eot .woff .ttf )
-    config.assets.precompile += ['dashboard.js', 'home.js', 'transactions.js', 'devise.js']
+    config.assets.precompile += ['dashboard.js', 'home.js', 'transactions-pin-payments.js', 'transactions-braintree.js', 'devise.js']
 
     config.generators do |g|
       g.test_framework :rspec, fixture: true

@@ -42,6 +42,8 @@ application.js: 1b13569e9620782f423d4cd3ce931750
 dashboard.js: f4a17f56ca45fcb65e1eea7bb2dd8b53
 devise.js: b6ce21f685c259740ddf7eb3dc319067
 home.js: b9be1f863da15553f67c6380d132a0ab
+transactions-braintree.js: b6ce21f685c259740ddf7eb3dc319067
+transactions-pin-payments.js: 60944d691978438838ad82d10394ff29
 application.css: fe922a573492b7c51cc9482584920eab
 modernizr.js: 371c79fee71dffa8b18861aaed1528f8
 jquery.min.map: 1c0cf7b6a3425fbd9a3bfccab0a99a4e

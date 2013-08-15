@@ -37,7 +37,8 @@
   <div class="field field-text field-product">
     <%= f.label :product_name, "Name" %>
     <div class="input">
-      <%= f.text_field :product_name %>
+      <%= f.text_field :product_name, :class => 'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-ga-id">

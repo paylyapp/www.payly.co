@@ -95,16 +95,16 @@
       <%= f.text_field :seller_email, :placeholder => current_user.email %>
     </div>
   </div>
-  <div class="field field-text field-invoice field-more-fields">
-    <%= f.label :send_invoice_email do %>Send invoice email<% end %>
-    <div class="input">
-      <label><%= f.check_box :send_invoice_email %></label>
-    </div>
-  </div>
   <div class="field field-text field-require-shipping">
     <%= f.label :bcc_receipt do %>BCC payment receipts<% end %>
     <div class="input">
       <label><%= f.check_box :bcc_receipt %></label>
+    </div>
+  </div>
+  <div class="field field-text field-invoice field-more-fields">
+    <%= f.label :send_invoice_email do %>Send invoice email<% end %>
+    <div class="input">
+      <label><%= f.check_box :send_invoice_email %></label>
     </div>
   </div>
   <div class="more-fields">

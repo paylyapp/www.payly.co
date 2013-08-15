@@ -103,14 +103,14 @@ class TransactionsController < ApplicationController
           else
             render :transaction
           end
+        elsif !charge.errors.nil?
+          flash[:status] = charge.errors
+          render :transaction
         elsif charge.transaction.status == 'processor_declined'
           flash[:status] = "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
           render :transaction
         elsif charge.transaction.status == 'gateway_rejected'
           flash[:status] = "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
-          render :transaction
-        elsif !charge.errors.nil?
-          flash[:status] = charge.errors
           render :transaction
         else
           flash[:status] = "Something went wrong. Please try again."

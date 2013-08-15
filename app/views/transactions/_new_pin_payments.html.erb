@@ -18,12 +18,7 @@
 
   <% if flash[:status] %>
   <div class="notification notification-danger">
-    <h2><%= pluralize(flash[:status].count, "error") %> prohibited this page from performing a transaction:</h2>
-    <ul>
-    <% flash[:status].each do |message| %>
-      <li>(<%= message.code %>) <%= message.message %></li>
-    <% end %>
-    </ul>
+    <p><%= flash[:status] %></p>
   </div>
   <% end %>
 

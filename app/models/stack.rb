@@ -59,7 +59,7 @@ class Stack < ActiveRecord::Base
   end
 
   def weekly_stats
-    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(:start_day => :sunday), Time.now)
+    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
     count = transactions.count
     cost = 0
     transactions.each do |transaction|

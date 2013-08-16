@@ -10,7 +10,6 @@ class Stack < ActiveRecord::Base
                   :send_invoice_email, :seller_trading_name, :seller_abn, :invoice_number,
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
-                  :shipping_cost_value, :shipping_cost_term,
                   :archived, :visible
 
   belongs_to :user, :foreign_key => :user_token
@@ -22,10 +21,10 @@ class Stack < ActiveRecord::Base
   validates :product_name, :presence => { :message => "This page must have a name." }
   validates :charge_amount, :presence => { :message => "This page must have an amount." }, :if => :charge_type_is_fixed?
   validates :charge_amount, :numericality => { :message => "The amount must be numerical." }, :if => :charge_type_is_fixed?
-  validates :description, :presence => { :message => "This page must have a description." }
+  validates :description, :presence => { :message => "This page must have a description." }, :if => :not_decommisioned?
   validates_attachment_size :primary_image, :less_than => 1.megabytes
   validates_attachment_content_type :primary_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates :page_token, :presence => { :message => "This page must have a slug." }
+  validates :page_token, :presence => { :message => "This page must have a slug." }, :if => :not_decommisioned?
   validates :page_token, :uniqueness => { :message => "The slug has already been used." }
   validates :seller_name, :presence => { :message => "This page must have the seller's name." }
   validates :seller_email, :presence => { :message => "This page must have the seller's email." }
@@ -55,8 +54,12 @@ class Stack < ActiveRecord::Base
     true
   end
 
+  def not_decommisioned?
+    !self.archived
+  end
+
   def weekly_stats
-    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
+    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(:start_day => :sunday), Time.now)
     count = transactions.count
     cost = 0
     transactions.each do |transaction|
@@ -97,10 +100,15 @@ class Stack < ActiveRecord::Base
   def decommission
     self.archived = true
     self.visible = false
+    self.has_digital_download = false
+    self.charge_type = nil
+    self.charge_amount = 0
     self.primary_image = nil
     self.digital_download_file = nil
     self.ga_id = nil
     self.return_url = nil
+    self.description = nil
+    self.page_token = nil
     self.save!
   end
 

@@ -10,10 +10,11 @@ class Stack < ActiveRecord::Base
                   :send_invoice_email, :seller_trading_name, :seller_abn, :invoice_number,
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
-                  :shipping_cost_value, :shipping_cost_term
+                  :shipping_cost_value, :shipping_cost_term,
+                  :archive, :visible
 
   belongs_to :user, :foreign_key => :user_token
-  has_many :transactions, :foreign_key => :stack_token, :dependent => :delete_all
+  has_many :transactions, :foreign_key => :stack_token
 
   has_attached_file :primary_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
   has_attachment :digital_download_file
@@ -86,9 +87,22 @@ class Stack < ActiveRecord::Base
     transactions.each do |transaction|
       cost += transaction.stack.charge_amount
     end
-
     stats = {:count => count, :cost => cost}
     stats
+  end
+
+  # remove old unnecessary data
+  # must keep product name, currency charged,
+  # seller name, seller email, required shipping
+  def decommission
+    self.archived = true
+    self.visible = false
+    self.description = nil
+    self.primary_image = nil
+    self.digital_download_file = nil
+    self.ga_id = nil
+    self.return_url = nil
+    self.save!
   end
 
   protected

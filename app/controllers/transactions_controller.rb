@@ -8,7 +8,7 @@ class TransactionsController < ApplicationController
   def new_transaction
     @stack = Stack.find_by_page_token(params[:page_token])
 
-    if @stack.nil?
+    if @stack.nil? || @stack.archived
       render :error
     else
       if @stack.user.nil?
@@ -34,7 +34,7 @@ class TransactionsController < ApplicationController
   def create_transaction
     @stack = Stack.find_by_page_token(params[:page_token])
 
-    if @stack.nil?
+    if @stack.nil?  || @stack.archived
       render :error
     else
       params[:transaction][:transaction_amount] = @stack.charge_amount if @stack.charge_type == "fixed"
@@ -124,7 +124,7 @@ class TransactionsController < ApplicationController
   def complete_transaction
     @stack = Stack.find_by_page_token(params[:page_token])
 
-    if @stack.nil?
+    if @stack.nil?  || @stack.archived
       render :error
     else
       render :complete_transaction
@@ -137,6 +137,7 @@ class TransactionsController < ApplicationController
     if transaction.nil?
       render "page/error"
     else
+      # fix logic here
       if transaction.stack.has_digital_download
         redirect_to transaction.stack.digital_download_file.expiring_url(600)
       else

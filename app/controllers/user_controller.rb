@@ -5,7 +5,7 @@ class UserController < ApplicationController
   def root
     @pre_title = "Pages Dashboard"
     @user = current_user
-    if @user.stacks.empty?
+    if @user.stacks.where(:archived => false).empty?
       @stack = Stack.new
       @stack.seller_name = @user.full_name
       @stack.seller_email = @user.email

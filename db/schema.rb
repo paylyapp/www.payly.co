@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812071409) do
+ActiveRecord::Schema.define(:version => 20130816070956) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(:version => 20130812071409) do
     t.string   "digital_download_value",             :default => [],                    :array => true
     t.string   "digital_download_receive"
     t.boolean  "digital_download_update_flag",       :default => false
+    t.boolean  "archived",                           :default => false
+    t.boolean  "visible",                            :default => true
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true

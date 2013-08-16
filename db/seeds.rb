@@ -67,21 +67,19 @@ unless Rails.env.production?
   stack_1.page_token = "test/stack/1"
   stack_1.charge_currency = "AUD"
   stack_1.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
-  stack_1.primary_image = File.new("test/fixtures/test-image.jpg")
   stack_1.seller_name = "Tim Gleeson"
   stack_1.seller_email = "tim.j.gleeson@gmail.com"
   stack_1.save!
 
   puts '--------------------------------'
   puts 'Adding Second Stack'
-  stack_2 = user_2.stacks.build
+  stack_2 = user_1.stacks.build
   stack_2.product_name = "Test Product 2"
   stack_2.charge_type = 'fixed'
   stack_2.charge_amount = 1.00
   stack_2.page_token = "test/stack/2"
   stack_2.charge_currency = "AUD"
   stack_2.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
-  stack_2.primary_image = File.new("test/fixtures/test-image.jpg")
   stack_2.seller_name = "Tim Gleeson"
   stack_2.seller_email = "tim.j.gleeson@gmail.com"
   stack_2.save!

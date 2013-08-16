@@ -24,17 +24,18 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_acceptance_of :tos_agreement, :accept => true || "1", :on => :create
 
-  has_many :stacks, :foreign_key => :user_token, :dependent => :delete_all
+  has_many :stacks, :foreign_key => :user_token
   has_many :transactions, :through => :stacks
 
   before_create :generate_token
+  before_destroy :hide_owned_stacks
 
   def weekly_stats
     transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
     count = transactions.count
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.stack.charge_amount
+      cost += transaction.transaction_amount
     end
 
     stats = {:count => count, :cost => cost}
@@ -74,6 +75,14 @@ class User < ActiveRecord::Base
     self.user_token = loop do
       random_token = random_token + SecureRandom.urlsafe_base64
       break random_token unless User.where(:user_token => random_token).exists?
+    end
+  end
+
+  def hide_owned_stacks
+    stacks = Stack.where(:user_token => self.id)
+
+    stacks.each do |stack|
+      stack.decommission
     end
   end
 

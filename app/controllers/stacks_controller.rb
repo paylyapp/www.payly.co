@@ -8,7 +8,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil?
+    if @stack.nil? || @stack.archived
       render :stack_error
     else
       render :stack
@@ -21,7 +21,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil?
+    if @stack.nil? || @stack.archived
       render :stack_error
     else
       @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
@@ -35,7 +35,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil?
+    if @stack.nil? || @stack.archived
       render :stack_error
     else
       @transaction = @stack.transactions.find_by_transaction_token(params[:transaction_token])
@@ -107,7 +107,7 @@ class StacksController < ApplicationController
 
   def destroy_stack
     @stack = Stack.find_by_stack_token(params[:stack_token])
-    @stack.destroy
+    @stack.decommission
 
     redirect_to user_root_path
   end

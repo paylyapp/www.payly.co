@@ -8,7 +8,11 @@
           <label>Page</label>
           <div class="input">
             <span class="text">
-              <%= link_to @stack.product_name, page_new_transaction_path(@stack.page_token), :target => "_blank" %>
+              <% if @stack.archived || !@stack.visible %>
+                <%= @stack.product_name %>
+              <% else %>
+                <%= link_to @stack.product_name, page_new_transaction_path(@stack.page_token), :target => "_blank" %>
+              <% end %>
             </span>
           </div>
         </div>

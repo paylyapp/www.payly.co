@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% if @stack.nil? %>
+  <% if @stack.nil? || @stack.archived%>
   <title>Error</title>
   <% else %>
   <title>Purchase: <%= @stack.product_name %></title>

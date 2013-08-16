@@ -29,6 +29,6 @@
   </footer>
 
   <%= javascript_include_tag "devise" %>
-  <%= analytics_init %>
+  <%= analytics_init if Rails.env.production? %>
 </body>
 </html>

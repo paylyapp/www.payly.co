@@ -36,6 +36,6 @@
   </footer>
 
   <%= javascript_include_tag "home" %>
-  <%= analytics_init %>
+  <%= analytics_init if Rails.env.production? %>
 </body>
 </html>

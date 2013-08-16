@@ -97,7 +97,6 @@ class Stack < ActiveRecord::Base
   def decommission
     self.archived = true
     self.visible = false
-    self.description = nil
     self.primary_image = nil
     self.digital_download_file = nil
     self.ga_id = nil

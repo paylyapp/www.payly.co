@@ -16,7 +16,7 @@
       <i class="icon-plus"></i> Add Page
     <% end %>
   </li>
-  <% current_user.stacks.order('created_at ASC').each do |stack| %>
+  <% current_user.stacks.where(:archived => false).order('created_at ASC').each do |stack| %>
     <% unless stack.stack_token.nil? %>
       <li>
         <%= link_to dashboard_stack_path(stack.stack_token), :class => "#{current_page(dashboard_stack_path(stack.stack_token))} #{current_page(dashboard_stack_transactions_path(stack.stack_token))}" do %>

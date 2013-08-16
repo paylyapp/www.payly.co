@@ -11,7 +11,7 @@ class Stack < ActiveRecord::Base
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
                   :shipping_cost_value, :shipping_cost_term,
-                  :archive, :visible
+                  :archived, :visible
 
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token

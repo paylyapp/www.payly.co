@@ -1,4 +1,4 @@
-<% if @user.stacks.empty? %>
+<% if @user.stacks.where(:archived => false).empty? %>
   <div class="container">
     <header>
       <p><strong>Create your first Page</strong>

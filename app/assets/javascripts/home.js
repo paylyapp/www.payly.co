@@ -41,5 +41,6 @@ $(function() {
   }
 
   rotate_sequence();
+  $.stayInWebApp();
 
 });

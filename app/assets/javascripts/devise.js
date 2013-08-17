@@ -15,3 +15,7 @@
 //= require jquery.siwa.min
 //= require jquery.validate
 //= require forms
+
+$(function() {
+  $.stayInWebApp();
+});

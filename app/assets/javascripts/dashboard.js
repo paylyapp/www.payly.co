@@ -17,6 +17,7 @@
 //= require forms
 
 $(function() {
+  $.stayInWebApp();
 
   if($('select[name="stack[charge_type]"]').val() == "any") {
     $('.field-charge-amount').hide();

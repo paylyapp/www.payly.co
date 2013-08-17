@@ -16,7 +16,9 @@
 //= require jquery.validate
 //= require forms
 
+
 $(function() {
+  $.stayInWebApp();
 
   // Firstly, set the publishable key
   //

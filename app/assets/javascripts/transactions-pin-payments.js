@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.siwa.min
 //= require jquery.validate
 //= require forms
 

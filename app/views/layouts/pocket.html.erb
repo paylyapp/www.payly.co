@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
+  <meta charset="utf-8" />
   <title><%= @pre_title + " • " unless @pre_title.nil? %>Payly<%= " • " + @post_title unless @post_title.nil? %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag :modernizr %>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Pocket is the easiest way to find the purchases you've made through Payly.">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+  <%= javascript_include_tag :modernizr %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
 
   <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <%= render 'apple-touch-images' %>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <%= csrf_meta_tags %>
 </head>

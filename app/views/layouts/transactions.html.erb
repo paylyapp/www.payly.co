@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
-  <% if @stack.nil? || @stack.archived%>
+  <meta charset="utf-8" />
+  <% if @stack.nil? || @stack.archived %>
   <title>Error</title>
   <% else %>
   <title>Purchase: <%= @stack.product_name %></title>
   <% end %>
-  <meta charset="utf-8" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
-  <% unless @stack.nil? %>
+  <% unless @stack.nil? || @stack.archived %>
+  <meta name="description" content="<%= @stack.description %>">
+
   <meta name="og:title" content="Purchase: <%= @stack.product_name %>" />
   <meta name="og:description" content="<%= @stack.description %>" />
   <meta name="og:image" content="<%= @stack.primary_image.url(:medium) %>" />
   <% end %>
 
   <%= javascript_include_tag :modernizr %>
-
   <%= stylesheet_link_tag    "application", :media => "all" %>
+
   <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <%= render 'apple-touch-images' %>
 
   <%= csrf_meta_tags %>
 </head>

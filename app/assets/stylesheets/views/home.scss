@@ -154,6 +154,9 @@
         }
       }
     }
+    p {
+      line-height: 1.5
+    }
     .button {
       @include button-filled(#3498DB);
       font-size: 26px;
@@ -260,6 +263,15 @@
       }
     }
   }
+  .home-faqs,
+  .home-terms,
+  .home-privacy,
+  .home-thank_you {
+    .page {
+      width: auto;
+      padding: 0 10px;
+    }
+  }
 }
 
 @media (max-width: 600px) {
@@ -285,6 +297,7 @@
         margin: 0;
       }
       ul {
+        width: auto;
 
         li {
           float: none;
@@ -300,11 +313,13 @@
         }
       }
     }
-    .pricing,
     .works {
       h2 {
         margin-bottom: 0;
       }
+    }
+    .pricing,
+    .works {
       ul {
         width: auto;
         margin-bottom: 0;

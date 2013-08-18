@@ -35,7 +35,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil? ||  @stack.archived == true
+    if @stack.nil? || @stack.archived == true
       render :stack_error
     else
       @transaction = @stack.transactions.find_by_transaction_token(params[:transaction_token])

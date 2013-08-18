@@ -32,10 +32,13 @@ class User < ActiveRecord::Base
 
   def weekly_stats
     transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
-    count = transactions.count
+    count = 0
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.transaction_amount
+      if transaction.stack.archived == false
+        cost = cost + transaction.transaction_amount
+        count = count + 1
+      end
     end
 
     stats = {:count => count, :cost => cost}
@@ -45,10 +48,13 @@ class User < ActiveRecord::Base
 
   def monthly_stats
     transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now)
-    count = transactions.count
+    count = 0
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.stack.charge_amount
+      if transaction.stack.archived == false
+        cost = cost + transaction.transaction_amount
+        count = count + 1
+      end
     end
 
     stats = {:count => count, :cost => cost}
@@ -57,10 +63,13 @@ class User < ActiveRecord::Base
 
   def all_stats
     transactions = self.transactions.all
-    count = transactions.count
+    count = 0
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.stack.charge_amount
+      if transaction.stack.archived == false
+        cost = cost + transaction.transaction_amount
+        count = count + 1
+      end
     end
 
     stats = {:count => count, :cost => cost}

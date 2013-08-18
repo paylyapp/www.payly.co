@@ -14,7 +14,17 @@ class UserController < ApplicationController
         break random_token unless Stack.where(:page_token => random_token).exists?
       end
     else
-      @transactions = @user.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      @stacks = @user.stacks
+      @transactions = []
+      @stacks.each do |stack|
+        if stack.archived == false
+          stack.transactions.each do |transaction|
+            @transactions << transaction
+          end
+        end
+      end
+      @transactions = @transactions.sort_by { |k| k["created_at"] }
+      @transactions = @transactions.take(10)
     end
   end
 

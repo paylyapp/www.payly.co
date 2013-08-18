@@ -49,7 +49,7 @@
   </div>
   <div class="container">
     <header>
-      <p><strong>Payment Feed</strong> <small><%= page_entries_info @transactions, :model => "" unless @transactions.count == 0 %></small></p>
+      <p><strong>Payment Feed</strong></p>
     </header>
 
     <ul class="feed-list">
@@ -70,7 +70,5 @@
       </li>
     <% end %>
     </ul>
-
-    <%= will_paginate @transactions, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
   </div>
 <% end %>

@@ -24,6 +24,8 @@
     <span class='field-error-text error-text--number'>This field needs to be a number.</span>
   </div>
 </div>
+<% else %>
+  <%= f.hidden_field :transaction_amount %>
 <% end %>
 
 <div class="heading">
@@ -159,9 +161,21 @@
     <%= f.country_select :shipping_address_country, ["Australia"], :class => "dropup" %>
   </div>
 </div>
+<div class="field field-select field-shipping-cost">
+  <%= f.label :shipping_cost, 'Shipping Cost' %>
+  <div class="input">
+    <%= f.select :shipping_cost, options_for_select(@shipping_cost) %>
+  </div>
+</div>
 
 <% end %>
 
+<div class="field field-select field-total-amount more-fields">
+  <label>Total Amount</label>
+  <div class="input">
+    <span class="text">$<span class="total"></span></span>
+  </div>
+</div>
 <footer class="actions">
   <%= f.submit "Buy this", class: :'primary-action' %>
 </footer>

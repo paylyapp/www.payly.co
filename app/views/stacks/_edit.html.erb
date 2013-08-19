@@ -78,10 +78,37 @@
       <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
     </div>
   </div>
-  <div class="field field-text field-require-shipping">
+  <div class="field field-text field-require-shipping field-more-fields">
     <%= f.label :require_shipping do %>Require shipping details<% end %>
     <div class="input">
       <label><%= f.check_box :require_shipping %></label>
+    </div>
+  </div>
+  <div class="more-fields" data-section="shipping-cost">
+    <div class="heading">
+      <h2>Shipping details</h2>
+    </div>
+    <% unless @stack.shipping_cost_term.blank? %>
+      <% @stack.shipping_cost_term.each_index do |index| %>
+      <div class="field field-full-length field-text field-shipping-details">
+        <div class="input">
+          <%= f.text_field :shipping_cost_term, :value => @stack.shipping_cost_term[index], :name => "stack[shipping_cost_term][]" %>
+          <%= f.text_field :shipping_cost_value, :value => number_with_precision(@stack.shipping_cost_value[index], :precision => 2), :name => "stack[shipping_cost_value][]" %>
+          <button type="button" data-action="remove" class="remove-shipping">X</button>
+        </div>
+      </div>
+      <% end %>
+    <% else %>
+    <div class="field field-full-length field-text field-shipping-details">
+      <div class="input">
+        <%= f.text_field :shipping_cost_term, :value => "Domestic", :name => "stack[shipping_cost_term][]" %>
+        <%= f.text_field :shipping_cost_value, :value => "10.95", :name => "stack[shipping_cost_value][]" %>
+        <button type="button" data-action="remove" class="remove-shipping">X</button>
+      </div>
+    </div>
+    <% end %>
+    <div class="field">
+      <button type="button" data-action="add" class="add-shipping">+ Add Another</button>
     </div>
   </div>
 

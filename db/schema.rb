@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816070956) do
+ActiveRecord::Schema.define(:version => 20130819214228) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(:version => 20130816070956) do
     t.boolean  "digital_download_update_flag",       :default => false
     t.boolean  "archived",                           :default => false
     t.boolean  "visible",                            :default => true
+    t.string   "shipping_cost_term",                 :default => [],                    :array => true
+    t.float    "shipping_cost_value",                :default => [],                    :array => true
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true
@@ -107,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130816070956) do
     t.string   "shipping_address_country"
     t.string   "shipping_full_name"
     t.float    "transaction_amount"
+    t.float    "shipping_cost"
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true

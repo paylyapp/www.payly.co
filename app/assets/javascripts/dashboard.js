@@ -60,4 +60,21 @@ $(function() {
     $('.more-fields[data-show="'+input.val()+'"]').slideDown();
   });
 
+  $('.add-shipping').click(function() {
+    $(this).parent().before('<div class="field field-full-length field-text field-shipping-details"><div class="input"><input id="stack_shipping_cost_term" name="stack[shipping_cost_term][]" placeholder="International shipping" size="30" value="" type="text"><input id="stack_shipping_cost_value" name="stack[shipping_cost_value][]" placeholder="56.78" size="30" value="" type="text"><button type="button" data-action="remove" class="remove-shipping">X</button></div></div>');
+
+
+    $('.remove-shipping').click(function() {
+      $(this).parents('.field').remove();
+      return false;
+    });
+    return false;
+  });
+
+
+  $('.remove-shipping').click(function() {
+    $(this).parents('.field').remove();
+    return false;
+  });
+
 });

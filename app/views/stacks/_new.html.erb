@@ -78,10 +78,25 @@
       <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
     </div>
   </div>
-  <div class="field field-text field-require-shipping">
+  <div class="field field-text field-require-shipping field-more-fields">
     <%= f.label :require_shipping do %>Require shipping details<% end %>
     <div class="input">
       <label><%= f.check_box :require_shipping %></label>
+    </div>
+  </div>
+  <div class="more-fields" data-section="shipping-cost">
+    <div class="heading">
+      <h2>Shipping details</h2>
+    </div>
+    <div class="field field-full-length field-text field-shipping-details">
+      <div class="input">
+        <%= f.text_field :shipping_cost_term, :value => "Domestic", :name => "stack[shipping_cost_term][]" %>
+        <%= f.text_field :shipping_cost_value, :value => "10.95", :name => "stack[shipping_cost_value][]" %>
+        <button type="button" data-action="remove">X</button>
+      </div>
+    </div>
+    <div class="field">
+      <button type="button" data-action="add">+ Add Another</button>
     </div>
   </div>
 

@@ -91,6 +91,15 @@ $(function() {
     }
   })
   //move this into a submit handler for this form
+  var transactionAmount = $("input[name='transaction[transaction_amount]']").val() * 1;
+  var shipping_amount = $("select[name='transaction[shipping_cost]'] option:selected").attr("data-value") * 1;
 
+  $('.field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
 
+  $("input[name='transaction[transaction_amount]'], select[name='transaction[shipping_cost]']").change(function() {
+    var transactionAmount = $("input[name='transaction[transaction_amount]']").val() * 1;
+    var shipping_amount = $("select[name='transaction[shipping_cost]'] option:selected").attr("data-value") * 1;
+
+    $('.field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
+  });
 });

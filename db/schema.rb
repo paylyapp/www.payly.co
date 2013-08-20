@@ -110,6 +110,8 @@ ActiveRecord::Schema.define(:version => 20130819214228) do
     t.string   "shipping_full_name"
     t.float    "transaction_amount"
     t.float    "shipping_cost"
+    t.string   "shipping_cost_term"
+    t.float    "shipping_cost_value"
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true

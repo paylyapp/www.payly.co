@@ -54,7 +54,27 @@ class TransactionsController < ApplicationController
     if @stack.nil?  || @stack.archived
       render :error
     else
+      unless @stack.shipping_cost_term.blank?
+        @shipping_cost = []
+        @stack.shipping_cost_term.each_index { |index|
+          cost = []
+
+          cost << @stack.shipping_cost_term[index] + ' - $' + number_with_precision(@stack.shipping_cost_value[index], :precision => 2) + 'AUD'
+          cost << index
+          cost << {:"data-value" => number_with_precision(@stack.shipping_cost_value[index], :precision => 2)}
+          @shipping_cost << cost
+        }
+      else
+        @shipping_cost = false
+      end
       params[:transaction][:transaction_amount] = @stack.charge_amount if @stack.charge_type == "fixed"
+
+      if !params[:transaction][:shipping_cost].nil? && @stack.require_shipping == true
+        shipping_cost = @stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i].to_f
+        params[:transaction][:transaction_amount] = params[:transaction][:transaction_amount].to_f + shipping_cost
+        params[:transaction][:shipping_cost_term] = @stack.shipping_cost_term[params[:transaction][:shipping_cost].to_i]
+        params[:transaction][:shipping_cost_value] = @stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i]
+      end
 
       @transaction = @stack.transactions.build(params[:transaction])
 

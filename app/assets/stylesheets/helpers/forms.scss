@@ -104,6 +104,24 @@ form {
   .more-fields {
     background-color: lighten(#BDC3C7, 20%);
   }
+  .field-full-length {
+    .input {
+      width: 100%;
+
+      input[type="text"] {
+        width: 40%;
+        margin-right: 10px;
+        float: left;
+      }
+    }
+    .delete-action {
+      @include button-nav(#E74C3C);
+      float: left;
+    }
+  }
+  .add-shipping {
+    @include button-nav-filled();
+  }
   .field-charge-amount {
     .input {
       position: relative;
@@ -160,7 +178,6 @@ form {
       @include button(#E74C3C);
     }
   }
-
 }
 
 @media (max-width: 550px) {
@@ -201,6 +218,16 @@ form {
         }
       }
     }
+    .field-full-length {
+      .input {
+        width: 100%;
+
+        input[type="text"] {
+          margin-bottom: 5px;
+          margin-right: 0;
+        }
+      }
+    }
     .field-charge-amount {
       .input {
 
@@ -209,5 +236,6 @@ form {
         }
       }
     }
+
   }
 }

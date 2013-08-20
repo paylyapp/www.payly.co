@@ -3,7 +3,7 @@ class Transaction < ActiveRecord::Base
                   :buyer_email, :buyer_name, :buyer_ip_address,
                   :charge_token, :card_token,
                   :stack_token,
-                  :shipping_full_name,
+                  :shipping_cost, :shipping_cost_term, :shipping_cost_value, :shipping_full_name,
                   :shipping_address_line1, :shipping_address_line2, :shipping_address_city,
                   :shipping_address_postcode, :shipping_address_state, :shipping_address_country
 

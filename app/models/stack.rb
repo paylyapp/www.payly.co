@@ -64,7 +64,7 @@ class Stack < ActiveRecord::Base
     count = transactions.count
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.stack.charge_amount
+      cost += transaction.transaction_amount
     end
 
     stats = {:count => count, :cost => cost}
@@ -77,7 +77,7 @@ class Stack < ActiveRecord::Base
     count = transactions.count
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.stack.charge_amount
+      cost += transaction.transaction_amount
     end
 
     stats = {:count => count, :cost => cost}
@@ -89,7 +89,7 @@ class Stack < ActiveRecord::Base
     count = transactions.count
     cost = 0
     transactions.each do |transaction|
-      cost += transaction.stack.charge_amount
+      cost += transaction.transaction_amount
     end
     stats = {:count => count, :cost => cost}
     stats

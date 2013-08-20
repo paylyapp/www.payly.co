@@ -4,8 +4,10 @@
   <meta charset="utf-8" />
   <% if @stack.nil? || @stack.archived %>
   <title>Error</title>
+  <meta name="apple-mobile-web-app-title" content="Payly">
   <% else %>
   <title>Purchase: <%= @stack.product_name %></title>
+  <meta name="apple-mobile-web-app-title" content="<%= @stack.product_name %>">
   <% end %>
 
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -23,6 +25,8 @@
 
   <link rel="shortcut icon" href="/favicon.ico">
   <%= render 'layouts/apple-touch-images' %>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <%= csrf_meta_tags %>
 </head>

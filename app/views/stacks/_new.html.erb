@@ -14,26 +14,6 @@
   <% end %>
 
   <div class="heading">
-    <h2>Payment Details</h2>
-  </div>
-  <div class="field field-select field-charge-type">
-    <%= f.label :charge_type, "Type of charge" %>
-    <div class="input">
-      <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type) %>
-    </div>
-  </div>
-  <div class="field field-text field-charge-amount">
-    <%= f.label :charge_amount, "Amount" %>
-    <div class="input">
-      <div class="pre"><%= f.label :charge_amount, '$' %></div>
-      <%= f.text_field :charge_amount, :placeholder => "56.78" %>
-      <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
-      <span class='field-error-text error-text--required'>This field is required.</span>
-      <span class='field-error-text error-text--number'>This field must be a number.</span>
-    </div>
-  </div>
-
-  <div class="heading">
     <h2>Page Details</h2>
   </div>
   <div class="field field-text field-product">
@@ -78,15 +58,42 @@
       <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
     </div>
   </div>
+  <div class="field field-text field-return-url">
+    <%= f.label :visible, 'Visibility' %>
+    <div class="input">
+      <%= f.select :visible, options_for_select([['Anyone can view', 'true'], ['Hidden', 'false']], @stack.visible) %>
+    </div>
+    <p class="description">Hidden means only you are able to see the page.</p>
+  </div>
+
+  <div class="heading">
+    <h2>Payment Details</h2>
+  </div>
+  <div class="field field-select field-charge-type">
+    <%= f.label :charge_type, "Type of charge" %>
+    <div class="input">
+      <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type) %>
+    </div>
+  </div>
+  <div class="field field-text field-charge-amount">
+    <%= f.label :charge_amount, "Amount" %>
+    <div class="input">
+      <div class="pre"><%= f.label :charge_amount, '$' %></div>
+      <%= f.text_field :charge_amount, :placeholder => "56.78" %>
+      <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+      <span class='field-error-text error-text--required'>This field is required.</span>
+      <span class='field-error-text error-text--number'>This field must be a number.</span>
+    </div>
+  </div>
   <div class="field field-text field-require-shipping field-more-fields">
-    <%= f.label :require_shipping do %>Require shipping details<% end %>
+    <%= f.label :require_shipping do %>Shipping<% end %>
     <div class="input">
       <label><%= f.check_box :require_shipping %></label>
     </div>
   </div>
   <div class="more-fields" data-section="shipping-cost">
     <div class="heading">
-      <h2>Shipping details</h2>
+      <h2>Shipping Cost</h2>
     </div>
     <div class="field field-full-length field-text field-shipping-details">
       <div class="input">

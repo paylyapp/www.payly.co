@@ -16,32 +16,36 @@ class TransactionsController < ApplicationController
       if @stack.user.nil?
         render :error
       else
-        if @stack.user.payment_method.blank?
+        if @stack.visible == false && (!current_user || current_user.id != @stack.user.id)
           render :error
         else
-          unless @stack.shipping_cost_term.blank?
-            @shipping_cost = []
-            @stack.shipping_cost_term.each_index { |index|
-              cost = []
-
-              cost << @stack.shipping_cost_term[index] + ' - $' + number_with_precision(@stack.shipping_cost_value[index], :precision => 2) + 'AUD'
-              cost << index
-              cost << {:"data-value" => number_with_precision(@stack.shipping_cost_value[index], :precision => 2)}
-              @shipping_cost << cost
-            }
-          else
-            @shipping_cost = false
-          end
-          if @stack.user.payment_method == 'pin_payments' && (!@stack.user.pin_api_key.blank? && !@stack.user.pin_api_secret.blank?)
-            @transaction = @stack.transactions.new
-            @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
-            render :transaction
-          elsif @stack.user.payment_method == 'braintree' && (!@stack.user.braintree_merchant_id.blank? && !@stack.user.braintree_api_key.blank? && !@stack.user.braintree_api_secret.blank? && !@stack.user.braintree_client_side_key.blank?)
-            @transaction = @stack.transactions.new
-            @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
-            render :transaction
-          else
+          if @stack.user.payment_method.blank?
             render :error
+          else
+            unless @stack.shipping_cost_term.blank?
+              @shipping_cost = []
+              @stack.shipping_cost_term.each_index { |index|
+                cost = []
+
+                cost << @stack.shipping_cost_term[index] + ' - $' + number_with_precision(@stack.shipping_cost_value[index], :precision => 2) + 'AUD'
+                cost << index
+                cost << {:"data-value" => number_with_precision(@stack.shipping_cost_value[index], :precision => 2)}
+                @shipping_cost << cost
+              }
+            else
+              @shipping_cost = false
+            end
+            if @stack.user.payment_method == 'pin_payments' && (!@stack.user.pin_api_key.blank? && !@stack.user.pin_api_secret.blank?)
+              @transaction = @stack.transactions.new
+              @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
+              render :transaction
+            elsif @stack.user.payment_method == 'braintree' && (!@stack.user.braintree_merchant_id.blank? && !@stack.user.braintree_api_key.blank? && !@stack.user.braintree_api_secret.blank? && !@stack.user.braintree_client_side_key.blank?)
+              @transaction = @stack.transactions.new
+              @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
+              render :transaction
+            else
+              render :error
+            end
           end
         end
       end

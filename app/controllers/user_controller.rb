@@ -23,7 +23,7 @@ class UserController < ApplicationController
           end
         end
       end
-      @transactions = @transactions.sort_by { |k| k["created_at"] }
+      @transactions = @transactions.sort {|x,y| y["created_at"] <=> x["created_at"] }
       @transactions = @transactions.take(10)
     end
   end

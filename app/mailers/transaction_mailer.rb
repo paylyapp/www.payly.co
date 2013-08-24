@@ -1,5 +1,5 @@
 class TransactionMailer < ActionMailer::Base
-  default :from => "Tim from Payly <receipt@payly.co>"
+  default :from => "Tim from Payly <info@payly.co>"
 
   def invoice(transaction)
     @transaction = transaction

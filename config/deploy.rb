@@ -3,7 +3,7 @@ require "rvm/capistrano"
 
 server "192.241.252.7", :web, :app, :db, primary: true
 
-set :application, "payly"
+set :application, "www.payly.co"
 set :user, "timjgleeson"
 set :port, 22
 set :deploy_to, "/home/#{user}/apps/#{application}"
@@ -11,9 +11,9 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:timjgleeson/#{application}.git"
-set :branch, "develop"
-
+set :repository, "git@github.com:paylyapp/#{application}.git"
+set :branch, "master"
+set :bundle_dir, "/home/timjgleeson/.rvm/rubies/ruby-1.9.3-p448/"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

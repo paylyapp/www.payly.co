@@ -60,6 +60,12 @@
           <%= f.text_field :pin_api_secret, :autocomplete => "off" %>
         </div>
       </div>
+      <div class="field field-text field-pin-api-secret">
+        <%= f.label :charge_currency, 'Currency' %>
+        <div class="input">
+          <%= f.select :charge_currency, options_for_select([['Australian Dollar', 'AUD'], ['US Dollar', 'USD']], @user.charge_currency) %>
+        </div>
+      </div>
     </div>
 
     <div class="more-fields" data-show="braintree">
@@ -89,6 +95,12 @@
         <%= f.label :braintree_client_side_key, 'Client-Side Encryption Key' %>
         <div class="input">
           <%= f.text_area :braintree_client_side_key, :autocomplete => "off" %>
+        </div>
+      </div>
+      <div class="field field-text field-pin-api-secret">
+        <%= f.label :charge_currency, 'Currency' %>
+        <div class="input">
+          <%= f.select :charge_currency, options_for_select([['Australian Dollar', 'AUD'], ['US Dollar', 'USD']], @user.charge_currency) %>
         </div>
       </div>
     </div>

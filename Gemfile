@@ -2,6 +2,13 @@ ruby '1.9.3'
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
+
+gem 'thin'
+gem 'unicorn'
+
+gem 'capistrano'
+gem 'rvm-capistrano'
+
 gem 'attr_encrypted'
 gem 'heroku'
 
@@ -22,6 +29,8 @@ end
 
 gem 'pg'
 gem 'postgres_ext'
+
+gem 'quiet_assets', :group => :development
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

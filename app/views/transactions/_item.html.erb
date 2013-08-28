@@ -1,6 +1,6 @@
 <%= form_for('', :html => {:autocomplete => "off"}) do |f| %>
   <div class="field field-text field-full-name">
-    <label>Payment Page</label>
+    <label>Page</label>
     <div class="input">
       <span class="text">
         <%= link_to @transaction.stack.product_name, dashboard_stack_path(@stack.stack_token) %>

@@ -77,4 +77,27 @@ $(function() {
     return false;
   });
 
+  $('button[data-action="change-input"]').each(function() {
+    if( $(this).next('input, textarea').val() !== '' ) {
+
+      $(this).next('input, textarea').remove();
+
+      $(this).click(function() {
+        var inputType = $(this).attr('data-input-type');
+        var inputId = $(this).attr('data-input-id');
+        var inputName = $(this).attr('data-input-name');
+
+        if(inputType === 'textarea') {
+          $(this).after( $('<textarea></textarea>').attr('id',inputId).attr('name', inputName) );
+        } else {
+          $(this).after( $('<input />').attr('type', inputType).attr('id',inputId).attr('name', inputName) );
+        }
+
+        $(this).remove();
+      });
+    } else {
+      $(this).remove();
+    }
+  });
+
 });

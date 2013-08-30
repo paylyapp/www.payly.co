@@ -25,6 +25,9 @@
           width: 100%;
           height: auto;
           vertical-align: bottom;
+          border: 1px solid #BDC3C7;
+          @include box-shadow(0px 0px 5px #bdc3c7);
+          @include border-radius(2px);
         }
       }
       h1 {

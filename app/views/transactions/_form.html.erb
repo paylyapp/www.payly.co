@@ -161,12 +161,15 @@
     <%= f.country_select :shipping_address_country, ["Australia"], :class => "dropup" %>
   </div>
 </div>
+
+<% unless @shipping_cost.blank? %>
 <div class="field field-select field-shipping-cost">
   <%= f.label :shipping_cost, 'Shipping Cost' %>
   <div class="input">
     <%= f.select :shipping_cost, options_for_select(@shipping_cost) %>
   </div>
 </div>
+<% end %>
 
 <% end %>
 

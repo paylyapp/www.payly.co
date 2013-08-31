@@ -103,12 +103,6 @@
         </div>
       </div>
       <% end %>
-    <% else %>
-    <div class="field field-full-length field-text field-shipping-details">
-      <div class="input">
-        <%= f.text_field :shipping_cost_term, :value => "Domestic", :name => "stack[shipping_cost_term][]" %><%= f.text_field :shipping_cost_value, :value => "10.95", :name => "stack[shipping_cost_value][]" %><button type="button" data-action="remove" class="remove-shipping delete-action">Delete</button>
-      </div>
-    </div>
     <% end %>
     <div class="field">
       <button type="button" data-action="add" class="add-shipping secondary-action">Add Row</button>

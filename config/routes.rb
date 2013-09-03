@@ -22,12 +22,15 @@ Haystack::Application.routes.draw do
 
   get     "dashboard/s_new"                   => "stacks#new_stack",              :as => 'dashboard_new_stack'
   get     "dashboard/:stack_token"            => "stacks#stack",                  :as => 'dashboard_stack'
-  get     "dashboard/:stack_token/payments"   => "stacks#stack_transactions",     :as => 'dashboard_stack_transactions'
-  get     "dashboard/:stack_token/payments/:transaction_token" => "stacks#stack_transaction",  :as => 'dashboard_stack_transaction'
+  get     "dashboard/:stack_token/purchases"   => "stacks#stack_transactions",     :as => 'dashboard_stack_transactions'
+  get     "dashboard/:stack_token/purchases/:transaction_token" => "stacks#stack_transaction",  :as => 'dashboard_stack_transaction'
   get     "dashboard/:stack_token/update/buyers/download" => "stacks#stack_updated_download",  :as => 'dashboard_stack_updated_download'
   post    "dashboard/s_new"                   => "stacks#create_stack",           :as => 'stack_create'
   put     "dashboard/:stack_token"            => "stacks#update_stack",           :as => 'stack_update'
   delete  "dashboard/:stack_token/destroy"    => "stacks#destroy_stack",          :as => 'stack_destroy'
+
+  match "dashboard/:stack_token/payments", :to => redirect("dashboard/:stack_token/purchases")
+  match "dashboard/:stack_token/payments/:transaction_token", :to => redirect("dashboard/:stack_token/purchases/:transaction_token")
 
   devise_for :users, :controllers => { :registrations => :registrations }, :skip => [:sessions]
   as :user do

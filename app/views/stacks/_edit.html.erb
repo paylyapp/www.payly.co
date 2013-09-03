@@ -85,6 +85,13 @@
       <span class='field-error-text error-text--number'>This field must be a number.</span>
     </div>
   </div>
+  <div class="field field-select field-charge-type">
+    <%= f.label :max_purchase_count, "Limit purchases to" %>
+    <div class="input">
+      <%= f.text_field :max_purchase_count, :placeholder => "∞" %>
+    </div>
+    <p class="description">Limit the amount of purchases that can come through this page.</p>
+  </div>
   <div class="field field-text field-require-shipping field-more-fields">
     <%= f.label :require_shipping do %>Shipping<% end %>
     <div class="input">

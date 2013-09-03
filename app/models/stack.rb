@@ -11,7 +11,7 @@ class Stack < ActiveRecord::Base
                   :send_invoice_email, :seller_trading_name, :seller_abn, :invoice_number,
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
-                  :archived, :visible
+                  :archived, :visible, :max_purchase_count
 
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token

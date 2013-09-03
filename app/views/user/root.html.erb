@@ -12,7 +12,7 @@
       <ul>
         <li class="count">
           <span><%= current_user.weekly_stats[:count] %></span>
-          <h3>Sold</h3>
+          <h3>Purchases</h3>
         </li>
         <li class="amount">
           <span class="cost"><%= number_to_currency(current_user.weekly_stats[:cost]) %><span class="currency">AUD</span></span>
@@ -25,7 +25,7 @@
       <ul>
         <li class="count">
           <span><%= current_user.monthly_stats[:count] %></span>
-          <h3>Sold</h3>
+          <h3>Purchases</h3>
         </li>
         <li class="amount">
           <span class="cost"><%= number_to_currency(current_user.monthly_stats[:cost]) %><span class="currency">AUD</span></span>
@@ -38,7 +38,7 @@
       <ul>
         <li class="count">
           <span><%= current_user.all_stats[:count] %></span>
-          <h3>Sold</h3>
+          <h3>Purchases</h3>
         </li>
         <li class="amount">
           <span class="cost"><%= number_to_currency(current_user.all_stats[:cost]) %><span class="currency">AUD</span></span>

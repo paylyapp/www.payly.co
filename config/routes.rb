@@ -29,8 +29,8 @@ Haystack::Application.routes.draw do
   put     "dashboard/:stack_token"            => "stacks#update_stack",           :as => 'stack_update'
   delete  "dashboard/:stack_token/destroy"    => "stacks#destroy_stack",          :as => 'stack_destroy'
 
-  match "dashboard/:stack_token/payments", :to => redirect {|params| "dashboard/#{params[:stack_token]}/purchases"}
-  match "dashboard/:stack_token/payments/:transaction_token", :to => redirect {|params| "dashboard/#{params[:stack_token]}/purchases/#{params[:transaction_token]}"}
+  match "dashboard/:stack_token/payments", :to => redirect {|params| "/dashboard/#{params[:stack_token]}/purchases"}
+  match "dashboard/:stack_token/payments/:transaction_token", :to => redirect {|params| "/dashboard/#{params[:stack_token]}/purchases/#{params[:transaction_token]}"}
 
   devise_for :users, :controllers => { :registrations => :registrations }, :skip => [:sessions]
   as :user do

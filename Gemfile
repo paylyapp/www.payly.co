@@ -11,6 +11,7 @@ gem 'rvm-capistrano'
 
 gem 'attr_encrypted'
 gem 'heroku'
+gem 'rails_12factor'
 
 gem 'hay', :git => 'git://github.com/paylyapp/hay.git'
 gem 'braintree'

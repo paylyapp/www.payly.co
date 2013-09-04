@@ -1,5 +1,4 @@
 class Customer < ActiveRecord::Base
-  # attr_accessible :title, :body
   attr_accessible :email, :user_token, :session_token
 
   before_create :generate_token

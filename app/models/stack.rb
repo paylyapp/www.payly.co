@@ -56,7 +56,7 @@ class Stack < ActiveRecord::Base
     true
   end
 
-  def throw_transaction_error?
+  def throw_transaction_error?(current_user)
     if self.archived
       true
     else

@@ -10,7 +10,7 @@ class TransactionsController < ApplicationController
   def new_transaction
     @stack = Stack.find_by_page_token(params[:page_token])
 
-    if @stack.nil? || @stack.throw_transaction_error?
+    if @stack.nil? || @stack.throw_transaction_error?(current_user)
       render :error
     else
       @shipping_cost = @stack.shipping_cost_array
@@ -32,7 +32,7 @@ class TransactionsController < ApplicationController
   def create_transaction
     @stack = Stack.find_by_page_token(params[:page_token])
 
-    if @stack.nil? || @stack.throw_transaction_error?
+    if @stack.nil? || @stack.throw_transaction_error?(current_user)
       render :error
     else
       @shipping_cost = @stack.shipping_cost_array

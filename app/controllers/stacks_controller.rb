@@ -77,6 +77,11 @@ class StacksController < ApplicationController
     params[:stack].delete(:digital_download_file) if params[:stack][:digital_download_file].blank?
     params[:stack][:digital_download_update_flag] = true unless params[:stack][:digital_download_file].blank?
 
+    if params[:stack][:shipping_cost_value].nil? && params[:stack][:shipping_cost_term].nil?
+      params[:stack][:shipping_cost_value] = nil
+      params[:stack][:shipping_cost_term] = nil
+    end
+
     @stack = Stack.find_by_stack_token(params[:stack_token])
 
     if @stack.update_attributes(params[:stack])

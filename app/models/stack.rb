@@ -1,5 +1,6 @@
 class Stack < ActiveRecord::Base
   include Shared::AttachmentHelper
+  include ActionView::Helpers::NumberHelper
 
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
                   :ga_id, :product_name, :require_billing,
@@ -53,6 +54,47 @@ class Stack < ActiveRecord::Base
 
   def can_delivery_file?
     true
+  end
+
+  def throw_transaction_error?
+    if self.archived
+      true
+    else
+      if self.user.nil?
+        true
+      else
+        if self.visible == false && (!current_user || current_user.id != self.user.id)
+          true
+        else
+          if self.user.payment_method.blank?
+            true
+          else
+            if !self.max_purchase_count.nil? && self.max_purchase_count <= self.transactions.count
+              true
+            else
+              false
+            end
+          end
+        end
+      end
+    end
+  end
+
+  def shipping_cost_array
+    unless self.shipping_cost_term.blank?
+      shipping_cost = []
+      self.shipping_cost_term.each_index { |index|
+        cost = []
+
+        cost << self.shipping_cost_term[index] + ' - $' + number_with_precision(self.shipping_cost_value[index], :precision => 2) + 'AUD'
+        cost << index
+        cost << {:"data-value" => number_with_precision(self.shipping_cost_value[index], :precision => 2)}
+        shipping_cost << cost
+      }
+    else
+      shipping_cost = false
+    end
+    shipping_cost
   end
 
   def not_decommisioned?

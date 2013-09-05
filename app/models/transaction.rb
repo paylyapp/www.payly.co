@@ -3,9 +3,11 @@ class Transaction < ActiveRecord::Base
                   :buyer_email, :buyer_name, :buyer_ip_address,
                   :charge_token, :card_token,
                   :stack_token,
-                  :shipping_cost, :shipping_cost_term, :shipping_cost_value, :shipping_full_name,
-                  :shipping_address_line1, :shipping_address_line2, :shipping_address_city,
-                  :shipping_address_postcode, :shipping_address_state, :shipping_address_country
+                  :shipping_cost, :shipping_cost_term, :shipping_cost_value,
+                  :shipping_full_name, :shipping_address_line1, :shipping_address_line2,
+                  :shipping_address_city, :shipping_address_postcode, :shipping_address_state,
+                  :shipping_address_country,
+                  :custom_data_term, :custom_data_value
 
   belongs_to :stack, :foreign_key => :stack_token
   belongs_to :customer
@@ -17,8 +19,14 @@ class Transaction < ActiveRecord::Base
   before_create :generate_token
   after_create :send_transaction_emails
 
-  protected
+  # def ping_url
+  #   if !self.stack.nil?
+  #     iron_worker = IronWorkerNG::Client.new
+  #     iron_worker.tasks.create("ping", self)
+  #   end
+  # end
 
+  protected
 
   def generate_token
     random_token = 't_'

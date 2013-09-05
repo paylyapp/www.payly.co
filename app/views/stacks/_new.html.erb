@@ -34,7 +34,7 @@
   <div class="field field-textarea field-description">
     <%= f.label :description %>
     <div class="input">
-      <%= f.text_area :description, :placeholder => "A really great description of your product.", :class => 'required'%>
+      <%= f.text_area :description, :class => 'required'%>
       <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
@@ -93,7 +93,7 @@
     <p class="description">Limit the amount of purchases that can come through this page.</p>
   </div>
   <div class="field field-text field-require-shipping field-more-fields">
-    <%= f.label :require_shipping do %>Shipping<% end %>
+    <%= f.label :require_shipping do %>Require shipping<% end %>
     <div class="input">
       <label><%= f.check_box :require_shipping %></label>
     </div>
@@ -108,7 +108,7 @@
       </div>
     </div>
     <div class="field">
-      <button type="button" data-action="add" class="add-shipping secondary-action">+ Add Another</button>
+      <button type="button" data-action="add" class="add-shipping secondary-action">Add row</button>
     </div>
   </div>
 
@@ -223,6 +223,20 @@
       <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
       </div>
     </div>
+  </div>
+
+  <div class="heading">
+    <h2>Custom Fields</h2>
+  </div>
+  <div class="field field-full-length field-text field-custom-data">
+    <div class="input">
+<%= f.text_field :custom_data_term, :value => "", :placeholder => "Label", :name => "stack[custom_data_term][]" %>
+<label><%= check_box_tag 'stack[custom_data_value][]', '0', false, :name => "stack[custom_data_value][]" %> Required</label>
+<button type="button" data-action="remove" class="remove-custom-data delete-action">Delete</button>
+    </div>
+  </div>
+  <div class="field">
+    <button type="button" data-action="add" class="add-custom-data secondary-action">Add row</button>
   </div>
 
   <footer class="actions">

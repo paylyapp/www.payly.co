@@ -37,6 +37,14 @@ class TransactionsController < ApplicationController
     else
       @shipping_cost = @stack.shipping_cost_array
 
+      unless params[:transaction][:custom_data_value].blank?
+        @custom_data_terms = []
+        params[:transaction][:custom_data_value].each_index { |index|
+          @custom_data_terms << @stack.custom_data_term[index]
+        }
+        params[:transaction][:custom_data_term] = @custom_data_terms
+      end
+
       params[:transaction][:transaction_amount] = @stack.charge_amount if @stack.charge_type == "fixed"
 
       if !params[:transaction][:shipping_cost].nil? && @stack.require_shipping == true
@@ -107,6 +115,7 @@ class TransactionsController < ApplicationController
           @transaction.charge_token = charge.transaction.id
 
           if @transaction.save
+            # @transaction.ping_url
             redirect_to page_complete_transaction_path
           else
             render :transaction

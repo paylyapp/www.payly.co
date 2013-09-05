@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903195136) do
+ActiveRecord::Schema.define(:version => 20130905070240) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -87,6 +87,9 @@ ActiveRecord::Schema.define(:version => 20130903195136) do
     t.string   "shipping_cost_term",                 :default => [],                    :array => true
     t.float    "shipping_cost_value",                :default => [],                    :array => true
     t.integer  "max_purchase_count"
+    t.string   "ping_url"
+    t.text     "custom_data_term",                   :default => [],                    :array => true
+    t.text     "custom_data_value",                  :default => [],                    :array => true
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true
@@ -96,8 +99,8 @@ ActiveRecord::Schema.define(:version => 20130903195136) do
     t.string   "transaction_token"
     t.integer  "stack_token"
     t.string   "charge_token"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "buyer_email"
     t.string   "buyer_ip_address"
     t.string   "card_token"
@@ -114,6 +117,8 @@ ActiveRecord::Schema.define(:version => 20130903195136) do
     t.string   "shipping_cost_term"
     t.float    "shipping_cost_value"
     t.string   "charge_currency"
+    t.text     "custom_data_term",          :default => [],                 :array => true
+    t.text     "custom_data_value",         :default => [],                 :array => true
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true

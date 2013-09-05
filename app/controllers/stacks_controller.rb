@@ -78,8 +78,15 @@ class StacksController < ApplicationController
     params[:stack][:digital_download_update_flag] = true unless params[:stack][:digital_download_file].blank?
 
     if params[:stack][:shipping_cost_value].nil? && params[:stack][:shipping_cost_term].nil?
-      params[:stack][:shipping_cost_value] = nil
-      params[:stack][:shipping_cost_term] = nil
+      params[:stack][:shipping_cost_value] = []
+      params[:stack][:shipping_cost_term] = []
+    end
+
+    if params[:stack][:custom_data_value].nil? && params[:stack][:custom_data_term].nil?
+      params[:stack][:custom_data_value] = []
+      params[:stack][:custom_data_term] = []
+    elsif params[:stack][:custom_data_value].nil?
+      params[:stack][:custom_data_value] = []
     end
 
     @stack = Stack.find_by_stack_token(params[:stack_token])

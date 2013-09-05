@@ -108,7 +108,9 @@ form {
     .input {
       width: 100%;
 
-      input[type="text"] {
+      input[type="text"],
+      label,
+      select {
         width: 40%;
         margin-right: 10px;
         float: left;

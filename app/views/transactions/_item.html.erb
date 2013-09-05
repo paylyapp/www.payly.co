@@ -65,6 +65,20 @@
     </div>
   </div>
   <% end %>
+
+<% unless @transaction.custom_data_term.blank? %>
+  <% @transaction.custom_data_term.each_index { |index| %>
+  <div class="field field-text field-full-name">
+    <label><%= @transaction.custom_data_term[index] %></label>
+    <div class="input">
+      <span class="text">
+        <%= @transaction.custom_data_value[index] %>
+      </span>
+    </div>
+  </div>
+  <% } %>
+<% end %>
+
     <footer class="actions">
       <div class="button-group">
         <%= link_to 'Back to Purchase Feed', dashboard_stack_transactions_path(@stack.stack_token), :class => "secondary-action" %>

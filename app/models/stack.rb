@@ -5,14 +5,15 @@ class Stack < ActiveRecord::Base
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
                   :ga_id, :product_name, :require_billing,
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,
-                  :return_url, :seller_email, :seller_name,
+                  :return_url, :ping_url, :seller_email, :seller_name,
                   :user_token, :primary_image,
                   :has_digital_download, :digital_download_file, :digital_download_receive,
                   :digital_download_term, :digital_download_value, :digital_download_update_flag,
                   :send_invoice_email, :seller_trading_name, :seller_abn, :invoice_number,
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
-                  :archived, :visible, :max_purchase_count
+                  :archived, :visible, :max_purchase_count,
+                  :custom_data_term, :custom_data_value
 
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token

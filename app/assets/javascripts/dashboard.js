@@ -71,9 +71,31 @@ $(function() {
     return false;
   });
 
-
   $('.remove-shipping').click(function() {
     $(this).parents('.field').remove();
+    return false;
+  });
+
+  // custom data
+  $('.add-custom-data').click(function() {
+    $custom_data_length = $('.field-custom-data').length;
+
+    $(this).parent().before('<div class="field field-full-length field-text field-custom-data"><div class="input"><input id="stack_custom_data_term" name="stack[custom_data_term][]" placeholder="Label" size="30" type="text" value=""><label><input id="stack_custom_data_value" name="stack[custom_data_value][]" type="checkbox" value="'+$custom_data_length+'"> Required</label><button type="button" data-action="remove" class="remove-custom-data delete-action">Delete</button></div></div>');
+
+    $('.remove-custom-data').click(function() {
+      $(this).parents('.field').remove();
+      $('.field-custom-data').each(function(i,n) {
+        $('input[type="checkbox"]').val(i)
+      });
+      return false;
+    });
+    return false;
+  });
+  $('.remove-custom-data').click(function() {
+    $(this).parents('.field').remove();
+    $('.field-custom-data').each(function(i,n) {
+      $('input[type="checkbox"]').val(i)
+    });
     return false;
   });
 

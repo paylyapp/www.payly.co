@@ -1,4 +1,7 @@
 class Api::SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
+
+  # /api/sessions/create
   def create
     resource = User.find_for_database_authentication(:email => params[:email])
     return invalid_login_attempt unless resource
@@ -11,6 +14,7 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  # /api/sessions/destroy
   def destroy
       @user=User.where(:authentication_token=>params[:auth_token]).first
       @user.reset_authentication_token! unless @user.nil?

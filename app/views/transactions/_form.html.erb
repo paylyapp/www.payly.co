@@ -122,7 +122,7 @@
 <div class="field field-text field-card-number">
   <%= label :card, :address_country, 'Country' %>
   <div class="input">
-    <%= country_select :address_country, :country, ["Australia"], :class => "dropup required" %>
+    <%= country_select :address_country, :country, ["Australia"], :html_options => { :class => "dropup required" }%>
     <span class='field-error-text error-text--required'>This field is required.</span>
   </div>
 </div>

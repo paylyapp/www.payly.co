@@ -29,40 +29,24 @@ $(function() {
   // it to the server
 
   var $form = $('#new_transaction'),
-      $submitButton = $form.find(":submit"),
-      $errors = $form.find('.card_errors');
+      $errors = $form.find('.payment-errors'),
+      $submitButton = $form.find(":submit");
 
-  function handlePinResponse(response) {
+  function handleResponse(status, response) {
     var $form = $('#new_transaction');
 
-    if (response.response) {
-      // Add the card token and ip address of the customer to the form
-      // You will need to post these to Pin when creating the charge.
-      $('<input>')
-        .attr({type: 'hidden', name: 'transaction[card_token]'})
-        .val(response.response.token)
-        .appendTo($form);
-      $('<input>')
-        .attr({type: 'hidden', name: 'transaction[buyer_ip_address]'})
-        .val(response.ip_address)
-        .appendTo($form);
-
-      // Resubmit the form
-      $form.get(0).submit();
-
+    if (response.error) {
+      // Show the errors on the form
+      $errors.text(response.error.message);
+      $form.find('button').prop('disabled', false);
     } else {
-      var $errorList = $errors.find('ul');
+      console.log(response.id);
 
-      $errors.find('h3').text(response.error_description);
-      $errorList.empty();
+      var token = response.id;
 
-      $.each(response.messages, function(index, errorMessage) {
-        $('<li>').text(errorMessage.message).appendTo($errorList);
-      });
+      $('<input>').attr({type: 'hidden', name: 'transaction[card_token]'}).val(token).appendTo($form);
 
-      $errors.show();
-      $(window).scrollTop(0);
-      $submitButton.removeAttr('disabled');
+      $form.get(0).submit();
     }
   }
 
@@ -75,10 +59,10 @@ $(function() {
 
       var card = {
         number: $('input[data-encrypted-name="number"]').val(),
-        name: $('#card_name').val(),
-        expiry_month: $('#card_expiry_month').val(),
-        expiry_year: $('#card_expiry_year').val(),
+        exp_month: $('#card_expiry_month').val(),
+        exp_year: $('#card_expiry_year').val(),
         cvc: $('input[data-encrypted-name="cvv"]').val(),
+        name: $('#card_name').val(),
         address_line1: $('#card_address_line1').val(),
         address_line2: $('#card_address_line2').val(),
         address_city: $('#card_address_city').val(),
@@ -87,9 +71,9 @@ $(function() {
         address_country: $('#address_country_country').val()
       };
 
-      Pin.createToken(card, handlePinResponse);
+      Stripe.createToken(card, handleResponse);
     }
-  })
+  });
 
   //move this into a submit handler for this form
   var transactionAmount = $("input[name='transaction[transaction_amount]']").val() * 1;

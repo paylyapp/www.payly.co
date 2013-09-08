@@ -12,10 +12,16 @@ class User < ActiveRecord::Base
                   :remember_me, :tos_agreement, :opt_in_communication,
                   :payment_method,
                   :pin_api_key, :pin_api_secret,
+                  :stripe_api_key, :stripe_api_secret,
                   :braintree_merchant_id, :braintree_api_key, :braintree_api_secret, :braintree_client_side_key,
                   :charge_currency
+
   attr_encrypted  :pin_api_key, :key => ENV['ENCRYPT_USER_PIN_API_KEY']
   attr_encrypted  :pin_api_secret, :key => ENV['ENCRYPT_USER_PIN_API_SECRET']
+
+  attr_encrypted  :stripe_api_key, :key => ENV['ENCRYPT_USER_STRIPE_API_KEY']
+  attr_encrypted  :stripe_api_secret, :key => ENV['ENCRYPT_USER_STRIPE_API_SECRET']
+
   attr_encrypted  :braintree_merchant_id, :key => ENV['ENCRYPT_USER_BRAINTREE_MERCHANT_ID']
   attr_encrypted  :braintree_api_key, :key => ENV['ENCRYPT_USER_BRAINTREE_API_KEY']
   attr_encrypted  :braintree_api_secret, :key => ENV['ENCRYPT_USER_BRAINTREE_API_SECRET']
@@ -76,6 +82,54 @@ class User < ActiveRecord::Base
 
     stats = {:count => count, :cost => cost}
     stats
+  end
+
+  def has_payment_provider?
+    if self.payment_provider_is_pin_payments?
+      true
+    elsif self.payment_provider_is_stripe?
+      true
+    elsif self.payment_provider_is_braintree?
+      true
+    else
+      false
+    end
+  end
+
+  def has_payment_provider_keys?
+    if self.has_pin_payment_keys?
+      true
+    elsif self.has_strip_keys?
+      true
+    elsif self.has_braintree_keys?
+      true
+    else
+      false
+    end
+  end
+
+  def payment_provider_is_pin_payments?
+    self.payment_method == 'pin_payments' && (!self.pin_api_key.blank? && !self.pin_api_secret.blank?)
+  end
+
+  def has_pin_payment_keys?
+    self.payment_method == 'pin_payments' && (self.pin_api_key.blank? || self.pin_api_secret.blank?)
+  end
+
+  def payment_provider_is_stripe?
+    self.payment_method == 'stripe' && (!self.stripe_api_key.blank? && !self.stripe_api_secret.blank?)
+  end
+
+  def has_stripe_keys?
+    self.payment_method == 'stripe' && (self.stripe_api_key.blank? || self.stripe_api_secret.blank?)
+  end
+
+  def payment_provider_is_braintree?
+    self.payment_method == 'braintree' && (!self.braintree_merchant_id.blank? && !self.braintree_api_key.blank? && !self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
+  end
+
+  def has_braintree_keys?
+    self.payment_method == 'braintree' && (self.braintree_merchant_id.blank? || self.braintree_api_key.blank? || self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
   end
 
   protected

@@ -15,11 +15,7 @@ class TransactionsController < ApplicationController
     else
       @shipping_cost = @stack.shipping_cost_array
 
-      if @stack.user.payment_method == 'pin_payments' && (!@stack.user.pin_api_key.blank? && !@stack.user.pin_api_secret.blank?)
-        @transaction = @stack.transactions.new
-        @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
-        render :transaction
-      elsif @stack.user.payment_method == 'braintree' && (!@stack.user.braintree_merchant_id.blank? && !@stack.user.braintree_api_key.blank? && !@stack.user.braintree_api_secret.blank? && !@stack.user.braintree_client_side_key.blank?)
+      if @stack.user.has_payment_provider?
         @transaction = @stack.transactions.new
         @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
         render :transaction
@@ -56,7 +52,8 @@ class TransactionsController < ApplicationController
 
       @transaction = @stack.transactions.build(params[:transaction])
 
-      if @stack.user.payment_method == 'pin_payments'
+
+      if @stack.user.payment_provider_is_pin_payments?
         amount = (params[:transaction][:transaction_amount] * 100).to_i
 
         payload = {
@@ -82,7 +79,36 @@ class TransactionsController < ApplicationController
           flash[:status] = "We weren't able to process your credit card for some reason. Please try again."
           render :transaction
         end
-      elsif @stack.user.payment_method == 'braintree'
+
+      elsif @stack.user.payment_provider_is_stripe?
+        Stripe.api_key = @stack.user.stripe_api_secret
+        amount = (params[:transaction][:transaction_amount] * 100).to_i
+
+        begin
+          charge = Stripe::Charge.create(
+            :amount => amount, # amount in cents, again
+            :currency => @stack.charge_currency,
+            :card => params[:transaction][:card_token],
+            :description => @stack.product_name
+          )
+
+          @transaction.charge_token = charge.id
+
+          if @transaction.save
+            redirect_to page_complete_transaction_path
+          else
+            render :transaction
+          end
+        rescue Stripe::CardError => e
+          @transaction.errors.add :base, e.message
+          render :transaction
+        rescue Stripe::StripeError => e
+          @transaction.errors.add :base, "There was a problem with your credit card"
+          render :transaction
+        end
+
+
+      elsif @stack.user.payment_provider_is_braintree?
         user_gateway = Braintree::Gateway.new(:merchant_id => @stack.user.braintree_merchant_id,
                                               :public_key => @stack.user.braintree_api_key,
                                               :private_key => @stack.user.braintree_api_secret,
@@ -115,7 +141,6 @@ class TransactionsController < ApplicationController
           @transaction.charge_token = charge.transaction.id
 
           if @transaction.save
-            # @transaction.ping_url
             redirect_to page_complete_transaction_path
           else
             render :transaction
@@ -134,6 +159,7 @@ class TransactionsController < ApplicationController
           render :transaction
         end
       end
+
     end
   end
 

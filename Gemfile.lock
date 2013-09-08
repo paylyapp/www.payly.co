@@ -278,6 +278,7 @@ DEPENDENCIES
   heroku
   jquery-rails
   modernizr-rails
+  multi_json (>= 1.0.4, < 2)
   nokogiri
   paperclip
   pg
@@ -285,6 +286,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.13)
   rails_12factor
+  rest-client (~> 1.4)
   rspec-rails (~> 2.0)
   rvm-capistrano
   sass-mediaqueries-rails

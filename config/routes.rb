@@ -6,6 +6,8 @@ Haystack::Application.routes.draw do
   # get     "features"                          => "home#features",                 :as => 'features'
   # get     "press"                             => "home#press",                    :as => 'press'
 
+  post     "test_url_for_webhook"             => "test#testing"
+
   get     "pocket"                            => "customer#index",                :as => 'pocket'
   post    "pocket"                            => "customer#create",               :as => 'pocket'
   get     "pocket/transactions"               => "customer#list",                 :as => 'pocket_transactions'

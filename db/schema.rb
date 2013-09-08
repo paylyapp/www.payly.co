@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905070240) do
+ActiveRecord::Schema.define(:version => 20130906074115) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20130905070240) do
     t.string   "ping_url"
     t.text     "custom_data_term",                   :default => [],                    :array => true
     t.text     "custom_data_value",                  :default => [],                    :array => true
+    t.string   "webhook_url"
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true

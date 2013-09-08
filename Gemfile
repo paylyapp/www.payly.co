@@ -12,6 +12,8 @@ gem 'rvm-capistrano'
 gem 'attr_encrypted'
 gem 'heroku'
 gem 'rails_12factor'
+gem 'rest-client', '~> 1.4'
+gem 'multi_json', '>= 1.0.4', '< 2'
 
 gem 'hay', :git => 'git://github.com/paylyapp/hay.git'
 gem 'braintree'

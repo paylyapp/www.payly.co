@@ -5,7 +5,7 @@ class Stack < ActiveRecord::Base
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
                   :ga_id, :product_name, :require_billing,
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,
-                  :return_url, :ping_url, :seller_email, :seller_name,
+                  :return_url, :ping_url, :webhook_url, :seller_email, :seller_name,
                   :user_token, :primary_image,
                   :has_digital_download, :digital_download_file, :digital_download_receive,
                   :digital_download_term, :digital_download_value, :digital_download_update_flag,

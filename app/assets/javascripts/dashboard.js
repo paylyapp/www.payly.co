@@ -47,7 +47,7 @@ $(function() {
     });
   });
 
-  $('.field-payment-methods').next('.more-fields').hide().next('.more-fields').hide();
+  $('.field-payment-methods').next('.more-fields').hide().next('.more-fields').hide().next('.more-fields').hide();
 
   if($('.field-payment-methods input:checked').length > 0) {
     var input = $('.field-payment-methods input:checked');

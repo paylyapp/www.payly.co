@@ -15,6 +15,7 @@ gem 'rails_12factor'
 
 gem 'hay', :git => 'git://github.com/paylyapp/hay.git'
 gem 'braintree'
+gem 'stripe'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'

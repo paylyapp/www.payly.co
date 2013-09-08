@@ -102,6 +102,48 @@ class Stack < ActiveRecord::Base
     !self.archived
   end
 
+  def api_array
+    page = {}
+    page[:id] = self.stack_token
+    page[:name] = self.product_name
+    page[:description] = self.description
+    page[:logo] = self.primary_image.url
+    page[:permalink] = "http://#{Rails.application.config.action_mailer.default_url_options[:host]}/p/" + self.page_token
+    page[:price] = self.charge_amount * 100
+    page[:formated_price] = number_to_currency(self.charge_amount, :precision => 2)
+    page[:purchase_count] = {}
+      page[:purchase_count][:maximum] = self.max_purchase_count.nil? ? 999999 : self.max_purchase_count
+      page[:purchase_count][:current] = self.transactions.count
+    page[:digital_download] = {}
+      page[:digital_download][:url] = self.digital_download_file.expiring_url(3600)
+      page[:digital_download][:description] = self.digital_download_receive
+    page[:seller] = {}
+      page[:seller][:name] = self.seller_name
+      page[:seller][:email] = self.seller_email
+      page[:seller][:trading_name] = self.seller_trading_name
+      page[:seller][:abn] = self.seller_abn
+      page[:seller][:address_line1] = self.seller_address_line1
+      page[:seller][:address_line2] = self.seller_address_line2
+      page[:seller][:address_city] = self.seller_address_city
+      page[:seller][:address_postcode] = self.seller_address_postcode
+      page[:seller][:address_state] = self.seller_address_state
+      page[:seller][:address_country] = self.seller_address_country
+    page[:custom_fields] = []
+    unless self.custom_data_term.blank?
+      self.custom_data_term.each_index do |index|
+        custom_field = {}
+        custom_field[:name] = self.custom_data_term[index]
+        custom_field[:required] = self.custom_data_value[index].nil? ? false : true
+        page[:custom_fields] << custom_field
+      end
+    end
+    page[:purchases] = []
+    self.transactions.limit(5).each do |transaction|
+      page[:purchases] << transaction.api_array
+    end
+    page
+  end
+
   def weekly_stats
     transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
     count = transactions.count

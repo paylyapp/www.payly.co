@@ -36,7 +36,10 @@ Haystack::Application.routes.draw do
   delete "api/sessions/destroy" => "api/sessions#destroy"
 
   get "api/pages" => "api/pages#index"
-  get "api/pages/:page_token" => "api/pages#show"
+  get "api/pages/:token" => "api/pages#show"
+
+  get "api/purchases/:token" => "api/purchases#show"
+
 
   devise_for :users, :controllers => { :registrations => :registrations }, :skip => [:sessions]
   as :user do

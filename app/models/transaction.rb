@@ -1,4 +1,6 @@
 class Transaction < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
+
   attr_accessible :transaction_token, :transaction_amount,
                   :buyer_email, :buyer_name, :buyer_ip_address,
                   :charge_token, :card_token,
@@ -25,6 +27,35 @@ class Transaction < ActiveRecord::Base
   #     iron_worker.tasks.create("ping", self)
   #   end
   # end
+
+  def api_array
+    purchase = {}
+    purchase[:id] = self.transaction_token
+    purchase[:page_id] = self.stack.stack_token
+    purchase[:buyer] = {}
+      purchase[:buyer][:name] = self.buyer_name
+      purchase[:buyer][:email] = self.buyer_email
+    purchase[:payed] = number_to_currency(self.transaction_amount, :precision => 2)
+    purchase[:shipping] = {}
+      purchase[:shipping][:type] = self.shipping_cost_term
+      purchase[:shipping][:payed] = number_to_currency(self.shipping_cost, :precision => 2)
+      purchase[:shipping][:address_line1] = self.shipping_address_line1
+      purchase[:shipping][:address_line2] = self.shipping_address_line2
+      purchase[:shipping][:address_city] = self.shipping_address_city
+      purchase[:shipping][:address_postcode] = self.shipping_address_postcode
+      purchase[:shipping][:address_state] = self.shipping_address_state
+      purchase[:shipping][:address_country] = self.shipping_address_country
+    purchase[:custom_fields] = []
+    unless self.custom_data_term.blank?
+      self.custom_data_term.each_index do |index|
+        custom_field = {}
+        custom_field[:name] = self.custom_data_term[index]
+        custom_field[:value] = self.custom_data_value[index]
+        purchase[:custom_fields] << custom_field
+      end
+    end
+    purchase
+  end
 
   protected
 

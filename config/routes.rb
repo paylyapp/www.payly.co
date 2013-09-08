@@ -32,6 +32,12 @@ Haystack::Application.routes.draw do
   match "dashboard/:stack_token/payments", :to => redirect {|params,request| "/dashboard/#{params[:stack_token]}/purchases"}
   match "dashboard/:stack_token/payments/:transaction_token", :to => redirect {|params,request| "/dashboard/#{params[:stack_token]}/purchases/#{params[:transaction_token]}"}
 
+  post "api/sessions/create" => "api/sessions#create"
+  delete "api/sessions/destroy" => "api/sessions#destroy"
+
+  get "api/pages" => "api/pages#index"
+  get "api/pages/:token" => "api/pages#show"
+
   devise_for :users, :controllers => { :registrations => :registrations }, :skip => [:sessions]
   as :user do
     get   'login'                             => 'devise/sessions#new',           :as => :new_user_session

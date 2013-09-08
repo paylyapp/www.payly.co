@@ -39,7 +39,7 @@ stacks/primary_image/default/original/logo.jpg: dca6e621bac8c03c4d6cfc5221332e4b
 stacks/primary_image/default/small/logo.jpg: 85424536ed6b4fc2472276049a022267
 stacks/primary_image/default/tiny/logo.jpg: 52e6903b357ae185933acd9417930dd4
 application.js: 1b13569e9620782f423d4cd3ce931750
-dashboard.js: 6a12ddd27542d621d6519f44e3998113
+dashboard.js: 3dbe289fc588524368dcde36b0e43f48
 devise.js: 975a27746bf32483478f68660965cc0d
 home.js: 631b19b2ec35d21347f9ad9da3f11c0d
 transactions-braintree.js: 25fa2c365782cc74224360539cee6385

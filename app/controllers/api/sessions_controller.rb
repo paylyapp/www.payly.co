@@ -32,7 +32,7 @@ class Api::SessionsController < ApplicationController
   def invalid_login_attempt
       warden.custom_failure!
       @json = {}
-      @json[:status] = 'success'
+      @json[:status] = 'error'
       @json[:message] = 'Invalid email or password.'
       render :json => @json, :success => false, :status => :unauthorized
   end

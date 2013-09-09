@@ -109,8 +109,8 @@ class Stack < ActiveRecord::Base
     page[:description] = self.description
     page[:logo] = self.primary_image.url
     page[:permalink] = "http://#{Rails.application.config.action_mailer.default_url_options[:host]}/p/" + self.page_token
-    page[:price] = self.charge_amount.nil? ? null : self.charge_amount * 100
-    page[:formated_price] = self.charge_amount.nil? ? null : number_to_currency(self.charge_amount, :precision => 2)
+    page[:price] = self.charge_amount.nil? ? nil : self.charge_amount * 100
+    page[:formated_price] = self.charge_amount.nil? ? nil : number_to_currency(self.charge_amount, :precision => 2)
     page[:purchase_count] = {}
       page[:purchase_count][:maximum] = self.max_purchase_count.nil? ? 999999 : self.max_purchase_count
       page[:purchase_count][:current] = self.transactions.count

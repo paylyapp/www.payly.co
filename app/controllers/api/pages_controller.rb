@@ -2,7 +2,7 @@ class Api::PagesController < ApplicationController
   before_filter :authenticate_user!
   prepend_before_filter :get_auth_token
 
-  # /api/pages.json
+  # /api/pages
   def index
     @stacks = current_user.stacks.where({:archived => false})
     @pages = []
@@ -12,23 +12,31 @@ class Api::PagesController < ApplicationController
     @json = {}
     @json[:status] = 'success'
     @json[:pages] = @pages
-    render :json => @json
+    render :json => @json,  :success => true, :status => :ok
   end
 
-  # /api/pages/s_abcdefg123456.json
+  # /api/pages/s_abcdefg123456
   def show
-    @stack = current_user.stacks.find_by_stack_token(params[:token])
-    @page = @stack.api_array
     @json = {}
-    @json[:status] = 'success'
-    @json[:page] = @page
-    render :json => @json
+    @stack = current_user.stacks.find_by_stack_token(params[:token])
+    if @stack.nil?
+      @json[:status] = 'error'
+      @json[:message] = 'The page could not be found.'
+      render :json => @json, :success => false, :status => :not_found
+    else
+      @page = @stack.api_array
+      @json[:status] = 'success'
+      @json[:page] = @page
+      render :json => @json,  :success => true, :status => :ok
+    end
   end
 
   private
   def get_auth_token
     if auth_token = params[:auth_token].blank?
-      render :json => { :errors => ["Invalid authentication token."] },  :success => false, :status => :unauthorized
+      @json[:status] = 'success'
+      @json[:message] = 'Invalid authentication token.'
+      render :json => @json, :success => false, :status => :unauthorized
     end
   end
 end

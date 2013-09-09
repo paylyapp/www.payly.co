@@ -8,7 +8,12 @@ class Api::SessionsController < ApplicationController
 
     if resource.valid_password?(params[:password])
       resource.ensure_authentication_token!
-      render :json => { :authentication_token => resource.authentication_token, :user_id => resource.id }, :status => :created
+      @json = {}
+      @json[:status] = 'success'
+      @json[:user] = {}
+      @json[:user][:id] = resource.id
+      @json[:user][:authentication_token] = resource.authentication_token
+      render :json => @json,  :success => true, :status => :created
     else
       return invalid_login_attempt
     end
@@ -18,11 +23,15 @@ class Api::SessionsController < ApplicationController
   def destroy
       @user=User.where(:authentication_token=>params[:auth_token]).first
       @user.reset_authentication_token! unless @user.nil?
-      render :json => { :message => ["Session deleted."] },  :success => true, :status => :ok
+      @json[:status] = 'success'
+      @json[:message] = 'Session deleted.'
+      render :json => @json,  :success => true, :status => :ok
   end
 
   def invalid_login_attempt
       warden.custom_failure!
-      render :json => { :errors => ["Invalid email or password."] },  :success => false, :status => :unauthorized
+      @json[:status] = 'success'
+      @json[:message] = 'Invalid email or password.'
+      render :json => @json, :success => false, :status => :unauthorized
   end
 end

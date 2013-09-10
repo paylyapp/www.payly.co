@@ -23,6 +23,7 @@ class Api::SessionsController < ApplicationController
   def destroy
       @user=User.where(:authentication_token=>params[:auth_token]).first
       @user.reset_authentication_token! unless @user.nil?
+      @json = {}
       @json[:status] = 'success'
       @json[:message] = 'Session deleted.'
       render :json => @json,  :success => true, :status => :ok
@@ -30,7 +31,8 @@ class Api::SessionsController < ApplicationController
 
   def invalid_login_attempt
       warden.custom_failure!
-      @json[:status] = 'success'
+      @json = {}
+      @json[:status] = 'error'
       @json[:message] = 'Invalid email or password.'
       render :json => @json, :success => false, :status => :unauthorized
   end

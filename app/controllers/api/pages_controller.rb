@@ -34,7 +34,7 @@ class Api::PagesController < ApplicationController
   private
   def get_auth_token
     if auth_token = params[:auth_token].blank?
-      @json[:status] = 'success'
+      @json[:status] = 'error'
       @json[:message] = 'Invalid authentication token.'
       render :json => @json, :success => false, :status => :unauthorized
     end

@@ -1,3 +1,5 @@
+<h1 class="page-title"><i class="icon-dashboard"></i> Dashboard</h1>
+
 <% if @user.stacks.where(:archived => false).empty? %>
   <div class="container">
     <header>
@@ -46,29 +48,5 @@
         </li>
       </ul>
     </div>
-  </div>
-  <div class="container">
-    <header>
-      <p><strong>Purchase Feed</strong></p>
-    </header>
-
-    <ul class="feed-list">
-    <% @transactions.each do |transaction| %>
-    <li class="feed-item">
-      <p><%= transaction.buyer_name %> bought <%= transaction.stack.product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack.charge_currency %></span></span></p>
-      <ul>
-        <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
-        <li><span class="id">ID: <%= transaction.transaction_token %></span></li>
-        <li><span class="purchase"><%= link_to "View Purchase", dashboard_stack_transaction_path(transaction.stack.stack_token, transaction.transaction_token) %></span></li>
-        <li><span class="email"><%= mail_to transaction.buyer_email, "Email Buyer", :class => "email", :target => "_blank" %></span></li>
-      </ul>
-    </li>
-    <% end %>
-    <% if @transactions.count == 0 %>
-      <li class="feed-item">
-        <p>You have not received any payments yet.</p>
-      </li>
-    <% end %>
-    </ul>
   </div>
 <% end %>

@@ -2,8 +2,23 @@ class UserController < ApplicationController
   layout "user"
   before_filter :authenticate_user!
 
-  def root
-    @pre_title = "Pages Dashboard"
+  def settings
+    @user = User.find(current_user)
+  end
+
+  def dashboard
+    @pre_title = "Dashboard"
+    @user = current_user
+  end
+
+  def pages
+    @pre_title = "Pages"
+    @user = current_user
+    @stacks = current_user.stacks
+  end
+
+  def purchases
+    @pre_title = "Purchases"
     @user = current_user
     if @user.stacks.where(:archived => false).empty?
       @stack = Stack.new
@@ -26,9 +41,5 @@ class UserController < ApplicationController
       @transactions = @transactions.sort {|x,y| y["created_at"] <=> x["created_at"] }
       @transactions = @transactions.take(10)
     end
-  end
-
-  def settings
-    @user = User.find(current_user)
   end
 end

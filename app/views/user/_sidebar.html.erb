@@ -11,23 +11,14 @@
       <i class="icon-dashboard"></i> Dashboard
     <% end %>
   </li>
-  <li class="primary">
-    <%= link_to dashboard_new_stack_path, :class => current_page(dashboard_new_stack_path) do %>
-      <i class="icon-plus"></i> Add Page
+  <li>
+    <%= link_to user_pages_path, :class => current_page(user_pages_path) do %>
+      <i class="icon-copy"></i> Pages
     <% end %>
   </li>
-  <% current_user.stacks.where(:archived => false).order('created_at ASC').each do |stack| %>
-    <% unless stack.stack_token.nil? %>
-      <li>
-        <%= link_to dashboard_stack_path(stack.stack_token), :class => "#{current_page(dashboard_stack_path(stack.stack_token))} #{current_page(dashboard_stack_transactions_path(stack.stack_token))}" do %>
-          <% if stack.has_digital_download %>
-            <i class="icon-download-alt"></i>
-          <% else %>
-            <i class="icon-exchange"></i>
-          <% end %>
-          <%= stack.product_name %>
-        <% end %>
-      </li>
+  <li>
+    <%= link_to user_purchases_path, :class => current_page(user_purchases_path) do %>
+      <i class="icon-money"></i> Purchases
     <% end %>
-  <% end %>
+  </li>
 </ul>

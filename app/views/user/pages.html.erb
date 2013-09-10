@@ -1,0 +1,11 @@
+<h1 class="page-title"><i class="icon-copy"></i> Pages</h1>
+
+<div class="container">
+  <header>
+    <div class="button-group">
+      <%= link_to dashboard_new_stack_path, :class => "first last primary" do %><span class="text">New Page</span><% end %>
+    </div>
+  </header>
+
+  <%= render "stacks/list" %>
+</div>

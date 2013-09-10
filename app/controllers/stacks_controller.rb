@@ -3,8 +3,7 @@ class StacksController < ApplicationController
   before_filter :authenticate_user!
 
   def stack
-    @post_title = "Page"
-    @pre_title = "Pages Dashboard"
+    @pre_title = "Pages"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
@@ -16,8 +15,7 @@ class StacksController < ApplicationController
   end
 
   def stack_transactions
-    @post_title = "Transactions"
-    @pre_title = "Pages Dashboard"
+    @pre_title = "Pages"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
@@ -30,26 +28,19 @@ class StacksController < ApplicationController
   end
 
   def stack_transaction
-    @post_title = "Transaction"
-    @pre_title = "Pages Dashboard"
+    @pre_title = "Pages"
     @user = current_user
-    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
+    @transaction = current_user.transactions.find_by_transaction_token(params[:transaction_token])
 
-    if @stack.nil? || @stack.archived == true
+    if @transaction.nil?
       render :stack_error
     else
-      @transaction = @stack.transactions.find_by_transaction_token(params[:transaction_token])
-      if @transaction.nil?
-        render :stack_error
-      else
-        render :stack_transaction
-      end
+      render :stack_transaction
     end
   end
 
   def new_stack
-    @post_title = "New Page"
-    @pre_title = "Pages Dashboard"
+    @pre_title = "Pages"
     @stack = Stack.new
     @stack.seller_name = current_user.full_name
     @stack.seller_email = current_user.email

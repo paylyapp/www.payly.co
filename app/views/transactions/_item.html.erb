@@ -3,7 +3,7 @@
     <label>Page</label>
     <div class="input">
       <span class="text">
-        <%= link_to @transaction.stack.product_name, dashboard_stack_path(@stack.stack_token) %>
+        <%= link_to @transaction.stack.product_name, dashboard_stack_path(@transaction.stack.stack_token) %>
       </span>
     </div>
   </div>
@@ -79,9 +79,4 @@
   <% } %>
 <% end %>
 
-    <footer class="actions">
-      <div class="button-group">
-        <%= link_to 'Back to Purchase Feed', dashboard_stack_transactions_path(@stack.stack_token), :class => "secondary-action" %>
-      </div>
-    </footer>
 <% end %>

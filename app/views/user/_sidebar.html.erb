@@ -1,23 +1,23 @@
 <div class="user">
   <%= image_tag current_user.gravatar_url, :height => 80, :width => 80 %>
   <span class="full-name"><%= current_user.full_name %></span>
-    <%= link_to user_settings_path, :class => current_page(user_settings_path) do %><i class="icon-cog"></i> Settings<% end %>
+    <%= link_to user_settings_path, :class => current_section('settings') do %><i class="icon-cog"></i> Settings<% end %>
     <%= link_to destroy_user_session_path, :method => :delete, :class => "secondary-action" do %><i class="icon-signout"></i> Signout<% end %>
 </div>
 
 <ul class="user-nav">
   <li>
-    <%= link_to user_root_path, :class => current_page(user_root_path) do %>
+    <%= link_to user_root_path, :class => current_section('dashboard') do %>
       <i class="icon-dashboard"></i> Dashboard
     <% end %>
   </li>
   <li>
-    <%= link_to user_pages_path, :class => current_page(user_pages_path) do %>
+    <%= link_to user_pages_path, :class => current_section('pages') do %>
       <i class="icon-copy"></i> Pages
     <% end %>
   </li>
   <li>
-    <%= link_to user_purchases_path, :class => current_page(user_purchases_path) do %>
+    <%= link_to user_purchases_path, :class => current_section('purchases') do %>
       <i class="icon-money"></i> Purchases
     <% end %>
   </li>

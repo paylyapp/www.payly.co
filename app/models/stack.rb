@@ -2,6 +2,8 @@ class Stack < ActiveRecord::Base
   include Shared::AttachmentHelper
   include ActionView::Helpers::NumberHelper
 
+  is_impressionable
+
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
                   :ga_id, :product_name, :require_billing,
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,

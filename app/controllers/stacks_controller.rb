@@ -2,7 +2,8 @@ class StacksController < ApplicationController
   layout "user"
   before_filter :authenticate_user!
 
-  def stack
+  def settings
+    @current_section = "pages"
     @pre_title = "Pages"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
@@ -14,7 +15,8 @@ class StacksController < ApplicationController
     end
   end
 
-  def stack_transactions
+  def purchases
+    @current_section = "pages"
     @pre_title = "Pages"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
@@ -27,7 +29,8 @@ class StacksController < ApplicationController
     end
   end
 
-  def stack_transaction
+  def purchase
+    @current_section = "purchases"
     @pre_title = "Pages"
     @user = current_user
     @transaction = current_user.transactions.find_by_transaction_token(params[:transaction_token])
@@ -39,7 +42,8 @@ class StacksController < ApplicationController
     end
   end
 
-  def new_stack
+  def new
+    @current_section = "pages"
     @pre_title = "Pages"
     @stack = Stack.new
     @stack.seller_name = current_user.full_name
@@ -53,7 +57,7 @@ class StacksController < ApplicationController
     render :new_stack
   end
 
-  def create_stack
+  def create
     @stack = current_user.stacks.build(params[:stack])
 
     if @stack.save
@@ -63,7 +67,7 @@ class StacksController < ApplicationController
     end
   end
 
-  def update_stack
+  def update
     params[:stack].delete(:primary_image) if  params[:stack][:primary_image].blank?
     params[:stack].delete(:digital_download_file) if params[:stack][:digital_download_file].blank?
     params[:stack][:digital_download_update_flag] = true unless params[:stack][:digital_download_file].blank?
@@ -89,7 +93,7 @@ class StacksController < ApplicationController
     end
   end
 
-  def stack_updated_download
+  def updated_download
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
@@ -108,7 +112,7 @@ class StacksController < ApplicationController
     end
   end
 
-  def destroy_stack
+  def destroy
     @stack = Stack.find_by_stack_token(params[:stack_token])
     @stack.decommission
 

@@ -1,4 +1,7 @@
 <li class="feed-item">
+  <figure>
+    <%= image_tag stack.primary_image.url(:tiny), :width => '42', :height => '42' %>
+  </figure>
   <p>
     <% if stack.has_digital_download %>
       <i class="icon-download-alt"></i>

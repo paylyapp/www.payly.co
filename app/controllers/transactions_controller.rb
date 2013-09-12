@@ -3,11 +3,7 @@ class TransactionsController < ApplicationController
 
   layout "transactions"
 
-  def stack_list
-
-  end
-
-  def new_transaction
+  def new
     @stack = Stack.find_by_page_token(params[:page_token])
 
     if @stack.nil? || @stack.throw_transaction_error?(current_user)
@@ -19,13 +15,14 @@ class TransactionsController < ApplicationController
         @transaction = @stack.transactions.new
         @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
         render :transaction
+        impressionist(@stack)
       else
         render :error
       end
     end
   end
 
-  def create_transaction
+  def create
     @stack = Stack.find_by_page_token(params[:page_token])
 
     if @stack.nil? || @stack.throw_transaction_error?(current_user)
@@ -163,7 +160,7 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def complete_transaction
+  def complete
     @stack = Stack.find_by_page_token(params[:page_token])
 
     if @stack.nil?  || @stack.archived

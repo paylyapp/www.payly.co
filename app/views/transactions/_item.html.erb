@@ -1,17 +1,17 @@
 <%= form_for('', :html => {:autocomplete => "off"}) do |f| %>
   <div class="field field-text field-full-name">
-    <label>Page</label>
+    <label>ID</label>
     <div class="input">
       <span class="text">
-        <%= link_to @transaction.stack.product_name, dashboard_stack_path(@transaction.stack.stack_token) %>
+        <%= @transaction.transaction_token %>
       </span>
     </div>
   </div>
   <div class="field field-text field-full-name">
-    <label>Transaction ID</label>
+    <label>Page</label>
     <div class="input">
       <span class="text">
-        <%= @transaction.transaction_token %>
+        <%= link_to @transaction.stack.product_name, dashboard_stack_path(@transaction.stack.stack_token) %>
       </span>
     </div>
   </div>

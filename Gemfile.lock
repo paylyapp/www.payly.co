@@ -117,7 +117,11 @@ GEM
       excon (~> 0.23.0)
     highline (1.6.19)
     hike (1.2.3)
+    httpclient (2.3.4.1)
     i18n (0.6.1)
+    impressionist (1.4.0)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     journey (1.0.4)
     jquery-rails (3.0.1)
       railties (>= 3.0, < 5.0)
@@ -279,6 +283,7 @@ DEPENDENCIES
   gravtastic
   hay!
   heroku
+  impressionist
   jquery-rails
   modernizr-rails
   nokogiri

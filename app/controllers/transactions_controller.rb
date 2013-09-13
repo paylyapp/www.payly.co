@@ -166,7 +166,7 @@ class TransactionsController < ApplicationController
     if @stack.nil?  || @stack.archived
       render :error
     else
-      render :complete_transaction
+      render :complete
     end
   end
 

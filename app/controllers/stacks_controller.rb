@@ -9,9 +9,9 @@ class StacksController < ApplicationController
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil? || @stack.archived == true
-      render :stack_error
+      render :error
     else
-      render :stack
+      render :settings
     end
   end
 
@@ -22,10 +22,10 @@ class StacksController < ApplicationController
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil? ||  @stack.archived == true
-      render :stack_error
+      render :error
     else
       @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
-      render :stack_transactions
+      render :purchases
     end
   end
 
@@ -36,9 +36,9 @@ class StacksController < ApplicationController
     @transaction = current_user.transactions.find_by_transaction_token(params[:transaction_token])
 
     if @transaction.nil?
-      render :stack_error
+      render :error
     else
-      render :stack_transaction
+      render :purchase
     end
   end
 
@@ -54,7 +54,7 @@ class StacksController < ApplicationController
       break random_token unless Stack.where(:page_token => random_token).exists?
     end
 
-    render :new_stack
+    render :new
   end
 
   def create
@@ -63,7 +63,7 @@ class StacksController < ApplicationController
     if @stack.save
       redirect_to dashboard_stack_path(@stack.stack_token)
     else
-      render :new_stack
+      render :new
     end
   end
 
@@ -89,7 +89,7 @@ class StacksController < ApplicationController
     if @stack.update_attributes(params[:stack])
       redirect_to dashboard_stack_path(@stack.stack_token)
     else
-      render :stack
+      render :settings
     end
   end
 
@@ -98,7 +98,7 @@ class StacksController < ApplicationController
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil? @stack.archived == true
-      render :stack_error
+      render :error
     else
       if @stack.can_delivery_file?
         @stack.transactions.each { |transaction|

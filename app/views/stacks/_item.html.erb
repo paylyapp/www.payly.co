@@ -22,7 +22,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to page_new_transaction_path(stack.page_token) do %>
+      <%= link_to page_new_transaction_path(stack.page_token), :target => '_blank' do %>
         <i class="icon-external-link"></i> View Page
       <% end %>
     </li>
@@ -33,6 +33,7 @@
       <i class="icon-eye-close"></i> Visible only to you
       <% end %>
     </li>
-  </ul></li>
+  </ul>
+</li>
 
 

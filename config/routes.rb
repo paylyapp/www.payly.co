@@ -13,26 +13,44 @@ Haystack::Application.routes.draw do
   get     "pocket/transactions"               => "customer#list",                 :as => 'pocket_transactions'
   get     "pocket/transactions/:transaction_token" => "customer#item",            :as => 'pocket_transaction'
 
-  get     "l/:username"                       => "transactions#stack_list",           :as => 'transaction_stack_list'
-  get     "p/*page_token"                     => "transactions#new_transaction",      :as => 'page_new_transaction'
-  post    "p/*page_token"                     => "transactions#create_transaction",   :as => 'page_create_transaction'
-  get     "t/*page_token"                     => "transactions#complete_transaction", :as => 'page_complete_transaction'
+  get     "p/*page_token"                     => "transactions#new",      :as => 'page_new_transaction'
+  post    "p/*page_token"                     => "transactions#create",   :as => 'page_create_transaction'
+  get     "t/*page_token"                     => "transactions#complete", :as => 'page_complete_transaction'
   get     "download"                          => "transactions#download",             :as => 'download'
 
-  get     "dashboard"                         => "user#root",                     :as => 'user_root'
-  get     "settings"                          => "user#settings",                 :as => 'user_settings'
+  get     "dashboard"                         => "user#dashboard",                     :as => 'user_root'
+  get     "settings"                          => "user#settings",                      :as => 'user_settings'
+  get     "pages"                             => "user#pages",                         :as => 'user_pages'
+  get     "purchases"                         => "user#purchases",                     :as => 'user_purchases'
 
-  get     "dashboard/s_new"                   => "stacks#new_stack",              :as => 'dashboard_new_stack'
-  get     "dashboard/:stack_token"            => "stacks#stack",                  :as => 'dashboard_stack'
-  get     "dashboard/:stack_token/purchases"   => "stacks#stack_transactions",     :as => 'dashboard_stack_transactions'
-  get     "dashboard/:stack_token/purchases/:transaction_token" => "stacks#stack_transaction",  :as => 'dashboard_stack_transaction'
-  get     "dashboard/:stack_token/update/buyers/download" => "stacks#stack_updated_download",  :as => 'dashboard_stack_updated_download'
-  post    "dashboard/s_new"                   => "stacks#create_stack",           :as => 'stack_create'
-  put     "dashboard/:stack_token"            => "stacks#update_stack",           :as => 'stack_update'
-  delete  "dashboard/:stack_token/destroy"    => "stacks#destroy_stack",          :as => 'stack_destroy'
+  get     "pages/new"                         => "stacks#new",                :as => 'dashboard_new_stack'
+  get     "pages/:stack_token"                => "stacks#settings",                  :as => 'dashboard_stack'
+  get     "pages/:stack_token/purchases"      => "stacks#purchases",     :as => 'dashboard_stack_transactions'
+  get     "pages/:stack_token/update/buyer/download" => "stacks#updated_download",  :as => 'dashboard_stack_updated_download'
 
+  get     "/purchases/:transaction_token" => "stacks#purchase",      :as => 'dashboard_stack_transaction'
+
+  post    "pages/s_new"                   => "stacks#create",           :as => 'stack_create'
+  put     "pages/:stack_token"            => "stacks#update",           :as => 'stack_update'
+  delete  "pages/:stack_token/destroy"    => "stacks#destroy",          :as => 'stack_destroy'
+
+
+  match "dashboard/s_new", :to => redirect {|params,request| "/pages/new"}
+  match "dashboard/:stack_token", :to => redirect {|params,request| "/pages/#{params[:stack_token]}"}
   match "dashboard/:stack_token/payments", :to => redirect {|params,request| "/dashboard/#{params[:stack_token]}/purchases"}
   match "dashboard/:stack_token/payments/:transaction_token", :to => redirect {|params,request| "/dashboard/#{params[:stack_token]}/purchases/#{params[:transaction_token]}"}
+
+  match "dashboard/:stack_token/payments", :to => redirect {|params,request| "/pages/#{params[:stack_token]}/purchases"}
+  match "dashboard/:stack_token/payments/:transaction_token", :to => redirect {|params,request| "/pages/#{params[:stack_token]}/purchases/#{params[:transaction_token]}"}
+
+  post "api/sessions/create" => "api/sessions#create"
+  delete "api/sessions/destroy" => "api/sessions#destroy"
+
+  get "api/pages" => "api/pages#index"
+  get "api/pages/:token" => "api/pages#show"
+
+  get "api/purchases/:token" => "api/purchases#show"
+
 
   devise_for :users, :controllers => { :registrations => :registrations }, :skip => [:sessions]
   as :user do

@@ -1,5 +1,5 @@
 <header>
-  <p><strong>Purchase Feed</strong></p>
+  <p><strong>Purchases</strong></p>
 </header>
 
 <ul class="feed-list">
@@ -9,7 +9,7 @@
       <ul>
         <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
         <li><span class="id">ID: <%= transaction.transaction_token %></span></li>
-        <li><span class="purchase"><%= link_to "View Payment", dashboard_stack_transaction_path(transaction.stack.stack_token, transaction.transaction_token) %></span></li>
+        <li><span class="purchase"><%= link_to "View Purchase", dashboard_stack_transaction_path(transaction.transaction_token) %></span></li>
         <li><span class="email"><%= mail_to transaction.buyer_email, "Email Buyer", :class => "email", :target => "_blank" %></span></li>
     </ul>
   </li>

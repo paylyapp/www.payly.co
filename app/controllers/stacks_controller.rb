@@ -2,54 +2,49 @@ class StacksController < ApplicationController
   layout "user"
   before_filter :authenticate_user!
 
-  def stack
-    @post_title = "Page"
-    @pre_title = "Pages Dashboard"
+  def settings
+    @current_section = "pages"
+    @pre_title = "Pages"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil? || @stack.archived == true
-      render :stack_error
+      render :error
     else
-      render :stack
+      render :settings
     end
   end
 
-  def stack_transactions
-    @post_title = "Transactions"
-    @pre_title = "Pages Dashboard"
+  def purchases
+    @current_section = "pages"
+    @pre_title = "Pages"
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil? ||  @stack.archived == true
-      render :stack_error
+      render :error
     else
       @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
-      render :stack_transactions
+      render :purchases
     end
   end
 
-  def stack_transaction
-    @post_title = "Transaction"
-    @pre_title = "Pages Dashboard"
+  def purchase
+    @current_section = "purchases"
+    @pre_title = "Pages"
     @user = current_user
-    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
+    @transaction = current_user.transactions.find_by_transaction_token(params[:transaction_token])
 
-    if @stack.nil? || @stack.archived == true
-      render :stack_error
+    if @transaction.nil?
+      render :error
     else
-      @transaction = @stack.transactions.find_by_transaction_token(params[:transaction_token])
-      if @transaction.nil?
-        render :stack_error
-      else
-        render :stack_transaction
-      end
+      render :purchase
     end
   end
 
-  def new_stack
-    @post_title = "New Page"
-    @pre_title = "Pages Dashboard"
+  def new
+    @current_section = "pages"
+    @pre_title = "Pages"
     @stack = Stack.new
     @stack.seller_name = current_user.full_name
     @stack.seller_email = current_user.email
@@ -59,20 +54,20 @@ class StacksController < ApplicationController
       break random_token unless Stack.where(:page_token => random_token).exists?
     end
 
-    render :new_stack
+    render :new
   end
 
-  def create_stack
+  def create
     @stack = current_user.stacks.build(params[:stack])
 
     if @stack.save
       redirect_to dashboard_stack_path(@stack.stack_token)
     else
-      render :new_stack
+      render :new
     end
   end
 
-  def update_stack
+  def update
     params[:stack].delete(:primary_image) if  params[:stack][:primary_image].blank?
     params[:stack].delete(:digital_download_file) if params[:stack][:digital_download_file].blank?
     params[:stack][:digital_download_update_flag] = true unless params[:stack][:digital_download_file].blank?
@@ -94,16 +89,16 @@ class StacksController < ApplicationController
     if @stack.update_attributes(params[:stack])
       redirect_to dashboard_stack_path(@stack.stack_token)
     else
-      render :stack
+      render :settings
     end
   end
 
-  def stack_updated_download
+  def updated_download
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil? @stack.archived == true
-      render :stack_error
+      render :error
     else
       if @stack.can_delivery_file?
         @stack.transactions.each { |transaction|
@@ -117,7 +112,7 @@ class StacksController < ApplicationController
     end
   end
 
-  def destroy_stack
+  def destroy
     @stack = Stack.find_by_stack_token(params[:stack_token])
     @stack.decommission
 

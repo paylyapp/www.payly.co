@@ -39,23 +39,23 @@
     </div>
   </div>
   <div class="field field-file-upload field-primary-image">
-    <%= f.label :primary_image, "Logo" %>
+    <%= f.label :primary_image, 'Logo' %>
     <div class="input">
-      <%= image_tag @stack.primary_image.url(:tiny) %>
-      <%= f.file_field :primary_image, :"data-required" => "true" %>
+      <%= image_tag @stack.primary_image.url(:tiny), :width => '50', :height => '50' %>
+      <%= f.file_field :primary_image %>
     </div>
     <p class="description">Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.</p>
-  </div>
-  <div class="field field-text field-ga-id">
-    <%= f.label :ga_id, 'Google Analytics ID' %>
-    <div class="input">
-      <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
-    </div>
   </div>
   <div class="field field-text field-return-url">
     <%= f.label :return_url %>
     <div class="input">
       <%= f.text_field :return_url, :placeholder => "http://example.org/thanks" %>
+    </div>
+  </div>
+  <div class="field field-text field-ga-id">
+    <%= f.label :ga_id, 'Google Analytics ID' %>
+    <div class="input">
+      <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
     </div>
   </div>
   <div class="field field-text field-return-url">
@@ -208,7 +208,7 @@
   </div>
   <div class="more-fields">
     <div class="heading">
-      <p>You can provide a file that is downloadable upon sucessful payment through this payment page.</p>
+      <p>You can provide a file that is downloadable upon successful payment through this payment page.</p>
       <p>Downloadable files are currently limited to 10MB in size.</p>
     </div>
     <div class="field field-text field-digital-download-file">

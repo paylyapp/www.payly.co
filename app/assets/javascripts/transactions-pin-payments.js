@@ -84,7 +84,7 @@ $(function() {
         address_city: $('#card_address_city').val(),
         address_state: $('#card_address_state').val(),
         address_postcode: $('#card_address_postcode').val(),
-        address_country: $('#card_address_country').val()
+        address_country: $('#address_country_country').val()
       };
 
       Pin.createToken(card, handlePinResponse);

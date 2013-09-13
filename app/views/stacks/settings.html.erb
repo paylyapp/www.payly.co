@@ -1,0 +1,14 @@
+<h1 class="page-title">
+  <% if @stack.has_digital_download %>
+    <i class="icon-download-alt"></i>
+  <% else %>
+    <i class="icon-exchange"></i>
+  <% end %>
+  <%= @stack.product_name %>
+</h1>
+
+<div class="container">
+  <%= render "header" %>
+
+  <%= render "update" %>
+</div>

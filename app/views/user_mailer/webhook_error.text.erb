@@ -1,0 +1,11 @@
+Hi,
+
+You are receiving this email because at <%= @transaction.created_at %> we tried to post to the webhook url of <%= @stack.webhook_url %> and we did not receive the correct response back. Here is some data on what we received back from you.
+
+<% if @code %>
+Response Code: <%= @code %>
+<% end %>
+Response Body: <%= @body %>
+
+Thanks,
+Payly

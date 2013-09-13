@@ -21,44 +21,6 @@ class Transaction < ActiveRecord::Base
   before_create :generate_token
   after_create :send_transaction_emails
 
-  # def ping_url
-  #   if !self.stack.nil?
-  #     iron_worker = IronWorkerNG::Client.new
-  #     iron_worker.tasks.create("ping", self)
-  #   end
-  # end
-
-def webhook_url
-  unless self.stack.nil? && self.stack.webhook_url.nil?
-    opts = {
-      :method => 'POST',
-      :url => self.stack.webhook_url,
-      :timeout => 30
-    }
-
-    begin
-      response = RestClient::Request.execute(opts)
-    rescue SocketError => e
-      send_warning_email_to_seller(false, e)
-    rescue NoMethodError => e
-      if e.message =~ /\WRequestFailed\W/
-        e = APIConnectionError.new('Unexpected HTTP response code')
-        send_warning_email_to_seller(false, e)
-      else
-        send_warning_email_to_seller(false, 'Something went wrong')
-      end
-    rescue RestClient::ExceptionWithResponse => e
-      if rcode = e.http_code and rbody = e.http_body
-        send_warning_email_to_seller(rcode, rbody)
-      else
-        send_warning_email_to_seller(false, e)
-      end
-    rescue RestClient::Exception, Errno::ECONNREFUSED => e
-      send_warning_email_to_seller(false, e)
-    end
-    response
-  end
-
   def api_array
     purchase = {}
     purchase[:id] = self.transaction_token
@@ -86,7 +48,6 @@ def webhook_url
       end
     end
     purchase
->>>>>>> staging
   end
 
   protected
@@ -106,10 +67,5 @@ def webhook_url
     else
       TransactionMailer.recipet(self).deliver
     end
-  end
-
-  def send_warning_email_to_seller(code, body)
-    puts "#{code}"
-    puts "#{body}"
   end
 end

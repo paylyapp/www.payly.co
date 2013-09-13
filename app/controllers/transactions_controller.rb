@@ -67,9 +67,11 @@ class TransactionsController < ApplicationController
 
           @transaction.charge_token = charge[:response][:token]
 
-          @transaction.webhook_url
-
           if @transaction.save
+            unless @stack.webhook_url.nil?
+              @stack.webhook_url(@transaction)
+            end
+
             redirect_to page_complete_transaction_path
           else
             render :transaction
@@ -94,6 +96,10 @@ class TransactionsController < ApplicationController
           @transaction.charge_token = charge.id
 
           if @transaction.save
+            unless @stack.webhook_url.nil?
+              @stack.webhook_url(@transaction)
+            end
+
             redirect_to page_complete_transaction_path
           else
             render :transaction
@@ -140,6 +146,10 @@ class TransactionsController < ApplicationController
           @transaction.charge_token = charge.transaction.id
 
           if @transaction.save
+            unless @stack.webhook_url.nil?
+              @stack.webhook_url(@transaction)
+            end
+
             redirect_to page_complete_transaction_path
           else
             render :transaction

@@ -104,6 +104,57 @@ class Stack < ActiveRecord::Base
     !self.archived
   end
 
+  def post_webhook_url(purchase)
+    payload = {}
+    payload[:message] = 'success'
+    payload[:purchase] = {}
+    payload[:purchase][:id] = purchase.transaction_token
+    payload[:purchase][:customer] = {}
+    payload[:purchase][:customer][:name] = purchase.buyer_name
+    payload[:purchase][:customer][:email] = purchase.buyer_email
+    payload[:purchase][:payed] = number_with_precision(purchase.transaction_amount, :precision => 2)
+    payload[:purchase][:shipping] = {}
+    payload[:purchase][:shipping][:type] = purchase.shipping_cost_term
+    payload[:purchase][:shipping][:payed] = number_with_precision(purchase.shipping_cost, :precision => 2)
+    payload[:purchase][:shipping][:address_line1] = purchase.shipping_address_line1
+    payload[:purchase][:shipping][:address_line2] = purchase.shipping_address_line2
+    payload[:purchase][:shipping][:address_city] = purchase.shipping_address_city
+    payload[:purchase][:shipping][:address_postcode] = purchase.shipping_address_postcode
+    payload[:purchase][:shipping][:address_state] = purchase.shipping_address_state
+    payload[:purchase][:shipping][:address_country] = purchase.shipping_address_country
+
+    opts = {
+      :method => 'POST',
+      :url => self.webhook_url,
+      :payload => payload,
+      :timeout => 30
+    }
+
+    begin
+      response = RestClient::Request.execute(opts)
+    rescue SocketError => e
+      send_webhook_error(false, e, payload, purchase, self)
+    rescue NoMethodError => e
+      if e.message =~ /\WRequestFailed\W/
+        e = APIConnectionError.new('Unexpected HTTP response code')
+        send_webhook_error(false, e, payload, purchase, self)
+      else
+        send_webhook_error(false, 'Something went wrong', payload, purchase, self)
+      end
+    rescue RestClient::ExceptionWithResponse => e
+      if rcode = e.http_code and rbody = e.http_body
+        send_webhook_error(rcode, rbody, payload, purchase, self)
+      else
+        send_webhook_error(false, e, payload, purchase, self)
+      end
+    rescue RestClient::Exception, Errno::ECONNREFUSED => e
+      send_webhook_error(false, e, payload, purchase, self)
+    end
+    if response && response.code != 200
+      send_webhook_error(false, e, payload, purchase, self)
+    end
+  end
+
   def api_array
     page = {}
     page[:id] = self.stack_token
@@ -201,6 +252,10 @@ class Stack < ActiveRecord::Base
   end
 
   protected
+
+  def send_webhook_error(code, body, payload, transaction, stack)
+    UserMailer.webhook_error(code, body, payload, transaction, stack).deliver
+  end
 
   def set_currency
     self.charge_currency = "AUD"

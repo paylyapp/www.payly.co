@@ -28,10 +28,10 @@ class Transaction < ActiveRecord::Base
     purchase[:buyer] = {}
       purchase[:buyer][:name] = self.buyer_name
       purchase[:buyer][:email] = self.buyer_email
-    purchase[:payed] = number_to_currency(self.transaction_amount, :precision => 2)
+    purchase[:price] = number_to_currency(self.transaction_amount, :precision => 2)
     purchase[:shipping] = {}
       purchase[:shipping][:type] = self.shipping_cost_term
-      purchase[:shipping][:payed] = number_to_currency(self.shipping_cost, :precision => 2)
+      purchase[:shipping][:price] = number_to_currency(self.shipping_cost, :precision => 2)
       purchase[:shipping][:address_line1] = self.shipping_address_line1
       purchase[:shipping][:address_line2] = self.shipping_address_line2
       purchase[:shipping][:address_city] = self.shipping_address_city
@@ -42,7 +42,7 @@ class Transaction < ActiveRecord::Base
     unless self.custom_data_term.blank?
       self.custom_data_term.each_index do |index|
         custom_field = {}
-        custom_field[:name] = self.custom_data_term[index]
+        custom_field[:label] = self.custom_data_term[index]
         custom_field[:value] = self.custom_data_value[index]
         purchase[:custom_fields] << custom_field
       end

@@ -112,16 +112,25 @@ class Stack < ActiveRecord::Base
     payload[:purchase][:customer] = {}
     payload[:purchase][:customer][:name] = purchase.buyer_name
     payload[:purchase][:customer][:email] = purchase.buyer_email
-    payload[:purchase][:payed] = number_with_precision(purchase.transaction_amount, :precision => 2)
+    payload[:purchase][:price] = number_with_precision(purchase.transaction_amount, :precision => 2)
     payload[:purchase][:shipping] = {}
     payload[:purchase][:shipping][:type] = purchase.shipping_cost_term
-    payload[:purchase][:shipping][:payed] = number_with_precision(purchase.shipping_cost, :precision => 2)
+    payload[:purchase][:shipping][:price] = number_with_precision(purchase.shipping_cost, :precision => 2)
     payload[:purchase][:shipping][:address_line1] = purchase.shipping_address_line1
     payload[:purchase][:shipping][:address_line2] = purchase.shipping_address_line2
     payload[:purchase][:shipping][:address_city] = purchase.shipping_address_city
     payload[:purchase][:shipping][:address_postcode] = purchase.shipping_address_postcode
     payload[:purchase][:shipping][:address_state] = purchase.shipping_address_state
     payload[:purchase][:shipping][:address_country] = purchase.shipping_address_country
+    payload[:purchase][:custom_fields] = []
+    unless self.custom_data_term.blank?
+      self.custom_data_term.each_index do |index|
+        custom_field = {}
+        custom_field[:label] = self.custom_data_term[index]
+        custom_field[:value] = self.custom_data_value[index]
+        payload[:purchase][:custom_fields] << custom_field
+      end
+    end
 
     opts = {
       :method => 'POST',
@@ -181,6 +190,15 @@ class Stack < ActiveRecord::Base
       page[:seller][:address_postcode] = self.seller_address_postcode
       page[:seller][:address_state] = self.seller_address_state
       page[:seller][:address_country] = self.seller_address_country
+    page[:custom_fields] = []
+    unless self.custom_data_term.blank?
+      self.custom_data_term.each_index do |index|
+        custom_field = {}
+        custom_field[:name] = self.custom_data_term[index]
+        custom_field[:required] = self.custom_data_value[index].nil? ? false : true
+        page[:custom_fields] << custom_field
+      end
+    end
     page[:custom_fields] = []
     unless self.custom_data_term.blank?
       self.custom_data_term.each_index do |index|

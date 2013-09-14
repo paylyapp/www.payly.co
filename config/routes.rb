@@ -10,7 +10,7 @@ Haystack::Application.routes.draw do
   get     "pocket"                            => "customer#index",                :as => 'pocket'
   post    "pocket"                            => "customer#create",               :as => 'pocket'
   get     "pocket/transactions"               => "customer#list",                 :as => 'pocket_transactions'
-  get     "pocket/transactions/:transaction_token" => "customer#item",            :as => 'pocket_transaction'
+  get     "pocket/transactions/:transaction_token" => "customer#show",            :as => 'pocket_transaction'
 
   get     "p/*page_token"                     => "transactions#new",      :as => 'page_new_transaction'
   post    "p/*page_token"                     => "transactions#create",   :as => 'page_create_transaction'

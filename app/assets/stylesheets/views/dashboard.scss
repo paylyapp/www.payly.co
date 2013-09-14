@@ -416,7 +416,10 @@
     }
     .feed-list {
       .feed-item {
-
+        p,
+        li {
+          margin-left: 55px;
+        }
         li {
           float: none;
         }

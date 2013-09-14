@@ -8,14 +8,14 @@ class CustomerController < ApplicationController
       if token
         @customer = Customer.find_by_user_token(token)
         if @customer.nil?
-          render "form"
+          render :form
         else
           session[:pocket_token] = @customer.session_token # generate base64 key
           redirect_to pocket_transactions_path
         end
       else
         @customer = Customer.new
-        render "form"
+        render :form
       end
     else
       redirect_to pocket_transactions_path
@@ -29,11 +29,11 @@ class CustomerController < ApplicationController
     else
       @customer = Customer.find_by_session_token(session[:pocket_token])
       @transactions = @customer.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
-      render "list"
+      render :list
     end
   end
 
-  def item
+  def show
     @pre_title = 'Your Pocket'
     @customer = Customer.find_by_session_token(session[:pocket_token])
 
@@ -46,7 +46,7 @@ class CustomerController < ApplicationController
         redirect_to pocket_transactions_path
       else
         @stack = @transaction.stack
-        render "item"
+        render :show
       end
     end
   end

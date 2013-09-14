@@ -97,7 +97,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil? @stack.archived == true
+    if @stack.nil? && @stack.archived == true
       render :error
     else
       if @stack.can_delivery_file?

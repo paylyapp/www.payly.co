@@ -7,7 +7,11 @@
 
   <div class="success">
     <h1><i class="icon-ok"></i> Your purchase was successful</h1>
-    <p>You should receive an email with the payment receipt <%= "and invoice" if @stack.send_invoice_email == true %> shortly.</p>
+    <% if @stack.send_invoice_email == true %>
+      <p>You should receive an email with the invoice shortly.</p>
+    <% else %>
+      <p>You should receive an email with the payment receipt shortly.</p>
+    <% end %>
     <% unless @stack.return_url.blank? %>
     <p class="link"><%= link_to 'Return to website', @stack.return_url %></p>
     <% end %>

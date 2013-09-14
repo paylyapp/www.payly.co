@@ -186,13 +186,15 @@ class TransactionsController < ApplicationController
     transaction = Transaction.find_by_transaction_token(params[:token])
 
     if transaction.nil?
-      render "page/error"
+      render :error
     else
       # fix logic here
       if transaction.stack.has_digital_download
-        redirect_to transaction.stack.digital_download_file.expiring_url(600)
+        @stack = transaction.stack
+        @url = transaction.stack.digital_download_file.expiring_url(600)
+        render :download
       else
-        render "page/error"
+        render :error
       end
     end
   end

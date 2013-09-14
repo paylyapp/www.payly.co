@@ -3,6 +3,7 @@ Haystack::Application.routes.draw do
   get     "terms"                             => "home#terms",                    :as => 'terms'
   get     "privacy"                           => "home#privacy",                  :as => 'privacy'
   get     "signup/thank-you"                  => "home#thank_you",                :as => 'new_user_register_thank_you'
+  get     "commitment"                        => "home#commitment",               :as => 'commitment'
   # get     "features"                          => "home#features",                 :as => 'features'
   # get     "press"                             => "home#press",                    :as => 'press'
 

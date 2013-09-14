@@ -17,6 +17,10 @@ class HomeController < ApplicationController
     @pre_title = "Privacy Policy"
   end
 
+  def commitment
+    @pre_title = "Commitment to Openness"
+  end
+
   def thank_you
     @tpre_itle = "Thanks for signing up"
   end

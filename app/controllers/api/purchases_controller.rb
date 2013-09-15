@@ -1,5 +1,6 @@
 class Api::PurchasesController < ApplicationController
-  before_filter :authenticate_user!
+  # This is our new function that comes before Devise's one
+  before_filter :authenticate_user_from_token!
   prepend_before_filter :get_auth_token
 
   # /api/purchases/t_abcdefg12345

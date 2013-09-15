@@ -3,8 +3,7 @@ class User < ActiveRecord::Base
   gravtastic :secure => true, :size => 160, :default => "http://payly.co/assets/stacks/primary_image/default/medium/logo.jpg"
 
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable
+         :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessor   :current_password
   attr_accessible :user_token, :full_name, :email, :username,

@@ -7,7 +7,7 @@ class Api::SessionsController < ApplicationController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:password])
-      resource.ensure_authentication_token!
+      resource.ensure_authentication_token
       @json = {}
       @json[:status] = 'success'
       @json[:user] = {}

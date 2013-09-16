@@ -1,0 +1,56 @@
+<h1 class="page-title"><i class="icon-exchange"></i> One Time Payment Page</h1>
+
+<div class="container">
+  <%= form_for @stack, :url => stack_create_one_time_path, :html => {:multipart => true, :autocomplete => "off"} do |f| %>
+    <% if @stack.errors.any? %>
+      <div id="error_explanation" class="notification notification-danger">
+        <h2><%= pluralize(@stack.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+        <ul>
+        <% @stack.errors.messages.each do |attr,message| %>
+          <% message.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="heading">
+      <h2>Page Details</h2>
+    </div>
+    <div class="field field-text field-product">
+      <%= f.label :product_name, "Name" %>
+      <div class="input">
+        <%= f.text_field :product_name, :class => 'required' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+      </div>
+    </div>
+
+    <div class="heading">
+      <h2>Payment Details</h2>
+    </div>
+    <div class="field field-select field-charge-type">
+      <%= f.label :charge_type, "Type of charge" %>
+      <div class="input">
+        <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type) %>
+      </div>
+    </div>
+    <div class="field field-text field-charge-amount">
+      <%= f.label :charge_amount, "Amount" %>
+      <div class="input">
+        <div class="pre"><%= f.label :charge_amount, '$' %></div>
+        <%= f.text_field :charge_amount, :placeholder => "56.78" %>
+        <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+        <span class='field-error-text error-text--number'>This field must be a number.</span>
+      </div>
+    </div>
+
+    <footer class="actions">
+      <div class="button-group">
+        <%= f.submit 'Create Page', :class => 'primary-action' %>
+      </div>
+    </footer>
+  <% end %>
+</div>

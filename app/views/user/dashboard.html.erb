@@ -3,9 +3,24 @@
 <% if @user.stacks.where(:archived => false).empty? %>
   <div class="container">
     <header>
-      <p><strong>Create your first Page</strong>
+      <p><strong>Select your page type</strong>
     </header>
-    <%= render "stacks/new" %>
+    <div class="selection">
+      <ul>
+        <li>
+          <a href="/pages/new/one-time">
+            <i class="icon icon-exchange"></i>
+            <span class="text">One Time</span>
+          </a>
+        </li>
+        <li>
+          <a href="/pages/new/digital-download">
+            <i class="icon icon-download-alt"></i>
+            <span class="text">Digital Download</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 <% else %>
   <div class="container">

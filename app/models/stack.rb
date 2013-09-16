@@ -26,23 +26,23 @@ class Stack < ActiveRecord::Base
   validates :product_name, :presence => { :message => "This page must have a name." }
   validates :charge_amount, :presence => { :message => "This page must have an amount." }, :if => :charge_type_is_fixed?
   validates :charge_amount, :numericality => { :message => "The amount must be numerical." }, :if => :charge_type_is_fixed?
-  validates :description, :presence => { :message => "This page must have a description." }, :if => :not_decommisioned?
-  validates_attachment_size :primary_image, :less_than => 1.megabytes
-  validates_attachment_content_type :primary_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
-  validates :page_token, :presence => { :message => "This page must have a slug." }, :if => :not_decommisioned?
-  validates :page_token, :uniqueness => { :message => "The slug has already been used." }
-  validates :seller_name, :presence => { :message => "This page must have the seller's name." }
-  validates :seller_email, :presence => { :message => "This page must have the seller's email." }
-  validates :seller_trading_name, :presence => { :message => "This page must have the seller's trading name." }, :if => :sending_an_invoice?
-  validates :seller_abn, :presence => { :message => "This page must have the seller's ABN." }, :if => :sending_an_invoice?
-  validates :seller_address_line1, :presence => { :message => "This page must have the seller's address line 1." }, :if => :sending_an_invoice?
-  validates :seller_address_city, :presence => { :message => "This page must have the seller's city." }, :if => :sending_an_invoice?
-  validates :seller_address_postcode, :presence => { :message => "This page must have the seller's postcode." }, :if => :sending_an_invoice?
-  validates :seller_address_state, :presence => { :message => "This page must have the seller's state." }, :if => :sending_an_invoice?
-  validates :seller_address_country, :presence => { :message => "This page must have the seller's country." }, :if => :sending_an_invoice?
+  validates :description, :presence => { :message => "This page must have a description." }, :on => :update, :if => :not_decommisioned?
+  validates_attachment_size :primary_image, :on => :update, :less_than => 1.megabytes
+  validates_attachment_content_type :primary_image, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :on => :update
+  validates :page_token, :presence => { :message => "This page must have a slug." }, :on => :update, :if => :not_decommisioned?
+  validates :page_token, :uniqueness => { :message => "The slug has already been used." }, :on => :update
+  validates :seller_name, :presence => { :message => "This page must have the seller's name." }, :on => :update
+  validates :seller_email, :presence => { :message => "This page must have the seller's email." }, :on => :update
+  validates :seller_trading_name, :presence => { :message => "This page must have the seller's trading name." }, :on => :update, :if => :sending_an_invoice?
+  validates :seller_abn, :presence => { :message => "This page must have the seller's ABN." }, :on => :update, :if => :sending_an_invoice?
+  validates :seller_address_line1, :presence => { :message => "This page must have the seller's address line 1." }, :on => :update, :if => :sending_an_invoice?
+  validates :seller_address_city, :presence => { :message => "This page must have the seller's city." }, :on => :update, :if => :sending_an_invoice?
+  validates :seller_address_postcode, :presence => { :message => "This page must have the seller's postcode." }, :on => :update, :if => :sending_an_invoice?
+  validates :seller_address_state, :presence => { :message => "This page must have the seller's state." }, :on => :update, :if => :sending_an_invoice?
+  validates :seller_address_country, :presence => { :message => "This page must have the seller's country." }, :on => :update, :if => :sending_an_invoice?
 
 
-  validates_attachment_size :digital_download_file, :less_than => 10.megabytes
+  validates_attachment_size :digital_download_file, :less_than => 10.megabytes, :on => :update
 
   before_create :generate_tokens
   before_create :set_currency
@@ -265,7 +265,6 @@ class Stack < ActiveRecord::Base
     self.ga_id = nil
     self.return_url = nil
     self.description = nil
-    self.page_token = nil
     self.save!
   end
 

@@ -25,11 +25,14 @@ Haystack::Application.routes.draw do
   get     "pages/new"                         => "stacks#new",                :as => 'dashboard_new_stack'
   get     "pages/:stack_token"                => "stacks#settings",                  :as => 'dashboard_stack'
   get     "pages/:stack_token/purchases"      => "stacks#purchases",     :as => 'dashboard_stack_transactions'
+  get     "pages/new/one-time"                => "stacks#one_time",           :as => 'dashboard_new_one_time'
+  get     "pages/new/digital-download"        => "stacks#digital_download",   :as => 'dashboard_new_digital_download'
   get     "pages/:stack_token/update/buyer/download" => "stacks#updated_download",  :as => 'dashboard_stack_updated_download'
 
-  get     "/purchases/:transaction_token" => "stacks#purchase",      :as => 'dashboard_stack_transaction'
+  get     "purchases/:transaction_token" => "stacks#purchase",      :as => 'dashboard_stack_transaction'
 
-  post    "pages/s_new"                   => "stacks#create",           :as => 'stack_create'
+  post    "pages/new/one-time"                   => "stacks#create_one_time",           :as => 'stack_create_one_time'
+  post    "pages/new/digital-download"           => "stacks#create_digital_download",           :as => 'stack_create_digital_download'
   put     "pages/:stack_token"            => "stacks#update",           :as => 'stack_update'
   delete  "pages/:stack_token/destroy"    => "stacks#destroy",          :as => 'stack_destroy'
 

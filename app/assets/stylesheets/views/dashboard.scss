@@ -215,6 +215,41 @@
     }
   }
 
+  .selection {
+    ul {
+
+      @include pie-clearfix();
+
+      li {
+        width: 50%;
+        float: left;
+        text-align: center;
+        border-left: 1px solid #BDC3C7;
+        &:first-child {
+          border-left: 0;
+        }
+        a {
+          display: block;
+          padding: $gutter*2 0;
+          text-decoration: none;
+          color: #3498DB;
+
+          &:hover {
+            color: lighten(#3498DB, 10%);
+          }
+        }
+        .icon {
+          font-size: 25px;
+        }
+        .text {
+          display: block;
+          margin-top: 10px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
   .stats {
     border-bottom: 1px solid #BDC3C7;
 

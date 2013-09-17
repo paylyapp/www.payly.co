@@ -10,6 +10,7 @@ Devise.setup do |config|
   # config.mailer = "Devise::Mailer"
 
   config.secret_key = ENV['DEVISE_SECRET_KEY']
+  config.allow_insecure_token_lookup = true
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and

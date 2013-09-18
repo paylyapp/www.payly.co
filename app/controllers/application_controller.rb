@@ -1,16 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  layout :layout_by_resource
   before_filter :authenticate
 
   protected
-
-  def layout_by_resource
-    if devise_controller?
-      "devise"
-    end
-  end
 
   def authenticate
     if Rails.env == 'staging'

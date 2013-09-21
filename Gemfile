@@ -31,6 +31,7 @@ end
 group :development do
   gem 'taps'
   gem 'sqlite3'
+  gem "better_errors"
 end
 
 gem 'pg'

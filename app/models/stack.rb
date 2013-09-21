@@ -41,11 +41,12 @@ class Stack < ActiveRecord::Base
   validates :seller_address_state, :presence => { :message => "This page must have the seller's state." }, :on => :update, :if => :sending_an_invoice?
   validates :seller_address_country, :presence => { :message => "This page must have the seller's country." }, :on => :update, :if => :sending_an_invoice?
 
-
   validates_attachment_size :digital_download_file, :less_than => 10.megabytes, :on => :update
 
   before_create :generate_tokens
   before_create :set_currency
+
+  default_scope { where archived: false }
 
   def charge_type_is_fixed?
     charge_type == "fixed"
@@ -60,23 +61,19 @@ class Stack < ActiveRecord::Base
   end
 
   def throw_transaction_error?(current_user)
-    if self.archived
+    if self.user.nil?
       true
     else
-      if self.user.nil?
+      if self.visible == false && (!current_user || current_user.id != self.user.id)
         true
       else
-        if self.visible == false && (!current_user || current_user.id != self.user.id)
+        if self.user.payment_method.blank?
           true
         else
-          if self.user.payment_method.blank?
+          if !self.max_purchase_count.nil? && self.max_purchase_count <= self.transactions.count
             true
           else
-            if !self.max_purchase_count.nil? && self.max_purchase_count <= self.transactions.count
-              true
-            else
-              false
-            end
+            false
           end
         end
       end

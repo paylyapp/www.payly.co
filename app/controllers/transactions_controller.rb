@@ -175,7 +175,7 @@ class TransactionsController < ApplicationController
   def complete
     @stack = Stack.find_by_page_token(params[:page_token])
 
-    if @stack.nil?  || @stack.archived
+    if @stack.nil?
       render :error
     else
       render :complete

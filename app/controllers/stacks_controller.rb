@@ -8,7 +8,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil? || @stack.archived == true
+    if @stack.nil?
       render :error
     else
       render :settings
@@ -21,7 +21,7 @@ class StacksController < ApplicationController
     @user = current_user
     @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
 
-    if @stack.nil? ||  @stack.archived == true
+    if @stack.nil?
       render :error
     else
       @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')

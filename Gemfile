@@ -21,24 +21,22 @@ gem 'stripe'
 
 gem 'impressionist'
 
-group :test, :development do
-  gem 'rspec-rails', '~> 2.0'
-  gem 'factory_girl_rails'
-  gem 'shoulda'
-  gem 'nokogiri'
-end
-
-group :development do
-  gem 'taps'
-  gem 'sqlite3'
-  gem 'better_errors'
-  gem 'rails_best_practices'
-end
-
 gem 'pg'
 gem 'postgres_ext'
 
-gem 'quiet_assets', :group => :development
+gem 'devise'
+gem 'gravtastic'
+
+gem 'aws-sdk'
+gem 'paperclip'
+gem 'fog'
+
+gem 'countries'
+gem 'country_select'
+
+gem 'will_paginate', '~> 3.0'
+
+gem 'google-analytics-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -54,17 +52,20 @@ group :assets do
   gem 'turbo-sprockets-rails3'
 end
 
-gem 'devise'
-gem 'gravtastic'
+group :test, :development do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl_rails'
+  gem 'shoulda'
+  gem 'nokogiri'
+  gem 'dotenv-rails'
+end
 
-gem 'aws-sdk'
-gem 'paperclip'
-gem 'fog'
+group :development do
+  gem 'taps'
+  gem 'sqlite3'
 
-gem 'countries'
-gem 'country_select'
-
-gem 'will_paginate', '~> 3.0'
-
-gem 'google-analytics-rails'
-gem 'dotenv-rails', :groups => [:development, :test]
+  gem 'better_errors'
+  gem 'rails_best_practices'
+  gem 'brakeman', :require => false
+  gem 'quiet_assets'
+end

@@ -52,6 +52,17 @@ GEM
       erubis (>= 2.6.6)
     braintree (2.25.0)
       builder (>= 2.0.0)
+    brakeman (2.1.2)
+      erubis (~> 2.6)
+      fastercsv (~> 1.5)
+      haml (>= 3.0, < 5.0)
+      highline (~> 1.6.19)
+      multi_json (~> 1.2)
+      ruby2ruby (~> 2.0.5)
+      ruby_parser (~> 3.2.2)
+      sass (~> 3.0)
+      slim (>= 1.3.6, < 3.0)
+      terminal-table (~> 1.4)
     builder (3.0.4)
     capistrano (2.15.5)
       highline
@@ -99,6 +110,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    fastercsv (1.5.5)
     fog (1.15.0)
       builder
       excon (~> 0.25.0)
@@ -116,6 +128,8 @@ GEM
     fssm (0.2.10)
     google-analytics-rails (0.0.4)
     gravtastic (3.2.6)
+    haml (4.0.3)
+      tilt
     heroku (2.40.1)
       heroku-api (~> 0.3.7)
       launchy (>= 0.3.2)
@@ -226,6 +240,11 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
     ruby-progressbar (1.2.0)
+    ruby2ruby (2.0.6)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.2.2)
+      sexp_processor (~> 4.1)
     rubyzip (1.0.0)
     rvm-capistrano (1.5.0)
       capistrano (>= 2.15.4)
@@ -246,6 +265,9 @@ GEM
       activesupport (>= 3.0.0)
     sinatra (1.0)
       rack (>= 1.0)
+    slim (2.0.1)
+      temple (~> 0.6.6)
+      tilt (>= 1.3.3, < 2.1)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -260,6 +282,8 @@ GEM
       rest-client (>= 1.4.0, < 1.7.0)
       sequel (~> 3.20.0)
       sinatra (~> 1.0.0)
+    temple (0.6.6)
+    terminal-table (1.4.5)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -295,6 +319,7 @@ DEPENDENCIES
   aws-sdk
   better_errors
   braintree
+  brakeman
   capistrano
   compass-rails
   countries

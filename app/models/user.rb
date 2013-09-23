@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
                   :payment_method,
                   :pin_api_key, :pin_api_secret,
                   :stripe_api_key, :stripe_api_secret,
-                  :braintree_merchant_id, :braintree_api_key, :braintree_api_secret, :braintree_client_side_key,
+                  :braintree_merchant_key, :braintree_api_key, :braintree_api_secret, :braintree_client_side_key,
                   :charge_currency
 
   attr_encrypted  :pin_api_key, :key => ENV['ENCRYPT_USER_PIN_API_KEY']
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   attr_encrypted  :stripe_api_key, :key => ENV['ENCRYPT_USER_STRIPE_API_KEY']
   attr_encrypted  :stripe_api_secret, :key => ENV['ENCRYPT_USER_STRIPE_API_SECRET']
 
-  attr_encrypted  :braintree_merchant_id, :key => ENV['ENCRYPT_USER_BRAINTREE_MERCHANT_ID']
+  attr_encrypted  :braintree_merchant_key, :key => ENV['ENCRYPT_USER_BRAINTREE_MERCHANT_ID']
   attr_encrypted  :braintree_api_key, :key => ENV['ENCRYPT_USER_BRAINTREE_API_KEY']
   attr_encrypted  :braintree_api_secret, :key => ENV['ENCRYPT_USER_BRAINTREE_API_SECRET']
   attr_encrypted  :braintree_client_side_key, :key => ENV['ENCRYPT_USER_BRAINTREE_CLIENT_SIDE_KEY']
@@ -125,11 +125,11 @@ class User < ActiveRecord::Base
   end
 
   def payment_provider_is_braintree?
-    self.payment_method == 'braintree' && (!self.braintree_merchant_id.blank? && !self.braintree_api_key.blank? && !self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
+    self.payment_method == 'braintree' && (!self.braintree_merchant_key.blank? && !self.braintree_api_key.blank? && !self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
   end
 
   def has_braintree_keys?
-    self.payment_method == 'braintree' && (self.braintree_merchant_id.blank? || self.braintree_api_key.blank? || self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
+    self.payment_method == 'braintree' && (self.braintree_merchant_key.blank? || self.braintree_api_key.blank? || self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
   end
 
   protected

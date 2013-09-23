@@ -15,7 +15,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :customer
 
   delegate :stack_token, :product_name, :charge_currency, :require_shipping,
-           :seller_email, :seller_trading_name, :seller_abn, :bcc_receipt, :ga_id,
+           :seller_email, :seller_trading_name, :seller_abn, :bcc_receipt, :analytics_key,
            :has_digital_download, :digital_download_file, :primary_image,
            :description,
            :to => :stack, :prefix => true

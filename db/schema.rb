@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130912204742) do
+ActiveRecord::Schema.define(:version => 20130923191816) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(:version => 20130912204742) do
     t.string   "seller_name"
     t.string   "seller_email"
     t.string   "return_url"
-    t.string   "ga_id"
+    t.string   "analytics_key"
     t.boolean  "bcc_receipt"
     t.boolean  "require_shipping"
     t.boolean  "require_billing"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(:version => 20130912204742) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "payment_method"
-    t.string   "encrypted_braintree_merchant_id"
+    t.string   "encrypted_braintree_merchant_key"
     t.string   "encrypted_braintree_api_key"
     t.string   "encrypted_braintree_api_secret"
     t.text     "encrypted_braintree_client_side_key"

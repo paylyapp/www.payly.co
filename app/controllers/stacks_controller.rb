@@ -6,7 +6,7 @@ class StacksController < ApplicationController
     @current_section = "pages"
     @pre_title = "Pages"
     @user = current_user
-    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
+    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil?
       render :error
@@ -19,7 +19,7 @@ class StacksController < ApplicationController
     @current_section = "pages"
     @pre_title = "Pages"
     @user = current_user
-    @stack = current_user.stacks.find_by_stack_token(params[:stack_token])
+    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
 
     if @stack.nil?
       render :error
@@ -33,7 +33,7 @@ class StacksController < ApplicationController
     @current_section = "purchases"
     @pre_title = "Pages"
     @user = current_user
-    @transaction = current_user.transactions.find_by_transaction_token(params[:transaction_token])
+    @transaction = @user.transactions.find_by_transaction_token(params[:transaction_token])
 
     if @transaction.nil?
       render :error

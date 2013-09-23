@@ -5,7 +5,7 @@ class Stack < ActiveRecord::Base
   is_impressionable
 
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
-                  :ga_id, :product_name, :require_billing,
+                  :analytics_key, :product_name, :require_billing,
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,
                   :return_url, :ping_url, :webhook_url, :seller_email, :seller_name,
                   :user_token, :primary_image,
@@ -290,7 +290,7 @@ class Stack < ActiveRecord::Base
     self.charge_amount = 0
     self.primary_image = nil
     self.digital_download_file = nil
-    self.ga_id = nil
+    self.analytics_key = nil
     self.return_url = nil
     self.description = nil
     self.save!

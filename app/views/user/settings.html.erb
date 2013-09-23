@@ -79,10 +79,10 @@
         <p>Don't have Braintree API Keys for live payments? <%= link_to "Sign up today!", "https://apply.braintreegateway.com/signup/australia", :target => "_blank" %></p>
       </div>
       <div class="field field-text field-pin-api-key">
-        <%= f.label :braintree_merchant_id, 'Merchant ID' %>
+        <%= f.label :braintree_merchant_key, 'Merchant ID' %>
         <div class="input">
-          <%= f.button 'Change', :class=>'secondary-action', :type => 'button', :'data-action'=>"change-input", :'data-input-type' => 'text', :'data-input-id' => 'user_braintree_merchant_id', :'data-input-name' => 'user[braintree_merchant_id]' %>
-          <%= f.text_field :braintree_merchant_id, :autocomplete => "off" %>
+          <%= f.button 'Change', :class=>'secondary-action', :type => 'button', :'data-action'=>"change-input", :'data-input-type' => 'text', :'data-input-id' => 'user_braintree_merchant_key', :'data-input-name' => 'user[braintree_merchant_key]' %>
+          <%= f.text_field :braintree_merchant_key, :autocomplete => "off" %>
         </div>
       </div>
       <div class="field field-text field-pin-api-secret">

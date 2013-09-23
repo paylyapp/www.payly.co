@@ -65,9 +65,9 @@
       </div>
     </div>
     <div class="field field-text field-ga-id">
-      <%= f.label :ga_id, 'Google Analytics ID' %>
+      <%= f.label :analytics_key, 'Google Analytics ID' %>
       <div class="input">
-        <%= f.text_field :ga_id, :placeholder => "UA-XXXXXXXX-X" %>
+        <%= f.text_field :analytics_key %>
       </div>
     </div>
     <div class="field field-text field-return-url">
@@ -141,9 +141,7 @@
       <div class="input">
         <%= f.file_field :digital_download_file, :"data-required" => "true" %>
       </div>
-      <% unless @stack.exists? %>
-        <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank' %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
-      <% end %>
+      <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank', :download => @stack.digital_download_file_file_name %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
     </div>
     <div class="field field-text field-digital-download-receive">
       <%= f.label :digital_download_receive, 'What will buyers receive' %>

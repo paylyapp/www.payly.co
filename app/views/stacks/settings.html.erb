@@ -8,7 +8,7 @@
 </h1>
 
 <div class="container">
-  <%= render "header" %>
+  <%= render "header", :stack => @stack %>
 
   <%= form_for @stack, :url => stack_update_path, :method => 'put', :html => {:multipart => true, :autocomplete => "off"} do |f| %>
     <% if @stack.errors.any? %>
@@ -73,7 +73,7 @@
     <div class="field field-text field-return-url">
       <%= f.label :visible, 'Visibility' %>
       <div class="input">
-        <%= f.select :visible, options_for_select([['Anyone can view', 'true'], ['Hidden', 'false']], @stack.visible) %>
+        <%= f.select :visible, options_for_stack_visibility(@stack.visible) %>
       </div>
       <p class="description">Hidden means only you are able to see the page.</p>
     </div>
@@ -84,7 +84,7 @@
     <div class="field field-select field-charge-type">
       <%= f.label :charge_type, "Type of charge" %>
       <div class="input">
-        <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type) %>
+        <%= f.select :charge_type, options_for_stack_charge_type(@stack.charge_type) %>
       </div>
     </div>
     <div class="field field-text field-charge-amount">
@@ -114,7 +114,7 @@
       <div class="heading">
         <h2>Shipping Cost</h2>
       </div>
-      <% unless @stack.shipping_cost_term.blank? %>
+      <% if @stack.shipping_cost_term? %>
         <% @stack.shipping_cost_term.each_index do |index| %>
         <div class="field field-full-length field-text field-shipping-details">
           <div class="input">
@@ -141,7 +141,7 @@
       <div class="input">
         <%= f.file_field :digital_download_file, :"data-required" => "true" %>
       </div>
-      <% unless @stack.digital_download_file_file_name.blank? && @stack.digital_download_file.path.blank? && @stack.digital_download_file_updated_at.blank? %>
+      <% unless @stack.exists? %>
         <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank' %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
       <% end %>
     </div>
@@ -249,7 +249,7 @@
       <h2>Custom Fields</h2>
       <p>Each field will be presented as a text field on your payment page.</p>
     </div>
-    <% unless @stack.custom_data_term.blank? %>
+    <% if @stack.custom_data_term? %>
       <% @stack.custom_data_term.each_index do |index| %>
       <div class="field field-full-length field-text field-custom-data">
         <div class="input">

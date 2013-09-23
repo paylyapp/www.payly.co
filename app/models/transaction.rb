@@ -14,6 +14,12 @@ class Transaction < ActiveRecord::Base
   belongs_to :stack, :foreign_key => :stack_token
   belongs_to :customer
 
+  delegate :stack_token, :product_name, :charge_currency, :require_shipping,
+           :seller_email, :seller_trading_name, :seller_abn, :bcc_receipt, :ga_id,
+           :has_digital_download, :digital_download_file, :primary_image,
+           :description,
+           :to => :stack, :prefix => true
+
   validates :buyer_name, :presence => true
   validates :buyer_email, :presence => true
   validates :transaction_amount, :presence => true
@@ -48,6 +54,88 @@ class Transaction < ActiveRecord::Base
       end
     end
     purchase
+  end
+
+  def self.new_by_stack(params, stack)
+    transaction = self.new(params)
+    if stack.user.payment_provider_is_pin_payments?
+      amount = (params[:transaction][:transaction_amount] * 100).to_i
+
+      payload = {
+        'email' => params[:transaction][:buyer_email],
+        'description' => stack.product_name,
+        'amount' => amount,
+        'currency' => stack.charge_currency,
+        'ip_address' => params[:transaction][:buyer_ip_address],
+        'card_token' => params[:transaction][:card_token]
+      }
+
+      begin
+        charge = Hay::Charges.create(stack.user.pin_api_secret, payload)
+        transaction.charge_token = charge[:response][:token]
+      rescue Hay::InvalidRequestError
+        flash[:status] = "We weren't able to process your credit card for some reason. Please try again."
+      end
+
+    elsif stack.user.payment_provider_is_stripe?
+      Stripe.api_key = stack.user.stripe_api_secret
+      amount = (params[:transaction][:transaction_amount] * 100).to_i
+
+      begin
+        charge = Stripe::Charge.create(
+          :amount => amount, # amount in cents, again
+          :currency => @stack.charge_currency,
+          :card => params[:transaction][:card_token],
+          :description => @stack.product_name
+        )
+        transaction.charge_token = charge.id
+      rescue Stripe::CardError => e
+        transaction.errors.add :base, e.message
+      rescue Stripe::StripeError => e
+        transaction.errors.add :base, "There was a problem with your credit card"
+      end
+    elsif stack.user.payment_provider_is_braintree?
+      user_gateway = Braintree::Gateway.new(:merchant_id => stack.user.braintree_merchant_id,
+                                            :public_key  => stack.user.braintree_api_key,
+                                            :private_key => stack.user.braintree_api_secret,
+                                            :environment => Rails.application.config.braintree_environment)
+
+      charge = user_gateway.transaction.create(
+        :type => 'sale',
+        :amount => params[:transaction][:transaction_amount],
+        :credit_card => {
+          :cardholder_name => params[:name],
+          :number => params[:number],
+          :cvv => params[:cvv],
+          :expiration_month => params[:month],
+          :expiration_year => params[:year]
+        },
+        :billing => {
+          :street_address => params[:address_line1],
+          :extended_address => params[:address_line2],
+          :locality => params[:city],
+          :region => params[:state],
+          :postal_code => params[:postcode],
+          :country_name => params[:address_country][:country]
+        },
+        :options => {
+          :submit_for_settlement => true
+        }
+      )
+
+      if charge.success?
+        transaction.charge_token = charge.transaction.id
+      elsif !charge.errors.nil?
+        flash[:status] = charge.errors
+      elsif charge.transaction.status == 'processor_declined'
+        flash[:status] = "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
+      elsif charge.transaction.status == 'gateway_rejected'
+        flash[:status] = "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
+      else
+        flash[:status] = "Something went wrong. Please try again."
+      end
+    end
+    transaction
   end
 
   protected

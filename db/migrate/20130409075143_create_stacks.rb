@@ -10,15 +10,15 @@ class CreateStacks < ActiveRecord::Migration
       # Charge Details
       t.string :charge_type
       t.float :charge_amount
-      
+
       # Seller Details
       t.string :seller_name
       t.string :seller_email
-      
+
       # Page Information
       t.string :return_url
       t.string :ga_id
-      
+
       # Extra Info
       t.boolean :bcc_receipt
       t.boolean :require_shipping

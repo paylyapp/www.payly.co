@@ -24,7 +24,7 @@
             </span>
           </div>
         </div>
-        <% if @stack.has_digital_download && !@stack.digital_download_receive.empty? && !@stack.digital_download_file_file_name.nil? %>
+        <% if @stack.has_digital_download_and_has_receive_text? %>
           <div class="field field-text field-full-name">
             <label>Downloadable file</label>
             <div class="input">
@@ -33,7 +33,7 @@
               </span>
             </div>
           </div>
-        <% elsif @stack.has_digital_download && @stack.digital_download_receive.empty? && !@stack.digital_download_file_file_name.nil? %>
+        <% elsif @stack.has_digital_download_and_has_no_receive_text? %>
           <div class="field field-text field-full-name">
             <label>Downloadable file</label>
             <div class="input">
@@ -76,7 +76,7 @@
           <div class="input">
             <span class="text">
               <%= @transaction.shipping_address_line1 %> <br />
-        <%= @transaction.shipping_address_line2 unless @transaction.shipping_address_line2.nil? %>
+        <%= @transaction.shipping_address_line2 unless @transaction.shipping_address_line2? %>
               <%= @transaction.shipping_address_city %> <br />
               <%= @transaction.shipping_address_postcode %> <br />
               <%= @transaction.shipping_address_state %> <br />
@@ -86,7 +86,7 @@
         </div>
         <% end %>
 
-          <% unless @transaction.custom_data_term.blank? %>
+          <% unless @transaction.custom_data_term? %>
             <% @transaction.custom_data_term.each_index { |index| %>
             <div class="field field-text field-full-name">
               <label><%= @transaction.custom_data_term[index] %></label>

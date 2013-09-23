@@ -1,9 +1,9 @@
-<%= @transaction.stack.product_name %>: A new file is available for download
+<%= @transaction.stack_product_name %>: A new file is available for download
 ===============================================
 
 You can download your file here - <%= download_url(:token => @transaction.transaction_token) %>.
 
-If there are any problems, please contact the seller via <%= @transaction.stack.seller_email %>.
+If there are any problems, please contact the seller via <%= @transaction.stack_seller_email %>.
 
 Thanks,
 Payly

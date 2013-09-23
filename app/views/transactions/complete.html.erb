@@ -12,7 +12,7 @@
     <% else %>
       <p>You should receive an email with the payment receipt shortly.</p>
     <% end %>
-    <% unless @stack.return_url.blank? %>
+    <% if @stack.return_url? %>
     <p class="link"><%= link_to 'Return to website', @stack.return_url %></p>
     <% end %>
   </div>

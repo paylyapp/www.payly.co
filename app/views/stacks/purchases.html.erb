@@ -8,7 +8,7 @@
 </h1>
 
 <div class="container">
-  <%= render "header" %>
+  <%= render "header", :stack => @stack %>
 
   <div class="stats">
     <h2>This week</h2>
@@ -52,5 +52,5 @@
 </div>
 
 <div class="container">
-  <%= render "transactions/list" %>
+  <%= render "transactions/list", :transactions => @transactions %>
 </div>

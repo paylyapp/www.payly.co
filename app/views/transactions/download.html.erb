@@ -1,16 +1,16 @@
 <article>
   <header>
-    <figure><%= image_tag @stack.primary_image.url(:medium) %></figure>
-    <h1><%= @stack.product_name %> <i class="icon-lock"></i></h1>
-    <p><%= @stack.description %></p>
+    <figure><%= image_tag @transaction.stack_primary_image.url(:medium) %></figure>
+    <h1><%= @transaction.stack_product_name %> <i class="icon-lock"></i></h1>
+    <p><%= @transaction.stack_description %></p>
   </header>
 
   <div class="success">
     <p class="link" style="text-align: center;">
-      <%= link_to @url, :download => 'download', :class => 'dropbox-dropin-btn dropbox-dropin-btn', :style => "margin-bottom: 10px;" do %>
+      <%= link_to @transaction.stack_digital_download_file.expiring_url(600), :download => 'download', :class => 'dropbox-dropin-btn dropbox-dropin-btn', :style => "margin-bottom: 10px;" do %>
         <i class="icon-download-alt dropin-btn-status" style="background-image: none; font-size: 14px; color: #27AE60;"></i>Save to Computer
       <% end %>
-      <%= link_to '', @url, :class => 'dropbox-saver', :style => "margin-bottom: 10px;" %>
+      <%= link_to '', @transaction.stack_digital_download_file.expiring_url(600), :class => 'dropbox-saver', :style => "margin-bottom: 10px;" %>
     </p>
   </div>
 </article>

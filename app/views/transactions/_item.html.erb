@@ -3,7 +3,7 @@
     <label>ID</label>
     <div class="input">
       <span class="text">
-        <%= @transaction.transaction_token %>
+        <%= transaction.transaction_token %>
       </span>
     </div>
   </div>
@@ -11,13 +11,13 @@
     <label>Page</label>
     <div class="input">
       <span class="text">
-        <%= link_to dashboard_stack_path(@transaction.stack.stack_token) do %>
-          <% if @transaction.stack.has_digital_download %>
+        <%= link_to dashboard_stack_path(transaction.stack_stack_token) do %>
+          <% if transaction.stack_has_digital_download %>
             <i class="icon-download-alt"></i>
           <% else %>
             <i class="icon-exchange"></i>
           <% end %>
-          <%= @transaction.stack.product_name %>
+          <%= transaction.stack_product_name %>
         <% end %>
       </span>
     </div>
@@ -26,7 +26,7 @@
     <label>Buyer's Name</label>
     <div class="input">
       <span class="text">
-        <%= @transaction.buyer_name %>
+        <%= transaction.buyer_name %>
       </span>
     </div>
   </div>
@@ -34,7 +34,7 @@
     <label>Buyer's Email</label>
     <div class="input">
       <span class="text">
-        <%= mail_to @transaction.buyer_email, @transaction.buyer_email %>
+        <%= mail_to transaction.buyer_email, transaction.buyer_email %>
       </span>
     </div>
   </div>
@@ -42,7 +42,7 @@
     <label>Bought</label>
     <div class="input">
       <span class="text">
-        <%= @transaction.created_at %>
+        <%= transaction.created_at %>
       </span>
     </div>
   </div>
@@ -50,36 +50,36 @@
     <label>Paid</label>
     <div class="input">
       <span class="text">
-        <%= number_to_currency(@transaction.transaction_amount) %>
-        <% if !@transaction.shipping_cost.nil? && @stack.require_shipping == true %>
-          (includes <%= number_to_currency(@transaction.shipping_cost_value) %> for <%= @transaction.shipping_cost_term %> shipping)
+        <%= number_to_currency(transaction.transaction_amount) %>
+        <% if !transaction.shipping_cost? && transaction.stack_require_shipping.nil? %>
+          (includes <%= number_to_currency(transaction.shipping_cost_value) %> for <%= transaction.shipping_cost_term %> shipping)
         <% end %>
       </span>
     </div>
   </div>
-  <% if !@transaction.shipping_cost.nil? && @stack.require_shipping %>
+  <% if !transaction.shipping_cost? && transaction.stack_require_shipping.nil? %>
   <div class="field field-text field-full-name">
     <label>Shipping Address</label>
     <div class="input">
       <span class="text">
-        <%= @transaction.shipping_address_line2 unless @transaction.shipping_address_line2.nil? %>
-        <%= @transaction.shipping_address_line1 %> <br />
-        <%= @transaction.shipping_address_city %> <br />
-        <%= @transaction.shipping_address_postcode %> <br />
-        <%= @transaction.shipping_address_state %> <br />
-        <%= @transaction.shipping_address_country %> <br />
+        <%= transaction.shipping_address_line2 unless transaction.shipping_address_line2? %>
+        <%= transaction.shipping_address_line1 %> <br />
+        <%= transaction.shipping_address_city %> <br />
+        <%= transaction.shipping_address_postcode %> <br />
+        <%= transaction.shipping_address_state %> <br />
+        <%= transaction.shipping_address_country %> <br />
       </span>
     </div>
   </div>
   <% end %>
 
-<% unless @transaction.custom_data_term.blank? %>
-  <% @transaction.custom_data_term.each_index { |index| %>
+<% if transaction.custom_data_term? %>
+  <% transaction.custom_data_term.each_index { |index| %>
   <div class="field field-text field-full-name">
-    <label><%= @transaction.custom_data_term[index] %></label>
+    <label><%= transaction.custom_data_term[index] %></label>
     <div class="input">
       <span class="text">
-        <%= @transaction.custom_data_value[index] %>
+        <%= transaction.custom_data_value[index] %>
       </span>
     </div>
   </div>

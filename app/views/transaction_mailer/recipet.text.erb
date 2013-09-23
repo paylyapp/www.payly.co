@@ -1,14 +1,14 @@
 Thank you for your purchase
 ===============================================
 
-Your purchase of <%= @transaction.stack.product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> AUD on Payly was successful.
+Your purchase of <%= @transaction.stack_product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> AUD on Payly was successful.
 
-<% if @transaction.stack.has_digital_download %>
+<% if @transaction.stack_has_digital_download %>
 You can download your file here - <%= download_url(:token => @transaction.transaction_token) %>.
 <% end %>
 
-<% if @transaction.stack.require_shipping %>
-<%= @transaction.stack.product_name %> will be shipped to:
+<% if @transaction.stack_require_shipping %>
+<%= @transaction.stack_product_name %> will be shipped to:
 <%= @transaction.shipping_full_name %>
 <%= @transaction.shipping_address_line1 %>, <%= @transaction.shipping_address_line2 %><br />
 <%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %><br />
@@ -17,7 +17,7 @@ You can download your file here - <%= download_url(:token => @transaction.transa
 
 Your order number is <%= @transaction.transaction_token %>.
 
-If there are any problems, please contact the seller via <%= @transaction.stack.seller_email %>.
+If there are any problems, please contact the seller via <%= @transaction.stack_seller_email %>.
 
 Thanks,
 Payly

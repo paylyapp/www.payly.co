@@ -13,7 +13,7 @@
     <span class='field-error-text error-text--email'>This field needs to be an email.</span>
   </div>
 </div>
-<% if @stack.charge_type == "any" %>
+<% if stack.charge_type == "any" %>
 <div class="field field-text field-charge-amount">
   <%= f.label :transaction_amount, 'Amount' %>
   <div class="input">
@@ -27,13 +27,13 @@
 <% else %>
   <%= f.hidden_field :transaction_amount %>
 <% end %>
-<% unless @stack.custom_data_term.blank? %>
-  <% @stack.custom_data_term.each_index { |index| %>
+<% if stack.custom_data_term? %>
+  <% stack.custom_data_term.each_index { |index| %>
     <div class="field field-text field-">
-      <%= f.label :custom_data_term, @stack.custom_data_term[index], :for => 'transaction[custom_data_term]['+index.to_s+']' %>
+      <%= f.label :custom_data_term, stack.custom_data_term[index], :for => 'transaction[custom_data_term]['+index.to_s+']' %>
       <div class="input">
-        <%= f.text_field :custom_data_term, :value => '', :name => 'transaction[custom_data_value][]', :id => 'transaction[custom_data_value]['+index.to_s+']', :required => @stack.custom_data_value.include?(index.to_s) %>
-        <% if @stack.custom_data_value.include?(index.to_s) %>
+        <%= f.text_field :custom_data_term, :value => '', :name => 'transaction[custom_data_value][]', :id => 'transaction[custom_data_value]['+index.to_s+']', :required => stack.custom_data_value.include?(index.to_s) %>
+        <% if stack.custom_data_value.include?(index.to_s) %>
         <span class='field-error-text error-text--required'>This field is required.</span>
         <% end %>
       </div>
@@ -127,7 +127,7 @@
   </div>
 </div>
 
-<% if @stack.require_shipping %>
+<% if stack.require_shipping %>
 
 <div class="heading">
   <h2>Shipping Details</h2>
@@ -175,11 +175,11 @@
   </div>
 </div>
 
-<% unless @shipping_cost.blank? %>
+<% unless shipping_cost.blank? %>
 <div class="field field-select field-shipping-cost">
   <%= f.label :shipping_cost, 'Shipping Cost' %>
   <div class="input">
-    <%= f.select :shipping_cost, options_for_select(@shipping_cost) %>
+    <%= f.select :shipping_cost, options_for_select(shipping_cost) %>
   </div>
 </div>
 <% end %>

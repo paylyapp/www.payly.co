@@ -1,14 +1,14 @@
-<%= form_for @transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
+<%= form_for transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
   <div class='card_errors notification notification-danger' style='display:none'>
     <span class="payment-errors"></span>
   </div>
 
-  <% if @transaction.errors.any? %>
+  <% if transaction.errors.any? %>
     <div id="error_explanation" class="notification notification-danger">
-      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this page from being saved:</h2>
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this page from being saved:</h2>
 
       <ul>
-      <% @transaction.errors.full_messages.each do |msg| %>
+      <% transaction.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -21,13 +21,13 @@
   </div>
   <% end %>
 
-  <%= render 'form', :f => f %>
+  <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost } %>
 <% end %>
 
-<% unless @transaction.stack.ga_id.blank? %>
+<% unless transaction.stack_ga_id.blank? %>
   <script type="text/javascript">
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '<%= @transaction.stack.ga_id %>']);
+    _gaq.push(['_setAccount', '<%= transaction.stack_ga_id %>']);
     _gaq.push(['_trackPageview']);
 
     (function() {
@@ -43,5 +43,5 @@
 <%= javascript_include_tag "transactions-stripe" %>
 
 <script type="text/javascript">
-  Stripe.setPublishableKey('<%= @stack.user.stripe_api_key %>');
+  Stripe.setPublishableKey('<%= stack.user.stripe_api_key %>');
 </script>

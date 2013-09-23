@@ -5,7 +5,7 @@
   <ul class="feed-list">
   <% @transactions.each do |transaction| %>
     <li class="feed-item">
-      <p><%= transaction.buyer_name %> bought <%= transaction.stack.product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack.charge_currency %></span></span></p>
+      <p><%= transaction.buyer_name %> bought <%= transaction.stack_product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack_charge_currency %></span></span></p>
         <ul>
           <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
           <li><span class="id">ID: <%= transaction.transaction_token %></span></li>

@@ -19,7 +19,7 @@ class Api::PurchasesController < ApplicationController
     end
   end
 
-  private
+  protected
   def get_auth_token
     if auth_token = params[:auth_token].blank?
       @json[:status] = 'error'

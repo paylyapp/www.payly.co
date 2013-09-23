@@ -20,6 +20,8 @@ class Stack < ActiveRecord::Base
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token
 
+  delegate :payment_method, :to => :user, :prefix => true
+
   has_attached_file :primary_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
   has_attachment :digital_download_file
 
@@ -54,10 +56,6 @@ class Stack < ActiveRecord::Base
 
   def sending_an_invoice?
     send_invoice_email == true
-  end
-
-  def can_delivery_file?
-    true
   end
 
   def throw_transaction_error?(current_user)
@@ -246,6 +244,39 @@ class Stack < ActiveRecord::Base
     end
     stats = {:count => count, :cost => cost}
     stats
+  end
+
+  def self.new_one_time_by_user(params, user)
+    stack = self.new(params)
+    stack.user_token = user.id
+    stack.seller_name = user.full_name
+    stack.seller_email = user.email
+    stack.page_token = loop do
+      random_token = SecureRandom.urlsafe_base64
+      break random_token unless Stack.where(:page_token => random_token).exists?
+    end
+    stack
+  end
+
+  def self.new_digital_download_by_user(params, user)
+    stack = self.new(params)
+    stack.has_digital_download = true
+    stack.user_token = user.id
+    stack.seller_name = user.full_name
+    stack.seller_email = user.email
+    stack.page_token = loop do
+      random_token = SecureRandom.urlsafe_base64
+      break random_token unless Stack.where(:page_token => random_token).exists?
+    end
+    stack
+  end
+
+  def has_digital_download_and_has_receive_text?
+    self.has_digital_download && !self.digital_download_receive.empty? && !self.digital_download_file_file_name.nil?
+  end
+
+  def has_digital_download_and_has_no_receive_text?
+    self.has_digital_download && self.digital_download_receive.empty? && !self.digital_download_file_file_name.nil?
   end
 
   # remove old unnecessary data

@@ -33,7 +33,7 @@
     <div class="field field-select field-charge-type">
       <%= f.label :charge_type, "Type of charge" %>
       <div class="input">
-        <%= f.select :charge_type, options_for_select([['Fixed price', 'fixed'], ['Any price', 'any']], @stack.charge_type) %>
+        <%= f.select :charge_type, options_for_stack_charge_type(@stack.charge_type) %>
       </div>
     </div>
     <div class="field field-text field-charge-amount">

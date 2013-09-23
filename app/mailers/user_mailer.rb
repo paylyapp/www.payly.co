@@ -12,6 +12,6 @@ class UserMailer < ActionMailer::Base
     @payload = payload
     @transaction = transaction
     @stack = stack
-    mail(:to => stack.user.email, :subject => "Payly: Webhook error on #{stack.product_name}")
+    mail(:to => stack.seller_email, :subject => "Payly: Webhook error on #{stack.product_name}")
   end
 end

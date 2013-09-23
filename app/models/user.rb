@@ -49,10 +49,8 @@ class User < ActiveRecord::Base
     count = 0
     cost = 0
     transactions.each do |transaction|
-      if transaction.stack.archived == false
-        cost = cost + transaction.transaction_amount
-        count = count + 1
-      end
+      cost = cost + transaction.transaction_amount
+      count = count + 1
     end
 
     stats = {:count => count, :cost => cost}
@@ -65,10 +63,8 @@ class User < ActiveRecord::Base
     count = 0
     cost = 0
     transactions.each do |transaction|
-      if transaction.stack.archived == false
-        cost = cost + transaction.transaction_amount
-        count = count + 1
-      end
+      cost = cost + transaction.transaction_amount
+      count = count + 1
     end
 
     stats = {:count => count, :cost => cost}
@@ -80,10 +76,8 @@ class User < ActiveRecord::Base
     count = 0
     cost = 0
     transactions.each do |transaction|
-      if transaction.stack.archived == false
-        cost = cost + transaction.transaction_amount
-        count = count + 1
-      end
+      cost = cost + transaction.transaction_amount
+      count = count + 1
     end
 
     stats = {:count => count, :cost => cost}
@@ -102,17 +96,17 @@ class User < ActiveRecord::Base
     end
   end
 
-  def has_payment_provider_keys?
-    if self.has_pin_payment_keys?
-      true
-    elsif self.has_strip_keys?
-      true
-    elsif self.has_braintree_keys?
-      true
-    else
-      false
-    end
-  end
+  # def has_payment_provider_keys?
+  #   if self.has_pin_payment_keys?
+  #     true
+  #   elsif self.has_strip_keys?
+  #     true
+  #   elsif self.has_braintree_keys?
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
   def payment_provider_is_pin_payments?
     self.payment_method == 'pin_payments' && (!self.pin_api_key.blank? && !self.pin_api_secret.blank?)

@@ -24,24 +24,7 @@ class UserController < ApplicationController
     @current_section = 'purchases'
     @pre_title = "Purchases"
     @user = current_user
-    if @user.stacks.where(:archived => false).empty?
-      @stack = Stack.new
-      @stack.seller_name = @user.full_name
-      @stack.seller_email = @user.email
-      @stack.page_token = loop do
-        random_token = SecureRandom.urlsafe_base64
-        break random_token unless Stack.where(:page_token => random_token).exists?
-      end
-    else
-      @stacks = @user.stacks.where(:archived => false)
-      @transactions = []
-      @stacks.each do |stack|
-        stack.transactions.each do |transaction|
-          @transactions << transaction
-        end
-      end
-      @transactions = @transactions.sort {|x,y| y["created_at"] <=> x["created_at"] }
-      @transactions = @transactions.take(10)
-    end
+    @transactions = @user.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+    render :purchases
   end
 end

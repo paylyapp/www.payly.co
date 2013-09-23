@@ -3,18 +3,18 @@ class TransactionMailer < ActionMailer::Base
 
   def invoice(transaction)
     @transaction = transaction
-    bcc_email = transaction.stack.bcc_receipt == true ? transaction.stack.seller_email : ''
-    mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Invoice for #{transaction.stack.product_name}. ID: #{transaction.transaction_token}")
+    bcc_email = transaction.stack_bcc_receipt == true ? transaction.stack_seller_email : ''
+    mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Invoice for #{transaction.stack_product_name}. ID: #{transaction.transaction_token}")
   end
 
   def recipet(transaction)
     @transaction = transaction
-    bcc_email = transaction.stack.bcc_receipt == true ? transaction.stack.seller_email : ''
-    mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Payment recipet for #{transaction.stack.product_name}. ID: #{transaction.transaction_token}")
+    bcc_email = transaction.stack_bcc_receipt == true ? transaction.stack_seller_email : ''
+    mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Payment recipet for #{transaction.stack_product_name}. ID: #{transaction.transaction_token}")
   end
 
   def updated(transaction)
     @transaction = transaction
-    mail(:to => transaction.buyer_email, :subject => "#{transaction.stack.product_name}: A new file is ready to be downloaded")
+    mail(:to => transaction.buyer_email, :subject => "#{transaction.stack_product_name}: A new file is ready to be downloaded")
   end
 end

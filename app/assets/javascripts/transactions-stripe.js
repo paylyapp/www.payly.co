@@ -40,8 +40,6 @@ $(function() {
       $errors.text(response.error.message);
       $form.find('button').prop('disabled', false);
     } else {
-      console.log(response.id);
-
       var token = response.id;
 
       $('<input>').attr({type: 'hidden', name: 'transaction[card_token]'}).val(token).appendTo($form);

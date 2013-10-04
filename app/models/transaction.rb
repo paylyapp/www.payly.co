@@ -75,8 +75,14 @@ class Transaction < ActiveRecord::Base
       begin
         charge = Hay::Charges.create(stack.user.pin_api_secret, payload)
         transaction.charge_token = charge[:response][:token]
-      rescue Hay::InvalidRequestError
-        transaction.errors[:base] << "We weren't able to process your credit card for some reason. Please try again."
+      rescue Hay::APIConnectionError => e
+        transaction.errors.add :base, e.message
+      rescue Hay::InvalidRequestError => e
+        transaction.errors.add :base, e.message
+      rescue Hay::AuthenticationError => e
+        transaction.errors.add :base, e.message
+      rescue Hay::APIError => e
+        transaction.errors.add :base, e.message
       end
 
     elsif stack.user.payment_provider_is_stripe?
@@ -92,9 +98,9 @@ class Transaction < ActiveRecord::Base
         )
         transaction.charge_token = charge.id
       rescue Stripe::CardError => e
-        transaction.errors[:base] << e.message
+        transaction.errors.add :base, e.message
       rescue Stripe::StripeError => e
-        transaction.errors[:base] << "There was a problem with your credit card"
+        transaction.errors.add :base, "There was a problem with your credit card"
       end
     elsif stack.user.payment_provider_is_braintree?
       user_gateway = Braintree::Gateway.new(:merchant_id => stack.user.braintree_merchant_key,

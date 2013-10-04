@@ -37,6 +37,8 @@ Haystack::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  config.braintree_environment = :sandbox
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {

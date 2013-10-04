@@ -1,10 +1,10 @@
 class Transaction < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
-  attr_accessible :transaction_token, :transaction_amount,
+  attr_accessible :stack_token,
+                  :transaction_token, :transaction_amount,
                   :buyer_email, :buyer_name, :buyer_ip_address,
                   :charge_token, :card_token,
-                  :stack_token,
                   :shipping_cost, :shipping_cost_term, :shipping_cost_value,
                   :shipping_full_name, :shipping_address_line1, :shipping_address_line2,
                   :shipping_address_city, :shipping_address_postcode, :shipping_address_state,
@@ -57,52 +57,54 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.new_by_stack(params, stack)
-    transaction = self.new(params)
+    transaction = self.new(params[:transaction])
+    transaction.stack_token = stack.id
+
     if stack.user.payment_provider_is_pin_payments?
-      amount = (params[:transaction][:transaction_amount] * 100).to_i
+      amount = (transaction[:transaction_amount] * 100).to_i
 
       payload = {
-        'email' => params[:transaction][:buyer_email],
+        'email' => transaction[:buyer_email],
         'description' => stack.product_name,
         'amount' => amount,
         'currency' => stack.charge_currency,
-        'ip_address' => params[:transaction][:buyer_ip_address],
-        'card_token' => params[:transaction][:card_token]
+        'ip_address' => transaction[:buyer_ip_address],
+        'card_token' => transaction[:card_token]
       }
 
       begin
         charge = Hay::Charges.create(stack.user.pin_api_secret, payload)
         transaction.charge_token = charge[:response][:token]
       rescue Hay::InvalidRequestError
-        flash[:status] = "We weren't able to process your credit card for some reason. Please try again."
+        transaction.errors[:base] << "We weren't able to process your credit card for some reason. Please try again."
       end
 
     elsif stack.user.payment_provider_is_stripe?
       Stripe.api_key = stack.user.stripe_api_secret
-      amount = (params[:transaction][:transaction_amount] * 100).to_i
+      amount = (transaction[:transaction_amount] * 100).to_i
 
       begin
         charge = Stripe::Charge.create(
-          :amount => amount, # amount in cents, again
-          :currency => @stack.charge_currency,
-          :card => params[:transaction][:card_token],
-          :description => @stack.product_name
+          :amount => amount,
+          :currency => stack.charge_currency,
+          :card => transaction[:card_token],
+          :description => stack.product_name
         )
         transaction.charge_token = charge.id
       rescue Stripe::CardError => e
-        transaction.errors.add :base, e.message
+        transaction.errors[:base] << e.message
       rescue Stripe::StripeError => e
-        transaction.errors.add :base, "There was a problem with your credit card"
+        transaction.errors[:base] << "There was a problem with your credit card"
       end
     elsif stack.user.payment_provider_is_braintree?
-      user_gateway = Braintree::Gateway.new(:merchant_id => stack.user.braintree_merchant_id,
+      user_gateway = Braintree::Gateway.new(:merchant_id => stack.user.braintree_merchant_key,
                                             :public_key  => stack.user.braintree_api_key,
                                             :private_key => stack.user.braintree_api_secret,
                                             :environment => Rails.application.config.braintree_environment)
 
       charge = user_gateway.transaction.create(
         :type => 'sale',
-        :amount => params[:transaction][:transaction_amount],
+        :amount => transaction[:transaction_amount],
         :credit_card => {
           :cardholder_name => params[:name],
           :number => params[:number],
@@ -126,13 +128,13 @@ class Transaction < ActiveRecord::Base
       if charge.success?
         transaction.charge_token = charge.transaction.id
       elsif !charge.errors.nil?
-        flash[:status] = charge.errors
+        transaction.errors[:base] << charge.errors
       elsif charge.transaction.status == 'processor_declined'
-        flash[:status] = "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
+        transaction.errors[:base] << "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
       elsif charge.transaction.status == 'gateway_rejected'
-        flash[:status] = "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
+        transaction.errors[:base] << "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
       else
-        flash[:status] = "Something went wrong. Please try again."
+        transaction.errors[:base] << "Something went wrong. Please try again."
       end
     end
     transaction
@@ -150,10 +152,10 @@ class Transaction < ActiveRecord::Base
   end
 
   def send_transaction_emails
-    if self.stack.send_invoice_email == true
-      TransactionMailer.invoice(self).deliver
-    else
-      TransactionMailer.recipet(self).deliver
-    end
+    # if self.stack.send_invoice_email?
+    #   TransactionMailer.invoice(self).deliver
+    # else
+    #   TransactionMailer.recipet(self).deliver
+    # end
   end
 end

@@ -272,11 +272,13 @@ class Stack < ActiveRecord::Base
   end
 
   def has_digital_download_and_has_receive_text?
-    self.has_digital_download && !self.digital_download_receive.empty? && !self.digital_download_file_file_name.nil?
+    # self.has_digital_download && self.digital_download_receive? && !self.digital_download_file_file_name?
+    false
   end
 
   def has_digital_download_and_has_no_receive_text?
-    self.has_digital_download && self.digital_download_receive.empty? && !self.digital_download_file_file_name.nil?
+    # self.has_digital_download && !self.digital_download_receive? && !self.digital_download_file_file_name.nil?
+    false
   end
 
   # remove old unnecessary data

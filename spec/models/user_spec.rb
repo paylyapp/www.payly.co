@@ -1,11 +1,19 @@
 require 'spec_helper'
 
 describe User do
+  before :each do
+    @valid_user = FactoryGirl.create(:user)
+  end
+
+  it "has a valid factory" do
+    @valid_user.should be_valid
+  end
+
   it "should have relationship" do
     should have_many(:stacks)
     should have_many(:transactions)
   end
-  
+
   it "should validate presence of" do
     should validate_presence_of :email
     should validate_presence_of :password

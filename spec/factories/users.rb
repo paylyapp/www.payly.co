@@ -6,5 +6,6 @@ FactoryGirl.define do
     email "tim@payly.co"
     password "testpassword"
     password_confirmation "testpassword"
+    tos_agreement true
   end
 end

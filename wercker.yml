@@ -16,10 +16,6 @@ build:
                 echo -p "gem list: $(gem list)"
 
         - script:
-            name: Set up db
-            code: bundle exec rake db:schema:load RAILS_ENV=test
-
-        - script:
             name: Write env var
             code: |-
               export DEVISE_SECRET_KEY='50b8580c62617030581dd3b91255dd4a3008bd28fead8fc990a7cc9de6cd7862f7c4716f5ba34bbc545905598f30076c7f0439f09b4e3d2b58011506c8d6580e'
@@ -34,6 +30,11 @@ build:
               export ENCRYPT_USER_BRAINTREE_CLIENT_SIDE_KEY='50b8580c62617030581dd3b91255dd4a3008bd28fead8fc990a7cc9de6cd7862f7c4716f5ba34bbc545905598f30076c7f0439f09b4e3d2b58011506c8d6580e'
               export ENCRYPT_USER_BRAINTREE_API_SECRET='50b8580c62617030581dd3b91255dd4a3008bd28fead8fc990a7cc9de6cd7862f7c4716f5ba34bbc545905598f30076c7f0439f09b4e3d2b58011506c8d6580e'
               export ENCRYPT_USER_BRAINTREE_CLIENT_SIDE_KEY='50b8580c62617030581dd3b91255dd4a3008bd28fead8fc990a7cc9de6cd7862f7c4716f5ba34bbc545905598f30076c7f0439f09b4e3d2b58011506c8d6580e'
+
+        - script:
+            name: Set up db
+            code: bundle exec rake db:schema:load RAILS_ENV=test
+
         - script:
             name: rspec
             code: bundle exec rspec

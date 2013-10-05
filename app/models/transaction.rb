@@ -122,12 +122,12 @@ class Transaction < ActiveRecord::Base
           :expiration_year => params[:year]
         },
         :billing => {
-          :street_address => params[:address_line1],
-          :extended_address => params[:address_line2],
-          :locality => params[:city],
-          :region => params[:state],
-          :postal_code => params[:postcode],
-          :country_name => params[:address_country][:country]
+          :street_address => transaction[:billing_address_line1],
+          :extended_address => transaction[:billing_address_line2],
+          :locality => transaction[:billing_address_city],
+          :region => transaction[:billing_address_state],
+          :postal_code => transaction[:billing_address_postcode],
+          :country_name => transaction[:billing_address_country]
         },
         :options => {
           :submit_for_settlement => true
@@ -137,13 +137,13 @@ class Transaction < ActiveRecord::Base
       if charge.success?
         transaction.charge_token = charge.transaction.id
       elsif !charge.errors.nil?
-        transaction.errors[:base] << charge.errors
+        transaction.errors.add :base, charge.errors
       elsif charge.transaction.status == 'processor_declined'
-        transaction.errors[:base] << "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
+        transaction.errors.add :base, "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
       elsif charge.transaction.status == 'gateway_rejected'
-        transaction.errors[:base] << "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
+        transaction.errors.add :base, "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
       else
-        transaction.errors[:base] << "Something went wrong. Please try again."
+        transaction.errors.add :base, "Something went wrong. Please try again."
       end
     end
     transaction

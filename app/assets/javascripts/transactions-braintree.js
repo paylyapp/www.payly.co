@@ -15,6 +15,7 @@
 //= require jquery.siwa.min
 //= require jquery.validate
 //= require forms
+//= require same-as
 
 $(function() {
   $.stayInWebApp();
@@ -30,4 +31,6 @@ $(function() {
 
     $('.field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
   });
+
+  sameAs($('input#copy_billing_'));
 });

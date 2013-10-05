@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130923191816) do
+ActiveRecord::Schema.define(:version => 20131005141313) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -134,7 +134,6 @@ ActiveRecord::Schema.define(:version => 20130923191816) do
     t.string   "shipping_address_line1"
     t.string   "shipping_address_line2"
     t.string   "shipping_address_city"
-    t.integer  "shipping_address_postcode"
     t.string   "shipping_address_state"
     t.string   "shipping_address_country"
     t.string   "shipping_full_name"
@@ -145,6 +144,13 @@ ActiveRecord::Schema.define(:version => 20130923191816) do
     t.string   "charge_currency"
     t.text     "custom_data_term",          :default => [],                 :array => true
     t.text     "custom_data_value",         :default => [],                 :array => true
+    t.string   "billing_address_line1"
+    t.string   "billing_address_line2"
+    t.string   "billing_address_city"
+    t.string   "billing_address_postcode"
+    t.string   "billing_address_state"
+    t.string   "billing_address_country"
+    t.string   "shipping_address_postcode"
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true

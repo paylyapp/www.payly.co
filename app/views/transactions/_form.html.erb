@@ -86,44 +86,39 @@
   <h2>Billing Details</h2>
 </div>
 <div class="field field-text field-card-number">
-  <%= label :card, :address_line1, 'Address Line 1' %>
+  <%= f.label :billing_address_line1, 'Address Line 1' %>
   <div class="input">
-    <%= text_field :card, :address_line1, :name => 'address_line1', :class=>'required' %>
-    <span class='field-error-text error-text--required'>This field is required.</span>
+  <%= f.text_field :billing_address_line1 %>
   </div>
 </div>
 <div class="field field-text field-card-number">
-  <%= label :card, :address_line2, 'Address Line 2' %>
+  <%= f.label :billing_address_line2, 'Address Line 2' %>
   <div class="input">
-    <%= text_field :card, :address_line2, :name => 'address_line2' %>
+  <%= f.text_field :billing_address_line2 %>
   </div>
 </div>
 <div class="field field-text field-card-number">
-  <%= label :card, :address_city, 'City' %>
+  <%= f.label :billing_address_city, 'City' %>
   <div class="input">
-    <%= text_field :card, :address_city, :name => 'city', :class=>'required' %>
-    <span class='field-error-text error-text--required'>This field is required.</span>
+  <%= f.text_field :billing_address_city %>
   </div>
 </div>
 <div class="field field-text field-card-number">
-  <%= label :card, :address_postcode, 'Postcode' %>
+  <%= f.label :billing_address_postcode, 'Postcode' %>
   <div class="input">
-    <%= text_field :card, :address_postcode, :name => 'postcode', :class=>'required' %>
-    <span class='field-error-text error-text--required'>This field is required.</span>
+  <%= f.text_field :billing_address_postcode %>
   </div>
 </div>
 <div class="field field-text field-card-number">
-  <%= label :card, :address_state, 'State' %>
+  <%= f.label :billing_address_state, 'State' %>
   <div class="input">
-    <%= text_field :card, :address_state, :name => 'state', :class=>'required' %>
-    <span class='field-error-text error-text--required'>This field is required.</span>
+  <%= f.text_field :billing_address_state %>
   </div>
 </div>
 <div class="field field-text field-card-number">
-  <%= label :card, :address_country, 'Country' %>
+  <%= f.label :billing_address_country, 'Country' %>
   <div class="input">
-    <%= country_select :address_country, :country, ["Australia"], :html_options => { :class => "dropup required" }%>
-    <span class='field-error-text error-text--required'>This field is required.</span>
+    <%= f.country_select :billing_address_country, ["Australia"], {}, {} %>
   </div>
 </div>
 
@@ -131,6 +126,11 @@
 
 <div class="heading">
   <h2>Shipping Details</h2>
+  <div class="heading-actions js-heading-actions" data-action="copy">
+    <label>
+      <%= check_box 'copy_billing', '' %> Same as billing
+    </label>
+  </div>
 </div>
 <div class="field field-text field-card-number">
   <%= f.label :shipping_full_name, "Recipient's name" %>
@@ -141,37 +141,37 @@
 <div class="field field-text field-card-number">
   <%= f.label :shipping_address_line1, 'Address Line 1' %>
   <div class="input">
-  <%= f.text_field :shipping_address_line1 %>
+  <%= f.text_field :shipping_address_line1, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line1]" %>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= f.label :shipping_address_line2, 'Address Line 2' %>
   <div class="input">
-  <%= f.text_field :shipping_address_line2 %>
+  <%= f.text_field :shipping_address_line2, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line2]" %>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= f.label :shipping_address_city, 'City' %>
   <div class="input">
-  <%= f.text_field :shipping_address_city %>
+  <%= f.text_field :shipping_address_city, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_city]" %>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= f.label :shipping_address_postcode, 'Postcode' %>
   <div class="input">
-  <%= f.text_field :shipping_address_postcode %>
+  <%= f.text_field :shipping_address_postcode, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_postcode]" %>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= f.label :shipping_address_state, 'State' %>
   <div class="input">
-  <%= f.text_field :shipping_address_state %>
+  <%= f.text_field :shipping_address_state, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_state]" %>
   </div>
 </div>
 <div class="field field-text field-card-number">
   <%= f.label :shipping_address_country, 'Country' %>
   <div class="input">
-    <%= f.country_select :shipping_address_country, ["Australia"], :class => "dropup" %>
+    <%= f.country_select :shipping_address_country, ["Australia"], {}, { :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_country]" } %>
   </div>
 </div>
 

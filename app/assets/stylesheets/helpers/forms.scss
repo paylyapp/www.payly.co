@@ -4,24 +4,29 @@ form {
   @include pie-clearfix();
 
   .heading {
-   padding: $gutter*1.5 $gutter 0 $gutter;
+    padding: $gutter*1.5 $gutter 0 $gutter;
 
-   h2 {
-     margin-bottom: $gutter;
-     font-weight: bold;
-     color: #27AE60;
-   }
+    @include pie-clearfix();
 
-   p {
-     font-size: 12px;
-     color: #34495E;
-     margin-bottom: $gutter/2;
-     line-height: 18px;
+    h2 {
+      display: inline;
+      margin-bottom: $gutter;
+      font-weight: bold;
+      color: #27AE60;
+      float: left;
+    }
 
-     a {
-       color: #27AE60;
-     }
-   }
+    p {
+      clear: both;
+      font-size: 12px;
+      color: #34495E;
+      margin-bottom: $gutter/2;
+      line-height: 18px;
+
+      a {
+        color: #27AE60;
+      }
+    }
   }
   .field {
     @include pie-clearfix();
@@ -197,6 +202,20 @@ form {
       @include button(#E74C3C);
     }
   }
+
+  .heading-actions {
+    @extend .field;
+
+    float: right;
+    border: 0;
+    padding: 0;
+
+    label {
+      width: 100%;
+      padding: 0;
+      line-height: 16px;
+    }
+  }
 }
 
 @media (max-width: 550px) {
@@ -262,5 +281,17 @@ form {
       }
     }
 
+
+    .heading-actions {
+      float: right;
+      border: 0;
+      padding: 0;
+
+      label {
+        width: 100%;
+        padding: 0;
+        line-height: 16px;
+      }
+    }
   }
 }

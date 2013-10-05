@@ -50,11 +50,15 @@ class TransactionsController < ApplicationController
 
       @transaction = Transaction.new_by_stack(params, @stack)
 
-      if @transaction.errors.empty? && @transaction.save
-        # if @stack.webhook_url?
-        #   stack.post_webhook_url(@transaction)
-        # end
-        redirect_to page_complete_transaction_path
+      if @transaction.errors.empty?
+        if @transaction.save
+          # if @stack.webhook_url?
+          #   stack.post_webhook_url(@transaction)
+          # end
+          redirect_to page_complete_transaction_path
+        else
+          render :transaction
+        end
       else
         render :transaction
       end

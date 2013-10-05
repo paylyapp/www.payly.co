@@ -15,6 +15,7 @@
 //= require jquery.siwa.min
 //= require jquery.validate
 //= require forms
+//= require same-as
 
 
 $(function() {
@@ -56,17 +57,17 @@ $(function() {
       $submitButton.attr({disabled: true});
 
       var card = {
+        name: $('#card_name').val(),
         number: $('input[data-encrypted-name="number"]').val(),
         exp_month: $('#card_expiry_month').val(),
         exp_year: $('#card_expiry_year').val(),
         cvc: $('input[data-encrypted-name="cvv"]').val(),
-        name: $('#card_name').val(),
-        address_line1: $('#card_address_line1').val(),
-        address_line2: $('#card_address_line2').val(),
-        address_city: $('#card_address_city').val(),
-        address_state: $('#card_address_state').val(),
-        address_postcode: $('#card_address_postcode').val(),
-        address_country: $('#address_country_country').val()
+        address_line1: $('#transaction_billling_address_line1').val(),
+        address_line2: $('#transaction_billling_address_line2').val(),
+        address_city: $('#transaction_billling_address_city').val(),
+        address_state: $('#transaction_billling_address_state').val(),
+        address_postcode: $('#transaction_billling_address_postcode').val(),
+        address_country: $('#transaction_billing_address_country').val()
       };
 
       Stripe.createToken(card, handleResponse);
@@ -85,4 +86,6 @@ $(function() {
 
     $('.field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
   });
+
+  sameAs($('input#copy_billing_'));
 });

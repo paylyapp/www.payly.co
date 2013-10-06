@@ -20,19 +20,13 @@
         <div class="field field-text field-email">
           <%= f.label :username %>
           <div class="input">
-            <%= f.email_field :username, :autocomplete => "off" %>
+            <%= f.text_field :username, :autocomplete => "off" %>
           </div>
         </div>
         <div class="field field-text field-password">
           <%= f.label :password %>
           <div class="input">
             <%= f.password_field :password, :autocomplete => "off" %>
-          </div>
-        </div>
-        <div class="field field-text field-password-confirmation">
-          <%= f.label :password_confirmation %>
-          <div class="input">
-            <%= f.password_field :password_confirmation, :autocomplete => "off" %>
           </div>
         </div>
         <div class="field field-checkbox field-tos-agreement">

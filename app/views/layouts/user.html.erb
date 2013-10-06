@@ -45,6 +45,9 @@
           <%= render "user/braintree_api_warning" %>
         <% end %>
       <% end %>
+      <% unless current_user.username? %>
+        <%= render "user/username_warning" %>
+      <% end %>
 
       <%= yield %>
     </article>

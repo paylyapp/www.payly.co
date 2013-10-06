@@ -21,6 +21,20 @@ describe User do
     should validate_uniqueness_of :email
   end
 
+  it "should validate uniqueness of username if is nil or blank" do
+    @valid_user = FactoryGirl.create(:user)
+    @another_valid_user = FactoryGirl.build(:user, :email => 'tim.j.gleeson@gmail.com')
+    @valid_user.should be_valid
+    @another_valid_user.should be_valid
+  end
+
+  it "should validate uniqueness of username if not blank or nil" do
+    @valid_user = FactoryGirl.create(:user, :username => 'test')
+    @another_valid_user = FactoryGirl.build(:user, :email => 'tim.j.gleeson@gmail.com', :username => 'test')
+    @valid_user.should be_valid
+    @another_valid_user.should_not be_valid
+  end
+
   it "should validate acceptance of" do
     should validate_acceptance_of :tos_agreement
   end

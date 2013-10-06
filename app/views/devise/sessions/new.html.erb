@@ -6,9 +6,9 @@
         <%= devise_error_messages! %>
 
         <div class="field field-text field-email">
-          <%= f.label :email %>
+          <%= f.label :login, 'Email' %>
           <div class="input">
-            <%= f.email_field :email, :autocomplete => "off" %>
+            <%= f.email_field :login, :autocomplete => "off" %>
           </div>
         </div>
         <div class="field field-text field-password">

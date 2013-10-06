@@ -30,6 +30,13 @@
         <span class='field-error-text error-text--email'>This field needs to be an email address.</span>
       </div>
     </div>
+    <div class="field field-text field-email">
+      <%= f.label :username %>
+      <div class="input">
+        <%= f.text_field :username, :autocomplete => "off", :class => 'required' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+      </div>
+    </div>
 
     <div class="field field-radio-buttons field-payment-methods">
       <%= f.label :payment_method, 'Payment Provider' %>

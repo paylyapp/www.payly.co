@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor   :current_password
-  attr_accessible :user_token, :full_name, :email, :username,
+  attr_accessor   :current_password, :login
+  attr_accessible :user_token, :full_name, :email, :username, :login,
                   :password, :password_confirmation, :current_password,
                   :remember_me, :tos_agreement, :opt_in_communication,
                   :payment_method,
@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   validates_presence_of :full_name
   validates_presence_of :email
   validates_uniqueness_of :email
+  validates_uniqueness_of :username, :allow_blank => true
   validates_acceptance_of :tos_agreement, :accept => true || "1", :on => :create
 
   has_many :stacks, :foreign_key => :user_token
@@ -41,6 +42,15 @@ class User < ActiveRecord::Base
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
+    end
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
     end
   end
 

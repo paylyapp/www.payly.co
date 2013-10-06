@@ -52,9 +52,9 @@ class TransactionsController < ApplicationController
 
       if @transaction.errors.none?
         if @transaction.save
-          # if @stack.webhook_url?
-          #   stack.post_webhook_url(@transaction)
-          # end
+          if @stack.webhook_url?
+            stack.post_webhook_url(@transaction)
+          end
           redirect_to page_complete_transaction_path
         else
           render :transaction

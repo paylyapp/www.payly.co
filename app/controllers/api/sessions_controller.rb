@@ -3,7 +3,7 @@ class Api::SessionsController < ApplicationController
 
   # /api/sessions/create
   def create
-    resource = User.find_for_database_authentication(:email => params[:email])
+    resource = User.find_for_database_authentication(:login => params[:login])
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:password])

@@ -18,6 +18,13 @@
   <meta name="og:title" content="Purchase: <%= @stack.product_name %>" />
   <meta name="og:description" content="<%= @stack.description %>" />
   <meta name="og:image" content="<%= @stack.primary_image.url(:medium) %>" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@paylyapp">
+  <meta name="twitter:title" content="Purchase: <%= @stack.product_name %>">
+  <meta name="twitter:description" content="<%= @stack.description %>">
+  <meta name="twitter:image:src" content="<%= @stack.primary_image.url(:medium) %>">
+  <meta name="twitter:domain" content="payly.co">
   <% end %>
 
   <%= javascript_include_tag :modernizr %>

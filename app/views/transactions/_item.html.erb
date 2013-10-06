@@ -57,7 +57,7 @@
       </span>
     </div>
   </div>
-  <% if !transaction.shipping_cost? && transaction.stack_require_shipping.nil? %>
+  <% unless transaction.stack_require_shipping.nil? %>
   <div class="field field-text field-full-name">
     <label>Shipping Address</label>
     <div class="input">
@@ -73,17 +73,17 @@
   </div>
   <% end %>
 
-<% if transaction.custom_data_term? %>
-  <% transaction.custom_data_term.each_index { |index| %>
-  <div class="field field-text field-full-name">
-    <label><%= transaction.custom_data_term[index] %></label>
-    <div class="input">
-      <span class="text">
-        <%= transaction.custom_data_value[index] %>
-      </span>
+  <% if transaction.custom_data_term? %>
+    <% transaction.custom_data_term.each_index { |index| %>
+    <div class="field field-text field-full-name">
+      <label><%= transaction.custom_data_term[index] %></label>
+      <div class="input">
+        <span class="text">
+          <%= transaction.custom_data_value[index] %>
+        </span>
+      </div>
     </div>
-  </div>
-  <% } %>
-<% end %>
+    <% } %>
+  <% end %>
 
 <% end %>

@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 describe User do
-  before :each do
-    @valid_user = FactoryGirl.create(:user)
-  end
-
   it "has a valid factory" do
+    @valid_user = FactoryGirl.create(:user)
     @valid_user.should be_valid
   end
 

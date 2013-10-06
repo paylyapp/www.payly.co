@@ -161,10 +161,10 @@ class Transaction < ActiveRecord::Base
   end
 
   def send_transaction_emails
-    # if self.stack.send_invoice_email?
-    #   TransactionMailer.invoice(self).deliver
-    # else
-    #   TransactionMailer.recipet(self).deliver
-    # end
+    if self.stack.send_invoice_email?
+      TransactionMailer.invoice(self).deliver
+    else
+      TransactionMailer.recipet(self).deliver
+    end
   end
 end

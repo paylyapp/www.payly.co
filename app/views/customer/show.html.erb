@@ -70,13 +70,13 @@
             </span>
           </div>
         </div>
-        <% if !@transaction.shipping_cost.nil? && @stack.require_shipping %>
+        <% unless @stack.require_shipping.nil? %>
         <div class="field field-text field-full-name">
           <label>Shipping Address</label>
           <div class="input">
             <span class="text">
+              <%= @transaction.shipping_address_line2 unless @transaction.shipping_address_line2? %>
               <%= @transaction.shipping_address_line1 %> <br />
-        <%= @transaction.shipping_address_line2 unless @transaction.shipping_address_line2? %>
               <%= @transaction.shipping_address_city %> <br />
               <%= @transaction.shipping_address_postcode %> <br />
               <%= @transaction.shipping_address_state %> <br />
@@ -86,23 +86,24 @@
         </div>
         <% end %>
 
-          <% unless @transaction.custom_data_term? %>
-            <% @transaction.custom_data_term.each_index { |index| %>
-            <div class="field field-text field-full-name">
-              <label><%= @transaction.custom_data_term[index] %></label>
-              <div class="input">
-                <span class="text">
-                  <%= @transaction.custom_data_value[index] %>
-                </span>
-              </div>
+        <% unless @transaction.custom_data_term? %>
+          <% @transaction.custom_data_term.each_index { |index| %>
+          <div class="field field-text field-full-name">
+            <label><%= @transaction.custom_data_term[index] %></label>
+            <div class="input">
+              <span class="text">
+                <%= @transaction.custom_data_value[index] %>
+              </span>
             </div>
-            <% } %>
-          <% end %>
-          <footer class="actions">
-            <div class="button-group">
-              <%= link_to 'Back to Purchases', pocket_transactions_path, :class => "secondary-action" %>
-            </div>
-          </footer>
+          </div>
+          <% } %>
+        <% end %>
+
+        <footer class="actions">
+          <div class="button-group">
+            <%= link_to 'Back to Purchases', pocket_transactions_path, :class => "secondary-action" %>
+          </div>
+        </footer>
       <% end %>
 
     </article>

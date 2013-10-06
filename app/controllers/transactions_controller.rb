@@ -50,7 +50,7 @@ class TransactionsController < ApplicationController
 
       @transaction = Transaction.new_by_stack(params, @stack)
 
-      if @transaction.errors.empty?
+      if @transaction.errors.none?
         if @transaction.save
           # if @stack.webhook_url?
           #   stack.post_webhook_url(@transaction)

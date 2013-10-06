@@ -136,12 +136,12 @@ class Transaction < ActiveRecord::Base
 
       if charge.success?
         transaction.charge_token = charge.transaction.id
-      elsif !charge.errors.nil?
-        transaction.errors.add :base, charge.errors
       elsif charge.transaction.status == 'processor_declined'
         transaction.errors.add :base, "(#{charge.transaction.processor_response_code}) #{charge.transaction.processor_response_text}"
       elsif charge.transaction.status == 'gateway_rejected'
         transaction.errors.add :base, "(#{charge.transaction.gateway_rejection_code}) #{charge.transaction.gateway_rejection_reason}"
+      elsif !charge.errors.nil?
+        transaction.errors.add :base, charge.errors
       else
         transaction.errors.add :base, "Something went wrong. Please try again."
       end

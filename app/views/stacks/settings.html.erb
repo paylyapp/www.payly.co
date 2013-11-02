@@ -1,6 +1,8 @@
 <h1 class="page-title">
   <% if @stack.has_digital_download %>
     <i class="icon-download-alt"></i>
+  <% elsif @stack.has_subscription %>
+    <i class="icon-refresh"></i>
   <% else %>
     <i class="icon-exchange"></i>
   <% end %>
@@ -8,7 +10,8 @@
 </h1>
 
 <div class="container">
-  <%= render "header", :stack => @stack %>
+  <%= render "header", :stack => @stack unless @stack.has_subscription %>
+  <%= render "header_subscription", :stack => @stack if @stack.has_subscription %>
 
   <%= form_for @stack, :url => stack_update_path, :method => 'put', :html => {:multipart => true, :autocomplete => "off"} do |f| %>
     <% if @stack.errors.any? %>

@@ -38,4 +38,13 @@ describe User do
   it "should validate acceptance of" do
     should validate_acceptance_of :tos_agreement
   end
+
+  describe "Subsciptions" do
+    it "should list all active subscriptions" do
+    end
+  end
+  describe "Subsciption" do
+    it "should list the all transactions" do
+    end
+  end
 end

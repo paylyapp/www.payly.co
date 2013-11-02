@@ -5,6 +5,8 @@
   <p>
     <% if stack.has_digital_download %>
       <i class="icon-download-alt"></i>
+    <% elsif stack.has_subscription %>
+      <i class="icon-refresh"></i>
     <% else %>
       <i class="icon-exchange"></i>
     <% end %>
@@ -17,13 +19,25 @@
       <% end %>
     </li>
     <li>
-      <%= link_to dashboard_stack_transactions_path(stack.stack_token) do %>
-        <i class="icon-money"></i> Purchases
+      <% if stack.has_subscription %>
+        <%= link_to dashboard_stack_subscriptions_path(stack.stack_token) do %>
+          <i class="icon-user"></i> Subscribers
+        <% end %>
+      <% else %>
+        <%= link_to dashboard_stack_transactions_path(stack.stack_token) do %>
+          <i class="icon-money"></i> Purchases
+        <% end %>
       <% end %>
     </li>
     <li>
-      <%= link_to page_new_transaction_path(stack.page_token), :target => '_blank' do %>
-        <i class="icon-external-link"></i> View Page
+      <% if stack.has_subscription %>
+        <%= link_to new_subscription_path(stack.page_token), :target => '_blank' do %>
+          <i class="icon-external-link"></i> View Page
+        <% end %>
+      <% else %>
+        <%= link_to page_new_transaction_path(stack.page_token), :target => '_blank' do %>
+          <i class="icon-external-link"></i> View Page
+        <% end %>
       <% end %>
     </li>
     <li>

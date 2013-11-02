@@ -28,7 +28,8 @@ class CustomerController < ApplicationController
       redirect_to pocket_path
     else
       @customer = Customer.find_by_session_token(session[:pocket_token])
-      @transactions = @customer.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      @subscriptions = @customer.subscriptions.paginate(:page => params[:subscriptions_page], :per_page => 5).order('created_at DESC')
+      @transactions = @customer.transactions.paginate(:page => params[:transactions_page], :per_page => 5).order('created_at DESC')
       render :list
     end
   end
@@ -55,5 +56,62 @@ class CustomerController < ApplicationController
     @pre_title = 'Pocket'
     @customer = Customer.where(:email => params[:customer][:email]).first_or_create
     CustomerMailer.confirmation(@customer).deliver
+  end
+
+  def subscription
+    @pre_title = 'Your Pocket'
+    if session[:pocket_token].nil? || Customer.find_by_session_token(session[:pocket_token]).nil?
+      redirect_to pocket_path
+    else
+      @customer = Customer.find_by_session_token(session[:pocket_token])
+      @subscription = @customer.subscriptions.find_by_subscription_token(params[:subscription_token])
+
+      if @subscription.nil?
+        redirect_to pocket_transactions_path
+      else
+        @stack = @subscription.stack
+        @transactions = @subscription.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+        render :subscription
+      end
+    end
+  end
+
+  def subscription_edit
+    @pre_title = 'Your Pocket'
+    if session[:pocket_token].nil? || Customer.find_by_session_token(session[:pocket_token]).nil?
+      redirect_to pocket_path
+    else
+      @customer = Customer.find_by_session_token(session[:pocket_token])
+      @subscription = @customer.subscriptions.find_by_subscription_token(params[:subscription_token])
+
+      @shipping_cost = @subscription.stack.shipping_cost_array
+
+      if @subscription.nil?
+        redirect_to pocket_transactions_path
+      else
+        @stack = @subscription.stack
+      end
+    end
+  end
+
+  def subscription_update
+    @subscription = Subscription.find_by_subscription_token(params[:subscription_token])
+    @subscription.update_customer_information(params[:subscription])
+
+    if @subscription.errors.none?
+      @subscription.touch
+      redirect_to pocket_subscription_url(@subscription.subscription_token)
+    else
+      render :transaction
+    end
+  end
+
+  def subscription_destroy
+    @customer = Customer.find_by_session_token(session[:pocket_token])
+    @subscription = @customer.subscriptions.find_by_subscription_token(params[:subscription_token])
+
+    @subscription.decommision()
+
+    redirect_to user_root_path
   end
 end

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <% if @stack.nil? || @stack.archived %>
+  <title>Error</title>
+  <meta name="apple-mobile-web-app-title" content="Payly">
+  <% else %>
+  <title>Subscription: <%= @stack.product_name %></title>
+  <meta name="apple-mobile-web-app-title" content="<%= @stack.product_name %>">
+  <% end %>
+
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+  <% unless @stack.nil? || @stack.archived %>
+  <meta name="description" content="<%= @stack.description %>">
+
+  <meta name="og:title" content="Purchase: <%= @stack.product_name %>" />
+  <meta name="og:description" content="<%= @stack.description %>" />
+  <meta name="og:image" content="<%= @stack.primary_image.url(:medium) %>" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@paylyapp">
+  <meta name="twitter:title" content="Purchase: <%= @stack.product_name %>">
+  <meta name="twitter:description" content="<%= @stack.description %>">
+  <meta name="twitter:image:src" content="<%= @stack.primary_image.url(:medium) %>">
+  <meta name="twitter:domain" content="payly.co">
+  <% end %>
+
+  <%= javascript_include_tag :modernizr %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <%= render 'layouts/apple-touch-images' %>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <%= csrf_meta_tags %>
+</head>
+<body class="page">
+  <%= yield %>
+
+  <footer class="global">
+    <div class="made-by">
+      Powered by <%= link_to "Payly", root_path %>
+    </div>
+  </footer>
+
+  <%= analytics_init if Rails.env.production? %>
+</body>
+</html>

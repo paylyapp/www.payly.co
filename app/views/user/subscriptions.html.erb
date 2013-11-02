@@ -1,0 +1,27 @@
+<h1 class="page-title"><i class="icon-refresh"></i> Subscriptions</h1>
+
+<div class="container">
+
+  <ul class="feed-list">
+  <% @subscriptions.each do |subscription| %>
+    <li class="feed-item">
+      <p><%= subscription.buyer_name %></p>
+        <ul>
+          <li><span class="page">Subscribed to <%= subscription.stack.product_name %></span></li>
+          <li><span class="time"><%= time_ago_in_words(subscription.created_at) %> ago</span></li>
+          <li><span class="id">ID: <%= subscription.subscription_token %></span></li>
+          <li><span class="purchase"><%= link_to "View Payments", dashboard_stack_subscription_path(subscription.subscription_token) %></span></li>
+          <li><span class="email"><%= mail_to subscription.buyer_email, "Email Subscriber", :class => "email", :target => "_blank" %></span></li>
+      </ul>
+    </li>
+  <% end %>
+  <% if @subscriptions.count == 0 %>
+    <li class="feed-item">
+      <p>You have not received any payments for this page yet.</p>
+    </li>
+  <% end %>
+  </ul>
+
+  <%= will_paginate @subscriptions, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
+
+</div>

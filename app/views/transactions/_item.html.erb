@@ -14,6 +14,8 @@
         <%= link_to dashboard_stack_path(transaction.stack_stack_token) do %>
           <% if transaction.stack_has_digital_download %>
             <i class="icon-download-alt"></i>
+          <% elsif transaction.stack.has_subscription %>
+            <i class="icon-refresh"></i>
           <% else %>
             <i class="icon-exchange"></i>
           <% end %>

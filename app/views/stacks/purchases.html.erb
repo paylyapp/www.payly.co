@@ -1,6 +1,8 @@
 <h1 class="page-title">
   <% if @stack.has_digital_download %>
     <i class="icon-download-alt"></i>
+  <% elsif @stack.has_subscription %>
+    <i class="icon-refresh"></i>
   <% else %>
     <i class="icon-exchange"></i>
   <% end %>
@@ -8,7 +10,8 @@
 </h1>
 
 <div class="container">
-  <%= render "header", :stack => @stack %>
+  <%= render "header", :stack => @stack unless @stack.has_subscription %>
+  <%= render "header_subscription", :stack => @stack if @stack.has_subscription %>
 
   <div class="stats">
     <h2>This week</h2>
@@ -52,5 +55,8 @@
 </div>
 
 <div class="container">
+  <header>
+    <p><strong>Payments</strong></p>
+  </header>
   <%= render "transactions/list", :transactions => @transactions %>
 </div>

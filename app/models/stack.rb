@@ -4,21 +4,30 @@ class Stack < ActiveRecord::Base
 
   is_impressionable
 
-  attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
-                  :analytics_key, :product_name, :require_billing,
-                  :require_shipping, :shipping_cost_value, :shipping_cost_term,
-                  :return_url, :ping_url, :webhook_url, :seller_email, :seller_name,
-                  :user_token, :primary_image,
-                  :has_digital_download, :digital_download_file, :digital_download_receive,
-                  :digital_download_term, :digital_download_value, :digital_download_update_flag,
-                  :send_invoice_email, :seller_trading_name, :seller_abn, :invoice_number,
+  attr_accessible :user_token, :page_token,
+                  :product_name, :description, :primary_image,
+                  :analytics_key, :return_url, :visible,
+
+                  :charge_type, :charge_amount, :charge_currency, :max_purchase_count,
+                  :require_billing, :require_shipping, :shipping_cost_value, :shipping_cost_term,
+
+                  :seller_email, :seller_name, :bcc_receipt, :send_invoice_email,
+                  :seller_trading_name, :seller_abn, :invoice_number,
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
-                  :archived, :visible, :max_purchase_count,
-                  :custom_data_term, :custom_data_value
+
+                  :has_digital_download, :digital_download_file, :digital_download_receive,
+                  :digital_download_term, :digital_download_value, :digital_download_update_flag,
+
+                  :has_subscription,
+
+                  :custom_data_term, :custom_data_value,
+                  :ping_url, :webhook_url,
+                  :archived
 
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token
+  has_many :subscriptions, :foreign_key => :stack_token
 
   delegate :payment_method, :to => :user, :prefix => true
 
@@ -271,6 +280,19 @@ class Stack < ActiveRecord::Base
     stack
   end
 
+  def self.new_subscription_by_user(params, user)
+    stack = self.new(params)
+    stack.user_token = user.id
+    stack.has_subscription = true
+    stack.seller_name = user.full_name
+    stack.seller_email = user.email
+    stack.page_token = loop do
+      random_token = SecureRandom.urlsafe_base64
+      break random_token unless Stack.where(:page_token => random_token).exists?
+    end
+    stack
+  end
+
   def has_digital_download_and_has_receive_text?
     # self.has_digital_download && self.digital_download_receive? && !self.digital_download_file_file_name?
     false
@@ -296,6 +318,10 @@ class Stack < ActiveRecord::Base
     self.return_url = nil
     self.description = nil
     self.save!
+
+    self.subscriptions.each do |subscription|
+      subscription.decommission
+    end
   end
 
   protected

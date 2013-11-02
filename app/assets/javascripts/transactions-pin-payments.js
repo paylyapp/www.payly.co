@@ -63,7 +63,7 @@ $(function() {
 
       $errors.show();
       $(window).scrollTop(0);
-      $submitButton.removeAttr('disabled');
+      $submitButton.removeAttr('disabled').val('Buy this');
     }
   }
 
@@ -72,7 +72,7 @@ $(function() {
       e.preventDefault();
       $errors.hide();
 
-      $submitButton.attr({disabled: true});
+      $submitButton.attr({disabled: true}).val("Processing form");
 
       var card = {
         name: $('#card_name').val(),
@@ -80,11 +80,11 @@ $(function() {
         expiry_month: $('#card_expiry_month').val(),
         expiry_year: $('#card_expiry_year').val(),
         cvc: $('input[data-encrypted-name="cvv"]').val(),
-        address_line1: $('#transaction_billling_address_line1').val(),
-        address_line2: $('#transaction_billling_address_line2').val(),
-        address_city: $('#transaction_billling_address_city').val(),
-        address_state: $('#transaction_billling_address_state').val(),
-        address_postcode: $('#transaction_billling_address_postcode').val(),
+        address_line1: $('#transaction_billing_address_line1').val(),
+        address_line2: $('#transaction_billing_address_line2').val(),
+        address_city: $('#transaction_billing_address_city').val(),
+        address_state: $('#transaction_billing_address_state').val(),
+        address_postcode: $('#transaction_billing_address_postcode').val(),
         address_country: $('#transaction_billing_address_country').val()
       };
 

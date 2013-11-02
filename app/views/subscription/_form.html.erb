@@ -1,0 +1,197 @@
+<div class="field field-text field-buyer-name">
+  <%= f.label :buyer_name, 'Your name' %>
+  <div class="input">
+    <%= f.text_field :buyer_name, :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+  </div>
+</div>
+<div class="field field-text field-buyer-email">
+  <%= f.label :buyer_email, 'Your email' %>
+  <div class="input">
+    <%= f.email_field :buyer_email, :class=>'required email' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+    <span class='field-error-text error-text--email'>This field needs to be an email.</span>
+  </div>
+</div>
+<% if stack.charge_type == "any" %>
+<div class="field field-text field-charge-amount">
+  <%= f.label :transaction_amount, 'Amount' %>
+  <div class="input">
+    <div class="pre"><%= f.label :charge_amount, '$' %></div>
+    <%= f.text_field :transaction_amount, :class=>'required number' %>
+    <div class="post"><%= f.label :charge_amount, 'AUD' %></div>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+    <span class='field-error-text error-text--number'>This field needs to be a number.</span>
+  </div>
+</div>
+<% else %>
+  <%= f.hidden_field :transaction_amount %>
+<% end %>
+<% if stack.custom_data_term? %>
+  <% stack.custom_data_term.each_index { |index| %>
+    <div class="field field-text field-">
+      <%= f.label :custom_data_term, stack.custom_data_term[index], :for => 'transaction[custom_data_term]['+index.to_s+']' %>
+      <div class="input">
+        <%= f.text_field :custom_data_term, :value => '', :name => 'transaction[custom_data_value][]', :id => 'transaction[custom_data_value]['+index.to_s+']', :required => stack.custom_data_value.include?(index.to_s) %>
+        <% if stack.custom_data_value.include?(index.to_s) %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+        <% end %>
+      </div>
+    </div>
+  <% } %>
+<% end %>
+
+<div class="heading">
+  <h2>Card Details</h2>
+  <p><i class="icon-credit-card"></i> Mastercard and Visa only</p>
+</div>
+<div class="field field-text field-buyer-name">
+  <%= label :card, :name, 'Name on Card' %>
+  <div class="input">
+    <%= text_field :card, :name, :name => 'name', :class=>'required' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= label :card, :number, "Card number" %>
+  <div class="input">
+    <%= text_field :card, :number, :name => '', :class=>'required creditcard', :'data-encrypted-name' => "number" %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+    <span class='field-error-text error-text--creditcard'>This field needs to be a valid credit card number.</span>
+  </div>
+</div>
+<div class="field field-text field-expiry-month">
+  <%= label :card, :expiry_month %>
+  <div class="input">
+    <%= text_field :card, :expiry_month, :name => 'month', :class=>'required', :maxlength => '2' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+  </div>
+</div>
+<div class="field field-text field-expiry-year">
+  <%= label :card, :expiry_year %>
+  <div class="input">
+    <%= text_field :card, :expiry_year, :name => 'year', :class=>'required', :minlength => '4', :maxlength => '4' %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+  </div>
+</div>
+<div class="field field-text field-cvv">
+  <%= label :card, :cvv, "Security Code" %>
+  <div class="input">
+    <%= text_field :card, :cvv, :name => '', :class=>'required', :'data-encrypted-name' => "cvv" %>
+    <span class='field-error-text error-text--required'>This field is required.</span>
+  </div>
+</div>
+
+<div class="heading">
+  <h2>Billing Details</h2>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :billing_address_line1, 'Address Line 1' %>
+  <div class="input">
+  <%= f.text_field :billing_address_line1 %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :billing_address_line2, 'Address Line 2' %>
+  <div class="input">
+  <%= f.text_field :billing_address_line2 %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :billing_address_city, 'City' %>
+  <div class="input">
+  <%= f.text_field :billing_address_city %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :billing_address_postcode, 'Postcode' %>
+  <div class="input">
+  <%= f.text_field :billing_address_postcode %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :billing_address_state, 'State' %>
+  <div class="input">
+  <%= f.text_field :billing_address_state %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :billing_address_country, 'Country' %>
+  <div class="input">
+    <%= f.country_select :billing_address_country, ["Australia"], {}, {} %>
+  </div>
+</div>
+
+<% if stack.require_shipping %>
+
+<div class="heading">
+  <h2>Shipping Details</h2>
+  <div class="heading-actions js-heading-actions" data-action="copy">
+    <label>
+      <%= check_box 'copy_billing', '' %> Same as billing
+    </label>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_full_name, "Recipient's name" %>
+  <div class="input">
+  <%= f.text_field :shipping_full_name %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_line1, 'Address Line 1' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_line1, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line1]" %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_line2, 'Address Line 2' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_line2, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line2]" %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_city, 'City' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_city, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_city]" %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_postcode, 'Postcode' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_postcode, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_postcode]" %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_state, 'State' %>
+  <div class="input">
+  <%= f.text_field :shipping_address_state, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_state]" %>
+  </div>
+</div>
+<div class="field field-text field-card-number">
+  <%= f.label :shipping_address_country, 'Country' %>
+  <div class="input">
+    <%= f.country_select :shipping_address_country, ["Australia"], {}, { :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_country]" } %>
+  </div>
+</div>
+
+<% unless shipping_cost.blank? %>
+<div class="field field-select field-shipping-cost">
+  <%= f.label :shipping_cost, 'Shipping Cost' %>
+  <div class="input">
+    <%= f.select :shipping_cost, options_for_select(shipping_cost) %>
+  </div>
+</div>
+<% end %>
+
+<% end %>
+
+<div class="field field-select field-total-amount more-fields">
+  <label>Total Amount</label>
+  <div class="input">
+    <span class="text">$<span class="total"></span></span>
+  </div>
+</div>
+<footer class="actions">
+  <%= f.submit "Buy this", class: :'primary-action' %>
+</footer>

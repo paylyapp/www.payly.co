@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131006150709) do
+ActiveRecord::Schema.define(:version => 20131101163909) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20131006150709) do
   end
 
   add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
+
+  create_table "failed_transactions", :force => true do |t|
+    t.string   "subscription_token"
+    t.text     "reason"
+    t.string   "failed_transaction_token"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
 
   create_table "impressions", :force => true do |t|
     t.string   "impressionable_type"
@@ -116,10 +124,45 @@ ActiveRecord::Schema.define(:version => 20131006150709) do
     t.text     "custom_data_term",                   :default => [],                    :array => true
     t.text     "custom_data_value",                  :default => [],                    :array => true
     t.string   "webhook_url"
+    t.boolean  "has_subscription"
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true
   add_index "stacks", ["stack_token"], :name => "index_stacks_on_stack_token", :unique => true
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "subscription_token"
+    t.integer  "stack_token"
+    t.boolean  "status",                    :default => true
+    t.float    "transaction_amount"
+    t.float    "shipping_cost"
+    t.string   "customer_token"
+    t.string   "buyer_email"
+    t.string   "buyer_name"
+    t.string   "buyer_ip_address"
+    t.string   "billing_address_line1"
+    t.string   "billing_address_line2"
+    t.string   "billing_address_city"
+    t.string   "billing_address_postcode"
+    t.string   "billing_address_state"
+    t.string   "billing_address_country"
+    t.string   "shipping_cost_term"
+    t.float    "shipping_cost_value"
+    t.string   "shipping_full_name"
+    t.string   "shipping_address_line1"
+    t.string   "shipping_address_line2"
+    t.string   "shipping_address_city"
+    t.string   "shipping_address_postcode"
+    t.string   "shipping_address_state"
+    t.string   "shipping_address_country"
+    t.text     "custom_data_term",          :default => [],                   :array => true
+    t.text     "custom_data_value",         :default => [],                   :array => true
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "card_token"
+  end
+
+  add_index "subscriptions", ["subscription_token"], :name => "index_subscriptions_on_subscription_token", :unique => true
 
   create_table "transactions", :force => true do |t|
     t.string   "transaction_token"
@@ -151,6 +194,8 @@ ActiveRecord::Schema.define(:version => 20131006150709) do
     t.string   "billing_address_state"
     t.string   "billing_address_country"
     t.string   "shipping_address_postcode"
+    t.integer  "subscription_token"
+    t.string   "customer_token"
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true

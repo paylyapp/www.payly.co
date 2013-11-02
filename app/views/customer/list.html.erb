@@ -4,6 +4,36 @@
 
     <article class="container">
       <header>
+        <p><strong>Your Subscriptions</strong>
+      </header>
+
+      <ul class="feed-list">
+      <% if @subscriptions.nil? == 0 %>
+        <li class="feed-item">
+          <p>You have not subscribed to anything through Payly before.</p>
+        </li>
+      <% else %>
+        <% @subscriptions.each do |subscription| %>
+          <% stack = subscription.stack %>
+          <% unless stack.nil? %>
+            <li class="feed-item">
+              <p>You subscribed to <%= stack.product_name %> for <span class="cost"><%= number_to_currency(subscription.transaction_amount) %><span class="currency"><%= subscription.stack.charge_currency %></span></span> a month</p>
+                <ul>
+                  <li><span class="purchase"><%= link_to 'View Subscription', pocket_subscription_path(:subscription_token => subscription.subscription_token) %></span></li>
+                  <li><span class="time"><%= time_ago_in_words(subscription.created_at) %> ago</span></li>
+              </ul>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
+      </ul>
+
+
+      <%= will_paginate @subscriptions, :param_name => :subscriptions_page, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
+
+    </article>
+    <article class="container">
+      <header>
         <p><strong>Your Purchases</strong>
       </header>
 
@@ -38,7 +68,7 @@
       </ul>
 
 
-      <%= will_paginate @transactions, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
+      <%= will_paginate @transactions, :param_name => :transactions_page, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
 
     </article>
   </div>

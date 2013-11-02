@@ -3,6 +3,6 @@ class CustomerMailer < ActionMailer::Base
 
   def confirmation(customer)
     @customer = customer
-    mail(:to => @customer.email, :subject => "Pocket - Confirmation your identity")
+    mail(:to => @customer.email, :subject => "Pocket - Confirm your identity")
   end
 end

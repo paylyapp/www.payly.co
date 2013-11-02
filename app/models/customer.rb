@@ -4,7 +4,8 @@ class Customer < ActiveRecord::Base
   before_create :generate_token
 
   has_many :transactions, :foreign_key => :buyer_email, :primary_key => :email
-  has_many :customer_sessions
+  has_many :subscriptions, :foreign_key => :buyer_email, :primary_key => :email
+  has_many :failed_transaction, :through => :subscriptions
 
   validates_presence_of :email
   validates_uniqueness_of :email

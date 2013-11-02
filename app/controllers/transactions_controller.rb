@@ -29,23 +29,16 @@ class TransactionsController < ApplicationController
     if @stack.nil? || @stack.throw_transaction_error?(current_user)
       render :error
     else
-      @shipping_cost = @stack.shipping_cost_array
-
       unless params[:transaction][:custom_data_value].blank?
         @custom_data_terms = []
         params[:transaction][:custom_data_value].each_index { |index|
-          @custom_data_terms << @stack.custom_data_term[index]
+          @custom_data_terms << stack.custom_data_term[index]
         }
         params[:transaction][:custom_data_term] = @custom_data_terms
       end
-
-      params[:transaction][:transaction_amount] = @stack.charge_amount if @stack.charge_type == "fixed"
-
-      if !params[:transaction][:shipping_cost].nil? && @stack.require_shipping == true
-        shipping_cost = @stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i].to_f
-        params[:transaction][:transaction_amount] = params[:transaction][:transaction_amount].to_f + shipping_cost
-        params[:transaction][:shipping_cost_term] = @stack.shipping_cost_term[params[:transaction][:shipping_cost].to_i]
-        params[:transaction][:shipping_cost_value] = @stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i]
+      if !params[:transaction][:shipping_cost].nil? && stack.require_shipping == true
+        params[:transaction][:shipping_cost_term] = stack.shipping_cost_term[params[:transaction][:shipping_cost].to_i]
+        params[:transaction][:shipping_cost_value] = stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i]
       end
 
       @transaction = Transaction.new_by_stack(params, @stack)

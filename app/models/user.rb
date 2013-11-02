@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
 
   has_many :stacks, :foreign_key => :user_token
   has_many :transactions, :through => :stacks
+  has_many :subscriptions, :through => :stacks
 
   before_create :generate_token
   before_destroy :hide_owned_stacks

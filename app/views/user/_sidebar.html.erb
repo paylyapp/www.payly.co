@@ -21,4 +21,9 @@
       <i class="icon-money"></i> Purchases
     <% end %>
   </li>
+  <li>
+    <%= link_to user_subscriptions_path, :class => current_section('subscriptions') do %>
+      <i class="icon-refresh"></i> Subscriptions
+    <% end %>
+  </li>
 </ul>

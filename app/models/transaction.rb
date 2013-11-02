@@ -1,10 +1,10 @@
 class Transaction < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
-  attr_accessible :stack_token,
+  attr_accessible :stack_token, :subscription_token,
                   :transaction_token, :transaction_amount,
                   :buyer_email, :buyer_name, :buyer_ip_address,
-                  :charge_token, :card_token,
+                  :charge_token, :card_token, :customer_token,
                   :billing_address_line1, :billing_address_line2,
                   :billing_address_city, :billing_address_postcode, :billing_address_state,
                   :billing_address_country,
@@ -16,6 +16,8 @@ class Transaction < ActiveRecord::Base
 
   belongs_to :stack, :foreign_key => :stack_token
   belongs_to :customer
+  belongs_to :subscription, :foreign_key => :subscription_token, :primary_key => :subscription_token
+
 
   delegate :stack_token, :product_name, :charge_currency, :require_shipping,
            :seller_email, :seller_trading_name, :seller_abn, :bcc_receipt, :analytics_key,
@@ -63,6 +65,15 @@ class Transaction < ActiveRecord::Base
     transaction = self.new(params[:transaction])
     transaction.stack_token = stack.id
 
+    shipping_cost = stack.shipping_cost_array
+
+    params[:transaction][:transaction_amount] = stack.charge_amount if stack.charge_type == "fixed"
+
+    if !params[:transaction][:shipping_cost].nil? && stack.require_shipping == true
+      shipping_cost = stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i].to_f
+      params[:transaction][:transaction_amount] = params[:transaction][:transaction_amount].to_f + shipping_cost
+    end
+
     if stack.user.payment_provider_is_pin_payments?
       amount = (transaction[:transaction_amount] * 100).to_i
 
@@ -90,20 +101,21 @@ class Transaction < ActiveRecord::Base
 
     elsif stack.user.payment_provider_is_stripe?
       Stripe.api_key = stack.user.stripe_api_secret
-      amount = (transaction[:transaction_amount] * 100).to_i
+      amount = (transaction[:transaction_amount].to_i) * 100
 
       begin
         charge = Stripe::Charge.create(
           :amount => amount,
-          :currency => stack.charge_currency,
+          :currency => 'AUD',
           :card => transaction[:card_token],
+          :customer => transaction[:customer_token],
           :description => stack.product_name
         )
         transaction.charge_token = charge.id
       rescue Stripe::CardError => e
         transaction.errors.add :base, e.message
       rescue Stripe::StripeError => e
-        transaction.errors.add :base, "There was a problem with your credit card"
+        transaction.errors.add :base, e.message
       end
     elsif stack.user.payment_provider_is_braintree?
       user_gateway = Braintree::Gateway.new(:merchant_id => stack.user.braintree_merchant_key,

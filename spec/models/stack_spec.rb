@@ -5,6 +5,15 @@ describe Stack do
     @valid_stack = FactoryGirl.build(:stack)
   end
 
+  describe "Seller" do
+    it "should be able to create a One Time Payment Page" do
+    end
+    it "should be able to create a Digital Download Payment Page" do
+    end
+    it "should be able to create a Subscription Page" do
+    end
+  end
+
   it "has a valid factory" do
     @valid_stack.should be_valid
   end
@@ -37,5 +46,7 @@ describe Stack do
     stack.not_decommisioned?.should == true
     stack.archived = true
     stack.not_decommisioned?.should == false
+  end
+  it "should be able to create a Subscription page" do
   end
 end

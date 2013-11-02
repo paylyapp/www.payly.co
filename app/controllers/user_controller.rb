@@ -27,4 +27,12 @@ class UserController < ApplicationController
     @transactions = @user.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
     render :purchases
   end
+
+  def subscriptions
+    @current_section = 'subscriptions'
+    @pre_title = "Purchases"
+    @user = current_user
+    @subscriptions = @user.subscriptions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+    render :subscriptions
+  end
 end

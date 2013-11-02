@@ -1,0 +1,53 @@
+<h1 class="page-title">
+  <i class="icon-user"></i> Subscriptions
+</h1>
+
+<div class="container">
+  <header>
+    <p><strong>Subscriber</strong></p>
+  </header>
+  <%= form_for('', :html => {:autocomplete => "off"}) do |f| %>
+    <div class="field field-text field-full-name">
+      <label>ID</label>
+      <div class="input">
+        <span class="text">
+          <%= @subscription.subscription_token %>
+        </span>
+      </div>
+    </div>
+    <div class="field field-text field-full-name">
+      <label>Subscriber's Name</label>
+      <div class="input">
+        <span class="text">
+          <%= @subscription.buyer_name %>
+        </span>
+      </div>
+    </div>
+    <div class="field field-text field-full-name">
+      <label>Subscriber's Email</label>
+      <div class="input">
+        <span class="text">
+          <%= mail_to @subscription.buyer_email, @subscription.buyer_email %>
+        </span>
+      </div>
+    </div>
+    <div class="field field-text field-full-name">
+      <label>Payment/month</label>
+      <div class="input">
+        <span class="text">
+          <%= number_to_currency(@subscription.transaction_amount) %>
+        </span>
+      </div>
+    </div>
+    <footer>
+      <%= link_to 'Cancel Subscription', dashboard_stack_subscription_path(@subscription.subscription_token), class: :'delete-action', method: :delete, data: { confirm: 'Are you sure?' } %>
+    </footer>
+  <% end %>
+</div>
+
+<div class="container">
+  <header>
+    <p><strong>Payments</strong></p>
+  </header>
+  <%= render "transactions/list", :transactions => @transactions %>
+</div>

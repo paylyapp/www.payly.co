@@ -2,58 +2,24 @@ class StacksController < ApplicationController
   layout "user"
   before_filter :authenticate_user!
 
-  def settings
-    @current_section = "pages"
-    @pre_title = "Pages"
-    @user = current_user
-    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
-
-    if @stack.nil?
-      render :error
-    else
-      render :settings
-    end
-  end
-
-  def purchases
-    @current_section = "pages"
-    @pre_title = "Pages"
-    @user = current_user
-    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
-
-    if @stack.nil?
-      render :error
-    else
-      @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
-      render :purchases
-    end
-  end
-
-  def purchase
-    @current_section = "purchases"
-    @pre_title = "Pages"
-    @user = current_user
-    @transaction = @user.transactions.find_by_transaction_token(params[:transaction_token])
-
-    if @transaction.nil?
-      render :error
-    else
-      render :purchase
-    end
-  end
-
   def new
     @current_section = "pages"
     @pre_title = "Pages"
   end
 
-  def one_time
+  def new_one_time
     @current_section = "pages"
     @pre_title = "Pages"
     @stack = Stack.new
   end
 
-  def digital_download
+  def new_digital_download
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @stack = Stack.new
+  end
+
+  def new_subscription
     @current_section = "pages"
     @pre_title = "Pages"
     @stack = Stack.new
@@ -79,6 +45,31 @@ class StacksController < ApplicationController
     end
   end
 
+  def create_subscription
+    @stack = Stack.new_subscription_by_user(params[:stack], current_user)
+
+    if @stack.save
+      redirect_to dashboard_stack_path(@stack.stack_token)
+    else
+      render :new
+    end
+  end
+
+  # GET /pages/:token
+  def settings
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @user = current_user
+    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
+
+    if @stack.nil?
+      render :error
+    else
+      render :settings
+    end
+  end
+
+  # PUT /pages/:token
   def update
     params[:stack].delete(:primary_image) if  params[:stack][:primary_image].blank?
     params[:stack].delete(:digital_download_file) if params[:stack][:digital_download_file].blank?
@@ -130,5 +121,73 @@ class StacksController < ApplicationController
 
     redirect_to user_root_path
   end
-end
 
+  # GET /pages/:token/purchases
+  def purchases
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @user = current_user
+    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
+
+    if @stack.nil?
+      render :error
+    else
+      @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      render :purchases
+    end
+  end
+
+  # GET /purchases/:token
+  def purchase
+    @current_section = "purchases"
+    @pre_title = "Pages"
+    @user = current_user
+    @transaction = @user.transactions.find_by_transaction_token(params[:transaction_token])
+
+    if @transaction.nil?
+      render :error
+    else
+      render :purchase
+    end
+  end
+
+  # GET /pages/:token/subscriptions
+  def subscriptions
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @user = current_user
+    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
+
+    if @stack.nil?
+      render :error
+    else
+      @subscriptions = @stack.subscriptions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      render :subscriptions
+    end
+  end
+
+  # GET /subscriptions/:token
+  def subscription
+    @current_section = "subscriptions"
+    @pre_title = "Pages"
+    @user = current_user
+    @subscription = @user.subscriptions.find_by_subscription_token(params[:subscription_token])
+
+    if @subscription.nil?
+      render :error
+    else
+      @transactions = @subscription.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      render :subscription
+    end
+  end
+
+  # DELETE /subscription/:token
+  def subscription_destroy
+    @user = current_user
+    @subscription = @user.subscriptions.find_by_subscription_token(params[:subscription_token])
+
+    @subscription.decommision()
+
+    redirect_to user_subscriptions_path
+  end
+end

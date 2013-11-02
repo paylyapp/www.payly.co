@@ -5,5 +5,9 @@ FactoryGirl.define do
     f.product_name "Testing"
     f.charge_type "fixed"
     f.charge_amount 10.95
+    f.seller_name "Tim Gleeson"
+    f.seller_email "tim.j.gleeson@gmail.com"
+    f.description "testington"
+    f.page_token "testington"
   end
 end

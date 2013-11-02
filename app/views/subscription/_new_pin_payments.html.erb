@@ -1,0 +1,35 @@
+<%= form_for subscription, :url => create_subscription_path, :html => {:autocomplete => "off"} do |f| %>
+  <div class='card_errors notification notification-danger' style='display:none'>
+    <h3></h3>
+    <ul></ul>
+  </div>
+
+  <% if subscription.errors.any? %>
+    <div id="error_explanation" class="notification notification-danger">
+      <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% subscription.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if flash[:status] %>
+  <div class="notification notification-danger">
+    <p><%= flash[:status] %></p>
+  </div>
+  <% end %>
+
+  <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost }%>
+<% end %>
+
+<%= javascript_include_tag "https://test-api.pin.net.au/pin.js" unless Rails.env.production? %>
+<%= javascript_include_tag "https://api.pin.net.au/pin.js" if Rails.env.production? %>
+
+<%= javascript_include_tag "subscriptions-pin-payments" %>
+
+<script type="text/javascript">
+  Pin.setPublishableKey('<%= stack.user.pin_api_key %>');
+</script>

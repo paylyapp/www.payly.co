@@ -1,0 +1,34 @@
+<%= form_for subscription, :url => create_subscription_path, :html => {:autocomplete => "off"} do |f| %>
+  <% if subscription.errors.any? %>
+    <div id="error_explanation" class="notification notification-danger">
+      <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% subscription.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if flash[:status] %>
+  <div class="notification notification-danger">
+    <h2><%= pluralize(flash[:status].count, "error") %> prohibited this page from performing a subscription:</h2>
+    <ul>
+    <% flash[:status].each do |message| %>
+      <li>(<%= message.code %>) <%= message.message %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost }%>
+<% end %>
+
+<%= javascript_include_tag "subscriptions-braintree" %>
+
+<script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree.js"></script>
+<script type="text/javascript">
+  var braintree = Braintree.create("<%= stack.user.braintree_client_side_key %>");
+  braintree.onSubmitEncryptForm('new_transaction');
+</script>

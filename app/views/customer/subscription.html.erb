@@ -1,0 +1,135 @@
+<section class="customer-list">
+  <div class="main">
+    <h1>Your Pocket</h1>
+
+    <article class="container">
+      <header>
+        <p><strong>Your Subscription</strong>
+      </header>
+
+      <%= form_for('', :html => {:autocomplete => "off"}) do |f| %>
+        <div class="field field-text field-full-name">
+          <label>Subcription</label>
+          <div class="input">
+            <span class="text">
+              <% if @stack.archived || !@stack.visible %>
+                <%= @stack.product_name %>
+              <% else %>
+                <%= link_to @stack.product_name, new_subscription_path(@stack.page_token), :target => "_blank" %>
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Subscribed</label>
+          <div class="input">
+            <span class="text">
+              <%= @subscription.created_at %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Seller</label>
+          <div class="input">
+            <span class="text">
+              <%= mail_to @stack.seller_email, @stack.seller_name %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Subscription ID</label>
+          <div class="input">
+            <span class="text">
+              <%= @subscription.subscription_token %>
+            </span>
+          </div>
+        </div>
+        <div class="field field-text field-full-name">
+          <label>Payment/month</label>
+          <div class="input">
+            <span class="text">
+              <%= number_to_currency(@subscription.transaction_amount) %>
+            </span>
+          </div>
+        </div>
+        <% unless @stack.require_shipping.nil? %>
+        <div class="field field-text field-full-name">
+          <label>Shipping Address</label>
+          <div class="input">
+            <span class="text">
+              <%= @subscription.shipping_address_line2 unless @subscription.shipping_address_line2? %>
+              <%= @subscription.shipping_address_line1 %> <br />
+              <%= @subscription.shipping_address_city %> <br />
+              <%= @subscription.shipping_address_postcode %> <br />
+              <%= @subscription.shipping_address_state %> <br />
+              <%= @subscription.shipping_address_country %> <br />
+            </span>
+          </div>
+        </div>
+        <% end %>
+
+        <% unless @subscription.custom_data_term? %>
+          <% @subscription.custom_data_term.each_index { |index| %>
+          <div class="field field-text field-full-name">
+            <label><%= @subscription.custom_data_term[index] %></label>
+            <div class="input">
+              <span class="text">
+                <%= @subscription.custom_data_value[index] %>
+              </span>
+            </div>
+          </div>
+          <% } %>
+        <% end %>
+
+        <footer class="actions">
+          <div class="button-group">
+            <%= link_to 'Back to your pocket', pocket_transactions_path, :class => "secondary-action" %>
+            <%= link_to 'Edit Subscription', pocket_subscription_edit_path, :class => "secondary-action" %>
+          </div>
+        </footer>
+      <% end %>
+
+    </article>
+
+    <article class="container">
+      <header>
+        <p><strong>Your Payments</strong>
+      </header>
+
+      <ul class="feed-list">
+      <% if @transactions.count == 0 %>
+        <li class="feed-item">
+          <p>You have not purchased anything through Payly before.</p>
+        </li>
+      <% else %>
+        <% @transactions.each do |transaction| %>
+          <% stack = transaction.stack %>
+          <% unless stack.nil? %>
+            <li class="feed-item">
+              <p>You bought <%= stack.product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack_charge_currency %></span></span></p>
+                <ul>
+                  <li><span class="purchase"><%= link_to 'View Purchase', pocket_transaction_path(:transaction_token => transaction.transaction_token) %></span></li>
+                  <% if stack.has_digital_download_and_has_receive_text? %>
+                    <li>
+                      <%= link_to download_url(:token => transaction.transaction_token), :target => "_blank" do %><i class="icon-download-alt"></i> Download <%= stack.digital_download_receive %><% end %>
+                    </li>
+                  <% elsif stack.has_digital_download_and_has_no_receive_text? %>
+                    <li>
+                      <%= link_to download_url(:token => transaction.transaction_token), :target => "_blank" do %><i class="icon-download-alt"></i> Download File<% end %>
+                    </li>
+                  <% end %>
+                  <li><span class="time"><%= time_ago_in_words(transaction.created_at) %> ago</span></li>
+              </ul>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
+      </ul>
+
+
+      <%= will_paginate @transactions, :param_name => :transactions_page, :page_links => false, :previous_label => "Prev", :next_label => "Next" %>
+
+    </article>
+  </div>
+</section>
+

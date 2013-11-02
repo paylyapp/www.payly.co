@@ -1,0 +1,15 @@
+<h1 class="page-title">
+  <% if @stack.has_digital_download %>
+    <i class="icon-download-alt"></i>
+  <% elsif @stack.has_subscription %>
+    <i class="icon-refresh"></i>
+  <% else %>
+    <i class="icon-exchange"></i>
+  <% end %>
+  <%= @stack.product_name %>
+</h1>
+
+<div class="container">
+  <%= render "header_subscription", :stack => @stack if @stack.has_subscription %>
+  <%= render "subscription/list", :subscriptions => @subscriptions %>
+</div>

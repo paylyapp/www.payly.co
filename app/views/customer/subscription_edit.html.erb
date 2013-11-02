@@ -1,0 +1,14 @@
+<section class="customer-list">
+  <div class="main">
+    <h1>Your Pocket</h1>
+
+    <article class="container">
+      <header>
+        <p><strong>Your Subscription</strong>
+      </header>
+
+      <%= render "customer/edit_#{@stack.user_payment_method}", { :subscription => @subscription, :stack => @subscription.stack, :shipping_cost => @shipping_cost } %>
+    </article>
+  </div>
+</section>
+

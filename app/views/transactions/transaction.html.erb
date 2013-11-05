@@ -9,9 +9,14 @@
       <p>You will receive a file.</p>
     <% end %>
 
-    <% if @stack.charge_type == "fixed" %>
-      <span class="cost"><%= number_to_currency(@stack.charge_amount) %><span class="currency"><%= @stack.charge_currency %></span></span>
-    <% end %>
+    <p>
+      <% if @stack.charge_type == "fixed" %>
+        <span class="cost"><%= number_to_currency(@stack.charge_amount) %><span class="currency"><%= @stack.charge_currency %></span></span>
+      <% end %>
+      <% if @stack.has_surcharge? %>
+        <span class="surcharge">(surcharge of <%= @stack.surcharge_unit == 'dollar' ? '$' : '' %><%= @stack.surcharge_value %><%= @stack.surcharge_unit == 'percentage' ? '%' : '' %> will apply)</span>
+      <% end %>
+    </p>
   </header>
 
   <%= render "transactions/new_#{@stack.user_payment_method}", { :transaction => @transaction, :stack => @stack, :shipping_cost => @shipping_cost } %>

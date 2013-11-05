@@ -86,6 +86,7 @@ class Subscription < ActiveRecord::Base
   def update_customer_information(params)
     if stack.user.payment_provider_is_pin_payments?
       begin
+        puts self.customer_token
         payload = {}
         payload[:card_token] = params[:card_token]
         customer = Hay::Customers.show(self.stack.user.pin_api_secret, self.customer_token)
@@ -112,6 +113,7 @@ class Subscription < ActiveRecord::Base
       end
     elsif stack.user.payment_provider_is_braintree?
     end
+
     self
   end
 

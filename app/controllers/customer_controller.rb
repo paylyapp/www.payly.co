@@ -28,8 +28,8 @@ class CustomerController < ApplicationController
       redirect_to pocket_path
     else
       @customer = Customer.find_by_session_token(session[:pocket_token])
-      @subscriptions = @customer.subscriptions.paginate(:page => params[:subscriptions_page], :per_page => 5).order('created_at DESC')
-      @transactions = @customer.transactions.paginate(:page => params[:transactions_page], :per_page => 5).order('created_at DESC')
+      @subscriptions = @customer.subscriptions.unscoped.paginate(:page => params[:subscriptions_page], :per_page => 5).order('created_at DESC')
+      @transactions = @customer.transactions.unscoped.paginate(:page => params[:transactions_page], :per_page => 5).order('created_at DESC')
       render :list
     end
   end
@@ -64,7 +64,7 @@ class CustomerController < ApplicationController
       redirect_to pocket_path
     else
       @customer = Customer.find_by_session_token(session[:pocket_token])
-      @subscription = @customer.subscriptions.find_by_subscription_token(params[:subscription_token])
+      @subscription = @customer.subscriptions.unscoped.find_by_subscription_token(params[:subscription_token])
 
       if @subscription.nil?
         redirect_to pocket_transactions_path
@@ -84,12 +84,12 @@ class CustomerController < ApplicationController
       @customer = Customer.find_by_session_token(session[:pocket_token])
       @subscription = @customer.subscriptions.find_by_subscription_token(params[:subscription_token])
 
-      @shipping_cost = @subscription.stack.shipping_cost_array
 
       if @subscription.nil?
         redirect_to pocket_transactions_path
       else
         @stack = @subscription.stack
+        @shipping_cost = @stack.shipping_cost_array
       end
     end
   end
@@ -99,7 +99,7 @@ class CustomerController < ApplicationController
     @subscription.update_customer_information(params[:subscription])
 
     if @subscription.errors.none?
-      @subscription.touch
+      @subscription.update_attributes(params[:subscription])
       redirect_to pocket_subscription_url(@subscription.subscription_token)
     else
       render :transaction
@@ -110,8 +110,8 @@ class CustomerController < ApplicationController
     @customer = Customer.find_by_session_token(session[:pocket_token])
     @subscription = @customer.subscriptions.find_by_subscription_token(params[:subscription_token])
 
-    @subscription.decommision()
+    @subscription.decommission()
 
-    redirect_to user_root_path
+    redirect_to pocket_transactions_path
   end
 end

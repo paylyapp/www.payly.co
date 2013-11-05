@@ -84,7 +84,7 @@
         <footer class="actions">
           <div class="button-group">
             <%= link_to 'Back to your pocket', pocket_transactions_path, :class => "secondary-action" %>
-            <%= link_to 'Edit Subscription', pocket_subscription_edit_path, :class => "secondary-action" %>
+            <%= link_to 'Edit Subscription', pocket_subscription_edit_path(@subscription.subscription_token), :class => "secondary-action" if @subscription.status == true %>
           </div>
         </footer>
       <% end %>
@@ -133,3 +133,6 @@
   </div>
 </section>
 
+
+
+<%= javascript_include_tag "devise" %>

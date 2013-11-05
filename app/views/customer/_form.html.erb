@@ -194,4 +194,5 @@
 </div>
 <footer class="actions">
   <%= f.submit "Save subscription", class: :'primary-action' %>
+  <%= link_to 'Cancel Subscription', pocket_subscription_path(@subscription.subscription_token), class: :'delete-action', method: :delete, data: { confirm: 'Are you sure?' } %>
 </footer>

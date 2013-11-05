@@ -29,12 +29,12 @@ $(function() {
   // Now we can call Pin.js on form submission to retrieve a card token and submit
   // it to the server
 
-  var $form = $('#new_subscription'),
+  var $form = $('#new_subscription, .edit_subscription'),
       $submitButton = $form.find(":submit"),
       $errors = $form.find('.card_errors');
 
   function handlePinResponse(response) {
-    var $form = $('#new_subscription');
+    var $form = $('#new_subscription, .edit_subscription');
 
     if (response.response) {
       // Add the card token and ip address of the customer to the form

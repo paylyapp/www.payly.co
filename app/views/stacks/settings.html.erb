@@ -138,19 +138,11 @@
       <div class="heading">
         <h2>Surcharge Costs</h2>
       </div>
-      <% if @stack.surcharge_value? %>
-        <% @stack.surcharge_value.each_index do |index| %>
-        <div class="field field-full-length field-text field-surcharge">
-          <div class="input">
-            <%= f.text_field :surcharge_value, :value => @stack.surcharge_value[index], :placeholder => "Amount", :name => "stack[surcharge_value][]" %>
-            <%= f.select :surcharge_type, options_for_stack_surcharge_type(@stack.surcharge_type[index]) %>
-            <button type="button" data-action="remove" class="remove-surcharge delete-action">Delete</button>
-          </div>
+      <div class="field field-full-length field-text field-surcharge">
+        <div class="input">
+          <%= f.text_field :surcharge_value, :value => @stack.surcharge_value, :placeholder => "Amount", :name => "stack[surcharge_value]" %>
+          <%= f.select :surcharge_unit, options_for_stack_surcharge_type(@stack.surcharge_unit) %>
         </div>
-        <% end %>
-      <% end %>
-      <div class="field">
-        <button type="button" data-action="add" class="add-surcharge secondary-action">Add Row</button>
       </div>
     </div>
 

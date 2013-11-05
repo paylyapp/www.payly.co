@@ -185,12 +185,21 @@
 
 <% end %>
 
-<div class="field field-select field-surcharge more-fields">
+<% if stack.has_surcharge? %>
+<div class="field field-select field-subtotal more-fields">
+  <label>Subtotal</label>
+  <div class="input">
+    <span class="text">$<span class="total"></span></span>
+  </div>
+</div>
+
+<div class="field field-select field-surcharge more-fields" data-surcharge-value="<%= stack.surcharge_value %>" data-surcharge-item="<%= stack.surcharge_unit %>">
   <label>Surcharge</label>
   <div class="input">
     <span class="text">$<span class="total"></span></span>
   </div>
 </div>
+<% end %>
 
 <div class="field field-select field-total-amount more-fields">
   <label>Total Amount</label>

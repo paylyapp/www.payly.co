@@ -38,4 +38,42 @@ describe Stack do
     stack.archived = true
     stack.not_decommisioned?.should == false
   end
+
+  it "returns true has_surcharge if all surcharge fields are entered" do
+    stack = @valid_stack
+    stack.require_surcharge = true
+    stack.surcharge_value = 10
+    stack.surcharge_unit = 'percentage'
+    stack.has_surcharge?.should == true
+  end
+  it "returns false has_surcharge if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_surcharge = false
+    stack.has_surcharge?.should == false
+  end
+  it "returns false has_surcharge if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_surcharge = true
+    stack.surcharge_value = 10
+    stack.has_surcharge?.should == false
+  end
+
+  it "returns true has_shipping if all surcharge fields are entered" do
+    stack = @valid_stack
+    stack.require_shipping = true
+    stack.shipping_cost_value = [10.95, 29.95]
+    stack.shipping_cost_term = ['Domestic', 'International']
+    stack.has_shipping?.should == true
+  end
+  it "returns false has_shipping if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_shipping = false
+    stack.has_surcharge?.should == false
+  end
+  it "returns false has_shipping if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_shipping = true
+    stack.shipping_cost_value = [10.95, 29.95]
+    stack.has_surcharge?.should == false
+  end
 end

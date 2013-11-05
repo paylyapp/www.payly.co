@@ -12,7 +12,8 @@ class Transaction < ActiveRecord::Base
                   :shipping_full_name, :shipping_address_line1, :shipping_address_line2,
                   :shipping_address_city, :shipping_address_postcode, :shipping_address_state,
                   :shipping_address_country,
-                  :custom_data_term, :custom_data_value
+                  :custom_data_term, :custom_data_value,
+                  :surcharge_cost
 
   belongs_to :stack, :foreign_key => :stack_token
   belongs_to :customer
@@ -63,8 +64,36 @@ class Transaction < ActiveRecord::Base
     transaction = self.new(params[:transaction])
     transaction.stack_token = stack.id
 
+    amount = transaction[:transaction_amount].to_f
+
+    if stack.has_shipping? && !transaction.shipping_cost.nil?
+      transaction_shipping_cost = transaction.shipping_cost.to_i
+
+      transaction.shipping_cost_term = stack.shipping_cost_term[transaction_shipping_cost]
+      transaction.shipping_cost_value = stack.shipping_cost_value[transaction_shipping_cost].to_f
+
+      amount = amount + transaction.shipping_cost_value
+      transaction.transaction_amount = amount
+    end
+
+    if stack.has_surcharge?
+      unit = stack.surcharge_unit
+      value = stack.surcharge_value
+      if unit == 'percentage'
+        value = value / 100 + 1
+        amount = amount * value
+        transaction.surcharge_cost = amount - transaction[:transaction_amount]
+        transaction.transaction_amount = amount
+      end
+      if unit == 'dollar'
+        amount = amount + value
+        transaction.surcharge_cost = value
+        transaction.transaction_amount = amount
+      end
+    end
+
     if stack.user.payment_provider_is_pin_payments?
-      amount = (transaction[:transaction_amount] * 100).to_i
+      amount = (amount * 100).to_i
 
       payload = {
         'email' => transaction[:buyer_email],
@@ -90,7 +119,7 @@ class Transaction < ActiveRecord::Base
 
     elsif stack.user.payment_provider_is_stripe?
       Stripe.api_key = stack.user.stripe_api_secret
-      amount = (transaction[:transaction_amount] * 100).to_i
+      amount = (amount * 100).to_i
 
       begin
         charge = Stripe::Charge.create(

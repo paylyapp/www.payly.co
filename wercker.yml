@@ -34,6 +34,10 @@ build:
               export PIN_SECRET_KEY=0E7LU4yW34Hj8amyLsxUzQ
               export STRIPE_SECRET_KEY=sk_test_zygSHni1ekLwPlDtPVw3TlUF
               export STRIPE_PUBLISHABLE_KEY=pk_test_boNUbw6n7TmdeedwRK3igKJq
+              export BRAINTREE_MERCHANT_ID=nnkvtyw2pfb7ppph
+              export BRAINTREE_PUBLISHABLE_KEY=b7mdrmfwdstwv5cx
+              export BRAINTREE_PUBLISHABLE_KEY=2975efe2e21d4d2e0bb580fffeb731bf
+              export BRAINTREE_CLIENT_SIDE_KEY=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1R4tSb3wTtGU+RWKpt8xuK0KG2nQJCwB2athl1a7yBVLbmdIBwkrTY6gTs/GqO/3rZ3JktKC5KEAe2uxpv0dw2Ayr1STW7BET9qYVqIhlHKJEi27AsQL5fp/NzDzLav2lUGQcF07+ODeS2noOIh6jFDc7Tz9SPx11oR9HJSyALBfGSMcZGLxeT9Rdlt2Cg2CmddQcuScRAw6JMlsNBsyyj2eSvSKltpFlZYuJkFsvpNvegBNuRrDSEW2dMLA9TCX2RcXbaLTyD39/t1yGqnZXpoKtQl+XVXgvTti+IwkOvmkeTb0U5zsXPFl+FD6CGjvhzup0EKqyodo1b28HR4plwIDAQAB
 
         - script:
             name: Set up db

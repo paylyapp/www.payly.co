@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105123857) do
+ActiveRecord::Schema.define(:version => 20131111185430) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20131105123857) do
     t.integer  "subscription_token"
     t.string   "customer_token"
     t.float    "surcharge_cost"
+    t.float    "base_cost"
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true

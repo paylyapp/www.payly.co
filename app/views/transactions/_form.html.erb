@@ -123,67 +123,82 @@
 </div>
 
 <% if stack.require_shipping %>
+  <div class="heading">
+    <h2>Shipping Details</h2>
+    <div class="heading-actions js-heading-actions" data-action="copy">
+      <label>
+        <%= check_box 'copy_billing', '' %> Same as billing
+      </label>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_full_name, "Recipient's name" %>
+    <div class="input">
+    <%= f.text_field :shipping_full_name %>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_address_line1, 'Address Line 1' %>
+    <div class="input">
+    <%= f.text_field :shipping_address_line1, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line1]" %>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_address_line2, 'Address Line 2' %>
+    <div class="input">
+    <%= f.text_field :shipping_address_line2, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line2]" %>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_address_city, 'City' %>
+    <div class="input">
+    <%= f.text_field :shipping_address_city, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_city]" %>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_address_postcode, 'Postcode' %>
+    <div class="input">
+    <%= f.text_field :shipping_address_postcode, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_postcode]" %>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_address_state, 'State' %>
+    <div class="input">
+    <%= f.text_field :shipping_address_state, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_state]" %>
+    </div>
+  </div>
+  <div class="field field-text field-card-number">
+    <%= f.label :shipping_address_country, 'Country' %>
+    <div class="input">
+      <%= f.country_select :shipping_address_country, ["Australia"], {}, { :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_country]" } %>
+    </div>
+  </div>
 
-<div class="heading">
-  <h2>Shipping Details</h2>
-  <div class="heading-actions js-heading-actions" data-action="copy">
-    <label>
-      <%= check_box 'copy_billing', '' %> Same as billing
-    </label>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_full_name, "Recipient's name" %>
-  <div class="input">
-  <%= f.text_field :shipping_full_name %>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_address_line1, 'Address Line 1' %>
-  <div class="input">
-  <%= f.text_field :shipping_address_line1, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line1]" %>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_address_line2, 'Address Line 2' %>
-  <div class="input">
-  <%= f.text_field :shipping_address_line2, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line2]" %>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_address_city, 'City' %>
-  <div class="input">
-  <%= f.text_field :shipping_address_city, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_city]" %>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_address_postcode, 'Postcode' %>
-  <div class="input">
-  <%= f.text_field :shipping_address_postcode, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_postcode]" %>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_address_state, 'State' %>
-  <div class="input">
-  <%= f.text_field :shipping_address_state, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_state]" %>
-  </div>
-</div>
-<div class="field field-text field-card-number">
-  <%= f.label :shipping_address_country, 'Country' %>
-  <div class="input">
-    <%= f.country_select :shipping_address_country, ["Australia"], {}, { :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_country]" } %>
-  </div>
-</div>
+  <% unless shipping_cost.blank? %>
+    <div class="field field-select field-shipping-cost">
+      <%= f.label :shipping_cost, 'Shipping Cost' %>
+      <div class="input">
+        <%= f.select :shipping_cost, options_for_select(shipping_cost) %>
+      </div>
+    </div>
+  <% end %>
 
-<% unless shipping_cost.blank? %>
-<div class="field field-select field-shipping-cost">
-  <%= f.label :shipping_cost, 'Shipping Cost' %>
-  <div class="input">
-    <%= f.select :shipping_cost, options_for_select(shipping_cost) %>
-  </div>
-</div>
 <% end %>
 
+<% if stack.has_surcharge? %>
+<div class="field field-select field-subtotal more-fields">
+  <label>Subtotal</label>
+  <div class="input">
+    <span class="text">$<span class="total"></span></span>
+  </div>
+</div>
+
+<div class="field field-select field-surcharge more-fields" data-surcharge-value="<%= stack.surcharge_value %>" data-surcharge-item="<%= stack.surcharge_unit %>">
+  <label>Surcharge</label>
+  <div class="input">
+    <span class="text">$<span class="total"></span></span>
+  </div>
+</div>
 <% end %>
 
 <div class="field field-select field-total-amount more-fields">
@@ -192,6 +207,7 @@
     <span class="text">$<span class="total"></span></span>
   </div>
 </div>
+
 <footer class="actions">
   <%= f.submit "Buy this", class: :'primary-action' %>
 </footer>

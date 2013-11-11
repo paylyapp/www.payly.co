@@ -7,6 +7,7 @@ class Stack < ActiveRecord::Base
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
                   :analytics_key, :product_name, :require_billing,
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,
+                  :require_surcharge, :surcharge_value, :surcharge_unit,
                   :return_url, :ping_url, :webhook_url, :seller_email, :seller_name,
                   :user_token, :primary_image,
                   :has_digital_download, :digital_download_file, :digital_download_receive,
@@ -97,6 +98,14 @@ class Stack < ActiveRecord::Base
 
   def not_decommisioned?
     !self.archived
+  end
+
+  def has_surcharge?
+    self.require_surcharge? && self.surcharge_value? && self.surcharge_unit?
+  end
+
+  def has_shipping?
+    self.require_shipping? && self.shipping_cost_value.count > 0 && self.shipping_cost_term.count > 0
   end
 
   def post_webhook_url(purchase)

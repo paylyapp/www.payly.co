@@ -34,6 +34,21 @@
           <hr />
         </td>
       </tr>
+      <% if @transaction.stack.has_surcharge? %>
+        <tr>
+          <td>Subtotal</td>
+          <td align="right"><%= number_to_currency( (@transaction.transaction_amount - @transaction.surcharge_cost) ) %></td>
+        </tr>
+        <tr>
+          <td>Surcharge</td>
+          <td align="right"><%= number_to_currency(@transaction.surcharge_cost) %></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <hr />
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td><strong>Total amount payable</strong></td>
         <td align="right"><strong><%= number_to_currency(@transaction.transaction_amount) %></strong></td>

@@ -32,10 +32,12 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :allow_blank => true
   validates_acceptance_of :tos_agreement, :accept => true || "1", :on => :create
 
-  has_many :stacks, :foreign_key => :user_token
-  has_many :transactions, :through => :stacks
+  has_many :stacks, :through => :entities
+  has_many :transactions, :through => :entities
+  has_many :entities, :foreign_key => :user_token, :primary_key => :user_token
 
   before_create :generate_token
+  before_create :generate_entity
   before_destroy :hide_owned_stacks
   before_save :ensure_authentication_token
 
@@ -159,6 +161,19 @@ class User < ActiveRecord::Base
       token = Devise.friendly_token
       break token unless User.where(authentication_token: token).first
     end
+  end
+
+  def generate_entity
+    params = {}
+    params[:entity] = {}
+    params[:entity][:full_name] = self.full_name
+    params[:entity][:email] = self.email
+    params[:entity][:currency] = "AUD"
+    params[:entity][:user_entity] = true
+
+    entity = Entity.new_by_user(params, self)
+
+    entity.save!
   end
 
   def generate_token

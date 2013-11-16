@@ -1,0 +1,11 @@
+%h1.page-title
+  %i.icon-copy
+  Pages
+
+.container
+  %header
+    .button-group
+      = link_to new_page_path, :class => "first last primary" do
+        New Page
+
+  #{render "entity/pages/list", :stacks => @stacks}

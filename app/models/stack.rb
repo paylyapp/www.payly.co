@@ -7,6 +7,7 @@ class Stack < ActiveRecord::Base
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
                   :analytics_key, :product_name, :require_billing,
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,
+                  :require_surcharge, :surcharge_value, :surcharge_unit,
                   :return_url, :ping_url, :webhook_url, :seller_email, :seller_name,
                   :user_token, :primary_image,
                   :has_digital_download, :digital_download_file, :digital_download_receive,
@@ -18,6 +19,7 @@ class Stack < ActiveRecord::Base
                   :custom_data_term, :custom_data_value
 
   belongs_to :user, :foreign_key => :user_token
+  belongs_to :entity, :foreign_key => :entity_token, :primary_key => :entity_token
   has_many :transactions, :foreign_key => :stack_token
 
   delegate :payment_method, :to => :user, :prefix => true
@@ -97,6 +99,14 @@ class Stack < ActiveRecord::Base
 
   def not_decommisioned?
     !self.archived
+  end
+
+  def has_surcharge?
+    self.require_surcharge? && self.surcharge_value? && self.surcharge_unit?
+  end
+
+  def has_shipping?
+    self.require_shipping? && self.shipping_cost_value.count > 0 && self.shipping_cost_term.count > 0
   end
 
   def post_webhook_url(purchase)
@@ -246,8 +256,9 @@ class Stack < ActiveRecord::Base
     stats
   end
 
-  def self.new_one_time_by_user(params, user)
+  def self.new_one_time_by_user(params, entity, user)
     stack = self.new(params)
+    stack.entity_token = entity.entity_token
     stack.user_token = user.id
     stack.seller_name = user.full_name
     stack.seller_email = user.email
@@ -258,9 +269,10 @@ class Stack < ActiveRecord::Base
     stack
   end
 
-  def self.new_digital_download_by_user(params, user)
+  def self.new_digital_download_by_user(params, entity, user)
     stack = self.new(params)
     stack.has_digital_download = true
+    stack.entity_token = entity.entity_token
     stack.user_token = user.id
     stack.seller_name = user.full_name
     stack.seller_email = user.email

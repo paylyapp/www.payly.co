@@ -1,5 +1,0 @@
-<header>
-  <div class="button-group">
-    <%= link_to dashboard_stack_path(stack.stack_token), :class => "#{current_page(dashboard_stack_path(stack.stack_token))} first" do %><i class="icon-cog"></i> <span class="text">Settings</span><% end %><%= link_to dashboard_stack_transactions_path(stack.stack_token), :class => current_page(dashboard_stack_transactions_path(stack.stack_token)) do %><i class="icon-money"></i> <span class="text">Purchases</span><% end %><%= link_to page_new_transaction_path(stack.page_token), :class => "last", :target => "_blank" do %><i class="icon-external-link"></i> <span class="text">View Page</span><% end %>
-  </div>
-</header>

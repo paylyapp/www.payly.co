@@ -30,6 +30,7 @@ gem 'gravtastic'
 gem 'aws-sdk'
 gem 'paperclip'
 gem 'fog'
+gem 'unf'
 
 gem 'countries'
 gem 'country_select'
@@ -38,8 +39,10 @@ gem 'will_paginate', '~> 3.0'
 
 gem 'google-analytics-rails'
 
+gem 'haml'
+
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 3.2.6'
   gem 'compass-rails'
   gem 'sass-mediaqueries-rails'
   gem 'font-awesome-sass-rails'

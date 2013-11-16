@@ -1,0 +1,12 @@
+.stats
+  %h2 #{stat_title}
+  %ul
+    %li.count
+      %span
+        #{count_value}
+      %h3
+        #{count_label}
+    %li.amount
+      #{cost(sales_amount, sales_currency)}
+      %h3
+        #{sales_label}

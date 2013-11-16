@@ -1,0 +1,77 @@
+<div class="container">
+  <header>
+    <p><strong>Your account settings</strong></p>
+  </header>
+
+  <%= form_for(@user, :as => 'user', :url => registration_path('user'), :html => { :method => :put, :autocomplete => "off"}) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field field-text field-email">
+      <%= f.label :email, "Email (private)" %>
+      <div class="input">
+        <%= f.email_field :email, :autocomplete => "off", :class => 'required email' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+        <span class='field-error-text error-text--email'>This field needs to be an email address.</span>
+      </div>
+    </div>
+    <div class="field field-text field-email">
+      <%= f.label :username %>
+      <div class="input">
+        <%= f.text_field :username, :autocomplete => "off", :class => 'required' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+      </div>
+    </div>
+
+    <div class="heading">
+      <h2>Change Password</h2>
+    </div>
+    <div class="field field-text field-current-password">
+      <%= f.label :current_password, 'Old Password' %>
+      <div class="input">
+        <%= f.password_field :current_password, :autocomplete => "off" %>
+      </div>
+    </div>
+    <div class="field field-text field-password">
+      <%= f.label :password, 'New Password' %>
+      <div class="input">
+        <%= f.password_field :password, :autocomplete => "off" %>
+      </div>
+    </div>
+    <div class="field field-text field-password-confirmation">
+      <%= f.label :password_confirmation, 'Confirm Password' %>
+      <div class="input">
+        <%= f.password_field :password_confirmation, :autocomplete => "off" %>
+      </div>
+    </div>
+
+    <div class="heading">
+      <h2>Communication from Payly</h2>
+      <p>From time to time, we'd like to send you emails with updates to features and services.</p>
+    </div>
+    <div class="field field-text field-current-password">
+      <%= f.label :opt_in_communication, 'Subscribe' %>
+      <div class="input">
+        <%= f.label :opt_in_communication do %>
+          <%= f.check_box :opt_in_communication %>
+        <% end %>
+      </div>
+    </div>
+
+    <footer class="actions">
+      <div class="button-group">
+        <%= f.submit 'Save Settings', :class => "primary-action" %>
+
+        <%= link_to 'Cancel Account', registration_path('user'), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "delete-action" %>
+      </div>
+    </footer>
+  <% end %>
+</div>

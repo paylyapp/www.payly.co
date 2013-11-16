@@ -53,6 +53,7 @@
     a {
       margin: 0 $gutter/4;
       @include button-small();
+      line-height: 25px;
 
       &.active {
         @include button-small-filled(#2ECC71);
@@ -368,7 +369,7 @@
     }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 940px) {
 
     header.global {
       .top-button {

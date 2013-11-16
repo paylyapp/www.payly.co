@@ -10,7 +10,7 @@ Devise.setup do |config|
   # config.mailer = "Devise::Mailer"
 
   config.secret_key = ENV['DEVISE_SECRET_KEY']
-  config.allow_insecure_token_lookup = true
+  # config.allow_insecure_token_lookup = true
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -183,7 +183,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
-  config.token_authentication_key = :auth_token
+  # config.token_authentication_key = :auth_token
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for

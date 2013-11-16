@@ -1,0 +1,36 @@
+<h1 class="page-title">Organisation</h1>
+
+<div class="container">
+  <%= form_for @entity, :url => entity_path(@entity.entity_token), :html => {:multipart => true, :autocomplete => "off"} do |f| %>
+    <div class="heading">
+      <h2>Organisation Details</h2>
+    </div>
+    <div class="field field-text field-full-name">
+      <%= f.label :full_name, "Full Name" %>
+      <div class="input">
+        <%= f.text_field :full_name, :class => 'required' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+      </div>
+    </div>
+    <div class="field field-text field-full-name">
+      <%= f.label :email, "Email Address" %>
+      <div class="input">
+        <%= f.email_field :email, :class => 'required' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+      </div>
+    </div>
+    <div class="field field-select field-charge-type">
+      <%= f.label :currency, "Currency" %>
+      <div class="input">
+        <%= f.select :currency, options_for_select( [['Australian Dollar', 'AUD'], ['US Dollar','USD']] ) %>
+      </div>
+      <span class="description">Once set, this can not be changed.</span>
+    </div>
+
+    <footer class="actions">
+      <div class="button-group">
+        <%= f.submit 'Create Organisation', :class => 'primary-action' %>
+      </div>
+    </footer>
+  <% end %>
+</div>

@@ -1,0 +1,4 @@
+= render "entity/purchases/header"
+
+.container
+  = render "entity/purchases/list", { :item_type => 'seller_purchases', :transactions => @transactions }

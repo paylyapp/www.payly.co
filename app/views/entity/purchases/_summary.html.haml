@@ -1,0 +1,57 @@
+- if item_type == 'seller_purchases'
+  %li.feed-item
+    %p
+      #{transaction.buyer_name} bought #{transaction.stack_product_name} for #{cost(transaction.transaction_amount,'AUD')}
+    %ul
+      %li
+        %span.time
+          #{time_ago_in_words(transaction.created_at)} ago
+      %li
+        %span.id
+          ID:#{transaction.transaction_token}
+      %li
+        %span.purchase
+          #{link_to "View Purchase", purchase_path(transaction.transaction_token)}
+      %li
+        %span.email
+          #{mail_to transaction.buyer_email, "Email Buyer", :class => "email", :target => "_blank"}
+
+- elsif item_type == 'seller_page_purchases'
+  %li.feed-item
+    %p
+      #{transaction.buyer_name} bought this for #{cost(transaction.transaction_amount,'AUD')}
+    %ul
+      %li
+        %span.time
+          #{time_ago_in_words(transaction.created_at)} ago
+      %li
+        %span.id
+          ID: #{transaction.transaction_token}
+      %li
+        %span.purchase
+          #{link_to "View Purchase", purchase_path(transaction.transaction_token)}
+      %li
+        %span.email
+          #{mail_to transaction.buyer_email, "Email Buyer", :class => "email", :target => "_blank"}
+
+- elsif item_type == 'buyer_pocket'
+  %li.feed-item
+    %p
+      You bought #{stack.product_name} for #{cost(transaction.transaction_amount,'AUD')}
+    %ul
+      %li
+        %span.purchase
+          #{link_to 'View Purchase', pocket_transaction_path(:transaction_token => transaction.transaction_token)}
+      - if stack.has_digital_download_and_has_receive_text?
+        %li
+          = link_to download_url(:token => transaction.transaction_token), :target => "_blank" do
+            %i.icon-download-alt
+            Download #{stack.digital_download_receive}
+      - elsif
+        %li
+          = link_to download_url(:token => transaction.transaction_token), :target => "_blank" do
+            %i.icon-download-alt
+            Download File
+      %li
+        %span.time
+          #{time_ago_in_words(transaction.created_at)} ago

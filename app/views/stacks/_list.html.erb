@@ -1,5 +1,0 @@
-<ul class="feed-list">
-  <% stacks.where(:archived => false).order('created_at ASC').each do |stack| %>
-    <%= render "stacks/item", :stack => stack %>
-  <% end %>
-</ul>

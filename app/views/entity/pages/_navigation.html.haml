@@ -1,0 +1,11 @@
+%header
+  .button-group
+    = link_to edit_page_path(stack.stack_token), :class => "#{current_page(edit_page_path(stack.stack_token))} first" do
+      %i.icon-cog
+      %span.text Settings
+    = link_to page_path(stack.stack_token), :class => current_page(page_path(stack.stack_token)) do
+      %i.icon-money
+      %span.text Purchases
+    = link_to page_new_transaction_path(stack.page_token), :class => "last", :target => "_blank" do
+      %i.icon-external-link
+      %span.text View Page

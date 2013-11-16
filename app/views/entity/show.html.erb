@@ -1,0 +1,67 @@
+<h1 class="page-title"><i class="icon-dashboard"></i> Dashboard</h1>
+
+<% if @entity.stacks.where(:archived => false).empty? %>
+  <div class="container">
+    <header>
+      <p><strong>Select your page type</strong>
+    </header>
+    <div class="selection">
+      <ul>
+        <li>
+          <a href="/organisation/<%= @entity.entity_token %>/pages/new/one-time">
+            <i class="icon icon-exchange"></i>
+            <span class="text">One Time</span>
+          </a>
+        </li>
+        <li>
+          <a href="/organisation/<%= @entity.entity_token %>/pages/new/digital-download">
+            <i class="icon icon-download-alt"></i>
+            <span class="text">Digital Download</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% else %>
+  <div class="container">
+    <div class="stats">
+      <h2>This week</h2>
+      <ul>
+        <li class="count">
+          <span><%= current_user.weekly_stats[:count] %></span>
+          <h3>Purchases</h3>
+        </li>
+        <li class="amount">
+          <span class="cost"><%= number_to_currency(current_user.weekly_stats[:cost]) %><span class="currency">AUD</span></span>
+          <h3>Sales</h3>
+        </li>
+      </ul>
+    </div>
+    <div class="stats">
+      <h2>This month</h2>
+      <ul>
+        <li class="count">
+          <span><%= current_user.monthly_stats[:count] %></span>
+          <h3>Purchases</h3>
+        </li>
+        <li class="amount">
+          <span class="cost"><%= number_to_currency(current_user.monthly_stats[:cost]) %><span class="currency">AUD</span></span>
+          <h3>Sales</h3>
+        </li>
+      </ul>
+    </div>
+    <div class="stats">
+      <h2>All</h2>
+      <ul>
+        <li class="count">
+          <span><%= current_user.all_stats[:count] %></span>
+          <h3>Purchases</h3>
+        </li>
+        <li class="amount">
+          <span class="cost"><%= number_to_currency(current_user.all_stats[:cost]) %><span class="currency">AUD</span></span>
+          <h3>Sales</h3>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% end %>

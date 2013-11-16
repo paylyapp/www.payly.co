@@ -1,0 +1,145 @@
+- if @show == 'intro'
+  %h1.page-title
+    %i.icon-copy
+    Pages
+
+  .container
+    %header
+      %p
+        %strong Select your page type
+    .selection
+      %ul
+        %li
+          = link_to new_one_time_page_path do
+            %i.icon-exchange
+            %span.text One Time
+        %li
+          = link_to new_digital_download_page_path do
+            %i.icon-download-alt
+            %span.text Digital Download
+
+- elsif @show == 'one-time'
+
+  %h1.page-title
+    %i.icon-exchange
+    One Time Payment Page
+
+  %div.container
+    = form_for @stack, :url => create_one_time_page_path(@entity.entity_token), :html => {:multipart => true, :autocomplete => "off"} do |f|
+      - if @stack.errors.any?
+        %div#error_explanation.notification.notification-danger
+          %h2
+            #{pluralize(@stack.errors.count, "error")} prohibited this page from being saved:
+
+          %ul
+            - @stack.errors.messages.each do |attr,message|
+              - message.each do |msg|
+                %li
+                  #{msg}
+
+      %div.heading
+        %h2
+          Page Details
+
+      %div.field.field-text.field-product
+        = f.label :product_name, "Name"
+        %div.input
+          = f.text_field :product_name, :class => 'required'
+          %span.field-error-text.error-text--required
+            This field is required.
+
+      %div.heading
+        %h2
+          Payment Details
+
+      %div.field.field-select.field-charge-type
+        = f.label :charge_type, "Type of charge"
+        %div.input
+          = f.select :charge_type, options_for_stack_charge_type(@stack.charge_type)
+
+      %div.field.field-text.field-charge-amount
+        = f.label :charge_amount, "Amount"
+        %div.input
+          %div.pre
+            = f.label :charge_amount, '$'
+          = f.text_field :charge_amount, :placeholder => "56.78"
+          %div.post
+            = f.label :charge_amount, 'AUD'
+          %span.field-error-text.error-text--required
+            This field is required.
+          %span.field-error-text.error-text--number
+            This field must be a number.
+
+      %footer.actions
+        %div.button-group
+          = f.submit 'Create Page', :class => 'primary-action'
+
+
+- elsif @show == 'digital-download'
+
+  %h1.page-title
+    %i.icon-download-alt
+    Digital Download Payment Page
+
+  %div.container
+    = form_for @stack, :url => create_digital_download_page_path(@entity.entity_token), :html => {:multipart => true, :autocomplete => "off"} do |f|
+      - if @stack.errors.any?
+        %div#error_explanation.notification.notification-danger
+          %h2
+            #{pluralize(@stack.errors.count, "error")} prohibited this page from being saved:
+
+          %ul
+            - @stack.errors.messages.each do |attr,message|
+              - message.each do |msg|
+                %li
+                  #{msg}
+
+      %div.heading
+        %h2
+          Page Details
+
+      %div.field.field-text.field-product
+        = f.label :product_name, "Name"
+        %div.input
+          = f.text_field :product_name, :class => 'required'
+          %span.field-error-text.error-text--required
+            This field is required.
+
+      %div.heading
+        %h2
+          Payment Details
+
+      %div.field.field-select.field-charge-type
+        = f.label :charge_type, "Type of charge"
+        %div.input
+          = f.select :charge_type, options_for_stack_charge_type(@stack.charge_type)
+
+      %div.field.field-text.field-charge-amount
+        = f.label :charge_amount, "Amount"
+        %div.input
+          %div.pre
+            = f.label :charge_amount, '$'
+          = f.text_field :charge_amount, :placeholder => "56.78"
+          %div.post
+            = f.label :charge_amount, 'AUD'
+          %span.field-error-text.error-text--required
+            This field is required.
+          %span.field-error-text.error-text--number
+            This field must be a number.
+
+      %div.heading
+        %h2
+          Downloadable file
+        %p
+          You can provide a file that is downloadable upon successful payment through this payment page.
+        %p
+          Downloadable files are currently limited to 10MB in size.
+
+      %div.field.field-text.field-digital-download-file
+        = f.label :digital_download_file, 'Downloadable file'
+        %div.input
+          = f.file_field :digital_download_file, :"data-required" => "true"
+
+      %footer.actions
+        %div.button-group
+          = f.submit 'Create Page', :class => 'primary-action'

@@ -1,0 +1,29 @@
+<div class="container">
+  <header>
+    <p><strong>Your profile</strong></p>
+  </header>
+
+  <%= form_for(@entity, :url => update_user_profile_path(@entity.entity_token), :html => { :method => :put, :autocomplete => "off"}) do |f| %>
+    <div class="field field-text field-full-name">
+      <%= f.label :full_name, 'Full Name' %>
+      <div class="input">
+        <%= f.text_field :full_name, :autocomplete => "off", :class => 'required' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+      </div>
+    </div>
+    <div class="field field-text field-email">
+      <%= f.label :email, "Email (public)" %>
+      <div class="input">
+        <%= f.email_field :email, :autocomplete => "off", :class => 'required email' %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
+        <span class='field-error-text error-text--email'>This field needs to be an email address.</span>
+      </div>
+    </div>
+
+    <footer class="actions">
+      <div class="button-group">
+        <%= f.submit 'Save Profile', :class => "primary-action" %>
+      </div>
+    </footer>
+  <% end %>
+</div>

@@ -1,0 +1,31 @@
+<div class="user">
+  <%= image_tag current_user.gravatar_url, :height => 80, :width => 80 %>
+  <span class="full-name"><%= current_user.entity.entity_name %></span>
+
+  <div>
+    <%= link_to user_profile_path, :class => current_section('profile') do %><i class="icon-user"></i> Profile<% end %>
+    <%= link_to user_payment_provider_path, :class => current_section('payment_provider') do %><i class="icon-credit-card"></i> Payment Provider<% end %>
+  </div>
+  <div>
+    <%= link_to user_settings_path, :class => current_section('settings') do %><i class="icon-cog"></i> Settings<% end %>
+    <%= link_to destroy_user_session_path, :method => :delete, :class => "secondary-action" do %><i class="icon-signout"></i> Signout<% end %>
+  </div>
+</div>
+
+<ul class="user-nav">
+  <li>
+    <%= link_to user_root_path, :class => current_section('dashboard') do %>
+      <i class="icon-dashboard"></i> Dashboard
+    <% end %>
+  </li>
+  <li>
+    <%= link_to pages_path, :class => current_section('pages') do %>
+      <i class="icon-copy"></i> Pages
+    <% end %>
+  </li>
+  <li>
+    <%= link_to purchases_path, :class => current_section('purchases') do %>
+      <i class="icon-money"></i> Purchases
+    <% end %>
+  </li>
+</ul>

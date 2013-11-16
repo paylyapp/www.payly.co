@@ -1,0 +1,8 @@
+= render "entity/purchases/header"
+
+.container
+  %header
+    %p
+      %strong Purchase
+
+  = render "entity/purchases/full", :transaction => @transaction

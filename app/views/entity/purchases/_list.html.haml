@@ -1,0 +1,14 @@
+%ul.feed-list
+  - transactions.each do |transaction|
+    = render "entity/purchases/summary", { :item_type => item_type, :transaction => transaction }
+
+  - if transactions.count == 0
+    %li.feed-item
+      - if item_type == 'seller_purchases'
+        %p You have not received any payments yet.
+      - elsif item_type == 'seller_page_purchases'
+        %p You have not received any payments for this page yet.
+      - elsif item_type == 'buyer_pocket'
+        %p You have not made any payments through Payly.
+
+= will_paginate transactions, :page_links => false, :previous_label => "Prev", :next_label => "Next"

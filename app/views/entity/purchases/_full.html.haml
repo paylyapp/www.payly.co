@@ -1,0 +1,80 @@
+= form_for('', :html => {:autocomplete => "off"}) do |f|
+  .field.field-text.field-full-name
+    %label
+      ID
+    .input
+      %span.text #{transaction.transaction_token}
+
+  .field.field-text.field-full-name
+    %label
+      Page
+    .input
+      %span.text
+        = link_to edit_page_path(transaction.stack_stack_token) do
+          - if transaction.stack_has_digital_download
+            %i.icon-download-alt
+          - else
+            %i.icon-exchange
+          #{transaction.stack_product_name}
+
+  .field.field-text.field-full-name
+    %label
+      Buyer's Name
+    .input
+      %span.text #{transaction.buyer_name}
+
+  .field.field-text.field-full-name
+    %label
+      Buyer's Email
+    .input
+      %span.text #{mail_to transaction.buyer_email, transaction.buyer_email}
+
+  .field.field-text.field-full-name
+    %label
+      Bought
+    .input
+      %span.text #{transaction.created_at}
+
+  .field.field-text.field-full-name
+    %label
+      Paid
+    .input
+      %span.text
+        #{number_to_currency(transaction.transaction_amount)} AUD
+        - if !transaction.shipping_cost.nil? || !transaction.surcharge_cost.nil?
+          (includes 
+          - if !transaction.shipping_cost.nil?
+            #{number_to_currency(transaction.shipping_cost_value)} for #{transaction.shipping_cost_term} shipping
+          - if !transaction.shipping_cost.nil? && !transaction.surcharge_cost.nil?
+            and
+          - if !transaction.surcharge_cost.nil?
+            #{number_to_currency(transaction.surcharge_cost)} surcharge
+          )
+
+  - if transaction.shipping_address_line1? && transaction.shipping_address_city? && transaction.shipping_address_postcode? && transaction.shipping_address_state? && transaction.shipping_address_country?
+    .field.field-text.field-full-name
+      %label
+        Shipping Address
+      .input
+        %span.text
+          #{transaction.shipping_address_line1}
+          %br
+          - if transaction.shipping_address_line2?
+            #{transaction.shipping_address_line2}
+            %br
+          #{transaction.shipping_address_city}
+          %br
+          #{transaction.shipping_address_postcode}
+          %br
+          #{transaction.shipping_address_state}
+          %br
+          #{transaction.shipping_address_country}
+          %br
+
+  - if transaction.custom_data_term?
+    - transaction.custom_data_term.each_index do |index|
+      .field.field-text.field-full-name
+        %label
+          #{transaction.custom_data_term[index]}
+        .input
+          %span.text #{transaction.custom_data_value[index]}

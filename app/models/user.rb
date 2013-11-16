@@ -108,6 +108,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def entity
+    entity = Entity.where(:user_token => self.user_token, :user_entity => true).order("created_at DESC").first()
+    entity
+  end
+
   # def has_payment_provider_keys?
   #   if self.has_pin_payment_keys?
   #     true
@@ -144,6 +149,35 @@ class User < ActiveRecord::Base
     self.payment_method == 'braintree' && (self.braintree_merchant_key.blank? || self.braintree_api_key.blank? || self.braintree_api_secret.blank? || self.braintree_client_side_key.blank?)
   end
 
+  def generate_entity
+    params = {}
+    params[:entity] = {}
+    params[:entity][:entity_name] = self.full_name
+
+    params[:entity][:full_name] = self.full_name
+    params[:entity][:email] = self.email
+    params[:entity][:currency] = "AUD"
+
+    params[:entity][:payment_method] = self.payment_method
+
+    params[:entity][:pin_api_key] = self.pin_api_key
+    params[:entity][:pin_api_secret] = self.pin_api_secret
+
+    params[:entity][:stripe_api_key] = self.stripe_api_key
+    params[:entity][:stripe_api_secret] = self.stripe_api_secret
+
+    params[:entity][:braintree_merchant_key] = self.braintree_merchant_key
+    params[:entity][:braintree_api_key] = self.braintree_api_key
+    params[:entity][:braintree_api_secret] = self.braintree_api_secret
+    params[:entity][:braintree_client_side_key] = self.braintree_client_side_key
+
+    params[:entity][:user_entity] = true
+
+    entity = Entity.new_by_user(params, self)
+
+    entity.save!
+  end
+
   protected
 
   def hide_owned_stacks
@@ -161,19 +195,6 @@ class User < ActiveRecord::Base
       token = Devise.friendly_token
       break token unless User.where(authentication_token: token).first
     end
-  end
-
-  def generate_entity
-    params = {}
-    params[:entity] = {}
-    params[:entity][:full_name] = self.full_name
-    params[:entity][:email] = self.email
-    params[:entity][:currency] = "AUD"
-    params[:entity][:user_entity] = true
-
-    entity = Entity.new_by_user(params, self)
-
-    entity.save!
   end
 
   def generate_token

@@ -128,6 +128,8 @@ form {
   }
   .secondary-action {
     @include button-nav-filled();
+    @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.25));
+    @include background-image(linear-gradient(top, lighten($defaultButtonColor, 5%), darken($defaultButtonColor, 5%)));
   }
   .field-primary-image {
     .input {

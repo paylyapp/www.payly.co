@@ -191,7 +191,8 @@
     .field.field-text.field-require-shipping
       = f.label :bcc_receipt, "BCC payment receipts"
       .input
-        = f.check_box :bcc_receipt
+        %label
+          = f.check_box :bcc_receipt
 
 
     .field.field-text.field-invoice.field-more-fields

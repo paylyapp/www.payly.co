@@ -1,11 +1,26 @@
 %h1.page-title
-  %i.icon-copy
-  Pages
+  #{content_tag :i, '', :class => 'icon-copy'} Pages
 
-.container
-  %header
-    .button-group
-      = link_to new_page_path, :class => "first last primary" do
-        New Page
+- if @entity.stacks.empty?
+  .container
+    %header
+      %p
+        %strong Create your first payment page
+    .selection
+      %ul
+        %li
+          = link_to new_one_time_page_path do
+            %i.icon-exchange
+            %span.text One Time
+        %li
+          = link_to new_digital_download_page_path do
+            %i.icon-download-alt
+            %span.text Digital Download
+- else
+  .container
+    %header
+      .button-group
+        = link_to new_page_path, :class => "first last primary" do
+          New Page
 
-  #{render "entity/pages/list", :stacks => @stacks}
+    #{render "entity/pages/list", :stacks => @stacks}

@@ -1,7 +1,6 @@
 - if @show == 'intro'
   %h1.page-title
-    %i.icon-copy
-    Pages
+    #{content_tag :i, '', :class => 'icon-copy'} Pages
 
   .container
     %header
@@ -21,8 +20,7 @@
 - elsif @show == 'one-time'
 
   %h1.page-title
-    %i.icon-exchange
-    One Time Payment Page
+    #{content_tag :i, '', :class => 'icon-exchange'} One Time Payment Page
 
   %div.container
     = form_for @stack, :url => create_one_time_page_path(@entity.entity_token), :html => {:multipart => true, :autocomplete => "off"} do |f|
@@ -78,8 +76,7 @@
 - elsif @show == 'digital-download'
 
   %h1.page-title
-    %i.icon-download-alt
-    Digital Download Payment Page
+    #{content_tag :i, '', :class => 'icon-download-alt'} Digital Download Payment Page
 
   %div.container
     = form_for @stack, :url => create_digital_download_page_path(@entity.entity_token), :html => {:multipart => true, :autocomplete => "off"} do |f|

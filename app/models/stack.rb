@@ -258,10 +258,10 @@ class Stack < ActiveRecord::Base
 
   def self.new_one_time_by_user(params, entity, user)
     stack = self.new(params)
-    stack.entity_token = entity.entity_token
     stack.user_token = user.id
-    stack.seller_name = user.full_name
-    stack.seller_email = user.email
+    stack.entity_token = entity.entity_token
+    stack.seller_name = entity.full_name
+    stack.seller_email = entity.email
     stack.page_token = loop do
       random_token = SecureRandom.urlsafe_base64
       break random_token unless Stack.where(:page_token => random_token).exists?

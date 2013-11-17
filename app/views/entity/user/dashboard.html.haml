@@ -1,12 +1,11 @@
 %h1.page-title
-  %i.icon-dashboard
-  Dashboard
+  #{content_tag :i, '', :class => 'icon-dashboard'} Dashboard
 
-- if @user.stacks.where(:archived => false).empty?
+- if @stacks.empty?
   .container
     %header
       %p
-        %strong Select your page type
+        %strong Create your first payment page
     .selection
       %ul
         %li

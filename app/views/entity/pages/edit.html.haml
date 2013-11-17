@@ -1,9 +1,5 @@
 %h1.page-title
-  - if @stack.has_digital_download
-    %i.icon-download-alt
-  - else
-    %i.icon-exchange
-  = @stack.product_name
+  #{content_tag :i, '', :class => @stack.has_digital_download ? 'icon-download-alt' : 'icon-exchange'} #{@stack.product_name}
 
 .container
   = render "navigation", :stack => @stack

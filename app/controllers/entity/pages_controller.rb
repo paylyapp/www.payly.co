@@ -5,8 +5,13 @@ class Entity::PagesController < ApplicationController
   def index
     @current_section = 'pages'
     @pre_title = "Pages"
+
     @user = current_user
-    @stacks = current_user.stacks
+
+    entity_token = params[:entity_token] || current_user.entity.entity_token
+    @entity = Entity.find_by_entity_token(entity_token)
+
+    @stacks = @entity.stacks
   end
 
   def show
@@ -176,7 +181,7 @@ class Entity::PagesController < ApplicationController
     @stack = Stack.find_by_stack_token(params[:stack_token])
     @stack.decommission
 
-    redirect_to user_root_path
+    redirect_to pages_path
   end
 end
 

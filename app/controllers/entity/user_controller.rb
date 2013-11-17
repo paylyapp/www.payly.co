@@ -49,6 +49,12 @@ class Entity::UserController < ApplicationController
   def dashboard
     @current_section = 'dashboard'
     @pre_title = "Dashboard"
+
     @user = current_user
+
+    entity_token = params[:entity_token] || current_user.entity.entity_token
+    @entity = Entity.find_by_entity_token(entity_token)
+
+    @stacks = @entity.stacks
   end
 end

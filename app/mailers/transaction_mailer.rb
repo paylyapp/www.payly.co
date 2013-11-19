@@ -7,10 +7,10 @@ class TransactionMailer < ActionMailer::Base
     mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Invoice for #{transaction.stack_product_name}. ID: #{transaction.transaction_token}")
   end
 
-  def recipet(transaction)
+  def receipt(transaction)
     @transaction = transaction
     bcc_email = transaction.stack_bcc_receipt == true ? transaction.stack_seller_email : ''
-    mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Payment recipet for #{transaction.stack_product_name}. ID: #{transaction.transaction_token}")
+    mail(:to => transaction.buyer_email, :bcc => bcc_email, :subject => "Payment receipt for #{transaction.stack_product_name}. ID: #{transaction.transaction_token}")
   end
 
   def updated(transaction)

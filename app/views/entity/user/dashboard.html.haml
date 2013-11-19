@@ -18,8 +18,16 @@
             %span.text Digital Download
 - else
   .container
-    #{render "entity/shared/stat", {:stat_title => "This week", :count_label => "Purchases", :count_value => current_user.weekly_stats[:count], :sales_label => "Sales", :sales_amount => current_user.weekly_stats[:cost], :sales_currency => "AUD"}}
+    #{render "entity/shared/stat", {:stat_title => "This week", :count_label => "Purchases", :count_value => current_user.entity.weekly_stats[:count], :sales_label => "Sales", :sales_amount => current_user.entity.weekly_stats[:cost], :sales_currency => "AUD"}}
 
-    #{render "entity/shared/stat", {:stat_title => "This month", :count_label => "Purchases", :count_value => current_user.weekly_stats[:count], :sales_label => "Sales", :sales_amount => current_user.weekly_stats[:cost], :sales_currency => "AUD"}}
+    #{render "entity/shared/stat", {:stat_title => "This month", :count_label => "Purchases", :count_value => current_user.entity.monthly_stats[:count], :sales_label => "Sales", :sales_amount => current_user.entity.monthly_stats[:cost], :sales_currency => "AUD"}}
 
-    #{render "entity/shared/stat", {:stat_title => "All", :count_label => "Purchases", :count_value => current_user.weekly_stats[:count], :sales_label => "Sales", :sales_amount => current_user.weekly_stats[:cost], :sales_currency => "AUD"}}
+    #{render "entity/shared/stat", {:stat_title => "All", :count_label => "Purchases", :count_value => current_user.entity.all_stats[:count], :sales_label => "Sales", :sales_amount => current_user.entity.all_stats[:cost], :sales_currency => "AUD"}}
+
+    #weekLineChart{:style=>"height: 250px;"}
+    #monthLineChart{:style=>"height: 250px;"}
+
+
+  :javascript
+    var weeklyData = #{current_user.entity.each_day_in_week_stats().to_json}
+    var monthlyData = #{current_user.entity.each_week_in_month_stats().to_json}

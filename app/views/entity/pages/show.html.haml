@@ -6,9 +6,17 @@
 
   #{render "entity/shared/stat", {:stat_title => "This week", :count_label => "Purchases", :count_value => @stack.weekly_stats[:count], :sales_label => "Sales", :sales_amount => @stack.weekly_stats[:cost], :sales_currency => "AUD"}}
 
-  #{render "entity/shared/stat", {:stat_title => "This month", :count_label => "Purchases", :count_value => @stack.weekly_stats[:count], :sales_label => "Sales", :sales_amount => @stack.weekly_stats[:cost], :sales_currency => "AUD"}}
+  #{render "entity/shared/stat", {:stat_title => "This month", :count_label => "Purchases", :count_value => @stack.monthly_stats[:count], :sales_label => "Sales", :sales_amount => @stack.monthly_stats[:cost], :sales_currency => "AUD"}}
 
-  #{render "entity/shared/stat", {:stat_title => "All", :count_label => "Purchases", :count_value => @stack.weekly_stats[:count], :sales_label => "Sales", :sales_amount => @stack.weekly_stats[:cost], :sales_currency => "AUD"}}
+  #{render "entity/shared/stat", {:stat_title => "All", :count_label => "Purchases", :count_value => @stack.all_stats[:count], :sales_label => "Sales", :sales_amount => @stack.all_stats[:cost], :sales_currency => "AUD"}}
+
+  #weekLineChart{:style=>"height: 250px;"}
+  #monthLineChart{:style=>"height: 250px;"}
+
+
+:javascript
+  var weeklyData = #{@stack.each_day_in_week_stats().to_json}
+  var monthlyData = #{@stack.each_week_in_month_stats().to_json}
 
 .container
   %header

@@ -33,17 +33,17 @@
         = render "entity/user/sidebar"
 
       %article
-        - if current_user.payment_method.blank?
-          = render "user/payment_api_warning"
+        - if current_user.entity.payment_method.blank?
+          = render "entity/user/payment_api_warning"
         - else
-          - if current_user.has_pin_payment_keys?
-            = render "user/pin_api_warning"
-          - if current_user.has_stripe_keys?
-            = render "user/stripe_api_warning"
-          - if current_user.has_braintree_keys?
-            = render "user/braintree_api_warning"
+          - if current_user.entity.has_pin_payment_keys?
+            = render "entity/user/pin_api_warning"
+          - if current_user.entity.has_stripe_keys?
+            = render "entity/user/stripe_api_warning"
+          - if current_user.entity.has_braintree_keys?
+            = render "entity/user/braintree_api_warning"
         - unless current_user.username?
-          = render "user/username_warning"
+          = render "entity/user/username_warning"
 
         = yield
 

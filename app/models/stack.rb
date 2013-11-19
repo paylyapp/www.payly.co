@@ -1,6 +1,7 @@
 class Stack < ActiveRecord::Base
   include Shared::AttachmentHelper
   include ActionView::Helpers::NumberHelper
+  include StacksHelper
 
   is_impressionable
 
@@ -220,40 +221,68 @@ class Stack < ActiveRecord::Base
     page
   end
 
-  def weekly_stats
-    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_week(start_day = :sunday), Time.now)
-    count = transactions.count
-    cost = 0
-    transactions.each do |transaction|
-      cost += transaction.transaction_amount
-    end
-
-    stats = {:count => count, :cost => cost}
-
-    stats
+  def daily_stats(dateTime = Date.today)
+    startOfDay = date.beginning_of_day
+    endOfDay = date.end_of_day
+    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', startOfDay, endOfDay)
+    stats(transactions)
   end
 
-  def monthly_stats
-    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now)
-    count = transactions.count
-    cost = 0
-    transactions.each do |transaction|
-      cost += transaction.transaction_amount
-    end
+  def weekly_stats(dateTime = Date.today)
+    startOfWeek = dateTime.beginning_of_week(start_day = :sunday)
+    endOfWeek = dateTime.end_of_week(start_day = :sunday)
+    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', startOfWeek, endOfWeek)
+    stats(transactions)
+  end
 
-    stats = {:count => count, :cost => cost}
-    stats
+  def monthly_stats(dateTime = Date.today)
+    startOfMonth = dateTime.beginning_of_month
+    endOfMonth =dateTime.end_of_month
+    transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', startOfMonth, endOfMonth)
+    stats(transactions)
   end
 
   def all_stats
     transactions = self.transactions.all
-    count = transactions.count
-    cost = 0
-    transactions.each do |transaction|
-      cost += transaction.transaction_amount
+    stats(transactions)
+  end
+
+  def each_day_in_week_stats(dateTime = Date.today)
+    week = []
+    startOfWeek = dateTime.beginning_of_week(start_day = :sunday)
+    endOfWeek =dateTime.end_of_week(start_day = :sunday)
+    (startOfWeek..endOfWeek).map{ |date|
+      startOfDay = date.beginning_of_day
+      endOfDay = date.end_of_day
+      transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', startOfDay, endOfDay)
+      # stats = stats(transactions)
+      week << {:date => date, :count => transactions.count}
+    }
+    week
+  end
+
+  def each_week_in_month_stats(dateTime = Date.today)
+    month = []
+    startOfMonth = dateTime.beginning_of_month
+    endOfMonth =dateTime.end_of_month
+    (startOfMonth..endOfMonth).reject{|date| date.wday !=0}.map{ |date|
+      startOfWeek = date.beginning_of_week(start_day = :sunday)
+      endOfWeek = date.end_of_week(start_day = :sunday)
+      transactions = self.transactions.where('"transactions"."created_at" BETWEEN ? AND ?', startOfWeek, endOfWeek)
+      # stats = stats(transactions)
+      month << {:date => date, :count => transactions.count}
+    }
+    month
+  end
+
+  def each_day_all_up_stats
+    records = self.transactions.select("COUNT(id) AS count, DATE(created_at) AS date")
+      .group("DATE(created_at)").all()
+
+    records.each do |x|
+      puts x.count
+      puts x.date # 2013-03-14
     end
-    stats = {:count => count, :cost => cost}
-    stats
   end
 
   def self.new_one_time_by_user(params, entity, user)

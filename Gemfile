@@ -49,6 +49,8 @@ group :assets do
 
   gem 'jquery-rails'
   gem 'modernizr-rails'
+  gem 'morrisjs-rails'
+  gem 'raphael-rails'
 
   gem 'uglifier', '>= 1.0.3'
 

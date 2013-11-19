@@ -11,4 +11,16 @@ module StacksHelper
     options_for_select( [['%', 'percentage'], ['$', 'dollar']],
                         default_state )
   end
+
+  def stats(transactions)
+    count = transactions.count
+    cost = 0
+    transactions.each do |transaction|
+      cost += transaction.transaction_amount
+    end
+
+    stats = {:count => count, :cost => cost}
+
+    stats
+  end
 end

@@ -15,6 +15,8 @@
 //= require jquery.siwa.min
 //= require jquery.validate
 //= require forms
+//= require raphael
+//= require morris
 
 $(function() {
   $.stayInWebApp();
@@ -136,6 +138,68 @@ $(function() {
   $('.remove-surcharge').click(function() {
     $(this).parents('.field').remove();
     return false;
+  });
+
+  var m_names = new Array("Jan", "Feb", "Mar",
+  "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+  "Oct", "Nov", "Dec");
+
+  var d = new Date();
+
+  new Morris.Line({
+    // ID of the element in which to draw the chart.
+    element: 'weekLineChart',
+    // Chart data records -- each entry in this array corresponds to a point on
+    // the chart.
+    data: weeklyData,
+    // The name of the data record attribute that contains x-values.
+    xkey: ['date'],
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['count'],
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['count'],
+    lineColors: ['#2ECC71'],
+    parseTime: true,
+    hideHover: "always",
+    xLabelFormat: function (x) {
+      var date = new Date(x);
+      var curr_date = date.getDate();
+      var curr_month = date.getMonth();
+      var curr_year = date.getFullYear();
+      return curr_date + " " + m_names[curr_month];
+    },
+    yLabelFormat: function (y) {
+      return '$' + y.toFixed(2).toString();
+    }
+  });
+
+  new Morris.Line({
+    // ID of the element in which to draw the chart.
+    element: 'monthLineChart',
+    // Chart data records -- each entry in this array corresponds to a point on
+    // the chart.
+    data: monthlyData,
+    // The name of the data record attribute that contains x-values.
+    xkey: ['date'],
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['count'],
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['count'],
+    lineColors: ['#2ECC71'],
+    parseTime: true,
+    hideHover: "always",
+    xLabelFormat: function (x) {
+      var date = new Date(x);
+      var curr_date = date.getDate();
+      var curr_month = date.getMonth();
+      var curr_year = date.getFullYear();
+      return curr_date + " " + m_names[curr_month];
+    },
+    yLabelFormat: function (y) {
+      return '$' + y.toFixed(2).toString();
+    }
   });
 
 });

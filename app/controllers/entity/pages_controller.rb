@@ -80,6 +80,7 @@ class Entity::PagesController < ApplicationController
     @pre_title = "Pages"
     @user = current_user
     @stack = Stack.find_by_stack_token(params[:stack_token])
+    @show = "edit"
 
     if @stack.nil?
       render :error
@@ -87,6 +88,46 @@ class Entity::PagesController < ApplicationController
       @entity = @stack.entity
       if @user.user_token != @entity.user_token
         render :error
+      else
+        render :edit
+      end
+    end
+  end
+
+  def options
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @user = current_user
+    @stack = Stack.find_by_stack_token(params[:stack_token])
+    @show = "options"
+
+    if @stack.nil?
+      render :error
+    else
+      @entity = @stack.entity
+      if @user.user_token != @entity.user_token
+        render :error
+      else
+        render :edit
+      end
+    end
+  end
+
+  def customise
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @user = current_user
+    @stack = Stack.find_by_stack_token(params[:stack_token])
+    @show = "customisation"
+
+    if @stack.nil?
+      render :error
+    else
+      @entity = @stack.entity
+      if @user.user_token != @entity.user_token
+        render :error
+      else
+        render :edit
       end
     end
   end

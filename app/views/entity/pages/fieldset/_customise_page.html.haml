@@ -1,0 +1,73 @@
+%fieldset.fieldset
+  .form__content
+    %h2.heading Custom Fields
+    %p Each field will be presented as a text field on your payment page.
+
+  %fieldset.fieldset
+    - if @stack.custom_data_term?
+      - @stack.custom_data_term.each_index do |index|
+        .question-group
+          .grid
+            .grid__item.three-sevenths
+              .field
+                = f.text_field :custom_data_term, :value => @stack.custom_data_term[index], :placeholder => "Label", :name => "stack[custom_data_term][]"
+            .grid__item.three-sevenths
+              .field
+                %label
+                  = check_box_tag 'stack[custom_data_value][]', index, @stack.custom_data_value.include?(index.to_s), :name => "stack[custom_data]"
+                  Required
+            .grid__item.one-seventh
+              .field
+                %button.remove-custom-data.delete-action{:type=>"button", :"data-action"=>"remove"} Delete
+    .field
+      %button.button.button--small{:type=>"button", :"data-action"=>"add"} Add row
+
+
+  %fieldset.fieldset.js-more-fields-panel{:"data-section"=>"shipping-cost"}
+    .form__content
+      .grid
+        .grid__item.six-sevenths
+          %h2.heading Shipping Amount
+        .grid__item.one-seventh
+          %button.add-shipping.secondary-action{:type=>"button", :"data-action"=>"add"}
+            %i.icon-plus
+    .js-shipping-cost-list
+      - if @stack.shipping_cost_term?
+        - @stack.shipping_cost_term.each_index do |index|
+          .field
+            .grid
+              .grid__item.three-sevenths
+                = f.text_field :shipping_cost_term, :value => @stack.shipping_cost_term[index], :name => "stack[shipping_cost_term][]", :class => "field__answer"
+              .grid__item.three-sevenths
+                .field__answer.field__answer--money
+                  = f.label :charge_amount, "$", :class => "field__answer__prefix"
+                  = f.text_field :shipping_cost_value, :value => number_with_precision(@stack.shipping_cost_value[index], :precision => 2), :name => "stack[shipping_cost_value][]"
+                  = f.label :charge_amount, @stack.charge_currency, :class => "field__answer__suffix"
+              .grid__item.one-seventh
+                %button.remove-shipping.delete-action{:type=>"button", :"data-action"=>"remove"}
+                  %i.icon-remove
+    .js-shipping-cost-item
+      .field
+        .grid
+          .grid__item.three-sevenths
+            = f.text_field :shipping_cost_term, :value => "", :name => "stack[shipping_cost_term][]", :class => "field__answer"
+          .grid__item.three-sevenths
+            .field__answer.field__answer--money
+              = f.label :charge_amount, "$", :class => "field__answer__prefix"
+              = f.text_field :shipping_cost_value, :value => "", :name => "stack[shipping_cost_value][]"
+              = f.label :charge_amount, @stack.charge_currency, :class => "field__answer__suffix"
+          .grid__item.one-seventh
+            %button.remove-shipping.delete-action{:type=>"button", :"data-action"=>"remove"}
+              %i.icon-remove
+
+  .field.field--single-line-option.js-more-fields-control{:"data-section"=>"surcharge"}
+    = f.label :require_surcharge, :class => "field__question" do
+      #{f.check_box :require_surcharge, :class => "field__answer"} Require surcharge
+  .js-more-fields-panel{:"data-section"=>"surcharge"}
+    .field
+      = f.label :surcharge_value, "Surcharge Amount", :class => "field__question"
+      .grid
+        .grid__item.one-half
+          = f.text_field :surcharge_value, :class => "field__answer"
+        .grid__item.one-half
+          = f.select :surcharge_unit, options_for_stack_surcharge_type(@stack.surcharge_unit), :class => "field__answer"

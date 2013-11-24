@@ -1,0 +1,23 @@
+//
+// BASE
+// ====
+//
+
+* {
+  @include box-sizing(border-box);
+}
+
+html {
+}
+
+body {
+  @include background-image(linear-gradient(left, #8E44AD, #8E44AD 20%, #3498DB 20%, #3498DB 40%, #F1C40F 40%, #F1C40F 60%, #E74C3C 60%, #E74C3C 80%, #E67E22 80%));
+  @include background-size(500px 4px);
+  background-position: left top;
+  background-repeat: repeat-x;
+  padding-top: 4px;
+
+  background-color: #fff;
+  font-family: $font_family;
+  font-size: $font_size;
+}

@@ -1,0 +1,25 @@
+%header.entity__header
+  .entity__header__inner
+
+    .entity__header__logo
+      = link_to 'Payly', user_root_path, :class => "logo"
+
+    %nav.entity__header__navigation
+      %ul.navigation.navigation--inline
+        %li.navigation__item.navigation__item--inline
+          = link_to "Dashboard", user_root_path, :class => current_section('dashboard')
+        %li.navigation__item.navigation__item--inline
+          = link_to "Pages", pages_path, :class => current_section('pages')
+        %li.navigation__item.navigation__item--inline
+          = link_to "Purchases", purchases_path, :class => current_section('purchases')
+        %li.navigation__item.navigation__item--inline.navigation__item--has-dropdown
+          #{image_tag current_user.gravatar_url, :height => 30, :width => 30} #{current_user.entity.entity_name}
+          %ul.navigation.navigation--dropdown
+            %li.navigation__item.navigation__item--dropdown
+              = link_to "Settings", user_profile_path, :class => current_section('profile')
+            %li.navigation__item.navigation__item--dropdown
+              = link_to "Payment", user_payment_provider_path, :class => current_section('payment_provider')
+            %li.navigation__item.navigation__item--dropdown
+              = link_to "Account", user_settings_path, :class => current_section('settings')
+            %li.navigation__item.navigation__item--dropdown
+              = link_to "Sign out", destroy_user_session_path, :method => :delete

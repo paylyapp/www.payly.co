@@ -1,0 +1,108 @@
+//
+// FORM FIELDS
+// ===========
+//
+
+.field__input {
+  @include box-sizing(border-box);
+  @include box-shadow(0px 1px 4px #BDC3C7 inset);
+  @include border-radius(3px);
+  height: 32px;
+  padding: 5px;
+  border: 1px solid #BDC3C7;
+  font-family: $font;
+  font-size: 1em;
+  color: #34495E;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  @extend .field__input;
+}
+
+textarea {
+  height: 56px;
+  resize: none;
+}
+
+select {
+  width: 100%;
+}
+
+.field {
+  @include pie-clearfix();
+  padding: 0 1em;
+  border-bottom: 1px solid #e1e1e1;
+  line-height: 2;
+  text-align: left;
+}
+
+.field__question {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+
+  .field--inline & {
+    width: 30%;
+    float: left;
+  }
+  .field--single-line-option & {
+    width: 100%;
+    float: none;
+  }
+}
+
+.field__answer {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5em;
+
+  .field--inline & {
+    float: right;
+    width: 70%;
+  }
+  .field--single-line-option & {
+    display: inline;
+    width: auto;
+    float: none;
+  }
+}
+
+.field__answer--money {
+  input {
+    padding: 5px 40px 5px 13px;
+  }
+}
+
+.field__answer__suffix,
+.field__answer__prefix {
+  position: absolute;
+  top: 0;
+}
+
+.field__answer__prefix {
+  left: 5px;
+}
+.field__answer__suffix {
+  right: 5px;
+}
+
+.field__text {
+  display: block;
+  font-size: 0.95em;
+  margin-bottom: 0.5em;
+
+  .field--inline & {
+    float: right;
+    width: 70%;
+  }
+}
+
+.field__text--feedback {
+  display: none;
+  padding: 0.5em;
+  background-color: red;
+  color: #fff;
+}

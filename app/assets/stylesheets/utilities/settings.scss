@@ -1,0 +1,23 @@
+//
+// SETTINGS
+// ========
+//
+
+$is_ie: false!default;
+$ie_version: false!default;
+
+$font_family: sans-serif;
+$font_family--logo: "Damion";
+
+$font_size: 16px;
+
+$color: darkslategrey;
+
+$color--border: #eeeef8;
+
+$color--brand: seagreen;
+$color--primary: royalblue;
+$color--warning: orangered;
+
+$margin: $font_size;
+$gutter: $margin * 2;

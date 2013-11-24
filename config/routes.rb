@@ -4,8 +4,9 @@ Haystack::Application.routes.draw do
   get     "privacy"                           => "home#privacy",                    :as => :privacy
   get     "signup/thank-you"                  => "home#thank_you",                  :as => :new_user_register_thank_you
   get     "commitment"                        => "home#commitment",                 :as => :commitment
-  # get     "features"                          => "home#features",                 :as => :features
-  # get     "press"                             => "home#press",                    :as => :press
+  get     "features"                          => "home#features",                 :as => :features
+  get     "press"                             => "home#press",                    :as => :press
+  get     "support"                           => "home#support",                    :as => :support
 
   get     "pocket"                            => "customer#index",                  :as => :pocket
   post    "pocket"                            => "customer#create",                 :as => :pocket
@@ -43,8 +44,8 @@ Haystack::Application.routes.draw do
   get     "organisation/:entity_token/pages/new/digital-download" => "stacks#digital_download", :as => :entity_new_digital_download
 
   get     "dashboard"                         => "entity/user#dashboard",                  :as => :user_root
-  get     "settings"                          => "entity/user#settings",                   :as => :user_settings
-  get     "profile"                           => "entity/user#profile",                    :as => :user_profile
+  get     "account"                          => "entity/user#settings",                   :as => :user_settings
+  get     "settings"                           => "entity/user#profile",                    :as => :user_profile
   get     "payment_provider"                  => "entity/user#payment_provider",           :as => :user_payment_provider
 
   put     "entity/:entity_token/profile"                           => "entity/user#update_profile",             :as => :update_user_profile
@@ -58,7 +59,9 @@ Haystack::Application.routes.draw do
   get     "pages/new/one-time"                => "entity/pages#new_one_time",              :as => :new_one_time_page
   get     "pages/new/digital-download"        => "entity/pages#new_digital_download",      :as => :new_digital_download_page
 
-  get     "pages/:stack_token"                => "entity/pages#edit",                      :as => :edit_page
+  get     "pages/:stack_token/edit"           => "entity/pages#edit",                      :as => :edit_page
+  get     "pages/:stack_token/options"        => "entity/pages#options",                   :as => :options_page
+  get     "pages/:stack_token/customise"      => "entity/pages#customise",                 :as => :customise_page
   get     "pages/:stack_token/purchases"      => "entity/pages#show",                      :as => :page
 
   get     "pages/:stack_token/update/buyer/download" => "entity/pages#updated_download",   :as => :dashboard_stack_updated_download
@@ -66,6 +69,8 @@ Haystack::Application.routes.draw do
   post    "entity/:entity_token/pages/new/one-time"         => "entity/pages#create_one_time",         :as => :create_one_time_page
   post    "entity/:entity_token/pages/new/digital-download" => "entity/pages#create_digital_download", :as => :create_digital_download_page
   put     "entity/:entity_token/pages/:stack_token"         => "entity/pages#update",                  :as => :update_page
+  put     "entity/:entity_token/pages/:stack_token/publish"   => "entity/pages#publish",               :as => :publish_page
+  put     "entity/:entity_token/pages/:stack_token/unpublish" => "entity/pages#unpublish",             :as => :unpublish_page
   delete  "entity/:entity_token/pages/:stack_token/destroy" => "entity/pages#destroy",                 :as => :destroy_page
 
 

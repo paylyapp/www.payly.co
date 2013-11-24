@@ -1,286 +1,36 @@
-%h1.page-title
-  #{content_tag :i, '', :class => @stack.has_digital_download ? 'icon-download-alt' : 'icon-exchange'} #{@stack.product_name}
+.page
+  = render "header", :stack => @stack
 
-.container
-  = render "navigation", :stack => @stack
+  .page__content
 
-  = form_for @stack, :url => update_page_path(@entity.entity_token), :method => 'put', :html => {:multipart => true, :autocomplete => "off"} do |f|
-    - if @stack.errors.any?
-      %div#error_explanation.notification.notification-danger
-        %h2
-          #{pluralize(@stack.errors.count, "error")} prohibited this page from being saved:
-
-        %ul
-          - @stack.errors.messages.each do |attr,message|
-            - message.each do |msg|
-              %li
-                #{msg}
-
-    .heading
-      %h2 Page Details
-
-    .field.field-text.field-product
-      = f.label :product_name, "Name"
-      .input
-        = f.text_field :product_name, :class => 'required'
-        %span.field-error-text.error-text--required
-          This field is required.
-
-    .field.field-text.field-ga-id
-      = f.label :page_token, 'Slug'
-      .input
-        = f.text_field :page_token, :class => 'required'
-        %span.field-error-text.error-text--required
-          This field is required.
-      %p.description
-        You can customise the URL of your payment page.
-
-    .field.field-textarea.field-description
-      = f.label :description
-      .input
-        = f.text_area :description, :class => 'required'
-        %span.field-error-text.error-text--required
-          This field is required.
-
-    .field.field-file-upload.field-primary-image
-      = f.label :primary_image, 'Logo'
-      .input
-        = image_tag @stack.primary_image.url(:tiny), :width => '50', :height => '50'
-        = f.file_field :primary_image
-
-      %p.description
-        Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.
-
-    .field.field-text.field-return-url
-      = f.label :return_url
-      .input
-        = f.text_field :return_url, :placeholder => "http://example.org/thanks"
-
-    .field.field-text.field-ga-id
-      = f.label :analytics_key, 'Google Analytics ID'
-      .input
-        = f.text_field :analytics_key
-
-    .field.field-text.field-return-url
-      = f.label :visible, 'Visibility'
-      .input
-        = f.select :visible, options_for_stack_visibility(@stack.visible)
-      %p.description
-        Hidden means only you are able to see the page.
+    %ul.navigation.navigation--inline
+      %li.navigation__item.navigation__item--inline
+        = link_to "Edit", edit_page_path(@stack.stack_token), :class => "#{current_page(edit_page_path(@stack.stack_token))} first"
+      %li.navigation__item.navigation__item--inline
+        = link_to "Options", options_page_path(@stack.stack_token), :class => "#{current_page(edit_page_path(@stack.stack_token))} first"
+      %li.navigation__item.navigation__item--inline
+        = link_to "Customise", customise_page_path(@stack.stack_token), :class => "#{current_page(edit_page_path(@stack.stack_token))} first"
 
 
-    .heading
-      %h2
-        Payment Details
+    = form_for @stack, :url => update_page_path(@entity.entity_token), :method => 'put', :html => {:class => "form", :multipart => true, :autocomplete => "off"} do |f|
 
-    .field.field-select.field-charge-type
-      = f.label :charge_type, "Type of charge"
-      .input
-        = f.select :charge_type, options_for_stack_charge_type(@stack.charge_type)
+      - if @stack.errors.any?
+        %div#error_explanation.notification.notification-danger
+          %h2
+            #{pluralize(@stack.errors.count, "error")} prohibited this page from being saved:
 
-    .field.field-text.field-charge-amount
-      = f.label :charge_amount, "Amount"
-      .input
-        .pre
-          = f.label :charge_amount, "$"
-        = f.text_field :charge_amount, :placeholder => "56.78", :value => number_with_precision(@stack.charge_amount, :precision => 2)
-        .post
-          = f.label :charge_amount, "AUD"
-        %span.field-error-text.error-text--required
-          This field is required.
-        %span.field-error-text.error-text--number
-          This field must be a number.
+          %ul
+            - @stack.errors.messages.each do |attr,message|
+              - message.each do |msg|
+                %li
+                  #{msg}
 
-    .field.field-select.field-charge-type
-      = f.label :max_purchase_count, "Limit purchases to"
-      .input
-        = f.text_field :max_purchase_count, :placeholder => "∞"
-      %p.description
-        Limit the amount of purchases that can come through this page.
+      = render "entity/pages/fieldset/edit_page", {:stack => @stack, :f => f} if @show == "edit"
+      = render "entity/pages/fieldset/page_options", {:stack => @stack, :f => f} if @show == "options"
+      = render "entity/pages/fieldset/customise_page", {:stack => @stack, :f => f} if @show == "customisation"
 
-    .field.field-text.field-require-shipping.field-more-fields
-      = f.label :require_shipping, "Require shipping"
-      .input
-        %label
-          = f.check_box :require_shipping
-    .more-fields{:"data-section"=>"shipping-cost"}
-      .heading
-        %h2
-          Shipping Cost
-
-      - if @stack.shipping_cost_term?
-        - @stack.shipping_cost_term.each_index do |index|
-          .field.field-full-length.field-text.field-shipping-details
-            .input
-              = f.text_field :shipping_cost_term, :value => @stack.shipping_cost_term[index], :name => "stack[shipping_cost_term][]"
-              = f.text_field :shipping_cost_value, :value => number_with_precision(@stack.shipping_cost_value[index], :precision => 2), :name => "stack[shipping_cost_value][]"
-              %button.remove-shipping.delete-action{:type=>"button", :"data-action"=>"remove"}
-                Delete
       .field
-        %button.add-shipping.secondary-action{:type=>"button", :"data-action"=>"add"}
-          Add Row
+        = link_to "Publish", publish_page_path(@stack.stack_token), class: :'button button--outline', method: :put, data: { confirm: 'Are you sure?' } if @stack.visible?
+        = link_to "Unpublish", unpublish_page_path(@stack.stack_token), class: :'button button--outline', method: :put, data: { confirm: 'Are you sure?' } unless @stack.visible?
 
-    .field.field-text.field-require-surcharge.field-more-fields
-      = f.label :require_surcharge, "Require surcharge"
-      .input
-        %label
-          = f.check_box :require_surcharge
-    .more-fields{:"data-section"=>"surcharge"}
-      .heading
-        %h2
-          Surcharge Costs
-
-      .field.field-full-length.field-text.field-surcharge
-        .input
-          = f.text_field :surcharge_value, :value => @stack.surcharge_value, :placeholder => "Amount", :name => "stack[surcharge_value]"
-          = f.select :surcharge_unit, options_for_stack_surcharge_type(@stack.surcharge_unit)
-
-
-    - if @stack.has_digital_download
-      .heading
-        %h2
-          Downloadable file
-
-      .heading
-        %p
-          You can provide a file that is downloadable upon successful payment through this payment page.
-        %p
-          Downloadable files are currently limited to 10MB in size.
-
-      .field.field-text.field-digital-download-file
-        = f.label :digital_download_file, 'Downloadable file'
-        .input
-          = f.file_field :digital_download_file, :"data-required" => "true"
-
-        %p.description
-          Your last file was #{link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank', :download => @stack.digital_download_file_file_name} and was uploaded #{time_ago_in_words(@stack.digital_download_file_updated_at)} ago.
-
-      .field.field-text.field-digital-download-receive
-        = f.label :digital_download_receive, 'What will buyers receive'
-        .input
-          = f.text_field :digital_download_receive, :placeholder => "ZIP file"
-
-      - if @stack.digital_download_update_flag
-        .field.field-link.field-send-updated-email
-          .input
-            = link_to "Inform previous buyers about your updated file", dashboard_stack_updated_download_path(@stack.stack_token)
-
-
-    .heading
-      %h2
-        Seller Details
-
-    .field.field-text.field-seller-name
-      = f.label :seller_name, "Seller's name"
-      .input
-        = f.text_field :seller_name, :placeholder => current_user.full_name, :class => 'required'
-        %span.field-error-text.error-text--required
-          This field is required.
-
-
-    .field.field-text.field-seller-email
-      = f.label :seller_email, "Seller's email"
-      .input
-        = f.email_field :seller_email, :placeholder => current_user.email, :class => 'required email'
-        %span.field-error-text.error-text--required
-          This field is required.
-        %span.field-error-text.error-text--email
-          This field needs to be an email address.
-
-
-    .field.field-text.field-require-shipping
-      = f.label :bcc_receipt, "BCC payment receipts"
-      .input
-        %label
-          = f.check_box :bcc_receipt
-
-
-    .field.field-text.field-invoice.field-more-fields
-      = f.label :send_invoice_email, "Send invoice email"
-      .input
-        %label
-          = f.check_box :send_invoice_email
-
-
-    .more-fields
-      .heading
-        %h2
-          Your Address
-        %p
-          Your personal or company details must appear on the invoice that is emailed to customers in order to make it a valid invoice. Fill in your details below.
-
-      .field.field-text.field-trading-name
-        = f.label :seller_trading_name, 'Trading name'
-        .input
-          = f.text_field :seller_trading_name
-
-
-      .field.field-text.field-abn
-        = f.label :seller_abn, 'ABN'
-        .input
-          = f.text_field :seller_abn
-
-
-      .field.field-text.field-card-number
-        = f.label :seller_address_line1, 'Address Line 1'
-        .input
-          = f.text_field :seller_address_line1
-
-
-      .field.field-text.field-card-number
-        = f.label :seller_address_line2, 'Address Line 2'
-        .input
-          = f.text_field :seller_address_line2
-
-
-      .field.field-text.field-card-number
-        = f.label :seller_address_city, 'City'
-        .input
-          = f.text_field :seller_address_city
-
-
-      .field.field-text.field-card-number
-        = f.label :seller_address_postcode, 'Postcode'
-        .input
-          = f.text_field :seller_address_postcode
-
-
-      .field.field-text.field-card-number
-        = f.label :seller_address_state, 'State'
-        .input
-          = f.text_field :seller_address_state
-
-
-      .field.field-text.field-card-number
-        = f.label :seller_address_country, 'Country'
-        .input
-          = f.country_select :seller_address_country, ["Australia"], :class => "dropup"
-
-
-    .heading
-      %h2
-        Custom Fields
-      %p
-        Each field will be presented as a text field on your payment page.
-
-    - if @stack.custom_data_term?
-      - @stack.custom_data_term.each_index do |index|
-        .field.field-full-length.field-text.field-custom-data
-          .input
-            = f.text_field :custom_data_term, :value => @stack.custom_data_term[index], :placeholder => "Label", :name => "stack[custom_data_term][]"
-            %label
-              = check_box_tag 'stack[custom_data_value][]', index, @stack.custom_data_value.include?(index.to_s), :name => "stack[custom_data]"
-              Required
-      %button.remove-custom-data.delete-action{:type=>"button", :"data-action"=>"remove"}
-        Delete
-
-
-    .field
-      %button.add-custom-data.secondary-action{:type=>"button", :"data-action"=>"add"}
-        Add row
-
-
-    %footer.actions
-      .button-group
-        = f.submit 'Save Page', :class => 'primary-action'
-        = link_to 'Delete', destroy_page_path(@stack.stack_token), class: :'delete-action', method: :delete, data: { confirm: 'Are you sure?' }
+        = f.submit 'Save Page', :class => 'button button--primary'

@@ -21,30 +21,30 @@
 $(function() {
   $.stayInWebApp();
 
-  if($('select[name="stack[charge_type]"]').val() == "any") {
-    $('.field-charge-amount').hide();
+  if($('.js-field-charge-type select').val() == "any") {
+    $('.js-field-charge-amount').hide();
   }
 
-  $('select[name="stack[charge_type]"]').change(function() {
+  $('.js-field-charge-type select').change(function() {
     if($(this).val() == "any") {
-      $('.field-charge-amount').slideUp();
+      $('.js-field-charge-amount').slideUp();
     } else {
-      $('.field-charge-amount').slideDown();
+      $('.js-field-charge-amount').slideDown();
     }
   });
 
-  $('.field-more-fields').each(function() {
+  $('.js-more-fields-control').each(function() {
     var that = $(this);
 
-    if(!$('input', that).is(':checked')) {
-      that.next('.more-fields').hide();
+    if(!$('input[type="checkbox"]', that).is(':checked')) {
+      $('.js-more-fields-panel[data-section="'+that.attr('data-section')+'"]').hide();
     }
 
-    $('input', that).change(function() {
+    $('input[type="checkbox"]', that).change(function() {
       if($(this).is(':checked')) {
-        that.next('.more-fields').slideDown();
+        $('.js-more-fields-panel[data-section="'+that.attr('data-section')+'"]').slideDown();
       } else {
-        that.next('.more-fields').slideUp();
+        $('.js-more-fields-panel[data-section="'+that.attr('data-section')+'"]').slideUp();
       }
     });
   });
@@ -62,20 +62,29 @@ $(function() {
     $('.more-fields[data-show="'+input.val()+'"]').slideDown();
   });
 
-  $('.add-shipping').click(function() {
-    $(this).parent().before('<div class="field field-full-length field-text field-shipping-details"><div class="input"><input id="stack_shipping_cost_term" name="stack[shipping_cost_term][]" size="30" value="Domestic" type="text"><input id="stack_shipping_cost_value" name="stack[shipping_cost_value][]" size="30" value="10.95" type="text"><button type="button" data-action="remove" class="remove-shipping delete-action">Delete</button></div></div>');
 
+
+  $('.js-shipping-cost-list').each(function() {
+    var that = $(this);
+    var shippingCostItem = $('.js-shipping-cost-item').clone();
+    $('.js-shipping-cost-item').remove();
+
+    $('.add-shipping').click(function(e) {
+      e.preventDefault();
+      var item = shippingCostItem.find('.field').clone();
+
+      item.find('.remove-shipping').click(function() {
+        $(this).parents('.field').remove();
+        return false;
+      });
+
+      that.append(item);
+    });
 
     $('.remove-shipping').click(function() {
       $(this).parents('.field').remove();
       return false;
     });
-    return false;
-  });
-
-  $('.remove-shipping').click(function() {
-    $(this).parents('.field').remove();
-    return false;
   });
 
   // custom data
@@ -140,66 +149,70 @@ $(function() {
     return false;
   });
 
-  var m_names = new Array("Jan", "Feb", "Mar",
-  "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-  "Oct", "Nov", "Dec");
+  // var m_names = new Array("Jan", "Feb", "Mar",
+  // "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+  // "Oct", "Nov", "Dec");
 
-  var d = new Date();
+  // var d = new Date();
 
-  new Morris.Line({
-    // ID of the element in which to draw the chart.
-    element: 'weekLineChart',
-    // Chart data records -- each entry in this array corresponds to a point on
-    // the chart.
-    data: weeklyData,
-    // The name of the data record attribute that contains x-values.
-    xkey: ['date'],
-    // A list of names of data record attributes that contain y-values.
-    ykeys: ['count'],
-    // Labels for the ykeys -- will be displayed when you hover over the
-    // chart.
-    labels: ['count'],
-    lineColors: ['#2ECC71'],
-    parseTime: true,
-    hideHover: "always",
-    xLabelFormat: function (x) {
-      var date = new Date(x);
-      var curr_date = date.getDate();
-      var curr_month = date.getMonth();
-      var curr_year = date.getFullYear();
-      return curr_date + " " + m_names[curr_month];
-    },
-    yLabelFormat: function (y) {
-      return '$' + y.toFixed(2).toString();
-    }
-  });
+  // new Morris.Line({
+  //   // ID of the element in which to draw the chart.
+  //   element: 'weekLineChart',
+  //   // Chart data records -- each entry in this array corresponds to a point on
+  //   // the chart.
+  //   data: weeklyData,
+  //   // The name of the data record attribute that contains x-values.
+  //   xkey: ['date'],
+  //   // A list of names of data record attributes that contain y-values.
+  //   ykeys: ['count'],
+  //   // Labels for the ykeys -- will be displayed when you hover over the
+  //   // chart.
+  //   labels: ['count'],
+  //   lineColors: ['#2ECC71'],
+  //   parseTime: true,
+  //   hideHover: "always",
+  //   xLabelFormat: function (x) {
+  //     var date = new Date(x);
+  //     var todayDate = new Date();
+  //     var curr_date = date.getDate();
+  //     var curr_month = date.getMonth();
+  //     var curr_year = date.getFullYear();
+  //     if (todayDate.getDate() == curr_date && todayDate.getMonth() == curr_month && todayDate.getFullYear() == curr_year ) return "Today";
+  //     return curr_date + " " + m_names[curr_month];
+  //   },
+  //   yLabelFormat: function (y) {
+  //     return '$' + y.toFixed(2).toString();
+  //   }
+  // });
 
-  new Morris.Line({
-    // ID of the element in which to draw the chart.
-    element: 'monthLineChart',
-    // Chart data records -- each entry in this array corresponds to a point on
-    // the chart.
-    data: monthlyData,
-    // The name of the data record attribute that contains x-values.
-    xkey: ['date'],
-    // A list of names of data record attributes that contain y-values.
-    ykeys: ['count'],
-    // Labels for the ykeys -- will be displayed when you hover over the
-    // chart.
-    labels: ['count'],
-    lineColors: ['#2ECC71'],
-    parseTime: true,
-    hideHover: "always",
-    xLabelFormat: function (x) {
-      var date = new Date(x);
-      var curr_date = date.getDate();
-      var curr_month = date.getMonth();
-      var curr_year = date.getFullYear();
-      return curr_date + " " + m_names[curr_month];
-    },
-    yLabelFormat: function (y) {
-      return '$' + y.toFixed(2).toString();
-    }
-  });
+  // new Morris.Line({
+  //   // ID of the element in which to draw the chart.
+  //   element: 'monthLineChart',
+  //   // Chart data records -- each entry in this array corresponds to a point on
+  //   // the chart.
+  //   data: monthlyData,
+  //   // The name of the data record attribute that contains x-values.
+  //   xkey: ['date'],
+  //   // A list of names of data record attributes that contain y-values.
+  //   ykeys: ['count'],
+  //   // Labels for the ykeys -- will be displayed when you hover over the
+  //   // chart.
+  //   labels: ['count'],
+  //   lineColors: ['#2ECC71'],
+  //   parseTime: true,
+  //   hideHover: "always",
+  //   xLabelFormat: function (x) {
+  //     var date = new Date(x);
+  //     var todayDate = new Date();
+  //     var curr_date = date.getDate();
+  //     var curr_month = date.getMonth();
+  //     var curr_year = date.getFullYear();
+  //     if (todayDate.getDate() == curr_date && todayDate.getMonth() == curr_month && todayDate.getFullYear() == curr_year ) return "<b>Today</b>";
+  //     return curr_date + " " + m_names[curr_month];
+  //   },
+  //   yLabelFormat: function (y) {
+  //     return '$' + y.toFixed(2).toString();
+  //   }
+  // });
 
 });

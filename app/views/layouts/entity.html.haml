@@ -19,46 +19,14 @@
 
     = csrf_meta_tags
 
-  %body.dashboard
+  %body
 
-    %header.global
-      = link_to 'Payly', user_root_path, :class => "logo"
-      = link_to '#user-navigation', :class => "top-button" do
-        %i.icon-reorder
-
-    %section
-      %aside#user-navigation
-        = link_to '#', :class => "top-button" do
-          %i.icon-remove
-        = render "entity/user/sidebar"
-
-      %article
-        - if current_user.entity.payment_method.blank?
-          = render "entity/user/payment_api_warning"
-        - else
-          - if current_user.entity.has_pin_payment_keys?
-            = render "entity/user/pin_api_warning"
-          - if current_user.entity.has_stripe_keys?
-            = render "entity/user/stripe_api_warning"
-          - if current_user.entity.has_braintree_keys?
-            = render "entity/user/braintree_api_warning"
-        - unless current_user.username?
-          = render "entity/user/username_warning"
-
+    .entity
+      = render "entity/shared/header"
+      .entity__content
+        = render "entity/shared/notifications"
         = yield
+      = render "entity/shared/footer"
 
-    %footer.global
-      %ul
-        %li
-          Crafted in Sydney, Australia by #{link_to "Tim Gleeson", "http://twitter.com/timjgleeson", :target => "_blank"}
-        %li
-          Want updates? #{link_to "Follow us", "http://twitter.com/paylyapp", :target => "_blank"}
-        %li
-          = link_to "FAQs", faqs_path
-        %li
-          = link_to "Privacy Policy", privacy_path
-        %li
-          = link_to "Terms of Service", terms_path
-
-    = javascript_include_tag "dashboard"
+    = javascript_include_tag "application"
     = analytics_init if Rails.env.production?

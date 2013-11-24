@@ -1,0 +1,31 @@
+//
+// PAGE
+// ====
+//
+
+.page {
+
+}
+
+
+.page__header {
+  @include pie-clearfix();
+  border-bottom: 1px solid $color--border;
+}
+.page__header__title {
+  margin: ($margin * 2) 0 $margin 0;
+  font-size: $font_size * 2;
+  color: $color;
+  float: left;
+}
+.page__header__navigation {
+  float: right;
+}
+
+
+.page__content {
+  min-height: 700px;
+  padding-top: $margin;
+  border-right: 1px solid $color--border;
+  border-left: 1px solid $color--border;
+}

@@ -1,0 +1,16 @@
+.page__header
+
+  .page__header__title
+    %h1
+      #{content_tag :i, '', :class => @stack.has_digital_download ? 'icon-download-alt' : 'icon-exchange'} #{@stack.product_name}
+
+  .page__header__navigation
+    %ul.navigation.navigation--inline
+      %li.navigation__item.navigation__item--inline
+        = link_to "Edit", edit_page_path(stack.stack_token), :class => "#{current_page(edit_page_path(stack.stack_token))} first"
+      %li.navigation__item.navigation__item--inline
+        = link_to "Purchases", page_path(stack.stack_token), :class => current_page(page_path(stack.stack_token))
+      %li.navigation__item.navigation__item--inline
+        = link_to "View Page", page_new_transaction_path(stack.page_token), :class => "last", :target => "_blank"
+      %li.navigation__item.navigation__item--inline
+        = link_to "Share", page_new_transaction_path(stack.page_token), :class => "last", :target => "_blank"

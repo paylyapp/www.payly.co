@@ -1,48 +1,13 @@
 @import "compass";
 @import "compass/reset";
-/*
- *= require morris
-*/
-//
-// STYLEGUIDES
-//
-@import "styleguide/typography";
-@import "styleguide/buttons";
 
-//
-// RESETS
-//
-@import "resets/fonts";
-@import "resets/base";
+@import "utilities/settings";
 
-//
-// LAYOUTS
-//
-@import "layouts/structure";
+@import "foundations/typography";
+@import "foundations/base";
+@import "foundations/grid";
 
+@import "components/navigation";
 
-//
-// VIEWS
-//
-@import "views/home";
-
-// pages
-@import "views/devise";
-@import "views/user";
-@import "views/dashboard";
-@import "views/stack";
-@import "views/transaction";
-@import "views/page";
-
-// pocket
-@import "views/customer";
-
-
-//
-// HELPERS
-//
-@import "helpers/topbar";
-@import "helpers/footer";
-@import "helpers/forms";
-@import "helpers/notifications";
-@import "helpers/dropbox";
+@import "components/entity";
+@import "components/page";

@@ -1,0 +1,73 @@
+%fieldset.fieldset
+  .field.field--inline
+    = f.label :page_token, "Slug *", :class => "field__question"
+    = f.text_field :page_token, :class => "field__answer required"
+    %span.field__text.field__text--feedback{:"data-validation-type" => "required"} This field is required.
+    %span.field__text.field__text--assistance
+      You can customise the URL of your payment page.
+  .field.field--inline
+    = f.label :return_url, :class => "field__question"
+    = f.text_field :return_url, :class => "field__answer"
+
+  .field.field--inline
+    = f.label :analytics_key, 'GA ID', :class => "field__question"
+    = f.text_field :analytics_key, :class => "field__answer"
+
+
+  .field
+    = f.label :max_purchase_count, "Limit purchases to", :class => "field__question"
+    = f.text_field :max_purchase_count, :class => "field__answer"
+    %span.field__text.field__text--assistance
+      Leave blank for Unlimited
+
+  .field.field--single-line-option.js-more-fields-control{:"data-section"=>"shipping-cost"}
+    = f.label :require_shipping, :class => "field__question" do
+      #{f.check_box :require_shipping, :class => "field__answer"} Require shipping
+
+%fieldset.fieldset
+  .field.field--single-line-option
+    = f.label :bcc_receipt, :class => "field__question" do
+      #{f.check_box :bcc_receipt, :class => "field__answer"} Send me a payment notification
+
+  .field.field--single-line-option.js-more-fields-control{:"data-section"=>"seller-address"}
+    = f.label :send_invoice_email, :class => "field__question" do
+      #{f.check_box :send_invoice_email, :class => "field__answer"} Send customer invoice
+
+  %fieldset.fieldset.js-more-fields-panel{:"data-section"=>"seller-address"}
+    .form__content
+      %h2.heading Your Address
+      %p Your personal or company details must appear on the invoice that is emailed to customers in order to make it a valid invoice. Fill in your details below.
+
+    .field
+      = f.label :seller_trading_name, "Trading name", :class => "field__question"
+      = f.text_field :seller_trading_name, :class => "field__answer"
+
+    .field
+      = f.label :seller_abn, "ABN", :class => "field__question"
+      = f.text_field :seller_abn, :class => "field__answer"
+
+    .field
+      = f.label :seller_address_line1, "Address Line 1", :class => "field__question"
+      = f.text_field :seller_address_line1, :class => "field__answer"
+
+    .field
+      = f.label :seller_address_line2, "Address Line 2", :class => "field__question"
+      = f.text_field :seller_address_line2, :class => "field__answer"
+
+    .grid.grid--full
+      .grid__item.one-third
+        .field
+          = f.label :seller_address_city, "City", :class => "field__question"
+          = f.text_field :seller_address_city, :class => "field__answer"
+      .grid__item.one-third
+        .field
+          = f.label :seller_address_postcode, "Postcode", :class => "field__question"
+          = f.text_field :seller_address_postcode, :class => "field__answer"
+      .grid__item.one-third
+        .field
+          = f.label :seller_address_state, "State", :class => "field__question"
+          = f.text_field :seller_address_state, :class => "field__answer"
+
+    .field
+      = f.label :seller_abn, "Country", :class => "field__question"
+      = f.country_select :seller_address_country, ["Australia"], :class => "field__answer"

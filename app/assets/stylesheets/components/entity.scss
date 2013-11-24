@@ -1,0 +1,31 @@
+//
+// ENTITY
+// ======
+//
+
+.entity {
+}
+
+
+.entity__header {
+  border-bottom: 1px solid $color--border;
+}
+.entity__header__inner {
+  @include pie-clearfix();
+  width: 960px;
+  margin: 0 auto;
+}
+
+.entity__header__logo {
+  float: left;
+}
+
+.entity__header__navigation {
+  float: right;
+}
+
+
+.entity__content {
+  width: 960px;
+  margin: 0 auto;
+}

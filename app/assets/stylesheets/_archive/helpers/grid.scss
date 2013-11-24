@@ -1,0 +1,253 @@
+//
+// GRID SYSTEM
+// ===========
+//
+@mixin is_ie {
+  @if $is_ie == true {
+    @content;
+  }
+}
+
+@mixin is_ie($version) {
+  @if $is_ie == true {
+    @if $ie_version == $version {
+      @content;
+    }
+  }
+}
+
+@mixin is_ie_lte($version) {
+  @if $is_ie == true {
+    @if $ie_version <= $version {
+      @content;
+    }
+  }
+}
+
+@mixin not_ie {
+  @if $is_ie != true {
+    @content;
+  }
+}
+
+@mixin ie_width($factor) {
+  @include is_ie_lte(7) {
+    width: unquote('expression((this.parentNode.clientWidth * '+($factor / 100)+' - parseInt(this.currentStyle["paddingLeft"]) - parseInt(this.currentStyle["paddingRight"]) - (parseInt(this.currentStyle["borderLeftWidth"]) || 0) - (parseInt(this.currentStyle["borderRightWidth"]) || 0) ) + "px")');
+  }
+}
+
+@mixin ie_height($factor) {
+  @include is_ie_lte(7) {
+    height: unquote('expression((this.parentNode.clientHeight * '+($factor / 100)+' - parseInt(this.currentStyle["paddingTop"]) - parseInt(this.currentStyle["paddingBottom"]) - (parseInt(this.currentStyle["borderTopWidth"]) || 0) - (parseInt(this.currentStyle["borderBottomWidth"]) || 0) ) + "px")');
+  }
+}
+@mixin display($type) {
+  @if $type == 'inline-block' {
+    @if $ie_version == 7 {
+      display: inline;
+      zoom: 1;
+    } @else {
+      display: inline-block;
+    }
+  } @else {
+    display: $type;
+  }
+}
+
+@mixin percentage_width($factor) {
+  @if $ie_version == 7 {
+    @include ie_width($factor);
+  } @else {
+    width: percentage( ($factor) / 100 );
+  }
+}
+
+@mixin respond_to($Mq) {
+  @if $ie_version == 7{
+    @content;
+  } @else if $ie_version == 8 {
+    @content;
+  } @else {
+    @media #{$Mq} {
+      @content;
+    }
+  }
+}
+
+@mixin grid_full($namespace:""){
+  .#{$namespace}grid--full{
+    margin-left: 0;
+
+    > .grid__item{
+      padding-left: 0;
+    }
+  }
+}
+
+@mixin grid_narrow($namespace:""){
+  .#{$namespace}grid--narrow{
+    margin-left: -($gutter / 2);
+
+    > .grid__item{
+      padding-left: $gutter / 2;
+    }
+  }
+}
+
+@mixin grid_wide($namespace:""){
+  .#{$namespace}grid--wide{
+    margin-left: -($gutter * 2);
+
+    > .grid__item{
+      padding-left: $gutter * 2;
+    }
+  }
+}
+
+@mixin grid_rev($namespace:""){
+  .grid--rev{
+    direction: rtl;
+    text-align: left;
+
+    > .grid__item{
+      direction: ltr;
+      text-align: left;
+
+      @include is_ie(7) {
+        @include pull-right(0);
+      }
+    }
+  }
+}
+
+@mixin grid_item_width($namespace:""){
+  .#{$namespace}one-whole {
+    @include percentage_width((100));
+  }
+
+  .#{$namespace}one-half {
+    @include percentage_width((100 / 2));
+  }
+
+  .#{$namespace}one-third {
+    @include percentage_width((100 / 3));
+  }
+  .#{$namespace}two-thirds {
+    @include percentage_width(2*(100 / 3));
+  }
+
+  .#{$namespace}one-quarter {
+    @include percentage_width((100 / 4));
+  }
+  .#{$namespace}two-quarters {
+    @extend .#{$namespace}one-half;
+  }
+  .#{$namespace}three-quarters {
+    @include percentage_width(3*(100 / 4));
+  }
+
+  .#{$namespace}one-fifth {
+    @include percentage_width((100 / 5));
+  }
+  .#{$namespace}two-fifths {
+    @include percentage_width(2*(100 / 5));
+  }
+  .#{$namespace}three-fifths {
+    @include percentage_width(3*(100 / 5));
+  }
+  .#{$namespace}four-fifths {
+    @include percentage_width(4*(100 / 5));
+  }
+
+  .#{$namespace}one-sixth {
+    @include percentage_width((100 / 6));
+  }
+  .#{$namespace}two-sixths {
+    @extend .#{$namespace}one-third;
+  }
+  .#{$namespace}three-sixths {
+    @include percentage_width(3*(100 / 6));
+  }
+  .#{$namespace}four-sixths {
+    @extend .#{$namespace}two-thirds;
+  }
+  .#{$namespace}five-sixths {
+    @include percentage_width(5*(100 / 6));
+  }
+
+  .#{$namespace}one-seventh {
+    @include percentage_width((100 / 7));
+  }
+  .#{$namespace}three-sevenths {
+    @include percentage_width(3*(100 / 7));
+  }
+  .#{$namespace}six-sevenths {
+    @include percentage_width(6*(100 / 7));
+  }
+}
+
+.grid{
+  @include is_ie(7) {
+    @include clearfix();
+  }
+  margin-left: -$gutter;
+}
+
+.grid__item{
+  @include display('inline-block');
+  @include is_ie(7) {
+    @include pull-left(0);
+  }
+  width: 100%;
+  padding-left: $gutter;
+  vertical-align: top;
+}
+
+@include grid_full();
+@include grid_narrow();
+@include grid_wide();
+@include grid_rev();
+
+@include grid_item_width();
+
+// @include not_ie() {
+//   @media #{$palmMq} {
+//     @include grid_full('palm-');
+//     @include grid_narrow('palm-');
+//     @include grid_wide('palm-');
+//     @include grid_rev('palm-');
+//     @include grid_item_width('palm-');
+//   }
+
+//   @media #{$portableMq} {
+//     @include grid_full('portable-');
+//     @include grid_narrow('portable-');
+//     @include grid_wide('portable-');
+//     @include grid_rev('portable-');
+//     @include grid_item_width('portable-');
+//   }
+
+//   @media #{$lapMq} {
+//     @include grid_full('lap-');
+//     @include grid_narrow('lap-');
+//     @include grid_wide('lap-');
+//     @include grid_rev('lap-');
+//     @include grid_item_width('lap-');
+//   }
+// }
+
+// @include respond-to($lapdeskMq) {
+//   @include grid_full('lapdesk-');
+//   @include grid_narrow('lapdesk-');
+//   @include grid_wide('lapdesk-');
+//   @include grid_rev('lapdesk-');
+//   @include grid_item_width('lapdesk-');
+// }
+
+// @include respond-to($deskMq) {
+//   @include grid_full('desk-');
+//   @include grid_narrow('desk-');
+//   @include grid_wide('desk-');
+//   @include grid_rev('desk-');
+//   @include grid_item_width('desk-');
+// }

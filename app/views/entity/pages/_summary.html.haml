@@ -1,25 +1,6 @@
 %li.feed-item
-  %figure
-    = image_tag stack.primary_image.url(:tiny), :width => '42', :height => '42'
-  %p
-    #{content_tag :i, '', :class => stack.has_digital_download ? 'icon-download-alt' : 'icon-exchange'} #{stack.product_name}
-
-  %ul
-    %li
-      = link_to edit_page_path(stack.stack_token) do
-        #{content_tag :i, '', :class => 'icon-cog'} Settings
-
-    %li
-      = link_to page_path(stack.stack_token) do
-        #{content_tag :i, '', :class => 'icon-money'} Purchases
-
-    %li
-      = link_to page_new_transaction_path(stack.page_token), :target => '_blank' do
-        #{content_tag :i, '', :class => 'icon-external-link'} View Page
-
-    %li
-      - if stack.visible
-        #{content_tag :i, '', :class => 'icon-eye-open'} Visible to public
-
-      - else
-        #{content_tag :i, '', :class => 'icon-eye-close'} Visible only to you
+  = link_to edit_page_path(stack.stack_token) do
+    %figure
+      = image_tag stack.primary_image.url(:tiny), :width => '42', :height => '42'
+    %p
+      #{content_tag :i, '', :class => stack.has_digital_download ? 'icon-download-alt' : 'icon-exchange'} #{stack.product_name}

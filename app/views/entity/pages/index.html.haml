@@ -1,26 +1,26 @@
-%h1.page-title
-  #{content_tag :i, '', :class => 'icon-copy'} Pages
+.page
+  .page__header
+    .page__header__title
+      %h1 Pages
 
-- if @entity.stacks.empty?
-  .container
-    %header
-      %p
+  .page__content
+    - if @entity.stacks.empty?
+      %header
         %strong Create your first payment page
-    .selection
-      %ul
-        %li
-          = link_to new_one_time_page_path do
-            %i.icon-exchange
-            %span.text One Time
-        %li
-          = link_to new_digital_download_page_path do
-            %i.icon-download-alt
-            %span.text Digital Download
-- else
-  .container
-    %header
-      .button-group
-        = link_to new_page_path, :class => "first last primary" do
-          New Page
+      .selection
+        %ul
+          %li
+            = link_to new_one_time_page_path do
+              %i.icon-exchange
+              %span.text One Time
+          %li
+            = link_to new_digital_download_page_path do
+              %i.icon-download-alt
+              %span.text Digital Download
+    - else
+      %header
+        .button-group
+          = link_to new_page_path, :class => "first last primary" do
+            New Page
 
-    #{render "entity/pages/list", :stacks => @stacks}
+      #{render "entity/pages/list", :stacks => @stacks}

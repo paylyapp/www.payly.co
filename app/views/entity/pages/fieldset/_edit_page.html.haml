@@ -1,0 +1,50 @@
+%fieldset.fieldset
+  .field.field--inline
+    = f.label :primary_image, "Logo", :class => "field__question"
+    .field__answer
+      = image_tag @stack.primary_image.url(:tiny), :width => '50', :height => '50'
+      = f.file_field :primary_image, :class => ""
+    %span.field__text.field__text--assistance Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.
+
+  .field.field--inline
+    = f.label :product_name, "Name *", :class => "field__question"
+    = f.text_field :product_name, :class => "field__answer required"
+    %span.field__text.field__text--feedback{:"data-validation-type" => "required"}
+      This field is required.
+
+  .field.js-field-charge-type
+    = f.label :charge_type, :class => "field__question"
+    = f.select :charge_type, options_for_stack_charge_type(@stack.charge_type), { :include_blank => false }, {:class => "field__answer"}
+
+  .field.js-field-charge-amount
+    = f.label :charge_amount, "Amount", :class => "field__question"
+    .field__answer.field__answer--money
+      = f.label :charge_amount, "$", :class => "field__answer__prefix"
+      = f.text_field :charge_amount, :value => number_with_precision(@stack.charge_amount, :precision => 2)
+
+  .field.field--inline
+    = f.label :description, "Description *", :class => "field__question"
+    = f.text_area :description, :class => "field__answer required"
+    %span.field__text.field__text--feedback{:"data-validation-type" => "required"} This field is required.
+
+  - if @stack.has_digital_download
+    %fieldset.fieldset
+      .form__content
+        %h2.heading Downloadable file
+        %p You can provide a file that is downloadable upon successful payment through this payment page.
+        %p Downloadable files are currently limited to 10MB in size.
+
+      .field
+        = f.label :digital_download_file, "Downloadable file", :class => "field__question"
+        = f.file_field :digital_download_file, :class => "field__answer"
+        %span.field__text.field__text--assistance
+          Your last file was #{link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank', :download => @stack.digital_download_file_file_name} and was uploaded #{time_ago_in_words(@stack.digital_download_file_updated_at)} ago.
+
+      .field
+        = f.label :digital_download_receive, 'What will buyers receive', :class => "field__question"
+        = f.text_field :digital_download_receive, :class => "field__answer", :placeholder => "ZIP file"
+
+      - if @stack.digital_download_update_flag
+        .field
+          %span.field__text.field__text--assistance
+            = link_to "Inform previous buyers about your updated file", dashboard_stack_updated_download_path(@stack.stack_token)

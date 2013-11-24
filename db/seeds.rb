@@ -14,12 +14,14 @@ unless Rails.env.production?
   Transaction.delete_all
   User.delete_all
   Stack.delete_all
+  Entity.delete_all
 
   puts '--------------------------------'
   puts 'Adding User 1'
   user_1 = User.new
   user_1.full_name = "Tim Gleeson"
   user_1.email = "tim.j.gleeson@gmail.com"
+  user_1.username = "timjgleeson"
   user_1.password = "1234abcd"
   user_1.password_confirmation = "1234abcd"
   user_1.tos_agreement = true
@@ -55,7 +57,7 @@ unless Rails.env.production?
   stack_2.charge_type = 'fixed'
   stack_2.charge_amount = 1.00
   stack_2.page_token = "test/stack/2"
-  stack_2.charge_currency = "AUD"
+  stack_2.charge_currency = "USD"
   stack_2.description = "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."
   stack_2.seller_name = "Tim Gleeson"
   stack_2.seller_email = "tim.j.gleeson@gmail.com"

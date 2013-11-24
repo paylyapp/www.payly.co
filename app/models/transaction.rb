@@ -195,7 +195,7 @@ class Transaction < ActiveRecord::Base
     if self.stack.send_invoice_email?
       TransactionMailer.invoice(self).deliver
     else
-      TransactionMailer.recipet(self).deliver
+      TransactionMailer.receipt(self).deliver
     end
   end
 end

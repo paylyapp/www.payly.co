@@ -13,7 +13,8 @@ describe Transaction do
         @pin_stack = FactoryGirl.create(:stack,
                                         :user_token => @pin_user.id,
                                         :entity_token => @entity.entity_token,
-                                        :charge_amount => 10)
+                                        :charge_amount => 10.058,
+                                        :charge_currency => 'AUD')
         payload = {
           'number' => 5520000000000000,
           'expiry_month' => 05,
@@ -39,11 +40,127 @@ describe Transaction do
 
         transaction = Transaction.new_by_stack(params, @pin_stack)
 
-        transaction.transaction_amount.should == 10
+        transaction.transaction_amount.should == 10.058
         transaction.errors.empty?.should == true
 
         charge = Hay::Charges.show(@entity.pin_api_secret, transaction.charge_token)
-        (transaction.transaction_amount * 100).should == charge[:response][:amount]
+        ( (transaction.transaction_amount * 100 ).floor() ).should == charge[:response][:amount]
+      end
+
+      it "with more than 2 decimal places" do
+        @pin_stack = FactoryGirl.create(:stack,
+                                        :user_token => @pin_user.id,
+                                        :entity_token => @entity.entity_token,
+                                        :charge_amount => 10.058,
+                                        :charge_currency => 'AUD')
+        payload = {
+          'number' => 5520000000000000,
+          'expiry_month' => 05,
+          'expiry_year' => 2020,
+          'cvc' => 123,
+          'name' => 'Tim Gleeson',
+          'address_line1' => '7 Braeside Crescent',
+          'address_line2' => '',
+          'address_city' => 'Glen Alpine',
+          'address_postcode' => 2560,
+          'address_state' => 'NSW',
+          'address_country' => 'Australia'
+        }
+        card_token = Hay::CardToken.create(@entity.pin_api_secret, payload)
+
+        params = {}
+        params[:transaction] = {}
+        params[:transaction][:card_token] = card_token[:response][:token]
+        params[:transaction][:buyer_name] = "Tim Gleeson"
+        params[:transaction][:buyer_email] = "tim.j.gleeson@gmail.com"
+        params[:transaction][:buyer_ip_address] = "101.169.255.252"
+        params[:transaction][:transaction_amount] = @pin_stack.charge_amount
+
+        transaction = Transaction.new_by_stack(params, @pin_stack)
+
+        transaction.transaction_amount.should == 10.058
+        transaction.errors.empty?.should == true
+
+        charge = Hay::Charges.show(@entity.pin_api_secret, transaction.charge_token)
+        ( (transaction.transaction_amount * 100 ).floor() ).should == charge[:response][:amount]
+      end
+
+      describe "with a currency" do
+        it "of AUD" do
+          @pin_stack = FactoryGirl.create(:stack,
+                                          :user_token => @pin_user.id,
+                                          :entity_token => @entity.entity_token,
+                                          :charge_amount => 10,
+                                          :charge_currency => 'AUD')
+          payload = {
+            'number' => 5520000000000000,
+            'expiry_month' => 05,
+            'expiry_year' => 2020,
+            'cvc' => 123,
+            'name' => 'Tim Gleeson',
+            'address_line1' => '7 Braeside Crescent',
+            'address_line2' => '',
+            'address_city' => 'Glen Alpine',
+            'address_postcode' => 2560,
+            'address_state' => 'NSW',
+            'address_country' => 'Australia'
+          }
+          card_token = Hay::CardToken.create(@entity.pin_api_secret, payload)
+
+          params = {}
+          params[:transaction] = {}
+          params[:transaction][:card_token] = card_token[:response][:token]
+          params[:transaction][:buyer_name] = "Tim Gleeson"
+          params[:transaction][:buyer_email] = "tim.j.gleeson@gmail.com"
+          params[:transaction][:buyer_ip_address] = "101.169.255.252"
+          params[:transaction][:transaction_amount] = @pin_stack.charge_amount
+
+          transaction = Transaction.new_by_stack(params, @pin_stack)
+
+          transaction.transaction_amount.should == 10
+          transaction.errors.empty?.should == true
+
+          charge = Hay::Charges.show(@entity.pin_api_secret, transaction.charge_token)
+          (transaction.transaction_amount * 100).should == charge[:response][:amount]
+        end
+
+        it "of USD" do
+          @pin_stack = FactoryGirl.create(:stack,
+                                          :user_token => @pin_user.id,
+                                          :entity_token => @entity.entity_token,
+                                          :charge_amount => 10,
+                                          :charge_currency => 'USD')
+          payload = {
+            'number' => 5520000000000000,
+            'expiry_month' => 05,
+            'expiry_year' => 2020,
+            'cvc' => 123,
+            'name' => 'Tim Gleeson',
+            'address_line1' => '7 Braeside Crescent',
+            'address_line2' => '',
+            'address_city' => 'Glen Alpine',
+            'address_postcode' => 2560,
+            'address_state' => 'NSW',
+            'address_country' => 'Australia'
+          }
+          card_token = Hay::CardToken.create(@entity.pin_api_secret, payload)
+
+          params = {}
+          params[:transaction] = {}
+          params[:transaction][:card_token] = card_token[:response][:token]
+          params[:transaction][:buyer_name] = "Tim Gleeson"
+          params[:transaction][:buyer_email] = "tim.j.gleeson@gmail.com"
+          params[:transaction][:buyer_ip_address] = "101.169.255.252"
+          params[:transaction][:transaction_amount] = @pin_stack.charge_amount
+
+          transaction = Transaction.new_by_stack(params, @pin_stack)
+
+          transaction.transaction_amount.should == 10
+          transaction.errors.empty?.should == true
+
+          charge = Hay::Charges.show(@entity.pin_api_secret, transaction.charge_token)
+          (transaction.transaction_amount * 100).should == charge[:response][:amount]
+        end
       end
 
       describe "with shipping" do

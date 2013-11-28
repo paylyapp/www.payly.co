@@ -146,6 +146,26 @@ form {
       }
     }
   }
+  .field--date {
+    .input__grouping {
+      @include pie-clearfix();
+    }
+    .input__month,
+    .input__year {
+      width: 50%;
+      float: left;
+    }
+    .input__month {
+      input[type="text"] {
+        @include border-radius(3px 0 0 3px);
+      }
+    }
+    .input__year {
+      input[type="text"] {
+        @include border-radius(0 3px 3px 0);
+      }
+    }
+  }
   .field-charge-amount {
     .input {
       position: relative;
@@ -280,7 +300,12 @@ form {
         }
       }
     }
-
+    .field--date {
+      .input {
+        width: 50%;
+        float: left;
+      }
+    }
 
     .heading-actions {
       float: right;

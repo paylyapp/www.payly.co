@@ -30,7 +30,7 @@ class Transaction < ActiveRecord::Base
   validates :transaction_amount, :presence => true
 
   before_create :generate_token
-  after_create :send_transaction_emails
+  after_save :send_transaction_emails
 
   def api_array
     purchase = {}

@@ -11,7 +11,6 @@ gem 'rvm-capistrano'
 
 gem 'attr_encrypted'
 gem 'heroku'
-gem 'rails_12factor'
 gem 'rest-client', '~> 1.4'
 gem 'multi_json', '>= 1.0.4', '< 2'
 
@@ -50,6 +49,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 
   gem 'turbo-sprockets-rails3'
+end
+
+group :production, :staging do
+  gem 'rails_12factor'
 end
 
 group :test, :development do

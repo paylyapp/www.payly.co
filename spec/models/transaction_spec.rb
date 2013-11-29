@@ -41,6 +41,11 @@ describe Transaction do
 
         charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
         (transaction.transaction_amount * 100).should == charge[:response][:amount]
+        transaction.save!
+
+        email = ActionMailer::Base.deliveries.last
+        email.should deliver_to("tim.j.gleeson@gmail.com")
+        email.should_not have_body_text(/Surcharge/)
       end
 
       describe "with shipping" do
@@ -84,6 +89,11 @@ describe Transaction do
 
           charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
           (transaction.transaction_amount * 100).should == charge[:response][:amount]
+          transaction.save!
+
+          email = ActionMailer::Base.deliveries.last
+          email.should deliver_to("tim.j.gleeson@gmail.com")
+          email.should_not have_body_text(/Surcharge/)
         end
       end
 
@@ -126,6 +136,11 @@ describe Transaction do
 
           charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
           (transaction.transaction_amount * 100).should == charge[:response][:amount]
+          transaction.save!
+
+          email = ActionMailer::Base.deliveries.last
+          email.should deliver_to("tim.j.gleeson@gmail.com")
+          email.should_not have_body_text(/Surcharge/)
         end
 
         it "of $5.95" do
@@ -166,6 +181,11 @@ describe Transaction do
 
           charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
           (transaction.transaction_amount * 100).should == charge[:response][:amount]
+          transaction.save!
+
+          email = ActionMailer::Base.deliveries.last
+          email.should deliver_to("tim.j.gleeson@gmail.com")
+          email.should_not have_body_text(/Surcharge/)
         end
       end
 
@@ -212,6 +232,11 @@ describe Transaction do
 
           charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
           (transaction.transaction_amount * 100).should == charge[:response][:amount]
+          transaction.save!
+
+          email = ActionMailer::Base.deliveries.last
+          email.should deliver_to("tim.j.gleeson@gmail.com")
+          email.should_not have_body_text(/Surcharge/)
         end
 
         describe "with shipping" do
@@ -263,6 +288,11 @@ describe Transaction do
 
             charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
             (transaction.transaction_amount * 100).should == charge[:response][:amount]
+            transaction.save!
+
+            email = ActionMailer::Base.deliveries.last
+            email.should deliver_to("tim.j.gleeson@gmail.com")
+            email.should_not have_body_text(/Surcharge/)
           end
         end
 
@@ -313,6 +343,11 @@ describe Transaction do
 
             charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
             (transaction.transaction_amount * 100).should == charge[:response][:amount]
+            transaction.save!
+
+            email = ActionMailer::Base.deliveries.last
+            email.should deliver_to("tim.j.gleeson@gmail.com")
+            email.should have_body_text(/Surcharge/)
           end
 
           it "of $5.95" do
@@ -361,6 +396,11 @@ describe Transaction do
 
             charge = Hay::Charges.show(@pin_user.pin_api_secret, transaction.charge_token)
             (transaction.transaction_amount * 100).should == charge[:response][:amount]
+            transaction.save!
+
+            email = ActionMailer::Base.deliveries.last
+            email.should deliver_to("tim.j.gleeson@gmail.com")
+            email.should have_body_text(/Surcharge/)
           end
         end
       end

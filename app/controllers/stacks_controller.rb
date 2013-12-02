@@ -1,6 +1,5 @@
 class StacksController < ApplicationController
   include CsvHelper
-
   layout "user"
   before_filter :authenticate_user!
 

@@ -1,5 +1,6 @@
 <header>
   <p><strong>Purchases</strong></p>
+  <%= link_to "Export to CSV", params.merge(:format => :csv), :class => 'btn' %>
 </header>
 
 <ul class="feed-list">

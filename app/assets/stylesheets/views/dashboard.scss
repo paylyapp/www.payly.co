@@ -112,15 +112,33 @@
         font-family: 'Roboto';
         font-size: 28px;
         margin-bottom: 20px;
+        position: relative;
+
+        .btn {
+          @include button-small();
+          position: absolute;
+          top: 4px;
+          right: 0;
+          text-shadow: none;
+        }
       }
 
       header {
         padding: $gutter;
         border-bottom: 1px solid #BDC3C7;
         background-color: lighten(#BDC3C7, 20%);
+        position: relative;
 
         @include border-radius(3px 3px 0 0);
         @include pie-clearfix();
+
+        .btn {
+          @include button-small();
+          position: absolute;
+          top: 9px;
+          right: 9px;
+          text-shadow: none;
+        }
 
         p {
           color: #34495E;

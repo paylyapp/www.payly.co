@@ -1,4 +1,6 @@
 module CsvHelper
+  include ActionView::Helpers::NumberHelper
+
   def user_purchases_to_csv(user)
     user = User.find(user.id)
     transactions = user.transactions()
@@ -18,6 +20,7 @@ module CsvHelper
                 'buyer_name',
                 'buyer_email',
                 'shipping_cost_term',
+                'shipping_cost',
                 "shipping_address_line1",
                 "shipping_address_line2",
                 "shipping_address_city",
@@ -33,6 +36,7 @@ module CsvHelper
               "Name",
               "Email",
               "Shipping Type",
+              "Shipping Cost",
               "Shipping Address 1",
               "Shipping Address 2",
               "Shipping Address City",

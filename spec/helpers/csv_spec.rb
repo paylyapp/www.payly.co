@@ -3,6 +3,17 @@ include CsvHelper
 
 describe CsvHelper do
   describe "purchases_to_csv method" do
+    it "no transactions" do
+      # you have to prepare file.csv with content from objects created above
+      transactions = Transaction.all()
+
+      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Cost;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
+      generated_csv = purchases_to_csv(transactions)
+
+      # sometimes it is better to parse generated_csv (ie. when you testing other formats like json or xml
+      generated_csv.should == expected_csv
+    end
+
     it "match expected output of csv" do
       # create some objects - you have to know its values
       @pin_user = FactoryGirl.create(:user, :email => "tim.j.gleeson+pin@gmail.com", :payment_method => 'pin_payments', :pin_api_key => ENV['PIN_PUBLISHABLE_KEY'], :pin_api_secret => ENV['PIN_SECRET_KEY'])
@@ -38,8 +49,8 @@ describe CsvHelper do
       # you have to prepare file.csv with content from objects created above
       transactions = Transaction.all()
 
-      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
-      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;[];#{transaction.created_at}\r\n"
+      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Cost;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
+      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;;[];#{transaction.created_at}\r\n"
       generated_csv = purchases_to_csv(transactions)
 
       # sometimes it is better to parse generated_csv (ie. when you testing other formats like json or xml
@@ -85,8 +96,8 @@ describe CsvHelper do
       # you have to prepare file.csv with content from objects created above
       transactions = Transaction.all()
 
-      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
-      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;\"[{\"\"tshirt size\"\":\"\"L\"\"}]\";#{transaction.created_at}\r\n"
+      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Cost;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
+      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;;\"[{\"\"tshirt size\"\":\"\"L\"\"}]\";#{transaction.created_at}\r\n"
       generated_csv = purchases_to_csv(transactions)
 
       # sometimes it is better to parse generated_csv (ie. when you testing other formats like json or xml
@@ -129,8 +140,8 @@ describe CsvHelper do
 
       # you have to prepare file.csv with content from objects created above
 
-      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
-      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;[];#{transaction.created_at}\r\n"
+      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Cost;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
+      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;;[];#{transaction.created_at}\r\n"
       generated_csv = user_purchases_to_csv(@pin_user)
 
       # sometimes it is better to parse generated_csv (ie. when you testing other formats like json or xml
@@ -173,8 +184,8 @@ describe CsvHelper do
 
       # you have to prepare file.csv with content from objects created above
 
-      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
-      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;[];#{transaction.created_at}\r\n"
+      expected_csv = "ID;Charge ID;Amount;Name;Email;Shipping Type;Shipping Cost;Shipping Address 1;Shipping Address 2;Shipping Address City;Shipping Address Postcode;Shipping Address State;Shipping Address Country;Custom Fields;Created At\r\n"
+      expected_csv += "#{transaction.transaction_token};#{transaction.charge_token};10.0;Tim Gleeson;tim.j.gleeson@gmail.com;;;;;;;;;[];#{transaction.created_at}\r\n"
       generated_csv = stack_purchases_to_csv(@pin_stack)
 
       # sometimes it is better to parse generated_csv (ie. when you testing other formats like json or xml

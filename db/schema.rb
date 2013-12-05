@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131111185430) do
+ActiveRecord::Schema.define(:version => 20131205201200) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -41,12 +41,25 @@ ActiveRecord::Schema.define(:version => 20131111185430) do
 
   add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
 
-  create_table "failed_transactions", :force => true do |t|
-    t.string   "subscription_token"
-    t.text     "reason"
-    t.string   "failed_transaction_token"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+  create_table "entities", :force => true do |t|
+    t.string   "entity_token"
+    t.string   "entity_name"
+    t.string   "full_name"
+    t.string   "email"
+    t.string   "currency"
+    t.string   "user_token"
+    t.boolean  "user_entity",                         :default => false
+    t.string   "payment_method"
+    t.string   "encrypted_pin_api_key"
+    t.string   "encrypted_pin_api_secret"
+    t.string   "encrypted_stripe_api_key"
+    t.string   "encrypted_stripe_api_secret"
+    t.string   "encrypted_braintree_merchant_key"
+    t.string   "encrypted_braintree_api_key"
+    t.string   "encrypted_braintree_api_secret"
+    t.text     "encrypted_braintree_client_side_key"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
   end
 
   create_table "impressions", :force => true do |t|
@@ -88,8 +101,8 @@ ActiveRecord::Schema.define(:version => 20131111185430) do
     t.boolean  "require_shipping"
     t.boolean  "require_billing"
     t.boolean  "send_invoice_email"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
     t.integer  "user_token"
     t.string   "charge_currency"
     t.string   "page_token"
@@ -111,61 +124,28 @@ ActiveRecord::Schema.define(:version => 20131111185430) do
     t.string   "digital_download_file_content_type"
     t.integer  "digital_download_file_file_size"
     t.datetime "digital_download_file_updated_at"
-    t.string   "digital_download_term",              :default => [],                    :array => true
-    t.string   "digital_download_value",             :default => [],                    :array => true
+    t.string   "digital_download_term",              :default => [],                         :array => true
+    t.string   "digital_download_value",             :default => [],                         :array => true
     t.string   "digital_download_receive"
     t.boolean  "digital_download_update_flag",       :default => false
     t.boolean  "archived",                           :default => false
     t.boolean  "visible",                            :default => true
-    t.string   "shipping_cost_term",                 :default => [],                    :array => true
-    t.float    "shipping_cost_value",                :default => [],                    :array => true
+    t.string   "shipping_cost_term",                 :default => [],                         :array => true
+    t.float    "shipping_cost_value",                :default => [],                         :array => true
     t.integer  "max_purchase_count"
     t.string   "ping_url"
-    t.text     "custom_data_term",                   :default => [],                    :array => true
-    t.text     "custom_data_value",                  :default => [],                    :array => true
+    t.text     "custom_data_term",                   :default => [],                         :array => true
+    t.text     "custom_data_value",                  :default => [],                         :array => true
     t.string   "webhook_url"
-    t.boolean  "has_subscription"
     t.boolean  "require_surcharge",                  :default => false
     t.float    "surcharge_value"
     t.string   "surcharge_unit"
+    t.string   "entity_token"
+    t.string   "buy_button_text",                    :default => "Buy this"
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true
   add_index "stacks", ["stack_token"], :name => "index_stacks_on_stack_token", :unique => true
-
-  create_table "subscriptions", :force => true do |t|
-    t.string   "subscription_token"
-    t.integer  "stack_token"
-    t.boolean  "status",                    :default => true
-    t.float    "transaction_amount"
-    t.float    "shipping_cost"
-    t.string   "customer_token"
-    t.string   "buyer_email"
-    t.string   "buyer_name"
-    t.string   "buyer_ip_address"
-    t.string   "billing_address_line1"
-    t.string   "billing_address_line2"
-    t.string   "billing_address_city"
-    t.string   "billing_address_postcode"
-    t.string   "billing_address_state"
-    t.string   "billing_address_country"
-    t.string   "shipping_cost_term"
-    t.float    "shipping_cost_value"
-    t.string   "shipping_full_name"
-    t.string   "shipping_address_line1"
-    t.string   "shipping_address_line2"
-    t.string   "shipping_address_city"
-    t.string   "shipping_address_postcode"
-    t.string   "shipping_address_state"
-    t.string   "shipping_address_country"
-    t.text     "custom_data_term",          :default => [],                   :array => true
-    t.text     "custom_data_value",         :default => [],                   :array => true
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-    t.string   "card_token"
-  end
-
-  add_index "subscriptions", ["subscription_token"], :name => "index_subscriptions_on_subscription_token", :unique => true
 
   create_table "transactions", :force => true do |t|
     t.string   "transaction_token"
@@ -197,8 +177,6 @@ ActiveRecord::Schema.define(:version => 20131111185430) do
     t.string   "billing_address_state"
     t.string   "billing_address_country"
     t.string   "shipping_address_postcode"
-    t.integer  "subscription_token"
-    t.string   "customer_token"
     t.float    "surcharge_cost"
     t.float    "base_cost"
   end
@@ -234,9 +212,9 @@ ActiveRecord::Schema.define(:version => 20131111185430) do
     t.text     "encrypted_braintree_client_side_key"
     t.string   "username",                            :default => ""
     t.string   "charge_currency",                     :default => "AUD"
-    t.string   "authentication_token"
     t.string   "encrypted_stripe_api_key"
     t.string   "encrypted_stripe_api_secret"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
@@ -244,6 +222,5 @@ ActiveRecord::Schema.define(:version => 20131111185430) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["user_token"], :name => "index_users_on_user_token", :unique => true
-  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

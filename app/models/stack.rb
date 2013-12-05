@@ -2,6 +2,8 @@ class Stack < ActiveRecord::Base
   include Shared::AttachmentHelper
   include ActionView::Helpers::NumberHelper
 
+  @buy_button_text_options = ["Buy this", "Pay", "Donate", "I want this"]
+
   is_impressionable
 
   attr_accessible :bcc_receipt, :charge_type, :charge_amount, :charge_currency, :page_token, :description,
@@ -16,7 +18,9 @@ class Stack < ActiveRecord::Base
                   :seller_address_line1, :seller_address_line2, :seller_address_city,
                   :seller_address_postcode, :seller_address_state, :seller_address_country,
                   :archived, :visible, :max_purchase_count,
-                  :custom_data_term, :custom_data_value
+                  :custom_data_term, :custom_data_value,
+                  :buy_button_text
+
 
   belongs_to :user, :foreign_key => :user_token
   has_many :transactions, :foreign_key => :stack_token
@@ -43,6 +47,7 @@ class Stack < ActiveRecord::Base
   validates :seller_address_postcode, :presence => { :message => "This page must have the seller's postcode." }, :on => :update, :if => :sending_an_invoice?
   validates :seller_address_state, :presence => { :message => "This page must have the seller's state." }, :on => :update, :if => :sending_an_invoice?
   validates :seller_address_country, :presence => { :message => "This page must have the seller's country." }, :on => :update, :if => :sending_an_invoice?
+  validates :buy_button_text, :inclusion=> { :in => @buy_button_text_options }
 
   validates_attachment_size :digital_download_file, :less_than => 10.megabytes, :on => :update
 

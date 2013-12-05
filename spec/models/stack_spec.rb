@@ -76,4 +76,45 @@ describe Stack do
     stack.shipping_cost_value = [10.95, 29.95]
     stack.has_surcharge?.should == false
   end
+  describe "custom buy button" do
+    it "default of buy this" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text.should == "Buy this"
+    end
+
+    it "validate text Pay" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "Pay"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "validate text Donate" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "Donate"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "validate text I want this" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "I want this"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "validate text Buy this" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "Buy this"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "invalidate text ABCD" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "ABCD"
+      stack.save
+      stack.errors.empty?.should_not == true
+    end
+  end
 end

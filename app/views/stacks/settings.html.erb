@@ -58,6 +58,12 @@
       </div>
       <p class="description">Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.</p>
     </div>
+    <div class="field field-select field-charge-type">
+      <%= f.label :buy_button_text, "Purchase button text" %>
+      <div class="input">
+        <%= f.select :buy_button_text, options_for_stack_buy_button_text(@stack.buy_button_text) %>
+      </div>
+    </div>
     <div class="field field-text field-return-url">
       <%= f.label :return_url %>
       <div class="input">

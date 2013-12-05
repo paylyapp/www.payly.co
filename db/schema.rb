@@ -41,27 +41,6 @@ ActiveRecord::Schema.define(:version => 20131205201200) do
 
   add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
 
-  create_table "entities", :force => true do |t|
-    t.string   "entity_token"
-    t.string   "entity_name"
-    t.string   "full_name"
-    t.string   "email"
-    t.string   "currency"
-    t.string   "user_token"
-    t.boolean  "user_entity",                         :default => false
-    t.string   "payment_method"
-    t.string   "encrypted_pin_api_key"
-    t.string   "encrypted_pin_api_secret"
-    t.string   "encrypted_stripe_api_key"
-    t.string   "encrypted_stripe_api_secret"
-    t.string   "encrypted_braintree_merchant_key"
-    t.string   "encrypted_braintree_api_key"
-    t.string   "encrypted_braintree_api_secret"
-    t.text     "encrypted_braintree_client_side_key"
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
-  end
-
   create_table "impressions", :force => true do |t|
     t.string   "impressionable_type"
     t.integer  "impressionable_id"
@@ -140,7 +119,6 @@ ActiveRecord::Schema.define(:version => 20131205201200) do
     t.boolean  "require_surcharge",                  :default => false
     t.float    "surcharge_value"
     t.string   "surcharge_unit"
-    t.string   "entity_token"
     t.string   "buy_button_text",                    :default => "Buy this"
   end
 
@@ -212,9 +190,9 @@ ActiveRecord::Schema.define(:version => 20131205201200) do
     t.text     "encrypted_braintree_client_side_key"
     t.string   "username",                            :default => ""
     t.string   "charge_currency",                     :default => "AUD"
+    t.string   "authentication_token"
     t.string   "encrypted_stripe_api_key"
     t.string   "encrypted_stripe_api_secret"
-    t.string   "authentication_token"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

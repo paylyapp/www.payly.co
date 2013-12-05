@@ -8,6 +8,8 @@ $.validator.setDefaults(
       dategroup: "month year"
     }
   , errorPlacement: function(error, element) {
+      console.log(error)
+      console.log(element)
       if( !$(element).parents('.field').find('.error-text--' + error[0].innerHTML).is(':visible') ) {
         $(element).parents('.field').removeClass('field-error').find('.field-error-text').hide()
         $(element).parents('.field').addClass('field-error').find('.error-text--' + error[0].innerHTML).css('display','block')

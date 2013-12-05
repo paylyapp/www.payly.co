@@ -8,30 +8,37 @@
         <div class="field field-text field-full-name">
           <%= f.label :full_name %>
           <div class="input">
-            <%= f.text_field :full_name, :autocomplete => "off" %>
+            <%= f.text_field :full_name, :autocomplete => "off", :class => "required" %>
+            <span class='field-error-text error-text--required'>This field is required.</span>
           </div>
         </div>
         <div class="field field-text field-email">
           <%= f.label :email %>
           <div class="input">
-            <%= f.email_field :email, :autocomplete => "off" %>
+            <%= f.email_field :email, :autocomplete => "off", :class => "required email" %>
+            <span class='field-error-text error-text--required'>This field is required.</span>
+            <span class='field-error-text error-text--email'>This field needs to be an email.</span>
           </div>
         </div>
         <div class="field field-text field-email">
           <%= f.label :username %>
           <div class="input">
-            <%= f.text_field :username, :autocomplete => "off" %>
+            <%= f.text_field :username, :autocomplete => "off", :class => "required" %>
+            <span class='field-error-text error-text--required'>This field is required.</span>
           </div>
         </div>
         <div class="field field-text field-password">
           <%= f.label :password %>
           <div class="input">
-            <%= f.password_field :password, :autocomplete => "off" %>
+            <%= f.password_field :password, :autocomplete => "off", :class => "required" %>
+            <span class='field-error-text error-text--required'>This field is required.</span>
           </div>
         </div>
         <div class="field field-checkbox field-tos-agreement">
           <div class="input">
-            <label><%= f.check_box :tos_agreement %> I accept the <%= link_to 'terms of service', terms_path %>.</label>
+            <%= f.hidden_field :tos_agreement, :value=>"1" %>
+            <label for="user[tos_agreement]">By signing up, you agree to the <%= link_to 'terms of service', terms_path %>.</label>
+            <span class='field-error-text error-text--required'>This field is required.</span>
           </div>
         </div>
 

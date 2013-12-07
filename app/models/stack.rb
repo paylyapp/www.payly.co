@@ -113,6 +113,10 @@ class Stack < ActiveRecord::Base
     self.require_shipping? && self.shipping_cost_value.count > 0 && self.shipping_cost_term.count > 0
   end
 
+  def primary_image_url(size)
+      primary_image.url(size)
+  end
+
   def post_webhook_url(purchase)
     payload = {}
     payload[:message] = 'success'

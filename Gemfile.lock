@@ -159,6 +159,10 @@ GEM
       netrc (~> 0.7.1)
       rest-client (~> 1.6.1)
       rubyzip
+    heroku_rails_deflate (1.0.1)
+      actionpack (~> 3.2.13)
+      activesupport (~> 3.2.13)
+      rack (~> 1.4.5)
     highline (1.6.20)
     hike (1.2.3)
     httpclient (2.3.4.1)
@@ -381,6 +385,7 @@ DEPENDENCIES
   guard-rspec
   hay!
   heroku
+  heroku_rails_deflate
   impressionist
   jquery-rails
   launchy

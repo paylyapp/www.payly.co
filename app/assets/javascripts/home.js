@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery.siwa.min
+//= require jquery.validate
+//= require forms
 
 $(function() {
-
   function rotate_image($current_image, $next_image) {
     $current_image.fadeOut(500, function() {
       $next_image.fadeIn(500);

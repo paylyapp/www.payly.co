@@ -1,0 +1,17 @@
+<meta charset="utf-8" />
+<title><%= pre_title + " • " unless pre_title.nil? %>Payly<%= " • " + post_title unless post_title.nil? %></title>
+
+<meta name="description" content="Accept payments simply &amp; easily. The easiest way for Australians to accept payments in a few minutes.">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+<%= stylesheet_link_tag "application", :media => "all" %>
+
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js" %>
+
+<link rel="shortcut icon" href="/favicon.ico">
+<%= render 'layouts/shared/apple-touch-images' %>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Payly">
+
+<%= csrf_meta_tags %>

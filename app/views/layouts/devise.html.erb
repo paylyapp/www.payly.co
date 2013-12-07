@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html class="no-js">
-<head>
-  <meta charset="utf-8" />
-  <title><%= @pre_title + " • " unless @pre_title.nil? %>Payly<%= " • " + @post_title unless @post_title.nil? %></title>
+  <head>
+    <%= render "layouts/shared/document-head", {:pre_title => @pre_title, :post_title => @post_title} %>
+  </head>
+  <body>
+    <header class="global">
+      <div class="header__inner">
+        <%= link_to 'Payly', root_path, :class => 'logo' %>
+      </div>
+    </header>
 
-  <meta name="description" content="Accept payments simply &amp; easily. The easiest way for Australians to accept payments in a few minutes.">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <%= yield %>
 
-  <%= javascript_include_tag :modernizr %>
-  <%= stylesheet_link_tag "application", :media => "all" %>
+    <footer class="global">
+      <div class="footer__inner">
+        <ul>
+          <li>Crafted in Sydney, Australia by <%= link_to "Tim Gleeson", "http://twitter.com/timjgleeson", :target => "_blank" %></li>
+          <li>Want updates? <%= link_to "Follow us", "http://twitter.com/paylyapp", :target => "_blank" %></li>
+          <li><%= link_to "FAQs", faqs_path %></li>
+          <li><%= link_to "Privacy Policy", privacy_path %></li>
+          <li><%= link_to "Terms of Service", terms_path %></li>
+        </ul>
+      </div>
+    </footer>
 
-  <link rel="shortcut icon" href="/favicon.ico">
-  <%= render 'layouts/apple-touch-images' %>
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Payly">
-
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <header class="global">
-    <%= link_to 'Payly', root_path, :class => 'logo' %>
-  </header>
-
-  <%= yield %>
-
-  <footer class="global">
-    <ul>
-      <li>Crafted in Sydney, Australia by <%= link_to "Tim Gleeson", "http://twitter.com/timjgleeson", :target => "_blank" %></li>
-      <li>Want updates? <%= link_to "Follow us", "http://twitter.com/paylyapp", :target => "_blank" %></li>
-      <li><%= link_to "FAQs", faqs_path %></li>
-      <li><%= link_to "Privacy Policy", privacy_path %></li>
-      <li><%= link_to "Terms of Service", terms_path %></li>
-    </ul>
-  </footer>
-
-  <%= javascript_include_tag "devise" %>
-  <%= analytics_init if Rails.env.production? %>
-</body>
+    <%= javascript_include_tag "application" %>
+    <%= analytics_init if Rails.env.production? %>
+  </body>
 </html>

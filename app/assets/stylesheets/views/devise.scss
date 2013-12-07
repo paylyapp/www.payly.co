@@ -1,4 +1,90 @@
-.devise-registrations-new,
+.devise-registrations-new {
+  @include pie-clearfix();
+  width: 960px;
+  min-height: 670px;
+  margin: 0 auto;
+  .main {
+    width: 57.2916667%;
+    float: left;
+    ul {
+      @include pie-clearfix();
+      text-align: center;
+
+      li {
+        display: inline-block;
+        padding: 0 $gutter*2;
+        color: #7F8C8D;
+        font-size: 12px;
+
+        a {
+          color: #2C3E50;
+
+          &:hover {
+            color: #2C3E50;
+          }
+        }
+      }
+    }
+  }
+  form {
+
+    .field {
+      label {
+        width: 30%;
+      }
+      .input {
+        width: 70%;
+      }
+    }
+    footer {
+      padding: $gutter;
+      text-align: center;
+
+      input{
+        float: none;
+      }
+    }
+  }
+  .signup__header {
+    margin-bottom: 30px;
+  }
+  .signup__title {
+    font-family: 'Roboto';
+    font-size: 48px;
+    line-height: 62px;
+    font-weight: 100;
+  }
+  $gutter--sidebar: $gutter * 1.5;
+  .sidebar {
+    width: 36.4583333%;
+    float: right;
+  }
+
+  .sidebar__header {
+    margin-bottom: $gutter--sidebar;
+  }
+  .sidebar__title {
+    font-family: 'Roboto';
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 100;
+  }
+
+  .feature {
+    border-bottom: 1px solid #ECF0F1;
+    margin-bottom: $gutter--sidebar;
+  }
+  .feature__header {
+    margin-bottom: $gutter--sidebar;
+  }
+  .feature__title {
+    font-weight: bold;
+  }
+  .feature__text {
+    margin-bottom: $gutter--sidebar;
+  }
+}
+
 .devise-sessions-new,
 .devise-passwords-new,
 .devise-passwords-edit {
@@ -74,8 +160,28 @@
   }
 }
 
+@media (max-width: 980px) {
+  .devise-registrations-new {
+    width: auto;
+    margin: 0;
+    padding: 0 $gutter;
+    min-height: 0;
+    .main,
+    .sidebar {
+      margin-bottom: 50px;
+    }
+  }
+}
+
 @media (max-width: 620px) {
-  .devise-registrations-new,
+  .devise-registrations-new {
+    .main,
+    .sidebar {
+      width: 100%;
+      float: none;
+      margin-bottom: 20px;
+    }
+  }
   .devise-sessions-new,
   .devise-passwords-new,
   .devise-passwords-edit {

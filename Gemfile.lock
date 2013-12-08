@@ -290,8 +290,6 @@ GEM
     rvm-capistrano (1.5.1)
       capistrano (~> 2.15.4)
     sass (3.2.12)
-    sass-mediaqueries-rails (1.3)
-      sass (>= 3.2.0)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -400,8 +398,7 @@ DEPENDENCIES
   rest-client (~> 1.4)
   rspec-rails (~> 2.0)
   rvm-capistrano
-  sass-mediaqueries-rails
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2.6)
   shoulda
   sqlite3
   stripe

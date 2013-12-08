@@ -29,6 +29,7 @@ gem 'gravtastic'
 gem 'aws-sdk', require: false
 gem 'paperclip'
 gem 'fog', require: false
+gem 'unf'
 
 gem 'countries'
 gem 'country_select'
@@ -37,11 +38,12 @@ gem 'will_paginate', '~> 3.0'
 
 gem 'google-analytics-rails'
 
+gem 'haml'
+
 group :assets do
-  gem 'sass-rails', '~> 3.2.3', require: false
-  gem 'compass-rails', require: false
-  gem 'sass-mediaqueries-rails', require: false
-  gem 'font-awesome-sass-rails', require: false
+  gem 'sass-rails', '~> 3.2.3'
+  gem 'compass-rails'
+  gem 'font-awesome-sass-rails'
 
   gem 'jquery-rails'
 

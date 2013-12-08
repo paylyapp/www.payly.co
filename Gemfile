@@ -4,13 +4,13 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.16'
 
 gem 'thin'
-gem 'unicorn'
 
-gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'unicorn', :require => false
+gem 'capistrano', :require => false
+gem 'rvm-capistrano', :require => false
+gem 'heroku', :require => false
 
 gem 'attr_encrypted'
-gem 'heroku'
 gem 'rest-client', '~> 1.4'
 gem 'multi_json', '>= 1.0.4', '< 2'
 
@@ -26,9 +26,9 @@ gem 'postgres_ext'
 gem 'devise'
 gem 'gravtastic'
 
-gem 'aws-sdk'
+gem 'aws-sdk', require: false
 gem 'paperclip'
-gem 'fog'
+gem 'fog', require: false
 
 gem 'countries'
 gem 'country_select'
@@ -38,17 +38,16 @@ gem 'will_paginate', '~> 3.0'
 gem 'google-analytics-rails'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'compass-rails'
-  gem 'sass-mediaqueries-rails'
-  gem 'font-awesome-sass-rails'
+  gem 'sass-rails', '~> 3.2.3', require: false
+  gem 'compass-rails', require: false
+  gem 'sass-mediaqueries-rails', require: false
+  gem 'font-awesome-sass-rails', require: false
 
   gem 'jquery-rails'
-  gem 'modernizr-rails'
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '>= 1.0.3', require: false
 
-  gem 'turbo-sprockets-rails3'
+  gem 'turbo-sprockets-rails3', require: false
 end
 
 group :production, :staging do

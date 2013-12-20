@@ -2,14 +2,18 @@ class Stack < ActiveRecord::Base
   include Shared::AttachmentHelper
   include ActionView::Helpers::NumberHelper
 
+  @buy_button_text_options = ["Buy this", "Pay", "Donate", "I want this"]
+
   is_impressionable
 
   attr_accessible :user_token, :page_token,
                   :product_name, :description, :primary_image,
-                  :analytics_key, :return_url, :visible,
+                  :analytics_key, :return_url, :visible, :buy_button_text,
 
                   :charge_type, :charge_amount, :charge_currency, :max_purchase_count,
                   :require_billing, :require_shipping, :shipping_cost_value, :shipping_cost_term,
+
+                  :require_surcharge, :surcharge_value, :surcharge_unit,
 
                   :seller_email, :seller_name, :bcc_receipt, :send_invoice_email,
                   :seller_trading_name, :seller_abn, :invoice_number,
@@ -51,6 +55,7 @@ class Stack < ActiveRecord::Base
   validates :seller_address_postcode, :presence => { :message => "This page must have the seller's postcode." }, :on => :update, :if => :sending_an_invoice?
   validates :seller_address_state, :presence => { :message => "This page must have the seller's state." }, :on => :update, :if => :sending_an_invoice?
   validates :seller_address_country, :presence => { :message => "This page must have the seller's country." }, :on => :update, :if => :sending_an_invoice?
+  validates :buy_button_text, :inclusion=> { :in => @buy_button_text_options }
 
   validates_attachment_size :digital_download_file, :less_than => 10.megabytes, :on => :update
 
@@ -106,6 +111,18 @@ class Stack < ActiveRecord::Base
 
   def not_decommisioned?
     !self.archived
+  end
+
+  def has_surcharge?
+    self.require_surcharge? && self.surcharge_value? && self.surcharge_unit?
+  end
+
+  def has_shipping?
+    self.require_shipping? && self.shipping_cost_value.count > 0 && self.shipping_cost_term.count > 0
+  end
+
+  def primary_image_url(size)
+      primary_image.url(size)
   end
 
   def post_webhook_url(purchase)

@@ -1,4 +1,7 @@
-<h1 class="page-title"><i class="icon-money"></i> Purchases</h1>
+<h1 class="page-title">
+  <i class="icon-money"></i> Purchases
+  <%= link_to "Export to CSV", params.merge(:format => :csv), :class => 'btn' %>
+</h1>
 
 <div class="container">
 

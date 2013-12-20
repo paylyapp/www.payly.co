@@ -62,11 +62,11 @@ $(function() {
         exp_month: $('#card_expiry_month').val(),
         exp_year: $('#card_expiry_year').val(),
         cvc: $('input[data-encrypted-name="cvv"]').val(),
-        address_line1: $('#transaction_billling_address_line1').val(),
-        address_line2: $('#transaction_billling_address_line2').val(),
-        address_city: $('#transaction_billling_address_city').val(),
-        address_state: $('#transaction_billling_address_state').val(),
-        address_postcode: $('#transaction_billling_address_postcode').val(),
+        address_line1: $('#transaction_billing_address_line1').val(),
+        address_line2: $('#transaction_billing_address_line2').val(),
+        address_city: $('#transaction_billing_address_city').val(),
+        address_state: $('#transaction_billing_address_state').val(),
+        address_postcode: $('#transaction_billing_address_postcode').val(),
         address_country: $('#transaction_billing_address_country').val()
       };
 
@@ -74,18 +74,43 @@ $(function() {
     }
   });
 
-  //move this into a submit handler for this form
   var transactionAmount = $("input[name='transaction[transaction_amount]']").val() * 1;
   var shipping_amount = $("select[name='transaction[shipping_cost]']").length > 0 ? $("select[name='transaction[shipping_cost]'] option:selected").attr("data-value") * 1 : 0;
+  var surcharge = $(".field-surcharge").length > 0 ? true : false
 
-  $('.field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
+  function chargeSurcharge(amount) {
+    var value = amount;
+    var modifier = $(".field-surcharge").attr('data-surcharge-value') * 1;
+
+    if( $(".field-surcharge").attr('data-surcharge-item') == 'percentage') {
+      modifier = modifier / 100 + 1;
+      value = value * modifier;
+      modifier = value - amount;
+    } else if( $(".field-surcharge").attr('data-surcharge-item') == 'dollar') {
+      value = value + modifier;
+    }
+
+    $(".field-surcharge .total").text(modifier.toFixed(2))
+    $('.field-total-amount .total').text(value.toFixed(2));
+  }
+
+  $('.field-subtotal .total, .field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
+
+  if(surcharge) {
+    chargeSurcharge( (transactionAmount + shipping_amount) )
+  }
 
   $("input[name='transaction[transaction_amount]'], select[name='transaction[shipping_cost]']").change(function() {
-    var transactionAmount = $("input[name='transaction[transaction_amount]']").val() * 1;
-    var shipping_amount = $("select[name='transaction[shipping_cost]']").length > 0 ? $("select[name='transaction[shipping_cost]'] option:selected").attr("data-value") * 1 : 0;
+    transactionAmount = $("input[name='transaction[transaction_amount]']").val() * 1;
+    shipping_amount = $("select[name='transaction[shipping_cost]']").length > 0 ? $("select[name='transaction[shipping_cost]'] option:selected").attr("data-value") * 1 : 0;
 
-    $('.field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
+    $('.field-subtotal .total, .field-total-amount .total').text((transactionAmount + shipping_amount).toFixed(2));
+
+    if(surcharge) {
+      chargeSurcharge( (transactionAmount + shipping_amount) )
+    }
   });
+
 
   sameAs($('input#copy_billing_'));
 });

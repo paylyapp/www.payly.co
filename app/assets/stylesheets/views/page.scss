@@ -48,9 +48,8 @@
         }
       }
       .cost {
-        width: 63.636%;
-        float: right;
-        display: block;
+      }
+      .surcharge {
       }
       p {
         width: 63.636%;
@@ -145,11 +144,7 @@
     article {
       width: auto;
       margin: $gutter;
-    }
-  }
 
-  @media (max-width: 320px) {
-    article {
       header {
         figure {
           margin: 0 auto $gutter*2 auto;

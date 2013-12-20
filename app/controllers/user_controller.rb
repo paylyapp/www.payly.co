@@ -1,4 +1,6 @@
 class UserController < ApplicationController
+  include CsvHelper
+
   layout "user"
   before_filter :authenticate_user!
 
@@ -25,7 +27,10 @@ class UserController < ApplicationController
     @pre_title = "Purchases"
     @user = current_user
     @transactions = @user.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
-    render :purchases
+    respond_to do |format|
+      format.html { render :purchases }
+      format.csv { render :layout => false }
+    end
   end
 
   def subscriptions

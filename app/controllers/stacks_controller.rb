@@ -1,6 +1,37 @@
 class StacksController < ApplicationController
+  include CsvHelper
   layout "user"
   before_filter :authenticate_user!
+
+  def purchases
+    @current_section = "pages"
+    @pre_title = "Pages"
+    @user = current_user
+    @stack = @user.stacks.find_by_stack_token(params[:stack_token])
+
+    if @stack.nil?
+      render :error
+    else
+      @transactions = @stack.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+      respond_to do |format|
+        format.html { render :purchases }
+        format.csv { render :layout => false }
+      end
+    end
+  end
+
+  def purchase
+    @current_section = "purchases"
+    @pre_title = "Pages"
+    @user = current_user
+    @transaction = @user.transactions.find_by_transaction_token(params[:transaction_token])
+
+    if @transaction.nil?
+      render :error
+    else
+      render :purchase
+    end
+  end
 
   def new
     @current_section = "pages"

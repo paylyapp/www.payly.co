@@ -36,10 +36,7 @@ class TransactionsController < ApplicationController
         }
         params[:transaction][:custom_data_term] = @custom_data_terms
       end
-      if !params[:transaction][:shipping_cost].nil? && stack.require_shipping == true
-        params[:transaction][:shipping_cost_term] = stack.shipping_cost_term[params[:transaction][:shipping_cost].to_i]
-        params[:transaction][:shipping_cost_value] = stack.shipping_cost_value[params[:transaction][:shipping_cost].to_i]
-      end
+      params[:transaction][:transaction_amount] = @stack.charge_amount if @stack.charge_type == "fixed"
 
       @transaction = Transaction.new_by_stack(params, @stack)
 

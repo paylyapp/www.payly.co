@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   layout "home"
 
   def index
-    @post_title = "Accept payments simply &amp; easily"
+    @post_title = "Accept payments simply & easily"
   end
 
   def faqs

@@ -122,4 +122,20 @@ $(function() {
     }
   });
 
+  $('.add-surcharge').click(function() {
+    $(this).parent().before('<div class="field field-full-length field-text field-shipping-details"><div class="input"><input id="stack_surcharge_value" name="stack[surcharge_value][]" size="30" type="number"><select id="stack_surcharge_unit" name="stack[surcharge_unit][]"><option value="percentage">%</option><option value="dollar">$AUD</option></select><button type="button" data-action="remove" class="remove-surcharge delete-action">Delete</button></div></div>');
+
+
+    $('.remove-surcharge').click(function() {
+      $(this).parents('.field').remove();
+      return false;
+    });
+    return false;
+  });
+
+  $('.remove-surcharge').click(function() {
+    $(this).parents('.field').remove();
+    return false;
+  });
+
 });

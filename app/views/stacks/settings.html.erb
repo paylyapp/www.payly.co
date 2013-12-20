@@ -61,6 +61,12 @@
       </div>
       <p class="description">Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.</p>
     </div>
+    <div class="field field-select field-charge-type">
+      <%= f.label :buy_button_text, "Purchase button text" %>
+      <div class="input">
+        <%= f.select :buy_button_text, options_for_stack_buy_button_text(@stack.buy_button_text) %>
+      </div>
+    </div>
     <div class="field field-text field-return-url">
       <%= f.label :return_url %>
       <div class="input">
@@ -131,34 +137,52 @@
       </div>
     </div>
 
+    <div class="field field-text field-require-shipping field-more-fields">
+      <%= f.label :require_surcharge do %>Require surcharge<% end %>
+      <div class="input">
+        <label><%= f.check_box :require_surcharge %></label>
+      </div>
+    </div>
+    <div class="more-fields" data-section="surcharge">
+      <div class="heading">
+        <h2>Surcharge Costs</h2>
+      </div>
+      <div class="field field-full-length field-text field-surcharge">
+        <div class="input">
+          <%= f.text_field :surcharge_value, :value => @stack.surcharge_value, :placeholder => "Amount", :name => "stack[surcharge_value]" %>
+          <%= f.select :surcharge_unit, options_for_stack_surcharge_type(@stack.surcharge_unit) %>
+        </div>
+      </div>
+    </div>
+
     <% if @stack.has_digital_download %>
-    <div class="heading">
-      <h2>Downloadable file</h2>
-    </div>
-    <div class="heading">
-      <p>You can provide a file that is downloadable upon successful payment through this payment page.</p>
-      <p>Downloadable files are currently limited to 10MB in size.</p>
-    </div>
-    <div class="field field-text field-digital-download-file">
-      <%= f.label :digital_download_file, 'Downloadable file' %>
-      <div class="input">
-        <%= f.file_field :digital_download_file, :"data-required" => "true" %>
+      <div class="heading">
+        <h2>Downloadable file</h2>
       </div>
-      <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank', :download => @stack.digital_download_file_file_name %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
-    </div>
-    <div class="field field-text field-digital-download-receive">
-      <%= f.label :digital_download_receive, 'What will buyers receive' %>
-      <div class="input">
-      <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
+      <div class="heading">
+        <p>You can provide a file that is downloadable upon successful payment through this payment page.</p>
+        <p>Downloadable files are currently limited to 10MB in size.</p>
       </div>
-    </div>
-    <% if @stack.digital_download_update_flag %>
-    <div class="field field-link field-send-updated-email">
-      <div class="input">
-        <%= link_to "Inform previous buyers about your updated file", dashboard_stack_updated_download_path(@stack.stack_token) %>
+      <div class="field field-text field-digital-download-file">
+        <%= f.label :digital_download_file, 'Downloadable file' %>
+        <div class="input">
+          <%= f.file_field :digital_download_file, :"data-required" => "true" %>
+        </div>
+        <p class="description">Your last file was <%= link_to @stack.digital_download_file_file_name, @stack.digital_download_file.expiring_url(600), :target => '_blank', :download => @stack.digital_download_file_file_name %> and was uploaded <%= time_ago_in_words(@stack.digital_download_file_updated_at) %> ago.</p>
       </div>
-    </div>
-    <% end %>
+      <div class="field field-text field-digital-download-receive">
+        <%= f.label :digital_download_receive, 'What will buyers receive' %>
+        <div class="input">
+        <%= f.text_field :digital_download_receive, :placeholder => "ZIP file" %>
+        </div>
+      </div>
+      <% if @stack.digital_download_update_flag %>
+        <div class="field field-link field-send-updated-email">
+          <div class="input">
+            <%= link_to "Inform previous buyers about your updated file", dashboard_stack_updated_download_path(@stack.stack_token) %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
 
     <div class="heading">

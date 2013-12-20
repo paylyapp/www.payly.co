@@ -47,6 +47,84 @@ describe Stack do
     stack.archived = true
     stack.not_decommisioned?.should == false
   end
-  it "should be able to create a Subscription page" do
+
+  it "returns true has_surcharge if all surcharge fields are entered" do
+    stack = @valid_stack
+    stack.require_surcharge = true
+    stack.surcharge_value = 10
+    stack.surcharge_unit = 'percentage'
+    stack.has_surcharge?.should == true
+  end
+  it "returns false has_surcharge if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_surcharge = false
+    stack.has_surcharge?.should == false
+  end
+  it "returns false has_surcharge if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_surcharge = true
+    stack.surcharge_value = 10
+    stack.has_surcharge?.should == false
+  end
+
+  it "returns true has_shipping if all surcharge fields are entered" do
+    stack = @valid_stack
+    stack.require_shipping = true
+    stack.shipping_cost_value = [10.95, 29.95]
+    stack.shipping_cost_term = ['Domestic', 'International']
+    stack.has_shipping?.should == true
+  end
+  it "returns false has_shipping if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_shipping = false
+    stack.has_surcharge?.should == false
+  end
+  it "returns false has_shipping if any of the surcharge fields are not entered" do
+    stack = @valid_stack
+    stack.require_shipping = true
+    stack.shipping_cost_value = [10.95, 29.95]
+    stack.has_surcharge?.should == false
+  end
+
+  describe "custom buy button" do
+    it "default of buy this" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text.should == "Buy this"
+    end
+
+    it "validate text Pay" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "Pay"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "validate text Donate" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "Donate"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "validate text I want this" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "I want this"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "validate text Buy this" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "Buy this"
+      stack.save
+      stack.errors.empty?.should == true
+    end
+
+    it "invalidate text ABCD" do
+      stack = FactoryGirl.build(:stack)
+      stack.buy_button_text = "ABCD"
+      stack.save
+      stack.errors.empty?.should_not == true
+    end
   end
 end

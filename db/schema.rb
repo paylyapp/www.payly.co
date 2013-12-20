@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131101163909) do
+ActiveRecord::Schema.define(:version => 20131205201200) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(:version => 20131101163909) do
     t.boolean  "require_shipping"
     t.boolean  "require_billing"
     t.boolean  "send_invoice_email"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
     t.integer  "user_token"
     t.string   "charge_currency"
     t.string   "page_token"
@@ -111,20 +111,25 @@ ActiveRecord::Schema.define(:version => 20131101163909) do
     t.string   "digital_download_file_content_type"
     t.integer  "digital_download_file_file_size"
     t.datetime "digital_download_file_updated_at"
-    t.string   "digital_download_term",              :default => [],                    :array => true
-    t.string   "digital_download_value",             :default => [],                    :array => true
+    t.string   "digital_download_term",              :default => [],                         :array => true
+    t.string   "digital_download_value",             :default => [],                         :array => true
     t.string   "digital_download_receive"
     t.boolean  "digital_download_update_flag",       :default => false
     t.boolean  "archived",                           :default => false
     t.boolean  "visible",                            :default => true
-    t.string   "shipping_cost_term",                 :default => [],                    :array => true
-    t.float    "shipping_cost_value",                :default => [],                    :array => true
+    t.string   "shipping_cost_term",                 :default => [],                         :array => true
+    t.float    "shipping_cost_value",                :default => [],                         :array => true
     t.integer  "max_purchase_count"
     t.string   "ping_url"
-    t.text     "custom_data_term",                   :default => [],                    :array => true
-    t.text     "custom_data_value",                  :default => [],                    :array => true
+    t.text     "custom_data_term",                   :default => [],                         :array => true
+    t.text     "custom_data_value",                  :default => [],                         :array => true
     t.string   "webhook_url"
     t.boolean  "has_subscription"
+    t.boolean  "require_surcharge",                  :default => false
+    t.float    "surcharge_value"
+    t.string   "surcharge_unit"
+    t.string   "buy_button_text",                    :default => "Buy this"
+
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true
@@ -196,6 +201,8 @@ ActiveRecord::Schema.define(:version => 20131101163909) do
     t.string   "shipping_address_postcode"
     t.integer  "subscription_token"
     t.string   "customer_token"
+    t.float    "surcharge_cost"
+    t.float    "base_cost"
   end
 
   add_index "transactions", ["transaction_token"], :name => "index_transactions_on_transaction_token", :unique => true
@@ -239,6 +246,5 @@ ActiveRecord::Schema.define(:version => 20131101163909) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["user_token"], :name => "index_users_on_user_token", :unique => true
-  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

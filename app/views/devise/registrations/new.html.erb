@@ -8,31 +8,37 @@
         <div class="field field-text field-full-name">
           <%= f.label :full_name %>
           <div class="input">
-            <%= f.text_field :full_name, :autocomplete => "off" %>
+            <%= f.text_field :full_name, :autocomplete => "off", :class=>"required", :autofocus=>true %>
+            <span class='field-error-text error-text--required'>We need your full name to complete the signup.</span>
           </div>
         </div>
         <div class="field field-text field-email">
           <%= f.label :email %>
           <div class="input">
-            <%= f.email_field :email, :autocomplete => "off" %>
+            <%= f.email_field :email, :autocomplete => "off", :class=>"required email" %>
+            <span class='field-error-text error-text--required'>We need your email to complete the signup.</span>
+            <span class='field-error-text error-text--email'>We need a valid email (name@example.com) to complete the signup.</span>
           </div>
         </div>
         <div class="field field-text field-email">
           <%= f.label :username %>
           <div class="input">
-            <%= f.text_field :username, :autocomplete => "off" %>
+            <%= f.text_field :username, :autocomplete => "off", :class=>"required" %>
+            <span class='field-error-text error-text--required'>We need your username to complete the signup.</span>
           </div>
         </div>
         <div class="field field-text field-password">
           <%= f.label :password %>
           <div class="input">
-            <%= f.password_field :password, :autocomplete => "off" %>
+            <%= f.password_field :password, :autocomplete => "off", :class=>"required" %>
+            <span class='field-error-text error-text--required'>We need your password to complete the signup.</span>
           </div>
         </div>
-        <div class="field field-checkbox field-tos-agreement">
-          <div class="input">
-            <label><%= f.check_box :tos_agreement %> I accept the <%= link_to 'terms of service', terms_path %>.</label>
-          </div>
+        <div class="heading">
+          <%= f.hidden_field :tos_agreement, :value => true %>
+          <p style="margin-bottom: 0; ">By signing up, you agree to our <%= link_to 'terms of service', terms_path, :target => "_blank" %> and  <%= link_to 'privacy policy', privacy_path, :target => "_blank" %>.</p>
+        </div>
+        <div class="field field-text field-password">
         </div>
 
         <footer class="actions">
@@ -47,5 +53,39 @@
     <ul>
       <li>Got an account? <%= link_to new_user_session_path, :class => "top-button" do %>Login<% end %></li>
     </ul>
+  </div>
+  <div class="sidebar">
+    <div class="sidebar__header">
+      <h2 class="sidebar__title">Why you'll love Payly</h2>
+    </div>
+    <div class="sidebar__content">
+      <div class="feature">
+        <div class="feature__header">
+          <h2 class="feature__title">Incredible pricing</h2>
+        </div>
+        <div class="feature__text">
+          <p>The only fee you pay on a transaction is from the payment provider.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature__header">
+          <h2 class="feature__title">Powerful features</h2>
+        </div>
+        <div class="feature__text">
+          <p>Accept one-time payments, sell your digital goods, and export your purchases. Thats just to start with.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature__header">
+          <h2 class="feature__title">Instant access</h2>
+        </div>
+        <div class="feature__text">
+          <p>Sign up in less the 60 seconds. Start creating your payment pages immediately.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar__footer">
+      <p>Still not convinced? <%= link_to "Check out our features", "/#features" %></p>
+    </div>
   </div>
 </section>

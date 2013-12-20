@@ -19,7 +19,12 @@ $AUD
 <%= @transaction.stack_product_name %> - <%= number_to_currency(@transaction.transaction_amount) %>
 
 -----------------------------------------------
+<% if @transaction.stack.has_surcharge? %>
+Subtotal - <%= number_to_currency( (@transaction.transaction_amount - @transaction.surcharge_cost) ) %>
+Surcharge - <%= number_to_currency(@transaction.surcharge_cost) %>
+<% end %>
 Total amount payable - <%= number_to_currency(@transaction.transaction_amount) %>
+
 No GST has been charged.
 
 <% if @transaction.stack_require_shipping %>

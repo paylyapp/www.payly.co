@@ -4,6 +4,9 @@ $.validator.setDefaults(
     ignore: '.ignore'
   , errorElement: 'span'
   , onkeyup: false
+  , groups: {
+      dategroup: "month year"
+    }
   , errorPlacement: function(error, element) {
       if( !$(element).parents('.field').find('.error-text--' + error[0].innerHTML).is(':visible') ) {
         $(element).parents('.field').removeClass('field-error').find('.field-error-text').hide()
@@ -41,6 +44,4 @@ $.extend(
 // validate all forms
 $('form').each(function() {
   $(this).validate()
-
-
 })

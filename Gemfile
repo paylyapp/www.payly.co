@@ -1,18 +1,17 @@
 ruby '1.9.3'
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.16'
 gem 'nokogiri'
 
 gem 'thin'
-gem 'unicorn'
 
-gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'unicorn', :require => false
+gem 'capistrano', :require => false
+gem 'rvm-capistrano', :require => false
+gem 'heroku', :require => false
 
 gem 'attr_encrypted'
-gem 'heroku'
-gem 'rails_12factor'
 gem 'rest-client', '~> 1.4'
 gem 'multi_json', '>= 1.0.4', '< 2'
 
@@ -28,9 +27,10 @@ gem 'postgres_ext'
 gem 'devise'
 gem 'gravtastic'
 
-gem 'aws-sdk'
+gem 'aws-sdk', require: false
 gem 'paperclip'
-gem 'fog'
+gem 'fog', require: false
+gem 'unf'
 
 gem 'countries'
 gem 'country_select'
@@ -39,18 +39,23 @@ gem 'will_paginate', '~> 3.0'
 
 gem 'google-analytics-rails'
 
+gem 'haml'
+
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails', '~> 3.2.3'
   gem 'compass-rails'
-  gem 'sass-mediaqueries-rails'
   gem 'font-awesome-sass-rails'
 
   gem 'jquery-rails'
-  gem 'modernizr-rails'
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '>= 1.0.3', require: false
 
-  gem 'turbo-sprockets-rails3'
+  gem 'turbo-sprockets-rails3', require: false
+end
+
+group :production, :staging do
+  gem 'rails_12factor'
+  gem 'heroku_rails_deflate'
 end
 
 group :test, :development do
@@ -77,4 +82,5 @@ group :test do
   gem 'guard-rspec'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'email_spec'
 end

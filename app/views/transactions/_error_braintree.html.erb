@@ -1,0 +1,22 @@
+<% if transaction.errors.any? %>
+  <div id="error_explanation" class="notification notification-danger">
+    <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+    <ul>
+    <% transaction.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if flash[:status] %>
+<div class="notification notification-danger">
+  <h2><%= pluralize(flash[:status].count, "error") %> prohibited this page from performing a transaction:</h2>
+  <ul>
+  <% flash[:status].each do |message| %>
+    <li>(<%= message.code %>) <%= message.message %></li>
+  <% end %>
+  </ul>
+</div>
+<% end %>

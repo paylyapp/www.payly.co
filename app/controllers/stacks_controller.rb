@@ -116,15 +116,13 @@ class StacksController < ApplicationController
     if @stack.nil? && @stack.archived == true
       render :error
     else
-      if @stack.can_delivery_file?
+
         @stack.transactions.each { |transaction|
           TransactionMailer.updated(transaction).deliver
         }
         @stack.update_attributes(:digital_download_update_flag => false)
         redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails have been sent."
-      else
-        redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails could not be sent out."
-      end
+
     end
   end
 

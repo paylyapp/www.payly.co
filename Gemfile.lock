@@ -96,6 +96,8 @@ GEM
     countries (0.9.3)
       currencies (~> 0.4.2)
     country_select (1.2.0)
+    css_parser (1.3.5)
+      addressable
     currencies (0.4.2)
     daemons (1.1.9)
     database_cleaner (1.2.0)
@@ -165,6 +167,7 @@ GEM
       rack (~> 1.4.5)
     highline (1.6.20)
     hike (1.2.3)
+    htmlentities (4.3.1)
     httpclient (2.3.4.1)
     i18n (0.6.9)
     impressionist (1.4.13)
@@ -212,6 +215,12 @@ GEM
     postgres_ext (1.0.0)
       activerecord (~> 3.2.0)
       pg_array_parser (~> 0.0.9)
+    premailer (1.7.9)
+      css_parser (>= 1.1.9)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.6.1)
+      actionmailer (>= 3, < 5)
+      premailer (~> 1.7, >= 1.7.9)
     pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -395,6 +404,7 @@ DEPENDENCIES
   paperclip
   pg
   postgres_ext
+  premailer-rails
   quiet_assets
   rails (= 3.2.16)
   rails_12factor
@@ -402,7 +412,7 @@ DEPENDENCIES
   rest-client (~> 1.4)
   rspec-rails (~> 2.0)
   rvm-capistrano
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2.6)
   shoulda
   sqlite3
   stripe

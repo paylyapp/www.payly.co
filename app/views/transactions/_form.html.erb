@@ -138,53 +138,61 @@
     </div>
   </div>
   <div class="field field-text field-card-number">
-    <%= f.label :shipping_full_name, "Recipient's name" %>
+    <%= f.label :shipping_full_name, "Recipient's name *" %>
     <div class="input">
-    <%= f.text_field :shipping_full_name %>
+      <%= f.text_field :shipping_full_name %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_line1, 'Address Line 1' %>
+    <%= f.label :shipping_address_line1, 'Address Line 1 *' %>
     <div class="input">
-    <%= f.text_field :shipping_address_line1, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line1]" %>
+      <%= f.text_field :shipping_address_line1, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line1]", :class=>'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-card-number">
     <%= f.label :shipping_address_line2, 'Address Line 2' %>
     <div class="input">
-    <%= f.text_field :shipping_address_line2, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line2]" %>
+      <%= f.text_field :shipping_address_line2, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_line2]", :class=>'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_city, 'City' %>
+    <%= f.label :shipping_address_city, 'City *' %>
     <div class="input">
-    <%= f.text_field :shipping_address_city, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_city]" %>
+      <%= f.text_field :shipping_address_city, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_city]", :class=>'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_postcode, 'Postcode' %>
+    <%= f.label :shipping_address_postcode, 'Postcode *' %>
     <div class="input">
-    <%= f.text_field :shipping_address_postcode, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_postcode]" %>
+      <%= f.text_field :shipping_address_postcode, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_postcode]", :class=>'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_state, 'State' %>
+    <%= f.label :shipping_address_state, 'State *' %>
     <div class="input">
-    <%= f.text_field :shipping_address_state, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_state]" %>
+      <%= f.text_field :shipping_address_state, :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_state]", :class=>'required' %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
   <div class="field field-text field-card-number">
-    <%= f.label :shipping_address_country, 'Country' %>
+    <%= f.label :shipping_address_country, 'Country *' %>
     <div class="input">
-      <%= f.country_select :shipping_address_country, ["Australia"], {}, { :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_country]" } %>
+      <%= f.country_select :shipping_address_country, ["Australia"], {}, { :"data-same-as-activation" => "copy_billing[]", :"data-same-as-field" => "transaction[billing_address_country]", :class=>'required' } %>
+      <span class='field-error-text error-text--required'>This field is required.</span>
     </div>
   </div>
 
   <% unless shipping_cost.blank? %>
     <div class="field field-select field-shipping-cost">
-      <%= f.label :shipping_cost, 'Shipping Cost' %>
+      <%= f.label :shipping_cost, 'Shipping Cost *' %>
       <div class="input">
-        <%= f.select :shipping_cost, options_for_select(shipping_cost) %>
+        <%= f.select :shipping_cost, options_for_select(shipping_cost), {}, {:class=>'required'} %>
+        <span class='field-error-text error-text--required'>This field is required.</span>
       </div>
     </div>
   <% end %>

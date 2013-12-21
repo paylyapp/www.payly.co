@@ -27,8 +27,9 @@
   <meta name="twitter:domain" content="payly.co">
   <% end %>
 
-  <%= javascript_include_tag :modernizr %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js" %>
 
   <link rel="shortcut icon" href="/favicon.ico">
   <%= render 'layouts/transactions/apple-touch-images' %>

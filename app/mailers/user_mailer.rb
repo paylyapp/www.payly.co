@@ -1,4 +1,6 @@
 class UserMailer < ActionMailer::Base
+  layout "email"
+
   default :from => "Tim from Payly <info@payly.co>"
 
   # Subject can be set in your I18n file at config/locales/en.yml

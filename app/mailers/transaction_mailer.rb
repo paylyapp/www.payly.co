@@ -1,4 +1,6 @@
 class TransactionMailer < ActionMailer::Base
+  layout "email"
+
   default :from => "Tim from Payly <info@payly.co>"
 
   def invoice(transaction)

@@ -17,7 +17,7 @@ class Transaction < ActiveRecord::Base
                   :custom_data_term, :custom_data_value
 
   belongs_to :stack, :foreign_key => :stack_token
-  belongs_to :customer
+  belongs_to :customer, :foreign_key => :buyer_email
 
   delegate :stack_token, :product_name, :charge_currency, :require_shipping,
            :seller_email, :seller_trading_name, :seller_abn, :bcc_receipt, :analytics_key,

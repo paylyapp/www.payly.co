@@ -27,7 +27,7 @@
   <meta name="twitter:domain" content="payly.co">
   <% end %>
 
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
 
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js" %>
 
@@ -38,7 +38,8 @@
 
   <%= csrf_meta_tags %>
 </head>
-<body class="page">
+
+<body class="page js-pp-<%=@stack.user_payment_method%>">
   <%= yield %>
 
   <footer class="global">
@@ -47,6 +48,40 @@
     </div>
   </footer>
 
+  <% if @stack.user.payment_provider_is_pin_payments? %>
+    <%= javascript_include_tag "https://test-api.pin.net.au/pin.js" unless Rails.env.production? %>
+    <%= javascript_include_tag "https://api.pin.net.au/pin.js" if Rails.env.production? %>
+    <script type="text/javascript">
+      Pin.setPublishableKey('<%= @stack.user.pin_api_key %>');
+    </script>
+  <% elsif @stack.user.payment_provider_is_stripe? %>
+    <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+    <script type="text/javascript">
+      Stripe.setPublishableKey('<%= @stack.user.stripe_api_key %>');
+    </script>
+  <% elsif @stack.user.payment_provider_is_braintree? %>
+    <%= javascript_include_tag "https://js.braintreegateway.com/v1/braintree.js" %>
+    <script type="text/javascript">
+      var braintree = Braintree.create("<%= @stack.user.braintree_client_side_key %>");
+      braintree.onSubmitEncryptForm('new_transaction');
+    </script>
+  <% end %>
+
+  <%= javascript_include_tag "application" %>
+
   <%= analytics_init if Rails.env.production? %>
+  <% unless @stack.analytics_key.blank? %>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '<%= @stack.analytics_key %>']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <% end %>
 </body>
 </html>

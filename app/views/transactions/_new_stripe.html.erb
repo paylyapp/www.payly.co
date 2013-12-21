@@ -23,11 +23,3 @@
 
   <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost } %>
 <% end %>
-
-<%= javascript_include_tag "https://js.stripe.com/v2/" %>
-
-<%= javascript_include_tag "transactions-stripe" %>
-
-<script type="text/javascript">
-  Stripe.setPublishableKey('<%= stack.user.stripe_api_key %>');
-</script>

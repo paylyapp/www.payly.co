@@ -24,12 +24,3 @@
 
   <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost }%>
 <% end %>
-
-<%= javascript_include_tag "https://test-api.pin.net.au/pin.js" unless Rails.env.production? %>
-<%= javascript_include_tag "https://api.pin.net.au/pin.js" if Rails.env.production? %>
-
-<%= javascript_include_tag "transactions-pin-payments" %>
-
-<script type="text/javascript">
-  Pin.setPublishableKey('<%= stack.user.pin_api_key %>');
-</script>

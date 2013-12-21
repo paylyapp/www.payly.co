@@ -24,7 +24,6 @@
       </div>
     </footer>
 
-    <%= javascript_include_tag "application" %>
-    <%= analytics_init if Rails.env.production? %>
+    <%= render "layouts/shared/document-foot" %>
   </body>
 </html>

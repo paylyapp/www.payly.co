@@ -24,11 +24,3 @@
 
   <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost }%>
 <% end %>
-
-<%= javascript_include_tag "transactions-braintree" %>
-
-<script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree.js"></script>
-<script type="text/javascript">
-  var braintree = Braintree.create("<%= stack.user.braintree_client_side_key %>");
-  braintree.onSubmitEncryptForm('new_transaction');
-</script>

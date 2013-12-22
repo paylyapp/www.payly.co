@@ -53,19 +53,37 @@
     <div class="input">
       <span class="text">
         <%= number_to_currency(transaction.transaction_amount) %>
+        <% if !transaction.shipping_cost.nil? || !transaction.surcharge_cost.nil? %>
+          (includes
+          <% if !transaction.shipping_cost.nil? %>
+            <%= number_to_currency(transaction.shipping_cost_value) %> for <%= transaction.shipping_cost_term %> shipping
+          <% end %>
+
+          <% if !transaction.shipping_cost.nil? && !transaction.surcharge_cost.nil? %>
+            and
+          <% end %>
+
+          <% if !transaction.surcharge_cost.nil? %>
+            <%= number_to_currency(transaction.surcharge_cost) %> surcharge
+          <% end %>
+          )
+        <% end %>
+
         <% if !transaction.shipping_cost? && transaction.stack_require_shipping.nil? %>
           (includes <%= number_to_currency(transaction.shipping_cost_value) %> for <%= transaction.shipping_cost_term %> shipping)
         <% end %>
       </span>
     </div>
   </div>
-  <% unless transaction.stack_require_shipping.nil? %>
+  <% if transaction.shipping_address_line1? && transaction.shipping_address_city? && transaction.shipping_address_postcode? && transaction.shipping_address_state? && transaction.shipping_address_country? %>
   <div class="field field-text field-full-name">
     <label>Shipping Address</label>
     <div class="input">
       <span class="text">
-        <%= transaction.shipping_address_line2 unless transaction.shipping_address_line2? %>
         <%= transaction.shipping_address_line1 %> <br />
+        <% if transaction.shipping_address_line2? %>
+          <%= transaction.shipping_address_line2  %><br />
+        <% end %>
         <%= transaction.shipping_address_city %> <br />
         <%= transaction.shipping_address_postcode %> <br />
         <%= transaction.shipping_address_state %> <br />

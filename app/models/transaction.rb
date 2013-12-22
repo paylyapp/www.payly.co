@@ -20,7 +20,6 @@ class Transaction < ActiveRecord::Base
   belongs_to :customer
   belongs_to :subscription, :foreign_key => :subscription_token, :primary_key => :subscription_token
 
-
   delegate :stack_token, :product_name, :charge_currency, :require_shipping,
            :seller_email, :seller_trading_name, :seller_abn, :bcc_receipt, :analytics_key,
            :has_digital_download, :digital_download_file, :primary_image,

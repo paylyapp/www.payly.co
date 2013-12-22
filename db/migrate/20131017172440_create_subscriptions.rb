@@ -39,7 +39,7 @@ class CreateSubscriptions < ActiveRecord::Migration
     add_index :subscriptions, :subscription_token, :unique => true
 
     add_column :stacks, :has_subscription, :boolean
-    add_column :transactions, :subscription_token, :integer
+    add_column :transactions, :subscription_token, :string
 
   end
 end

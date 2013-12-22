@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html class="no-js">
-<head>
-  <meta charset="utf-8" />
-  <% if @stack.nil? || @stack.archived %>
-  <title>Error</title>
-  <meta name="apple-mobile-web-app-title" content="Payly">
-  <% else %>
-  <title>Purchase: <%= @stack.product_name %></title>
-  <meta name="apple-mobile-web-app-title" content="<%= @stack.product_name %>">
-  <% end %>
+  <head>
+    <%= render "layouts/transactions/document-head", {:pre_title => 'Purchase', :stack => @stack} %>
+  </head>
 
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <body class="page js-pp-<%=@stack.user_payment_method%>">
+    <%= yield %>
 
-  <% unless @stack.nil? || @stack.archived %>
-  <meta name="description" content="<%= @stack.description %>">
+    <footer class="global">
+      <div class="made-by">
+        Powered by <%= link_to "Payly", root_path %>
+      </div>
+    </footer>
 
-  <meta name="og:title" content="Purchase: <%= @stack.product_name %>" />
-  <meta name="og:description" content="<%= @stack.description %>" />
-  <meta name="og:image" content="<%= @stack.primary_image.url(:medium) %>" />
+    <% if @stack.user.payment_provider_is_pin_payments? %>
+      <%= javascript_include_tag "https://test-api.pin.net.au/pin.js" unless Rails.env.production? %>
+      <%= javascript_include_tag "https://api.pin.net.au/pin.js" if Rails.env.production? %>
+      <script type="text/javascript">
+        Pin.setPublishableKey('<%= @stack.user.pin_api_key %>');
+      </script>
+    <% elsif @stack.user.payment_provider_is_stripe? %>
+      <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+      <script type="text/javascript">
+        Stripe.setPublishableKey('<%= @stack.user.stripe_api_key %>');
+      </script>
+    <% elsif @stack.user.payment_provider_is_braintree? %>
+      <%= javascript_include_tag "https://js.braintreegateway.com/v1/braintree.js" %>
+      <script type="text/javascript">
+        var braintree = Braintree.create("<%= @stack.user.braintree_client_side_key %>");
+        braintree.onSubmitEncryptForm('new_transaction');
+      </script>
+    <% end %>
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@paylyapp">
-  <meta name="twitter:title" content="Purchase: <%= @stack.product_name %>">
-  <meta name="twitter:description" content="<%= @stack.description %>">
-  <meta name="twitter:image:src" content="<%= @stack.primary_image.url(:medium) %>">
-  <meta name="twitter:domain" content="payly.co">
-  <% end %>
+    <%= javascript_include_tag "application" %>
 
-  <%= javascript_include_tag :modernizr %>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= analytics_init if Rails.env.production? %>
+    <% unless @stack.analytics_key.blank? %>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '<%= @stack.analytics_key %>']);
+        _gaq.push(['_trackPageview']);
 
-  <link rel="shortcut icon" href="/favicon.ico">
-  <%= render 'layouts/transactions/apple-touch-images' %>
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <%= csrf_meta_tags %>
-</head>
-<body class="page">
-  <%= yield %>
-
-  <footer class="global">
-    <div class="made-by">
-      Powered by <%= link_to "Payly", root_path %>
-    </div>
-  </footer>
-
-  <%= analytics_init if Rails.env.production? %>
-</body>
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    <% end %>
+  </body>
 </html>

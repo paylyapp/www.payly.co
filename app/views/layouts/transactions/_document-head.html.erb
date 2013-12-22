@@ -1,0 +1,36 @@
+<meta charset="utf-8" />
+<% if stack.nil? || stack.archived %>
+<title>Error</title>
+<meta name="apple-mobile-web-app-title" content="Payly">
+<% else %>
+<title><%= pre_title %>: <%= stack.product_name %></title>
+<meta name="apple-mobile-web-app-title" content="<%= stack.product_name %>">
+<% end %>
+
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+<% unless stack.nil? || stack.archived %>
+<meta name="description" content="<%= stack.description %>">
+
+<meta name="og:title" content="Purchase: <%= stack.product_name %>" />
+<meta name="og:description" content="<%= stack.description %>" />
+<meta name="og:image" content="<%= stack.primary_image.url(:medium) %>" />
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@paylyapp">
+<meta name="twitter:title" content="Purchase: <%= stack.product_name %>">
+<meta name="twitter:description" content="<%= stack.description %>">
+<meta name="twitter:image:src" content="<%= stack.primary_image.url(:medium) %>">
+<meta name="twitter:domain" content="payly.co">
+<% end %>
+
+<%= stylesheet_link_tag "application", :media => "all" %>
+
+<%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js" %>
+
+<link rel="shortcut icon" href="/favicon.ico">
+<%= render 'layouts/transactions/apple-touch-images' %>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<%= csrf_meta_tags %>

@@ -4,12 +4,8 @@
 
 <p>You can confirm your account email through the link below:</p>
 
-<p><%= link_to 'Login to my dashboard', confirmation_url(@resource, :confirmation_token => @token) %></p>
+<p><%= link_to 'Login to my dashboard', confirmation_url(@resource, :confirmation_token => @token), :class=>"btn-primary" %></p>
 
 <p>
-  Thanks for joining and have a great day!
-</p>
-
-<p>
-  <em>Tim Gleeson</em>
+  Thanks for joining and have a great day!<br />Payly
 </p>

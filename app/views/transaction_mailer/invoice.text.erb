@@ -30,8 +30,8 @@ No GST has been charged.
 <% if @transaction.stack_require_shipping %>
 <%= @transaction.stack_product_name %> will be shipped to:
 <%= @transaction.shipping_full_name %>
-<%= @transaction.shipping_address_line1 %>, <%= @transaction.shipping_address_line2 %><br />
-<%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %><br />
+<%= @transaction.shipping_address_line1 %>, <%= @transaction.shipping_address_line2 %>
+<%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %>
 <%= @transaction.shipping_address_country %>
 <% end %>
 

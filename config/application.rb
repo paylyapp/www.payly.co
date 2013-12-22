@@ -84,5 +84,9 @@ module Haystack
       g.javascripts = false
       g.helper = false
     end
+
+    config.to_prepare do
+      Devise::Mailer.layout "email"
+    end
   end
 end

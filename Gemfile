@@ -32,6 +32,8 @@ gem 'paperclip'
 gem 'fog', require: false
 gem 'unf'
 
+gem 'premailer-rails'
+
 gem 'countries'
 gem 'country_select'
 
@@ -42,7 +44,7 @@ gem 'google-analytics-rails'
 gem 'haml'
 
 group :assets do
-  gem 'sass-rails', '~> 3.2.3'
+  gem 'sass-rails', '~> 3.2.6'
   gem 'compass-rails'
   gem 'font-awesome-sass-rails'
 

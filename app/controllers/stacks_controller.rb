@@ -134,15 +134,13 @@ class StacksController < ApplicationController
     if @stack.nil? && @stack.archived == true
       render :error
     else
-      if @stack.can_delivery_file?
+
         @stack.transactions.each { |transaction|
           TransactionMailer.updated(transaction).deliver
         }
         @stack.update_attributes(:digital_download_update_flag => false)
         redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails have been sent."
-      else
-        redirect_to dashboard_stack_path(@stack.stack_token), :notice => "Emails could not be sent out."
-      end
+
     end
   end
 
@@ -217,7 +215,7 @@ class StacksController < ApplicationController
     @user = current_user
     @subscription = @user.subscriptions.find_by_subscription_token(params[:subscription_token])
 
-    @subscription.decommision()
+    @subscription.decommission()
 
     redirect_to user_subscriptions_path
   end

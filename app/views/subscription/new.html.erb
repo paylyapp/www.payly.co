@@ -8,10 +8,17 @@
     <% elsif @stack.has_digital_download_and_has_no_receive_text? %>
       <p>You will receive a file.</p>
     <% end %>
+    <p>Subscribe on a monthly basis. You'll be able to cancel at any time.</p>
 
-    <% if @stack.charge_type == "fixed" %>
-      <span class="cost"><%= number_to_currency(@stack.charge_amount) %><span class="currency"><%= @stack.charge_currency %></span></span>
-    <% end %>
+
+    <p>
+      <% if @stack.charge_type == "fixed" %>
+        <span class="cost"><%= number_to_currency(@stack.charge_amount) %><span class="currency"><%= @stack.charge_currency %></span></span>
+      <% end %>
+      <% if @stack.has_surcharge? %>
+        <span class="surcharge">(surcharge of <%= @stack.surcharge_unit == 'dollar' ? '$' : '' %><%= @stack.surcharge_value %><%= @stack.surcharge_unit == 'percentage' ? '%' : '' %> will apply)</span>
+      <% end %>
+    </p>
   </header>
 
   <%= render "subscription/new_#{@stack.user_payment_method}", { :subscription => @subscription, :stack => @stack, :shipping_cost => @shipping_cost } %>

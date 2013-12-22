@@ -1,4 +1,9 @@
 <%= form_for transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
+  <div class='card_errors notification notification-danger' style='display:none'>
+    <h3></h3>
+    <ul></ul>
+  </div>
+
   <% if transaction.errors.any? %>
     <div id="error_explanation" class="notification notification-danger">
       <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this page from being saved:</h2>
@@ -13,22 +18,9 @@
 
   <% if flash[:status] %>
   <div class="notification notification-danger">
-    <h2><%= pluralize(flash[:status].count, "error") %> prohibited this page from performing a transaction:</h2>
-    <ul>
-    <% flash[:status].each do |message| %>
-      <li>(<%= message.code %>) <%= message.message %></li>
-    <% end %>
-    </ul>
+    <p><%= flash[:status] %></p>
   </div>
   <% end %>
 
   <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost }%>
 <% end %>
-
-<%= javascript_include_tag "transactions-braintree" %>
-
-<script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree.js"></script>
-<script type="text/javascript">
-  var braintree = Braintree.create("<%= stack.user.braintree_client_side_key %>");
-  braintree.onSubmitEncryptForm('new_transaction');
-</script>

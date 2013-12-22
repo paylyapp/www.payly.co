@@ -19,13 +19,14 @@ class Subscription < ActiveRecord::Base
 
   default_scope { where status: true }
 
-  after_create :send_subscription_emails
+  after_save :send_subscription_emails
 
   def self.new_by_stack(params, stack)
     subscription = self.new(params[:subscription])
     subscription.stack_token = stack.id
+    subscription.subscription_token = Subscription.generate_token()
 
-    subscription.generate_token
+    puts subscription.subscription_token
 
     if stack.user.payment_provider_is_pin_payments?
       begin
@@ -50,7 +51,7 @@ class Subscription < ActiveRecord::Base
       Stripe.api_key = stack.user.stripe_api_secret
 
       customer = Stripe::Customer.create(
-        :description => "Customer for https://payly.co",
+        :description => "Customer for Payly",
         :card => subscription[:card_token]
       )
 
@@ -66,6 +67,7 @@ class Subscription < ActiveRecord::Base
           if transaction.stack.webhook_url?
             subscription.stack.post_webhook_url(transaction)
           end
+
         end
       else
         subscription.errors.add :base, transaction.errors
@@ -192,13 +194,13 @@ class Subscription < ActiveRecord::Base
     SubscriptionMailer.destroy_subscription(self).deliver
   end
 
-  def generate_token
+  def self.generate_token
     random_token = 's_'
-
-    self.subscription_token = loop do
+    loop do
       random_token = random_token + SecureRandom.urlsafe_base64
       break random_token unless Subscription.where(:subscription_token => random_token).exists?
     end
+    random_token
   end
 
   def send_subscription_emails

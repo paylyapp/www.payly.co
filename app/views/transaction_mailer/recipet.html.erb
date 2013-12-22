@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <h1>Thank you for your purchase</h1>
-    <p>Your purchase of <%= @transaction.stack_product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> <small>AUD</small> on Payly was successful.</p>
+<h1>Thank you for your purchase</h1>
+<p>Your purchase of <%= @transaction.stack_product_name %> for <%= number_to_currency(@transaction.transaction_amount) %> <small>AUD</small> on Payly was successful.</p>
 
-    <% if @transaction.stack_has_digital_download %>
-      <p><%= link_to 'You can download your file here', download_url(:token => @transaction.transaction_token), :target => "_blank" %>.</p>
-    <% end %>
+<% if @transaction.stack_has_digital_download %>
+  <p><%= link_to 'Download now', download_url(:token => @transaction.transaction_token), :target => "_blank", :class => 'btn-primary' %></p>
+<% end %>
 
-    <% if @transaction.stack_require_shipping %>
-    <p><%= @transaction.stack_product_name %> will be shipped to:</p>
-    <p><%= @transaction.shipping_full_name %><br />
-       <%= @transaction.shipping_address_line1 %>, <%= @transaction.shipping_address_line2 %><br />
-       <%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %><br />
-       <%= @transaction.shipping_address_country %></p>
-    <% end %>
+<% if @transaction.stack_require_shipping %>
+<p><%= @transaction.stack_product_name %> will be shipped to:</p>
+<p><%= @transaction.shipping_full_name %><br />
+   <%= @transaction.shipping_address_line1 %>, <%= @transaction.shipping_address_line2 %><br />
+   <%= @transaction.shipping_address_city %> <%= @transaction.shipping_address_state %> <%= @transaction.shipping_address_postcode %><br />
+   <%= @transaction.shipping_address_country %></p>
+<% end %>
 
-    <p>Your order number is <%= @transaction.transaction_token %>.</p>
-    <p>If there are any problems, please contact the seller via <%= mail_to @transaction.stack_seller_email, 'email' %>.</p>
+<p>Your order number is <%= @transaction.transaction_token %>.</p>
 
-    <p>Thanks,<br />Payly</p>
-  </body>
-</html>
+<p>If there are any problems, please contact the seller by replying to this email.</p>
+
+<p>Thanks,<br />Payly</p>

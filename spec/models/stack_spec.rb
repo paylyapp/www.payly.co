@@ -21,11 +21,17 @@ describe Stack do
     FactoryGirl.build(:stack, product_name: nil).should_not be_valid
   end
   it "is invalid without charge amount if charge type is fixed" do
-    FactoryGirl.build(:stack, charge_amount: nil).should_not be_valid
+    FactoryGirl.build(:stack, charge_amount: nil).should be_invalid
   end
   it "is valid without charge amount if charge type is any" do
     FactoryGirl.build(:stack, charge_type: "any", charge_amount: nil).should be_valid
   end
+
+  it "should have relationship" do
+    should belong_to(:user)
+    should have_many(:transactions)
+  end
+
   it "returns true on sending_an_invoice? if send_invoice_email equals true" do
     stack = @valid_stack
     stack.send_invoice_email = false
@@ -77,13 +83,13 @@ describe Stack do
   it "returns false has_shipping if any of the surcharge fields are not entered" do
     stack = @valid_stack
     stack.require_shipping = false
-    stack.has_surcharge?.should == false
+    stack.has_shipping?.should == false
   end
   it "returns false has_shipping if any of the surcharge fields are not entered" do
     stack = @valid_stack
     stack.require_shipping = true
     stack.shipping_cost_value = [10.95, 29.95]
-    stack.has_surcharge?.should == false
+    stack.has_shipping?.should == false
   end
 
   describe "custom buy button" do

@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <h1><%= @transaction.stack_product_name %>: A new file is available for download</h1>
+<h1>A new file is available for download for <%= @transaction.stack_product_name %></h1>
 
-    <p><%= link_to 'You can download your file here', download_url(:token => @transaction.transaction_token), :target => "_blank" %>.</p>
+<p><%= link_to 'Download now', download_url(:token => @transaction.transaction_token), :target => "_blank", :class => 'btn-primary' %></p>
 
-    <p>If there are any problems, please contact the seller via <%= mail_to @transaction.stack_seller_email, 'email' %>.</p>
+<p>If there are any problems, please contact the seller by replying to this email.</p>
 
-    <p>Thanks,<br />Payly</p>
-  </body>
-</html>
+<p>Thanks,<br />Payly</p>

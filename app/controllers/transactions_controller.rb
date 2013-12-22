@@ -32,7 +32,7 @@ class TransactionsController < ApplicationController
       unless params[:transaction][:custom_data_value].blank?
         @custom_data_terms = []
         params[:transaction][:custom_data_value].each_index { |index|
-          @custom_data_terms << stack.custom_data_term[index]
+          @custom_data_terms << @stack.custom_data_term[index]
         }
         params[:transaction][:custom_data_term] = @custom_data_terms
       end

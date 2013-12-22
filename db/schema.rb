@@ -129,7 +129,6 @@ ActiveRecord::Schema.define(:version => 20131205201200) do
     t.float    "surcharge_value"
     t.string   "surcharge_unit"
     t.string   "buy_button_text",                    :default => "Buy this"
-
   end
 
   add_index "stacks", ["page_token"], :name => "index_stacks_on_page_token", :unique => true
@@ -199,7 +198,7 @@ ActiveRecord::Schema.define(:version => 20131205201200) do
     t.string   "billing_address_state"
     t.string   "billing_address_country"
     t.string   "shipping_address_postcode"
-    t.integer  "subscription_token"
+    t.string   "subscription_token"
     t.string   "customer_token"
     t.float    "surcharge_cost"
     t.float    "base_cost"

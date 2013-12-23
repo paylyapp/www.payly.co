@@ -6,41 +6,72 @@
         <header>
           <h1>Features</h1>
         </header>
-
-        <div class="content">
-
-          Payment providers
-            Pin Payments
-            Braintree
-          Page features
-            Customise the content in your page
-            Visibility
-            Shipping cost
-            Automated emails
-            Digital Delivery of files
-            Simple Analytics
-              simple data shown of how your page is performing
-              Add your own analytics
-          Security features
-            SSL encryption
-            No credit cards stored
-            Encrypted data
-            Hosted securely
-          Looks good everywhere
-            Be mobile
-              save to homescreen
-              Acts like an app
-            Be stationary
-              Payment feeds
-          Pocket
-            See what you have purchased
-            contact the seller
-
-        </div>
       </div>
 
-      <%= render 'pricing' %>
+      <div class="features" id="features">
+        <ul class="first">
+          <li class="first">
+            <div class="header">
+              <i class="icon-download-alt"></i>
+              <h3>Digital Delivery</h3>
+            </div>
+            <div class="content">
+              <p>Sell anything, even digital files. We allow you to upload a 10MB file which will be sent to your customers on payment.</p>
+            </div>
+          </li>
+          <li>
+            <div class="header">
+              <i class="icon-lock"></i>
+              <h3>Secure and encrypted</h3>
+            </div>
+            <div class="content">
+              <p>All our pages are covered under 256-bit SSL encryption making them secure and encrypted.</p>
+            </div>
+          </li>
+          <li class="last">
+            <div class="header">
+              <i class="icon-credit-card"></i>
+              <h3>Never store credit cards</h3>
+            </div>
+            <div class="content">
+              <p>We use Pin Payments and Braintree to handle all credit card information we receive  so we don't have to.</p>
+            </div>
+          </li>
+        </ul>
+        <ul class="last">
+          <li class="first">
+            <div class="header">
+              <i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-tablet"></i>&nbsp;<i class="icon-mobile-phone"></i>
+              <h3>Looks great everywhere</h3>
+            </div>
+            <div class="content">
+              <p>From the smallest phone, to the largest screen, our payment pages will look great. </p>
+            </div>
+          </li>
+          <li>
+            <div class="header">
+              <i class="icon-bar-chart"></i>
+              <h3>Simple analysis</h3>
+            </div>
+            <div class="content">
+              <p>See your sales this week, month and since you created your payment page at a glance.</p>
+            </div>
+          </li>
+          <li class="last">
+            <div class="header">
+              <i class="icon-envelope"></i>
+              <h3>Automatic emails</h3>
+            </div>
+            <div class="content">
+              <p>Receipts and notifications are emailed to you and your customer automatically.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
 
     </article>
+
+      <%= render 'pricing' %>
   </div>
 </section>

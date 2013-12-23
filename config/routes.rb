@@ -4,7 +4,7 @@ Haystack::Application.routes.draw do
   get     "privacy"                           => "home#privacy",                  :as => 'privacy'
   get     "signup/thank-you"                  => "home#thank_you",                :as => 'new_user_register_thank_you'
   get     "commitment"                        => "home#commitment",               :as => 'commitment'
-  # get     "features"                          => "home#features",                 :as => 'features'
+  get     "features"                          => "home#features",                 :as => 'features'
   # get     "press"                             => "home#press",                    :as => 'press'
 
   get     "pocket"                            => "customer#index",                :as => 'pocket'

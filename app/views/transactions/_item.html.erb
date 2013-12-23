@@ -66,10 +66,6 @@
           <% end %>
           )
         <% end %>
-
-        <% if !transaction.shipping_cost? && transaction.stack_require_shipping.nil? %>
-          (includes <%= number_to_currency(transaction.shipping_cost_value) %> for <%= transaction.shipping_cost_term %> shipping)
-        <% end %>
       </span>
     </div>
   </div>

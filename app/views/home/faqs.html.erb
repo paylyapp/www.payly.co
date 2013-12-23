@@ -11,29 +11,30 @@
           <p>We've tried to keep this short and honest. If you have any questions, please don't hesitate to get in contact with us <%= link_to 'on Twitter', 'http://www.twitter.com/paylyapp', :target => '_blank' %> or <%= mail_to 'support@payly.co', 'via email' %>.</p>
 
           <h2>What is Payly?</h2>
-          <p>Payly allows anyone to set up a simple and easy payment page. These payment pages can be used for almost anything to be able to accept payments from others. Think donations, but without having to use Paypal anymore. </p>
+          <p>Payly allows anyone to set up a payment page in which they can accept payments. These kinds of payments can be for donations, pshyical products, digital products, etc. </p>
 
-          <h2>Do I need to have either a Pin Payments, Braintree or Stripe account?</h2>
-          <p>Yes, you will need either one of the two. We go through their payment APIs to complete the transactions. You can head over to <%= link_to "Pin Payments'", "http://www.pin.net.au", :target => "_blank" %>, <%= link_to "Braintree'", "https://www.braintreepayments.com/", :target => "_blank" %> or  <%= link_to "Stripe'", "https://www.stripe.com/", :target => "_blank" %> and grab an account today. You'll also need to enter in the Live API keys provided by either of the companies into your settings once you have them.</p>
-
-          <h2>What can I price can I charge?</h2>
-          <p>Using traditional pricing, you can price a product for as little as $1, and as much as $1000. We also allow a pay-what-you-want pricing model, which lets your customers pick a price above what you specify (including $0).</p>
-
-          <h2>What currency does Payly charge?</h2>
-          <p>All prices are in AUD at the moment.</p>
+          <h2>What price can I charge per payment page?</h2>
+          <p>You can set however much you'd like to charge. We also allow for your customers to pay what they want.</p>
 
           <h2>How can people pay?</h2>
           <p>Payly supports any credit or debit card that is supported by the payment provider chosen.</p>
+
+          <h2>What currency does Payly charge?</h2>
+          <p>All prices are in AUD.</p>
+
+          <h2>Will I need to have either a Pin Payments, Braintree or Stripe account?</h2>
+          <p>Yes, you will need either one of the two. We go through their payment APIs to complete the transactions. You can head over to <%= link_to "Pin Payments'", "http://www.pin.net.au", :target => "_blank" %>, <%= link_to "Braintree'", "https://www.braintreepayments.com/", :target => "_blank" %> or  <%= link_to "Stripe'", "https://www.stripe.com/", :target => "_blank" %> and get an account today.</p>
+          <p>Once you have been approved to have a live or production account, you'll need to enter in the Live API keys provided by the companies into your settings.</p>
 
           <h2 id="additional-transaction-charges">What is Payly's cut?</h2>
           <p>Payly currently doesn't take a cut of the transaction amount. It's your money.</p>
           <p>However, all plans are subject to transactional fees by the payment providers Payly has chosen to use. Pin Payments' additional transaction charges of 3% + 30c per transaction. Braintree’s additional transaction charges for Australian’s are currently 2.4% + 30c per transaction. Stripe's additional transaction charges for Australians are 2.7% + 30c per transaction.</p>
 
           <h2>How secure is Payly?</h2>
-          <p>Payly doesn't store credit card information. We don't even have credit card information hit our servers. We follow both Pin Payments’ documentation, Braintree’s documentation and Stripe's documentation to send credit card information to them before submitting the payment forms.</p>
+          <p>Payly doesn't store credit card information. We don't even let credit card information hit our servers. We follow Pin Payments’, Braintree’s and Stripe's documentation to send credit card information to them before submitting the payment forms.</p>
 
-          <h2>When I view the payment page by click the 'View Page' tab, my page doesn't appear. Why is that?</h2>
-          <p>The reason why your payment page isn't showing is because you haven't added your Live API Keys from your chosen payment provider into your settings page.</p>
+          <h2>When I view the payment page by click the 'View Page' tab, an error appears. Why is that?</h2>
+          <p>The reason why your payment page is showing an error is because you haven't added your Live API Keys from your chosen payment provider into your settings page.</p>
 
           <h2>How can I get updates on new features and other news about Payly?</h2>
           <p>The quickest way to keep up to date by either following <%= link_to 'Payly on Twitter', 'http://www.twitter.com/paylyapp', :target => '_blank' %>. You can also tell us you are open to receiving communication in your account settings.</p>

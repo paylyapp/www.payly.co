@@ -206,7 +206,10 @@ class StacksController < ApplicationController
       render :error
     else
       @transactions = @subscription.transactions.paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
-      render :subscription
+      respond_to do |format|
+        format.html { render :subscription }
+        format.csv { render :layout => false }
+      end
     end
   end
 

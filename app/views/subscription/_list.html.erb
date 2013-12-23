@@ -3,7 +3,6 @@
   <li class="feed-item">
     <p><%= subscription.buyer_name %></p>
       <ul>
-        <li><span class="page">Subscribed to <%= subscription.stack.product_name %></span></li>
         <li><span class="time"><%= time_ago_in_words(subscription.created_at) %> ago</span></li>
         <li><span class="id">ID: <%= subscription.subscription_token %></span></li>
         <li><span class="purchase"><%= link_to "View Payments", dashboard_stack_subscription_path(subscription.subscription_token) %></span></li>

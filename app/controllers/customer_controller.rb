@@ -102,7 +102,7 @@ class CustomerController < ApplicationController
       @subscription.update_attributes(params[:subscription])
       redirect_to pocket_subscription_url(@subscription.subscription_token)
     else
-      render :transaction
+      render :subscription_edit
     end
   end
 

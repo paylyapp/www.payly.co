@@ -106,7 +106,7 @@
           <% stack = transaction.stack %>
           <% unless stack.nil? %>
             <li class="feed-item">
-              <p>You bought <%= stack.product_name %> for <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack_charge_currency %></span></span></p>
+              <p>You paid <span class="cost"><%= number_to_currency(transaction.transaction_amount) %><span class="currency"><%= transaction.stack_charge_currency %></span></span> for <%= stack.product_name %></p>
                 <ul>
                   <li><span class="purchase"><%= link_to 'View Purchase', pocket_transaction_path(:transaction_token => transaction.transaction_token) %></span></li>
                   <% if stack.has_digital_download_and_has_receive_text? %>
@@ -132,7 +132,3 @@
     </article>
   </div>
 </section>
-
-
-
-<%= javascript_include_tag "devise" %>

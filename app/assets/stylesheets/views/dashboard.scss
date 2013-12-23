@@ -430,6 +430,23 @@
     }
   }
 
+  @media (max-width: 500px) {
+    .selection {
+      ul {
+        li {
+          width: 100%;
+          float: none;
+          text-align: center;
+          border-left: 0;
+          border-top: 1px solid #BDC3C7;
+          &:first-child {
+            border-top: 0;
+          }
+        }
+      }
+    }
+  }
+
   @media (max-width: 420px) {
     section {
       article {
@@ -469,12 +486,14 @@
     }
     .feed-list {
       .feed-item {
+        li {
+          float: none;
+        }
+      }
+      .feed-item--has-image {
         p,
         li {
           margin-left: 55px;
-        }
-        li {
-          float: none;
         }
       }
     }

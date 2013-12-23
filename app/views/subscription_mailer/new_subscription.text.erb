@@ -1,3 +1,9 @@
-SubscriptionMailer#new_subscription
+Thank you for your subscription
+===============================
 
-<%= @greeting %>, find me in app/views/app/views/subscription_mailer/new_subscription.text.erb
+You have subscribed to a monthly payment towards <%= @subscription.stack_product_name %> for <%= number_to_currency(@subscription.transaction_amount) %>AUD on Payly. You will receive a receipt of your first transaction any moment now. On the 1st of every month, we will charge the card you supplied. In the event that a payment can not be successful, you will receive an email stating so with a link to change your card details. You can also charge your card details at any time through Pocket, where all your transactions through Payly are kept for you.
+
+If there are any problems, please contact the seller via <%= @subscription.stack_seller_email %>.
+
+Thanks,
+Payly

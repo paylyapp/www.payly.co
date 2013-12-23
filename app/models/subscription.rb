@@ -19,14 +19,24 @@ class Subscription < ActiveRecord::Base
 
   default_scope { where status: true }
 
-  after_save :send_subscription_emails
+  after_create :created
+  after_update :updated
+  after_save :send_email
+
+  def created
+    @new_record = true
+    return true
+  end
+
+  def updated
+    @new_record = false
+    return true
+  end
 
   def self.new_by_stack(params, stack)
     subscription = self.new(params[:subscription])
     subscription.stack_token = stack.id
     subscription.subscription_token = Subscription.generate_token()
-
-    puts subscription.subscription_token
 
     if stack.user.payment_provider_is_pin_payments?
       begin
@@ -203,8 +213,10 @@ class Subscription < ActiveRecord::Base
     random_token
   end
 
-  def send_subscription_emails
-    SubscriptionMailer.new_subscription(self).deliver
+  def send_email
+    if @new_record
+      SubscriptionMailer.new_subscription(@subscription).deliver
+    end
   end
 
   def send_failed_transaction_emails(failed_transaction)

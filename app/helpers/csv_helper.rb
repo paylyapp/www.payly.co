@@ -13,6 +13,13 @@ module CsvHelper
     purchases_to_csv(transactions)
   end
 
+  def subscription_purchases_to_csv(subscription)
+    subscription = Subscription.find(subscription.id)
+    transactions = subscription.transactions
+    purchases_to_csv(transactions)
+  end
+
+
   def purchases_to_csv(transactions)
     columns = [ 'transaction_token',
                 'charge_token',
@@ -59,7 +66,7 @@ module CsvHelper
                 custom_fields << custom_field
               end
             end
-            custom_fields.to_json
+            JSON.dump(custom_fields)
           else
             transaction.send(name)
           end

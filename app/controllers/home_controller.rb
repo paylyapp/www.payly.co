@@ -3,6 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @post_title = "Accept payments simply & easily"
+    render :layout => "root"
   end
 
   def faqs

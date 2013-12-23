@@ -24,11 +24,9 @@
 
 @mixin button-filled($color: $defaultButtonColor) {
   @include button($color);
-  border-color: darken($color, 10%);
+  border-color: $color;
   background-color: $color;
   color: #fff;
-
-  @include text-shadow(1px 1px 0 darken($color, 20%));
 
   &:hover {
     color: #fff;
@@ -37,7 +35,7 @@
 }
 
 @mixin button-small($color: $defaultButtonColor) {
-  @include button();
+  @include button($color);
   display: inline;
   padding: 1px 5px 3px 5px;
   font-size: 12px;
@@ -45,10 +43,9 @@
 
 @mixin button-small-filled($color: $defaultButtonColor) {
   @include button-small($color);
-  border-color: darken($color, 10%);
+  border-color: $color;
   background-color: $color;
   color: #fff;
-  @include text-shadow(1px 1px 0 darken($color, 20%));
 
   &:hover {
     color: #fff;
@@ -65,10 +62,9 @@
 
 @mixin button-nav-filled($color: $defaultButtonColor) {
   @include button-nav($color);
-  border-color: darken($color, 10%);
+  border-color: $color;
   background-color: $color;
   color: #fff;
-  @include text-shadow(1px 1px 0 darken($color, 20%));
 
   &:hover {
     color: #fff;

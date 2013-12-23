@@ -1,0 +1,28 @@
+.layout-root {
+  header.global {
+    text-align: left;
+  }
+  .logo {
+    float: left;
+  }
+  .nav {
+    float: right;
+    font-size: 0;
+    padding-top: 8px;
+  }
+  .nav-item {
+    @include button-small(#27AE60);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+  }
+  .nav-item--filled {
+    @include button-small-filled(#27AE60);
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: #27AE60;
+    font-size: 16px;
+    text-shadow: none;
+  }
+}

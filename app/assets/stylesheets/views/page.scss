@@ -140,6 +140,16 @@
     }
   }
 
+  form {
+    footer {
+      text-align: center;
+
+      .primary-action {
+        float: none;
+      }
+    }
+  }
+
   @media (max-width: 548px) {
     article {
       width: auto;

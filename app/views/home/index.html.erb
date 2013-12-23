@@ -3,25 +3,29 @@
     <article>
 
       <div class="hero">
-        <p class="tagline">Accept Payments Simply &amp; Easily</p>
-        <p class="minorline">Payly is the easiest way for Australians to begin accepting payments from anyone with just a few clicks.</p>
-        <p><%= link_to "Accept Payments Now", new_user_registration_path, :class => "button" %></p>
+        <div class="hero__inner">
+          <div class="hero__text">
+            <p class="tagline">Accept Payments. <br /> Simply &amp; Easily.</p>
+            <p class="minorline">Payly is the easiest way for Australians to begin accepting payments from anyone with just a few clicks.</p>
+            <p><%= link_to "Accept Payments Now", new_user_registration_path, :class => "button" %></p>
+          </div>
+        </div>
         <%= image_tag "payment_page.png" %>
       </div>
 
       <div class="works">
         <h2>How it works</h2>
-        <ul class="first'">
+        <ul class="first last">
           <li class="step-one first">
             <div class="header">
               <i class="step">Step 1</i>
               <h3>Sign up</h3>
             </div>
             <div class="content">
-              <p><%= link_to "Sign up", new_user_registration_path %> for a free account with your name, email and a password.</p>
+              <p><%= link_to "Sign up", new_user_registration_path %> for a free account with your name, email, username and password.</p>
             </div>
           </li>
-          <li class="step-two last">
+          <li class="step-two">
             <div class="header">
               <i class="step">Step 2</i>
               <h3>Set up a payment page</h3>
@@ -30,24 +34,13 @@
               <p>Set up your payment page by entering a few details.</p>
             </div>
           </li>
-        </ul>
-        <ul class="last">
-          <li class="step-three first">
+          <li class="step-three last">
             <div class="header">
               <i class="step">Step 3</i>
               <h3>Connect to an API</h3>
             </div>
             <div class="content">
-              <p>Connect to either <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %> or <%= link_to "Braintree", "http://www.braintreepayments.com", :target => "_blank" %> and add the neccessary details to your account.</p>
-            </div>
-          </li>
-          <li class="step-four last">
-            <div class="header">
-              <i class="step">Step 4</i>
-              <h3>Share and craft</h3>
-            </div>
-            <div class="content">
-              <p>Share your page, then go back to crafting that amazing thing you were crafting.</p>
+              <p>Connect to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %>,  <%= link_to "Stripe", "http://www.stripe.com", :target => "_blank" %> or <%= link_to "Braintree", "http://www.braintreepayments.com", :target => "_blank" %> and add the necessary details to your account.</p>
             </div>
           </li>
         </ul>

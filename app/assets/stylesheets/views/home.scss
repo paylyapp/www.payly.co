@@ -2,7 +2,7 @@
 
 .home-index {
   .hero {
-    padding: $gutter*2 $gutter*2 0 $gutter*2;
+    padding: $gutter $gutter*2 0 $gutter*2;
     text-align: center;
 
     .tagline {
@@ -22,10 +22,8 @@
       line-height: 34px;
       margin-bottom: $gutter*2;
     }
-    .image-rotation {
-      img {
-        vertical-align: bottom;
-      }
+    img {
+      vertical-align: bottom;
     }
   }
 
@@ -92,7 +90,7 @@
 .pricing,
 .works {
   padding: $gutter*4 $gutter*2;
-  border: solid #BDC3C7;
+  border: none;
   border-width: 1px 0;
   text-align: center;
   background: #fff;
@@ -110,7 +108,7 @@
   }
   ul {
     @include pie-clearfix();
-    width: 500px;
+    width: 960px;
     margin: 0 auto;
     border-bottom: 1px solid #ECF0F1;
 
@@ -119,15 +117,14 @@
     }
 
     li {
-      width: 50%;
+      width: 33%;
       height: 159px;
       padding: 20px;
       float: left;
-
-      @include border-radius(3px);
+      border-left: 1px solid #ECF0F1;
 
       &.first {
-        border-right: 1px solid #ECF0F1;
+        border-left: 0 none;
       }
 
       .header {
@@ -243,13 +240,16 @@
 }
 
 @media (max-width: 960px) {
-  .features {
-    ul {
-      width: auto;
-      margin: 0;
+  .home-index {
+    .features,
+    .works {
+      ul {
+        width: auto;
+        margin: 0;
 
-      li {
-        padding: 10px;
+        li {
+          padding: 10px;
+        }
       }
     }
   }
@@ -317,6 +317,11 @@
     .works {
       h2 {
         margin-bottom: 0;
+      }
+      ul {
+        li {
+          border-left: 0;
+        }
       }
     }
     .pricing,

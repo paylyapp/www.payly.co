@@ -1,7 +1,7 @@
 @import "compass";
 
 header.global {
-  text-align: center;
+  text-align: left;
   height: $gutter*5 + 4;
   padding-top: 4px;
   line-height: 44px;
@@ -9,11 +9,20 @@ header.global {
   background-color: #fff;
   background-position: left top;
   background-repeat: repeat-x;
-  border-bottom: 1px solid  #BDC3C7;
 
   @include box-shadow(0px 0px 5px #BDC3C7);
   @include background-image(linear-gradient(left, #8E44AD, #8E44AD 20%, #3498DB 20%, #3498DB 40%, #F1C40F 40%, #F1C40F 60%, #E74C3C 60%, #E74C3C 80%, #E67E22 80%));
   @include background-size(200px 4px);
+}
+.header__inner {
+  @include pie-clearfix();
+  padding: 0 10px;
+
+  @media only screen and (min-width: 980px) {
+    width: 960px;
+    margin: 0 auto;
+    padding: 0;
+  }
 }
 
 .container {

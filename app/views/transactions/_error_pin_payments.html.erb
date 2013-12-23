@@ -1,26 +1,22 @@
-<%= form_for transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
-  <div class='card_errors notification notification-danger' style='display:none'>
-    <h3></h3>
-    <ul></ul>
+<div class='card_errors notification notification-danger' style='display:none'>
+  <h3></h3>
+  <ul></ul>
+</div>
+
+<% if transaction.errors.any? %>
+  <div id="error_explanation" class="notification notification-danger">
+    <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+    <ul>
+    <% transaction.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
   </div>
+<% end %>
 
-  <% if transaction.errors.any? %>
-    <div id="error_explanation" class="notification notification-danger">
-      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this page from being saved:</h2>
-
-      <ul>
-      <% transaction.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <% if flash[:status] %>
-  <div class="notification notification-danger">
-    <p><%= flash[:status] %></p>
-  </div>
-  <% end %>
-
-  <%= render 'form', { :f => f, :stack => stack, :shipping_cost => shipping_cost }%>
+<% if flash[:status] %>
+<div class="notification notification-danger">
+  <p><%= flash[:status] %></p>
+</div>
 <% end %>

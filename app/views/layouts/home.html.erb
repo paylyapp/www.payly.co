@@ -3,11 +3,14 @@
   <head>
     <%= render "layouts/shared/document-head", {:pre_title => @pre_title, :post_title => @post_title} %>
   </head>
-  <body>
+  <body class="layout-root">
     <header class="global">
       <div class="header__inner">
         <%= link_to 'Payly', root_path, :class => 'logo' %>
-        <%= link_to new_user_session_path, :class => "top-button" do %><span class="text">Got an account?</span> Login<% end %>
+        <nav class="nav">
+          <%= link_to 'Sign up', new_user_registration_path, class: "nav-item" %>
+          <%= link_to 'Login', new_user_session_path, class: "nav-item nav-item--filled" %>
+        </nav>
       </div>
     </header>
 

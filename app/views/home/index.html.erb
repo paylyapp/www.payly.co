@@ -6,8 +6,8 @@
         <div class="hero__inner">
           <div class="hero__text">
             <p class="tagline">Accept Payments. <br /> Simply &amp; Easily.</p>
-            <p class="minorline">Payly is the easiest way for Australians to begin accepting payments from anyone with just a few clicks.</p>
-            <p><%= link_to "Accept Payments Now", new_user_registration_path, :class => "button" %></p>
+            <p class="minorline">Payly is the easiest way for Australians to begin accepting payments from anyone in just a few clicks.</p>
+            <p><%= link_to "Accept Payments Now", new_user_registration_path, :class => "button-primary" %> <%= link_to "Learn More", features_path, :class => "button" %></p>
           </div>
         </div>
         <%= image_tag "payment_page.png" %>
@@ -19,7 +19,7 @@
           <li class="step-one first">
             <div class="header">
               <i class="step">Step 1</i>
-              <h3>Sign up</h3>
+              <h3>Sign up to Payly</h3>
             </div>
             <div class="content">
               <p><%= link_to "Sign up", new_user_registration_path %> for a free account with your name, email, username and password.</p>
@@ -28,19 +28,19 @@
           <li class="step-two">
             <div class="header">
               <i class="step">Step 2</i>
-              <h3>Set up a payment page</h3>
+              <h3>Set up a Page</h3>
             </div>
             <div class="content">
-              <p>Set up your payment page by entering a few details.</p>
+              <p>Set up your first payment page by entering a few details.</p>
             </div>
           </li>
           <li class="step-three last">
             <div class="header">
               <i class="step">Step 3</i>
-              <h3>Connect to an API</h3>
+              <h3>Add your API keys</h3>
             </div>
             <div class="content">
-              <p>Connect to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %>,  <%= link_to "Stripe", "http://www.stripe.com", :target => "_blank" %> or <%= link_to "Braintree", "http://www.braintreepayments.com", :target => "_blank" %> and add the necessary details to your account.</p>
+              <p>Sign up to <%= link_to "Pin Payments", "http://www.pin.net.au", :target => "_blank" %>,  <%= link_to "Stripe", "http://www.stripe.com", :target => "_blank" %> or <%= link_to "Braintree", "http://www.braintreepayments.com", :target => "_blank" %> and add the necessary details to your account.</p>
             </div>
           </li>
         </ul>
@@ -48,7 +48,7 @@
 
       <div class="features" id="features">
         <h2>Features</h2>
-        <ul class="first">
+        <ul class="last">
           <li class="first">
             <div class="header">
               <i class="icon-download-alt"></i>
@@ -60,40 +60,11 @@
           </li>
           <li>
             <div class="header">
-              <i class="icon-lock"></i>
-              <h3>Secure and encrypted</h3>
-            </div>
-            <div class="content">
-              <p>All our pages are covered under 256-bit SSL encryption making them secure and encrypted.</p>
-            </div>
-          </li>
-          <li class="last">
-            <div class="header">
-              <i class="icon-credit-card"></i>
-              <h3>Never store credit cards</h3>
-            </div>
-            <div class="content">
-              <p>We use Pin Payments and Braintree to handle all credit card information we receive  so we don't have to.</p>
-            </div>
-          </li>
-        </ul>
-        <ul class="last">
-          <li class="first">
-            <div class="header">
               <i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-tablet"></i>&nbsp;<i class="icon-mobile-phone"></i>
               <h3>Looks great everywhere</h3>
             </div>
             <div class="content">
               <p>From the smallest phone, to the largest screen, our payment pages will look great. </p>
-            </div>
-          </li>
-          <li>
-            <div class="header">
-              <i class="icon-bar-chart"></i>
-              <h3>Simple analysis</h3>
-            </div>
-            <div class="content">
-              <p>See your sales this week, month and since you created your payment page at a glance.</p>
             </div>
           </li>
           <li class="last">
@@ -106,7 +77,22 @@
             </div>
           </li>
         </ul>
+        <p><%= link_to "Learn more", features_path, :class => "button" %></p>
       </div>
+
+      <div class="app">
+        <div class="app__inner">
+          <div class="app__text">
+            <h2>Your Own App</h2>
+            <h3>No setup required</h3>
+            <p>Pages are optimised to work perfectly with the 'Add to Home Screen' feature on iOS which enables anyone to add your Page to their device's home screen.</p>
+          </div>
+          <div class="app__image">
+            <%= image_tag "ios_home_screen.png" %>
+          </div>
+        </div>
+      </div>
+
       <%= render 'pricing' %>
     </article>
   </div>

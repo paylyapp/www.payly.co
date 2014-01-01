@@ -9,8 +9,8 @@ header.global {
   background-color: #fff;
   background-position: left top;
   background-repeat: repeat-x;
+  border-bottom: 1px solid #ECF0F1;
 
-  @include box-shadow(0px 0px 5px #BDC3C7);
   @include background-image(linear-gradient(left, #8E44AD, #8E44AD 20%, #3498DB 20%, #3498DB 40%, #F1C40F 40%, #F1C40F 60%, #E74C3C 60%, #E74C3C 80%, #E67E22 80%));
   @include background-size(200px 4px);
 }

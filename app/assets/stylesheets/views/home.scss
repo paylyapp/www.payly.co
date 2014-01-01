@@ -1,103 +1,108 @@
 @import "compass";
 
-.home-index {
-  .hero {
-    padding: $gutter $gutter*2 0 $gutter*2;
-    text-align: center;
+.home-index {}
 
-    .tagline {
-      font-family: 'Roboto';
-      font-size: 54px;
-      margin-bottom: $gutter*2;
-      line-height: 64px;
-      font-weight: 100;
-    }
-    .minorline {
-      margin-bottom: $gutter*3;
-      line-height: 24px;
-    }
-    .button {
-      @include button-filled(#3498DB);
-      font-size: 26px;
-      line-height: 34px;
-      margin-bottom: $gutter*2;
-    }
-    img {
-      vertical-align: bottom;
-    }
+.hero {
+  padding: $gutter $gutter*2 0 $gutter*2;
+  text-align: center;
+
+  .tagline {
+    font-family: 'Roboto';
+    font-size: 54px;
+    margin-bottom: $gutter*2;
+    line-height: 64px;
+    font-weight: 100;
+  }
+  .minorline {
+    margin-bottom: $gutter*3;
+    line-height: 24px;
+  }
+  .button {
+    @include button-filled();
+    font-size: 26px;
+    line-height: 34px;
+    margin-bottom: $gutter*2;
+  }
+  .button-primary {
+    @include button-filled(#3498DB);
+    font-size: 26px;
+    line-height: 34px;
+    margin-bottom: $gutter*2;
+  }
+  img {
+    vertical-align: bottom;
+  }
+}
+
+.features {
+  margin: 40px 20px 20px 20px;
+  text-align: center;
+
+  h2 {
+    font-family: 'Roboto';
+    font-size: 48px;
+    color: #27AE60;
+    margin-bottom: $gutter*2;
+    line-height: 62px;
+    font-weight: 100;
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 20px;
+    color: #27AE60;
+    margin-bottom: 10px;
   }
 
-  .features {
-    margin: 40px 20px 20px 20px;
-    text-align: center;
+  .button {
+    @include button-filled();
+    font-size: 20px;
+    line-height: 28px;
+  }
 
-    h2 {
-      font-family: 'Roboto';
-      font-size: 48px;
-      color: #27AE60;
-      margin-bottom: $gutter*2;
-      line-height: 62px;
-      font-weight: 100;
+  ul {
+    width: 960px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ECF0F1;
+
+    @include pie-clearfix();
+
+    &.last {
+      border-bottom: 0 none;
     }
 
-    ul {
-      width: 960px;
-      margin: 0 auto;
-
-      @include pie-clearfix();
+    li {
+      border-right: 1px solid #ECF0F1;
+      float: left;
+      width: 33%;
+      height: 220px;
+      padding: 30px;
 
       &.first {
-        border-bottom: 1px solid #ECF0F1;
       }
       &.last {
-
+        border-right: 0;
       }
 
-      li {
-        border-right: 1px solid #ECF0F1;
-        float: left;
-        width: 33%;
-        height: 220px;
-        padding: 30px;
-
-        &.first {
-        }
-        &.last {
-          border-right: 0;
-        }
-
-        i {
-          font-size: 30px;
-          color: #27AE60;
-          margin-bottom: 15px;
-        }
-        h3 {
-          font-weight: bold;
-          font-size: 20px;
-          color: #27AE60;
-          margin-bottom: 10px;
-        }
-        p {
-          font-size: 14px;
-          line-height: 19px;
-          color: #7F8C8D;
-        }
+      i {
+        font-size: 30px;
+        color: #27AE60;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 14px;
+        line-height: 19px;
+        color: #7F8C8D;
       }
     }
   }
 }
 
 .pricing,
-.works {
-  padding: $gutter*4 $gutter*2;
-  border: none;
-  border-width: 1px 0;
-  text-align: center;
+.works,
+.app {
   background: #fff;
   position: relative;
   z-index: 9;
-
-  @include box-shadow(0px 0px 5px #BDC3C7);
 
   h2 {
     font-family: 'Roboto';
@@ -105,6 +110,11 @@
     margin-bottom: $gutter*2;
     line-height: 62px;
     font-weight: 100;
+  }
+  h3 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 20px;
   }
   ul {
     @include pie-clearfix();
@@ -136,13 +146,9 @@
           color: #7F8C8D;
           font-weight: bold;
         }
-        h3 {
-          font-weight: bold;
-          margin-bottom: 5px;
-          font-size: 20px;
-        }
         p {
           color: #7F8C8D;
+          margin-bottom: 0;
         }
       }
       .content {
@@ -173,6 +179,14 @@
   }
 }
 
+.pricing,
+.works {
+  text-align: center;
+  padding: $gutter*4 $gutter*2;
+  border: solid #ECF0F1;
+  border-width: 1px 0;
+}
+
 .works {
   .content {
     p {
@@ -184,6 +198,77 @@
         color: #2C3E50;
       }
     }
+  }
+}
+
+.app {
+  background-color: #34495E;
+  color: #f9f9f9;
+  padding: 40px 20px;
+
+  h2 {
+    font-family: 'Roboto';
+    font-size: 48px;
+    margin-bottom: $gutter*2;
+    line-height: 62px;
+    font-weight: 100;
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+.app {
+  padding: $gutter*4 $gutter*2 0 $gutter*2;
+  border-bottom: 0;
+  h3 {
+    margin-bottom: $gutter;
+  }
+  p {
+    margin-bottom: $gutter*2;
+  }
+}
+
+.app__inner,
+.pocket__inner {
+  @include pie-clearfix();
+  @media only screen and (min-width: 980px) {
+    width: 960px;
+    margin: 0 auto;
+  }
+}
+
+.app__text,
+.pocket__text  {
+  text-align: center;
+
+  @media only screen and (min-width: 440px) {
+    width: 400px;
+    margin: 0 auto;
+  }
+  @media only screen and (min-width: 800px) {
+    width: 60%;
+    float: right;
+    padding-left: 10%;
+    text-align: left;
+  }
+}
+
+.app__image,
+.pocket__image {
+  text-align: center;
+
+  img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    vertical-align: bottom;
+  }
+
+  @media only screen and (min-width: 800px) {
+    width: 40%;
   }
 }
 
@@ -368,7 +453,8 @@
       .minorline {
         margin-bottom: 20px;
       }
-      a.button {
+      a.button,
+      a.button-primary {
         font-size: 18px;
         line-height: 21px;
       }

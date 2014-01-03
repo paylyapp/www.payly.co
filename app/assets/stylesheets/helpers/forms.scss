@@ -125,6 +125,9 @@ form {
       @include button-nav(#E74C3C);
       float: left;
     }
+    .description {
+      width: 100%;
+    }
   }
   .secondary-action {
     @include button-nav-filled();

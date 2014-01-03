@@ -11,7 +11,38 @@ class TransactionsController < ApplicationController
     else
       if @stack.user.has_payment_provider?
         @transaction = @stack.transactions.new
-        @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2) if @stack.charge_type == "fixed"
+
+        @params = params
+        @params.delete("controller")
+        @params.delete("action")
+        @params.delete("page_token")
+
+        @name = @params[:name]
+        if @name
+          @transaction.buyer_name = @name
+        end
+        @params.delete("name")
+
+        @email = @params[:email]
+        if @email
+          @transaction.buyer_email = @email
+        end
+        @params.delete("email")
+
+        @price = @params[:price]
+        if @price && @stack.charge_type == 'any'
+          @transaction.transaction_amount = number_with_precision(@price, :precision => 2)
+        elsif @stack.charge_type == 'fixed'
+          @transaction.transaction_amount = number_with_precision(@stack.charge_amount, :precision => 2)
+        end
+        @params.delete("price")
+
+        @stack.custom_data_term.each_index { |index|
+          encoded_term = @stack.custom_data_term[index].downcase.gsub(' ', '-')
+          if @params.has_key?(encoded_term)
+            @transaction.custom_data_value[index] = @params[encoded_term]
+          end
+        }
 
         @shipping_cost = @stack.shipping_cost_array
 

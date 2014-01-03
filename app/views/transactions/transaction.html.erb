@@ -22,7 +22,7 @@
   <%= form_for @transaction, :url => page_create_transaction_path, :html => {:autocomplete => "off"} do |f| %>
     <%= render "transactions/error_#{@stack.user_payment_method}", :transaction => @transaction %>
 
-    <%= render 'form', { :f => f, :stack => @stack, :shipping_cost => @shipping_cost } %>
+    <%= render 'form', { :f => f, :transaction => @transaction, :stack => @stack, :shipping_cost => @shipping_cost } %>
   <% end %>
 </article>
 

@@ -32,7 +32,7 @@
     <div class="field field-text field-">
       <%= f.label :custom_data_term, stack.custom_data_term[index] + "#{:' *' if stack.custom_data_value.include?(index.to_s)}", :for => 'transaction[custom_data_term]['+index.to_s+']' %>
       <div class="input">
-        <%= f.text_field :custom_data_term, :value => '', :name => 'transaction[custom_data_value][]', :id => 'transaction[custom_data_value]['+index.to_s+']', :required => stack.custom_data_value.include?(index.to_s) %>
+        <%= f.text_field :custom_data_term, :value => transaction.custom_data_value[index], :name => 'transaction[custom_data_value][]', :id => 'transaction[custom_data_value]['+index.to_s+']', :required => stack.custom_data_value.include?(index.to_s) %>
         <% if stack.custom_data_value.include?(index.to_s) %>
         <span class='field-error-text error-text--required'>This field is required.</span>
         <% end %>

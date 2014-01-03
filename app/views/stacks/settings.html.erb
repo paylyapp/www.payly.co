@@ -279,6 +279,7 @@
   <label><%= check_box_tag 'stack[custom_data_value][]', index, @stack.custom_data_value.include?(index.to_s), :name => "stack[custom_data_value][]" %> Required</label>
   <button type="button" data-action="remove" class="remove-custom-data delete-action">Delete</button>
           </div>
+          <p class="description">URL param: <%= @stack.custom_data_term[index].downcase.gsub(' ', '-') %></p>
         </div>
       <% end %>
     <% end %>

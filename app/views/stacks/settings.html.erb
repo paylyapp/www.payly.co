@@ -58,6 +58,15 @@
       </div>
       <p class="description">Ideal logo should be 400px X 400px and less the 10KB with a format of .gif, .png, or .jpg.</p>
     </div>
+    <div class="field field-file-upload field-banner-image">
+      <%= f.label :banner_image, 'Banner' %>
+      <div class="input">
+        <%= image_tag @stack.banner_image.url(:default), :width => '150', :height => '50' %>
+        <%= f.file_field :banner_image %>
+      </div>
+      <p class="description">Ideal banner should be 1500px X 300px and less the 150KB with a format of .gif, .png, or .jpg.</p>
+    </div>
+
     <div class="field field-select field-charge-type">
       <%= f.label :buy_button_text, "Purchase button text" %>
       <div class="input">

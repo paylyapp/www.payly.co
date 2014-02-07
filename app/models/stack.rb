@@ -11,7 +11,7 @@ class Stack < ActiveRecord::Base
                   :require_shipping, :shipping_cost_value, :shipping_cost_term,
                   :require_surcharge, :surcharge_value, :surcharge_unit,
                   :return_url, :ping_url, :webhook_url, :seller_email, :seller_name,
-                  :user_token, :primary_image,
+                  :user_token, :primary_image, :banner_image,
                   :has_digital_download, :digital_download_file, :digital_download_receive,
                   :digital_download_term, :digital_download_value, :digital_download_update_flag,
                   :send_invoice_email, :seller_trading_name, :seller_abn, :invoice_number,
@@ -28,6 +28,8 @@ class Stack < ActiveRecord::Base
   delegate :payment_method, :to => :user, :prefix => true
 
   has_attached_file :primary_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
+  has_attached_file :banner_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:default => '1500x300>'}, :default_url => "/assets/stacks/banner_image/default/:style/banner.jpg"
+
   has_attachment :digital_download_file
 
   validates :product_name, :presence => { :message => "This page must have a name." }
@@ -36,6 +38,8 @@ class Stack < ActiveRecord::Base
   validates :description, :presence => { :message => "This page must have a description." }, :on => :update, :if => :not_decommisioned?
   validates_attachment_size :primary_image, :on => :update, :less_than => 1.megabytes
   validates_attachment_content_type :primary_image, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :on => :update
+  validates_attachment_size :banner_image, :on => :update, :less_than => 1.megabytes
+  validates_attachment_content_type :banner_image, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :on => :update
   validates :page_token, :presence => { :message => "This page must have a slug." }, :on => :update, :if => :not_decommisioned?
   validates :page_token, :uniqueness => { :message => "The slug has already been used." }, :on => :update
   validates :seller_name, :presence => { :message => "This page must have the seller's name." }, :on => :update

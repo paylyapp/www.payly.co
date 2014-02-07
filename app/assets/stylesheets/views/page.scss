@@ -1,63 +1,72 @@
 .page {
+  background-color: #fff;
+
+  .banner {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 192px;
+    background-size: cover;
+    background-color: #BDC3C7;
+  }
+
   article {
     width: 528px;
     margin: $gutter*2 auto;
     background-color: #fff;
     border: 1px solid #BDC3C7;
 
-    @include box-shadow(0px 0px 5px #BDC3C7);
-    @include border-radius(3px);
+    @include border-radius(0 0 3px 3px);
 
     header {
-      padding: $gutter;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      margin-top: 90px;
       border-bottom: 1px solid #BDC3C7;
-      background-color: #f4f5f6;
-      @include border-radius(3px 3px 0 0);
-
-      @include pie-clearfix();
-
       figure {
-        width: 28.409%;
-        float: left;
-        margin-right: $gutter*2;
-
+        margin-bottom: 1em;
         img {
-          width: 100%;
-          height: auto;
+          width: 120px;
+          height: 120px;
           vertical-align: bottom;
-          border: 1px solid #BDC3C7;
-          @include box-shadow(0px 0px 5px #bdc3c7);
-          @include border-radius(2px);
+          border: 3px solid #fff;
+          background-color: #fff;
         }
       }
       h1 {
-        width: 63.636%;
-        float: right;
+        margin-bottom: 2px;
+        font-size: 24px;
         font-weight: bold;
-        margin-bottom: 10px;
-        font-size: 20px;
-        position: relative;
-        padding-right: 20px;
-
-        i {
-          position: absolute;
-          top: 0;
-          right: 0;
-          font-size: 11px;
-          color: #27AE60;
-        }
-      }
-      .cost {
-      }
-      .surcharge {
       }
       p {
-        width: 63.636%;
-        float: right;
         color: #7F8C8D;
         line-height: 20px;
         font-size: 14px;
-        margin-bottom: $gutter/2;
+        margin-bottom: 10px;
+
+        &.seller {
+          font-size: 12px;
+          margin-bottom: 5px;
+        }
+        &.price {
+          .cost {
+            font-size: 24px;
+          }
+        }
+        &.surcharge {
+          font-size: 12px;
+        }
+      }
+    }
+    .description {
+      border-top: 1px solid #BDC3C7;
+      padding: 20px 10px;
+      p {
+        margin-bottom: 0;
+        color: #34495E;
       }
     }
   }
@@ -96,7 +105,6 @@
     color: #7F8C8D;
     border: 1px solid #BDC3C7;
 
-    @include box-shadow(0px 0px 5px #BDC3C7);
     @include background-image(linear-gradient(left, #8E44AD, #8E44AD 20%, #3498DB 20%, #3498DB 40%, #F1C40F 40%, #F1C40F 60%, #E74C3C 60%, #E74C3C 80%, #E67E22 80%));
     @include background-size(200px 4px);
     @include border-radius(3px);
@@ -141,6 +149,7 @@
   }
 
   form {
+    position: relative;
     footer {
       text-align: center;
 
@@ -153,19 +162,41 @@
   @media (max-width: 548px) {
     article {
       width: auto;
-      margin: $gutter;
-
+      border: 0 0 1px 0;
+      .banner {
+        height: 96px;
+      }
       header {
+        margin-top: 28px;
         figure {
-          margin: 0 auto $gutter*2 auto;
-          float: none;
-          width: 150px;
+          img {
+            width: 72px;
+            height: 72px;
+          }
         }
-        h1,
-        .cost,
+        h1 {
+          margin-bottom: 2px;
+          font-size: 20px;
+          font-weight: bold;
+        }
         p {
-          float: none;
-          width: 100%;
+          color: #7F8C8D;
+          line-height: 20px;
+          font-size: 14px;
+          margin-bottom: $gutter/2;
+
+          &.seller {
+            font-size: 12px;
+            margin-bottom: 5px;
+          }
+          &.price {
+            .cost {
+              font-size: 20px;
+            }
+          }
+          &.surcharge {
+            font-size: 12px;
+          }
         }
       }
     }

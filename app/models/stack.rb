@@ -28,7 +28,7 @@ class Stack < ActiveRecord::Base
   delegate :payment_method, :to => :user, :prefix => true
 
   has_attached_file :primary_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:tiny => '50x50#', :small => '100x100#', :medium => '200x200#', :large => '400x400#'}, :default_url => "/assets/stacks/primary_image/default/:style/logo.jpg"
-  has_attached_file :banner_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:default => '1500x300>'}, :default_url => "/assets/stacks/banner_image/default/:style/banner.jpg"
+  has_attached_file :banner_image, :s3_protocol => 'https', :s3_permissions => 'public_read', :styles => {:default => '1500x300>'}, :default_url => "/assets/stacks/banner_image/default/banner.jpg"
 
   has_attachment :digital_download_file
 
